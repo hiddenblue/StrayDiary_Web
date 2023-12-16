@@ -1474,7 +1474,7 @@ require = function e(t, n, a) {
                         defSkill: function () {
                             if (100 * Math.random() < 25) {
                                 cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 9999;
-                                return "【" + this.name + "使用「格挡」（10%）！】";
+                                return "【" + this.name + "使用「格挡」（25%）！】";
                             }
                             return "";
                         },
@@ -1554,7 +1554,7 @@ require = function e(t, n, a) {
                             if (this.publicVar <= 3) {
                                 if (n < 75) return "【" + this.name + "操起电棍，向你打来！但是被你躲开啦~】";
                                 t.role.hp -= 999;
-                                return "【你被电棍击中！损失999点生命！】（20%）";
+                                return "【你被电棍击中！损失999点生命！】（25%）";
                             }
                             this.hp -= 9999;
                             return "";
@@ -12151,6 +12151,7 @@ require = function e(t, n, a) {
                         a == n[1] && (t = "省城.");
                         return t;
                     },
+                    //精力传送门
                     maxEnergy: function () {
                         var t = e("scr_data"), n = t.skillLv, a = t.maxEnergy + 10 * n[1] + 20 * n[7] + 30 * n[12] + 10 * t.itemNum2[2] + t.friendSkill1[1] * t.ifFollow[0] * 20 + 10 * t.publicVar[18];
                         return a;
@@ -12556,6 +12557,11 @@ require = function e(t, n, a) {
                         n = JSON.parse(cc.sys.localStorage.getItem("userData"));
                         cc.sys.localStorage.setItem("dataCopy", JSON.stringify(n));
                     }
+                })();
+                (function () {//非常重要！！！！每天睡觉保存一次存档！！！用来回档！！！
+                        var n = e("scr_dataCopy");
+                        n = JSON.parse(cc.sys.localStorage.getItem("userData"));
+                        cc.sys.localStorage.setItem("autogamesave", JSON.stringify(n));
                 })();
                 n.save();
                 function c() {
@@ -13548,7 +13554,6 @@ require = function e(t, n, a) {
                 }
         });
         //开局套餐属性传送门
-        //todo
         cc._RF.pop();
     }, {
         scr_data: "scr_data"
@@ -13752,4 +13757,4 @@ require = function e(t, n, a) {
         });
         cc._RF.pop();
     }, {}]
-}, {}, ["scr_eatButton", "scr_makeButton", "scr_shopButton", "scr_skillButton", "scr_backMainUI", "scr_diaryDetermine", "scr_eventDetermine", "scr_restDetermine"/*, "scr_QQpay"*/, "scr_backStartUI", "scr_backSupport", "scr_continueButton", "scr_initGame", "scr_newGame", "scr_notice", "scr_notice2", "scr_open", "scr_startChoice", "scr_startUI", "scr_weixin", "scr_achieve", "scr_eatUI", "scr_eventData", "scr_makeUI", "scr_shop2", "scr_shop3", "scr_shop4", "scr_shopUI", "scr_skillJudge", "scr_skillUI", "scr_data", "scr_data2", "scr_dataCopy", "scr_diary", "scr_event", "scr_mainUIEvent", "scr_plot", "scr_rest", "scr_enemy", "scr_explore", "scr_fight", "scr_fightState", "scr_forwardButton", "scr_friendSkillJudge1", "scr_friendSkillUI1", "scr_friendSkillUI2", "scr_friendUI1", "scr_skillJudge2", "scr_effect", "scr_public", "scr_home", "scr_mainUIinit", "scr_readConfession", "scr_end", "scr_initData", "scr_over", "scr_over2", "scr_over2_1", "scr_system"/*, "NewScript"*/, "scr_BGM"/*, "scr_playAds"*/, "scr_quitGame", "test", "testAll", "scr_liveModeMain"]);
+}, {}, ["scr_eatButton", "scr_makeButton", "scr_shopButton", "scr_skillButton", "scr_backMainUI", "scr_diaryDetermine", "scr_eventDetermine", "scr_restDetermine"/*, "scr_QQpay"*/, "scr_backStartUI", "scr_backSupport", "scr_continueButton", "scr_initGame", "scr_newGame", "scr_notice", "scr_notice2", "scr_open", "scr_startChoice", "scr_startUI", "scr_weixin", "scr_achieve", "scr_eatUI", "scr_eventData", "scr_makeUI", "scr_shop2", "scr_shop3", "scr_shop4", "scr_shopUI", "scr_skillJudge", "scr_skillUI", "scr_data", "scr_data2", "scr_dataCopy", "scr_diary", "scr_event", "scr_mainUIEvent", "scr_plot", "scr_rest", "scr_enemy", "scr_explore", "scr_fight", "scr_fightState", "scr_forwardButton", "scr_friendSkillJudge1", "scr_friendSkillUI1", "scr_friendSkillUI2", "scr_friendUI1", "scr_skillJudge2", "scr_effect", "scr_public", "scr_home", "scr_mainUIinit", "scr_readConfession", "scr_end", "scr_initData", "scr_over", "scr_over2", "scr_over2_1", "scr_system", "scr_BGM", "scr_quitGame", "test", "testAll", "scr_liveModeMain"]);
