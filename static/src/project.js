@@ -10629,1135 +10629,2550 @@ require = function e(t, n, a) {
         });
         cc._RF.pop();
     }, {}],
-    scr_makeUI: [function (e, t, n) {
+        scr_makeUI: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "fbf64sNmm5MYp/UrY57mFiI", "scr_makeButton"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    cc.director.loadScene("make")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
+        cc._RF.push(t, "65413JSLq1B/LWVXwKnjL2L", "scr_makeUI");
+        cc.Class({
+            extends: cc.Component,
+            properties: {
+                itemUI: {
+                    default: null,
+                    type: cc.Prefab
                 }
-            }), cc._RFpop()
-        }, {}], scr_makeUI: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "65413JSLq1B/LWVXwKnjL2L", "scr_makeUI"), cc.Class({
-                "extends": cc.Component, properties: { itemUI: { "default": null, type: cc.Prefab } }, creatText: function (e, t, n) {
+            },
+            creatText: function (e, t, n) {
                     var a = new cc.Node(t);
                     a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, -300), a.color = new cc.Color(0, 255, 0), a.getComponent(cc.Label).overflow = 3, a.setContentSize(530, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 80, a.getComponent(cc.Label).fontSize = 40
-                }, itemContent: function a() {
+                a.parent = e;
+                a.setPosition(0, -300);
+                a.color = new cc.Color(0, 255, 0);
+                a.getComponent(cc.Label).overflow = 3;
+                a.setContentSize(530, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 80;
+                a.getComponent(cc.Label).fontSize = 40;
+            },
+            itemContent: function () {
                     this.data = e("scr_data");
                     var t = this, n = e("scr_effect"), a = {
-                        0:
-                        {
-                            itemName: " 熟肉 ", needDes: "※需【生肉】" + this.data.itemNum[3] + "/1【木材】" + this.data.itemNum[1] + "/1", des: "※获得【熟肉】（已拥有" + this.data.itemNum2[0] + "）", ifEnough: function (e) { t.data.itemNum[3] >= 1 && t.data.itemNum[1] >= 1 && (cc.find("Canvas/Page/view/content/page_1/" + e + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public");
-                                n.itemNum[3] >= 1 && n.itemNum[1] >= 1 ? (n.itemNum[3] -= 1, n.itemNum[1] -= 1, n.itemNum2[0] += 1, c.save(), a.playText("Canvas/notify", "获得【熟肉】*1", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "材料不足！", 100)
+                    0: {
+                        itemName: " 熟肉 ",
+                        needDes: "※需【生肉】" + this.data.itemNum[3] + "/1【木材】" + this.data.itemNum[1] + "/1",
+                        des: "※获得【熟肉】（已拥有" + this.data.itemNum2[0] + "）",
+                        ifEnough: function (e) {
+                            t.data.itemNum[3] >= 1 && t.data.itemNum[1] >= 1 && (cc.find("Canvas/Page/view/content/page_1/" + e + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.itemNum[3] >= 1 && n.itemNum[1] >= 1) {
+                                n.itemNum[3] -= 1;
+                                n.itemNum[1] -= 1;
+                                n.itemNum2[0] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【熟肉】*1", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
-                        }, 1:
-                        {
-                            itemName: " 伤药 ", needDes: "※需【艾草】" + this.data.itemNum[5] + "/2", des: "※获得【伤药】（拥有" + this.data.itemNum2[1] + "）", ifEnough: function (e) { t.data.itemNum[5] >= 2 && (cc.find("Canvas/Page/view/content/page_1/" + e + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 2, o = n.itemNum[5];
-                                o >= i ? (n.itemNum[5] -= i, n.itemNum2[1] += 1, c.save(), a.playText("Canvas/notify", "获得【伤药】*1", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "材料不足！", 100)
+                    },
+                    1: {
+                        itemName: " 伤药 ",
+                        needDes: "※需【艾草】" + this.data.itemNum[5] + "/2",
+                        des: "※获得【伤药】（拥有" + this.data.itemNum2[1] + "）",
+                        ifEnough: function (e) {
+                            t.data.itemNum[5] >= 2 && (cc.find("Canvas/Page/view/content/page_1/" + e + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.itemNum[5] >= 2) {
+                                n.itemNum[5] -= 2;
+                                n.itemNum2[1] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【伤药】*1", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
-                        }, 2:
-                        {
-                            itemName: "帐篷LV"
-                                + this.data.itemNum2[2], needDes: "※需【木材】"
-                                    + this.data.itemNum[1] + "/" + (1 + this.data.itemNum2[2]) + "【亚麻】" + this.data.itemNum[4] + "/" + (4 + 2 * this.data.itemNum2[2]), des: "※精力上限增加"
-                                        + 10 * this.data.itemNum2[2] + "点", ifEnough:
-                                function (e) {
+                    },
+                    2: {
+                        itemName: "帐篷LV" + this.data.itemNum2[2],
+                        needDes: "※需【木材】" + this.data.itemNum[1] + "/" + (1 + this.data.itemNum2[2]) + "【亚麻】" + this.data.itemNum[4] + "/" + (4 + 2 * this.data.itemNum2[2]),
+                        des: "※精力上限增加" + 10 * this.data.itemNum2[2] + "点",
+                        ifEnough: function (e) {
                                     t.data.itemNum[1] >= 1 + t.data.itemNum2[2] && t.data.itemNum[4] >= 4 + 2 * t.data.itemNum2[2] && (cc.find("Canvas/Page/view/content/page_1/" + e + "/button/name").color = new cc.color(0, 255, 0));
-                                }, button:
-                                function () {
-                                    var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 1 + n.itemNum2[2], o = n.itemNum[1], r = 4 + 2 * n.itemNum2[2], s = n.itemNum[4];
-                                    o >= i && s >= r ? (n.itemNum[1] -= i, n.itemNum[4] -= r, n.itemNum2[2] += 1, c.save(), a.playText("Canvas/notify", "精力上限+10！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "材料不足！", 100)
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 1 + n.itemNum2[2], o = n.itemNum[1], r = 4 + 2 * n.itemNum2[2], s = n.itemNum[4];
+                            if (o >= c && s >= r) {
+                                n.itemNum[1] -= c;
+                                n.itemNum[4] -= r;
+                                n.itemNum2[2] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "精力上限+10！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                                 }
-                        }, 3:
-                        {
-                            itemName: "木棍LV" + this.data.itemNum2[3], needDes: "※需【木材】" + this.data.itemNum[1] + "/" + (4 + 2 * this.data.itemNum2[3]), des: "※增加" + 10 * this.data.itemNum2[3] + "点攻击。【暴击】" + 2 * this.data.itemNum2[3] + "%几率触发暴击", ifEnough: function (e) { t.data.itemNum[1] >= 4 + 2 * t.data.itemNum2[3] && (cc.find("Canvas/Page/view/content/page_1/" + e + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 4 + 2 * n.itemNum2[3], o = n.itemNum[1];
-                                o >= i ? (n.itemNum[1] -= i, n.itemNum2[3] += 1, c.save(), a.playText("Canvas/notify", "攻击+10！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "材料不足！", 100)
+                    },
+                    3: {
+                        itemName: "木棍LV" + this.data.itemNum2[3],
+                        needDes: "※需【木材】" + this.data.itemNum[1] + "/" + (4 + 2 * this.data.itemNum2[3]),
+                        des: "※增加" + 10 * this.data.itemNum2[3] + "点攻击。【暴击】" + 2 * this.data.itemNum2[3] + "%几率触发暴击",
+                        ifEnough: function (e) {
+                            t.data.itemNum[1] >= 4 + 2 * t.data.itemNum2[3] && (cc.find("Canvas/Page/view/content/page_1/" + e + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 4 + 2 * n.itemNum2[3];
+                            if (n.itemNum[1] >= c) {
+                                n.itemNum[1] -= c;
+                                n.itemNum2[3] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "攻击+10！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
-                        }, 4:
-                        {
-                            itemName: "麻布衣LV" + this.data.itemNum2[4], needDes: "※需【亚麻】" + this.data.itemNum[4] + "/" + (4 + 2 * this.data.itemNum2[4]), des: "※增加" + 50 * this.data.itemNum2[4] + "点生命上限。" + Math.min(2 * this.data.itemNum2[4], 60) + "%几率触发【格挡】", ifEnough: function (e) { t.data.itemNum[4] >= 4 + 2 * t.data.itemNum2[4] && (cc.find("Canvas/Page/view/content/page_2/" + e + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 4 + 2 * n.itemNum2[4], o = n.itemNum[4];
-                                o >= i ? (n.itemNum[4] -= i, n.itemNum2[4] += 1, c.save(), a.playText("Canvas/notify", "生命上限+50！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "材料不足！", 100)
+                    },
+                    4: {
+                        itemName: "麻布衣LV" + this.data.itemNum2[4],
+                        needDes: "※需【亚麻】" + this.data.itemNum[4] + "/" + (4 + 2 * this.data.itemNum2[4]),
+                        des: "※增加" + 50 * this.data.itemNum2[4] + "点生命上限。" + Math.min(2 * this.data.itemNum2[4], 60) + "%几率触发【格挡】",
+                        ifEnough: function (e) {
+                            t.data.itemNum[4] >= 4 + 2 * t.data.itemNum2[4] && (cc.find("Canvas/Page/view/content/page_2/" + e + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 4 + 2 * n.itemNum2[4];
+                            if (n.itemNum[4] >= c) {
+                                n.itemNum[4] -= c;
+                                n.itemNum2[4] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "生命上限+50！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
-                        }, 5:
-                        {
-                            itemName: "驱蚊工具LV" + this.data.itemNum2[6], needDes: "※需【艾草】" + this.data.itemNum[5] + "/" + (8 + 2 * this.data.itemNum2[6]), des: "※睡觉时恢复" + 30 * this.data.itemNum2[6] + "点生命值", ifEnough: function (t) { var n = e("scr_data"); n.itemNum[5] >= 8 + 2 * n.itemNum2[6] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 8 + 2 * n.itemNum2[6], o = n.itemNum[5];
-                                o >= i ? (n.itemNum[5] -= i, n.itemNum2[6] += 1, c.save(), a.playText("Canvas/notify", "讨厌的蚊子减少啦~", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "材料不足！", 100)
+                    },
+                    5: {
+                        itemName: "驱蚊工具LV" + this.data.itemNum2[6],
+                        needDes: "※需【艾草】" + this.data.itemNum[5] + "/" + (8 + 2 * this.data.itemNum2[6]),
+                        des: "※睡觉时恢复" + 30 * this.data.itemNum2[6] + "点生命值",
+                        ifEnough: function (t) {
+                            var n = e("scr_data");
+                            n.itemNum[5] >= 8 + 2 * n.itemNum2[6] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 8 + 2 * n.itemNum2[6];
+                            if (n.itemNum[5] >= c) {
+                                n.itemNum[5] -= c;
+                                n.itemNum2[6] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "讨厌的蚊子减少啦~", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
-                        }, 6:
-                        {
-                            itemName: "陷阱LV" + this.data.itemNum2[5], needDes: "※需【木材】" + this.data.itemNum[1] + "/" + (4 + 2 * this.data.itemNum2[5]), des: "※每天30%几率随机获得一种素材，升级提升获得数量", ifEnough: function (t) { var n = e("scr_data"); n.itemNum[1] >= 4 + 2 * n.itemNum2[5] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 4 + 2 * n.itemNum2[5], o = n.itemNum[1];
-                                o >= i ? (n.itemNum[1] -= i, n.itemNum2[5] += 1, c.save(), a.playText("Canvas/notify", "升级成功！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "材料不足！", 100)
+                    },
+                    6: {
+                        itemName: "陷阱LV" + this.data.itemNum2[5],
+                        needDes: "※需【木材】" + this.data.itemNum[1] + "/" + (4 + 2 * this.data.itemNum2[5]),
+                        des: "※每天30%几率随机获得一种素材，升级提升获得数量",
+                        ifEnough: function (t) {
+                            var n = e("scr_data");
+                            n.itemNum[1] >= 4 + 2 * n.itemNum2[5] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 4 + 2 * n.itemNum2[5];
+                            if (n.itemNum[1] >= c) {
+                                n.itemNum[1] -= c;
+                                n.itemNum2[5] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "升级成功！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
-                        }, 7:
-                        {
-                            itemName: "  香烟  ", needDes: "※需【烟草】" + this.data.itemNum[6] + "/4 或者【烟头】" + this.data.itemNum[7] + "/8", des: "※获得【香烟】。游戏中重要的“软货币”，也可自己使用", ifEnough: function (t) { var n = e("scr_data"); (n.itemNum[6] >= 4 || n.itemNum[7] >= 8) && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 4, o = 8, r = n.itemNum[6], s = n.itemNum[7];
-                                r >= i ? (n.itemNum[6] -= i, n.itemNum2[7] += 1, c.save(), a.playText("Canvas/notify", "获得【香烟】*1！", 100), t.delayCreatItemUI()) : s >= o ? (n.itemNum[7] -= o, n.itemNum2[7] += 1, c.save(), a.playText("Canvas/notify", "获得【香烟】*1！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "材料不足！", 100)
+                    },
+                    7: {
+                        itemName: "  香烟  ",
+                        needDes: "※需【烟草】" + this.data.itemNum[6] + "/4 或者【烟头】" + this.data.itemNum[7] + "/8",
+                        des: "※获得【香烟】。游戏中重要的“软货币”，也可自己使用",
+                        ifEnough: function (t) {
+                            var n = e("scr_data");
+                            (n.itemNum[6] >= 4 || n.itemNum[7] >= 8) && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum[6], o = n.itemNum[7];
+                            if (c >= 4) {
+                                n.itemNum[6] -= 4;
+                                n.itemNum2[7] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【香烟】*1！", 100);
+                                t.delayCreatItemUI();
+                            } else if (o >= 8) {
+                                n.itemNum[7] -= 8;
+                                n.itemNum2[7] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【香烟】*1！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
-                        }, 8:
-                        {
-                            itemName: "啤酒", needDes: "※需【50ml啤酒】" + this.data.itemNum[10] + "/5", des: "※获得一罐【啤酒】！", ifEnough: function (t) { var n = e("scr_data"); n.itemNum[10] >= 5 && (cc.find("Canvas/Page/view/content/page_3/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 5, o = n.itemNum[10];
-                                o >= i ? (n.itemNum[10] -= i, n.itemNum2[12] += 1, c.save(), a.playText("Canvas/notify", "获得【啤酒】*1！", 100), t.delayCreatItemUI3()) : a.playText("Canvas/notify", "材料不足！", 100)
+                    },
+                    8: {
+                        itemName: "啤酒",
+                        needDes: "※需【50ml啤酒】" + this.data.itemNum[10] + "/5",
+                        des: "※获得一罐【啤酒】！",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum[10] >= 5 && (cc.find("Canvas/Page/view/content/page_3/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.itemNum[10] >= 5) {
+                                n.itemNum[10] -= 5;
+                                n.itemNum2[12] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【啤酒】*1！", 100);
+                                t.delayCreatItemUI3();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
-                        }, 9:
-                        {
-                            itemName: "匕首LV" + this.data.itemNum2[8], needDes: "※可通过购买，或者打怪掉落提高等级", des: "※增加" + 20 * this.data.itemNum2[8] + "点攻击。【嗜血】攻击时，" + 2 * this.data.itemNum2[8] + "%概率恢复伤害21%的生命", button: function () {
-                                n.playText("Canvas/notify", "请去商店购买！", 100)
+                    },
+                    9: {
+                        itemName: "匕首LV" + this.data.itemNum2[8],
+                        needDes: "※可通过购买，或者打怪掉落提高等级",
+                        des: "※增加" + 20 * this.data.itemNum2[8] + "点攻击。【嗜血】攻击时，" + 2 * this.data.itemNum2[8] + "%概率恢复伤害21%的生命",
+                        button: function () {
+                            n.playText("Canvas/notify", "请去商店购买！", 100);
                             }
-                        }, 10:
-                        {
-                            itemName: "皮衣LV" + this.data.itemNum2[9], needDes: "※可通过购买，或者打怪掉落提高等级", des: "※增加" + 10 * this.data.itemNum2[9] + "点防御。【反弹】受击时，" + 2 * this.data.itemNum2[9] + "%几率减免「100%*自身防御」点伤害，并且将伤害反弹给对方", button: function () {
-                                n.playText("Canvas/notify", "请去商店购买！", 100)
+                    },
+                    10: {
+                        itemName: "皮衣LV" + this.data.itemNum2[9],
+                        needDes: "※可通过购买，或者打怪掉落提高等级",
+                        des: "※增加" + 10 * this.data.itemNum2[9] + "点防御。【反弹】受击时，" + 2 * this.data.itemNum2[9] + "%几率减免「100%*自身防御」点伤害，并且将伤害反弹给对方",
+                        button: function () {
+                            n.playText("Canvas/notify", "请去商店购买！", 100);
                             }
-                        }, 11:
-                        {
-                            itemName: "┑(=^ω^=)┑LV" + this.data.itemNum2[13], needDes: "※获得方法未知", des: "※每天自动获得「0.1*LV」元", button: function () {
-                                n.playText("Canvas/notify", "喵~", 100)
+                    },
+                    11: {
+                        itemName: "┑(=^ω^=)┑LV" + this.data.itemNum2[13],
+                        needDes: "※获得方法未知",
+                        des: "※每天自动获得「0.1*LV」元",
+                        button: function () {
+                            n.playText("Canvas/notify", "喵~", 100);
                             }
-                        }, 12:
-                            { itemName: "幸运石LV" + (this.data.itemNum2[26] + this.data.publicVar3[18]), needDes: "※收集类道具", des: "※增加" + (this.data.itemNum2[26] + this.data.publicVar3[18]) + "%的额外掉落奖励", button: function () { } }, 13:
-                        {
-                            itemName: "晓月手链LV" + (this.data.itemNum2[27] + this.data.publicVar3[17]), needDes: "※收集类道具", des: "※如果前进/探索时未发现道具，则有" + 5 * (this.data.itemNum2[27] + this.data.publicVar3[17]) + "%概率（LV*5%）再一次获得奖励", button: function () {
-                                n.playText("Canvas/notify", "晓月手链触发时，必定获得奖励，且可以与「非酋逆袭」特性同时触发", 100)
+                    },
+                    12: {
+                        itemName: "幸运石LV" + (this.data.itemNum2[26] + this.data.publicVar3[18]),
+                        needDes: "※收集类道具",
+                        des: "※增加" + (this.data.itemNum2[26] + this.data.publicVar3[18]) + "%的额外掉落奖励",
+                        button: function () { }
+                    },
+                    13: {
+                        itemName: "晓月手链LV" + (this.data.itemNum2[27] + this.data.publicVar3[17]),
+                        needDes: "※收集类道具",
+                        des: "※如果前进/探索时未发现道具，则有" + 5 * (this.data.itemNum2[27] + this.data.publicVar3[17]) + "%概率（LV*5%）再一次获得奖励",
+                        button: function () {
+                            n.playText("Canvas/notify", "晓月手链触发时，必定获得奖励，且可以与「非酋逆袭」特性同时触发", 100);
                             }
-                        }, 14:
-                        {
-                            itemName: "黑刀LV" + this.data.itemNum2[10], needDes: "※需【黑曜石】" + this.data.itemNum[8] + "/" + (10 + 2 * this.data.itemNum2[10]), des: "※增加" + 30 * this.data.itemNum2[10] + "点攻击。【割裂】每次攻击伤害提高" + 4 * this.data.itemNum2[10] + "%，最多叠加20次", ifEnough: function (t) { var n = e("scr_data"); n.itemNum[8] >= 10 + 2 * n.itemNum2[10] && (cc.find("Canvas/Page/view/content/page_4/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 10 + 2 * n.itemNum2[10], o = n.itemNum[8];
-                                o >= i ? (n.itemNum[8] -= i, n.itemNum2[10] += 1, c.save(), a.playText("Canvas/notify", "获得【黑刀】*1！", 100), t.delayCreatItemUI4()) : a.playText("Canvas/notify", "材料不足！", 100)
+                    },
+                    14: {
+                        itemName: "黑刀LV" + this.data.itemNum2[10],
+                        needDes: "※需【黑曜石】" + this.data.itemNum[8] + "/" + (10 + 2 * this.data.itemNum2[10]),
+                        des: "※增加" + 30 * this.data.itemNum2[10] + "点攻击。【割裂】每次攻击伤害提高" + 4 * this.data.itemNum2[10] + "%，最多叠加20次",
+                        ifEnough: function (t) {
+                            var n = e("scr_data");
+                            n.itemNum[8] >= 10 + 2 * n.itemNum2[10] && (cc.find("Canvas/Page/view/content/page_4/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 10 + 2 * n.itemNum2[10];
+                            if (n.itemNum[8] >= c) {
+                                n.itemNum[8] -= c;
+                                n.itemNum2[10] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【黑刀】*1！", 100);
+                                t.delayCreatItemUI4();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
-                        }, 15:
-                        {
-                            itemName: "红夹克LV" + this.data.itemNum2[11], needDes: "※需【火狐皮】" + this.data.itemNum[9] + "/" + (10 + 2 * this.data.itemNum2[11]), des: "※增加" + 150 * this.data.itemNum2[11] + "点生命上限，" + 15 * this.data.itemNum2[11] + "点防御。【火狐之灵】受击时，" + 2 * this.data.itemNum2[11] + "%概率提高20%防御（最多叠加20次），并且恢复自身5%的生命", ifEnough: function (t) { var n = e("scr_data"); n.itemNum[9] >= 10 + 2 * n.itemNum2[11] && (cc.find("Canvas/Page/view/content/page_4/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 10 + 2 * n.itemNum2[11], o = n.itemNum[9];
-                                o >= i ? (n.itemNum[9] -= i, n.itemNum2[11] += 1, c.save(), a.playText("Canvas/notify", "获得【红夹克】*1！", 100), t.delayCreatItemUI4()) : a.playText("Canvas/notify", "材料不足！", 100)
+                    },
+                    15: {
+                        itemName: "红夹克LV" + this.data.itemNum2[11],
+                        needDes: "※需【火狐皮】" + this.data.itemNum[9] + "/" + (10 + 2 * this.data.itemNum2[11]),
+                        des: "※增加" + 150 * this.data.itemNum2[11] + "点生命上限，" + 15 * this.data.itemNum2[11] + "点防御。【火狐之灵】受击时，" + 2 * this.data.itemNum2[11] + "%概率提高20%防御（最多叠加20次），并且恢复自身5%的生命",
+                        ifEnough: function (t) {
+                            var n = e("scr_data");
+                            n.itemNum[9] >= 10 + 2 * n.itemNum2[11] && (cc.find("Canvas/Page/view/content/page_4/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 10 + 2 * n.itemNum2[11];
+                            if (n.itemNum[9] >= c) {
+                                n.itemNum[9] -= c;
+                                n.itemNum2[11] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【红夹克】*1！", 100);
+                                t.delayCreatItemUI4();
+                            } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
-                        }, 16:
-                        {
-                            itemName: "晓风披肩LV" + this.data.itemNum2[15], needDes: "※用于增加自信。", des: "※每级增加1%全战斗属性（攻防血）。【帅呆】每级减少敌方2%防御！【拉风】每级减少敌方5%逃跑率！", button: function () {
-                                n.playText("Canvas/notify", "听说穿上这件披肩的人，最后都被打死了...", 100)
+                    },
+                    16: {
+                        itemName: "晓风披肩LV" + this.data.itemNum2[15],
+                        needDes: "※用于增加自信。",
+                        des: "※每级增加1%全战斗属性（攻防血）。【帅呆】每级减少敌方2%防御！【拉风】每级减少敌方5%逃跑率！",
+                        button: function () {
+                            n.playText("Canvas/notify", "听说穿上这件披肩的人，最后都被打死了...", 100);
                             }
-                        }, 17:
-                        {
-                            itemName: "放大镜LV" + (this.data.itemNum2[17] + this.data.publicVar3[9]), needDes: "※收集类道具", des: "※前进/探索时，" + (this.data.itemNum2[17] + this.data.publicVar3[9]) + "%几率额外获得一次奖励！", button: function () {
-                                n.playText("Canvas/notify", "(O_o)", 100)
+                    },
+                    17: {
+                        itemName: "放大镜LV" + (this.data.itemNum2[17] + this.data.publicVar3[9]),
+                        needDes: "※收集类道具",
+                        des: "※前进/探索时，" + (this.data.itemNum2[17] + this.data.publicVar3[9]) + "%几率额外获得一次奖励！",
+                        button: function () {
+                            n.playText("Canvas/notify", "(O_o)", 100);
                             }
-                        }, 18:
-                        {
-                            itemName: "装避鞋LV" + this.data.itemNum2[18], needDes: "※收集类道具", des: "※逃跑技术增加速度+1！（你目前逃跑技术为" + this.data.escapeExp + "）", button: function () {
-                                n.playText("Canvas/notify", "装了比就跑，真特么刺激", 100)
+                    },
+                    18: {
+                        itemName: "装避鞋LV" + this.data.itemNum2[18],
+                        needDes: "※收集类道具",
+                        des: "※逃跑技术增加速度+1！（你目前逃跑技术为" + this.data.escapeExp + "）",
+                        button: function () {
+                            n.playText("Canvas/notify", "装了比就跑，真特么刺激", 100);
                             }
-                        }, 19:
-                        {
-                            itemName: "枪LV" + this.data.itemNum2[19], needDes: "※白色粉末（拥有" + this.data.itemNum[11] + "）兑换，可能会招来麻烦！", des: "※造成「枪等级+1」倍伤害，每次消耗1颗子弹（已有" + this.data.itemNum2[14] + "）。点击战斗界面右下角文字可以打开/关闭枪效果！", button: function () {
-                                var t = e("scr_data");
-                                t.itemNum2[19] > 0 ? n.playText("Canvas/notify", "点击战斗界面右下角（逃跑率右边）【开/关】才会生效哦~", 100) : n.playText("Canvas/notify", "你还没有枪！", 100)
+                    },
+                    19: {
+                        itemName: "枪LV" + this.data.itemNum2[19],
+                        needDes: "※白色粉末（拥有" + this.data.itemNum[11] + "）兑换，可能会招来麻烦！",
+                        des: "※造成「枪等级+1」倍伤害，每次消耗1颗子弹（已有" + this.data.itemNum2[14] + "）。点击战斗界面右下角文字可以打开/关闭枪效果！",
+                        button: function () {
+                            e("scr_data").itemNum2[19] > 0 ? n.playText("Canvas/notify", "点击战斗界面右下角（逃跑率右边）【开/关】才会生效哦~", 100) : n.playText("Canvas/notify", "你还没有枪！", 100);
                             }
-                        }, 20:
-                        {
-                            itemName: "板砖LV" + this.data.itemNum2[20], needDes: "※收集类道具", des: "※每级增加5点攻击！", button: function () {
-                                n.playText("Canvas/notify", "听说集齐21块可以召唤城管哦~", 100)
+                    },
+                    20: {
+                        itemName: "板砖LV" + this.data.itemNum2[20],
+                        needDes: "※收集类道具",
+                        des: "※每级增加5点攻击！",
+                        button: function () {
+                            n.playText("Canvas/notify", "听说集齐21块可以召唤城管哦~", 100);
                             }
-                        }, 21:
-                        {
-                            itemName: "小裤裤LV" + this.data.itemNum2[21], needDes: "※收集类道具", des: "※每级增加5点防御！", button: function () {
-                                n.playText("Canvas/notify", "有股淡淡的清香呢~(?ω?)~", 100)
+                    },
+                    21: {
+                        itemName: "小裤裤LV" + this.data.itemNum2[21],
+                        needDes: "※收集类道具",
+                        des: "※每级增加5点防御！",
+                        button: function () {
+                            n.playText("Canvas/notify", "有股淡淡的清香呢~(?ω?)~", 100);
                             }
-                        }, 22:
-                        {
-                            itemName: "女装LV" + this.data.itemNum2[22], needDes: "※收集类道具", des: "※每级增加25点生命！", button: function () {
-                                n.playText("Canvas/notify", "听说集齐18件可以变成女人哦~", 100)
+                    },
+                    22: {
+                        itemName: "女装LV" + this.data.itemNum2[22],
+                        needDes: "※收集类道具",
+                        des: "※每级增加25点生命！",
+                        button: function () {
+                            n.playText("Canvas/notify", "听说集齐18件可以变成女人哦~", 100);
                             }
-                        }, 23:
-                        {
-                            itemName: "创可贴LV" + this.data.itemNum2[23], needDes: "※收集类道具", des: "※每级提高2点前进/探索时生命回复量！", button: function () {
-                                n.playText("Canvas/notify", "“老鼠药~蟑螂药~臭脚克星...”", 100)
+                    },
+                    23: {
+                        itemName: "创可贴LV" + this.data.itemNum2[23],
+                        needDes: "※收集类道具",
+                        des: "※每级提高2点前进/探索时生命回复量！",
+                        button: function () {
+                            n.playText("Canvas/notify", "“老鼠药~蟑螂药~臭脚克星...”", 100);
                             }
-                        }, 24:
-                        {
-                            itemName: "滑稽裤LV" + this.data.itemNum2[24], needDes: "※收集类道具", des: "※每级增加2%逃跑几率！", button: function () {
+                    },
+                    24: {
+                        itemName: "滑稽裤LV" + this.data.itemNum2[24],
+                        needDes: "※收集类道具",
+                        des: "※每级增加2%逃跑几率！",
+                        button: function () {
                                 var e = 100 * Math.random();
-                                e < 30 ? n.playText("Canvas/notify", "(→_→) (↑_↑) (←_←) (↓_↓)", 100) : e < 60 ? n.playText("Canvas/notify", "(→_→) (←_←)(→_→)(←_←)", 100) : n.playText("Canvas/notify", "(↑_↑) (→_→) (↑_↑) (←_←)", 100)
+                            e < 30 ? n.playText("Canvas/notify", "(→_→) (↑_↑) (←_←) (↓_↓)", 100) : e < 60 ? n.playText("Canvas/notify", "(→_→) (←_←)(→_→)(←_←)", 100) : n.playText("Canvas/notify", "(↑_↑) (→_→) (↑_↑) (←_←)", 100);
                             }
-                        }, 25:
-                        {
-                            itemName: "护身符LV" + this.data.itemNum2[25], needDes: "※收集类道具", des: "※战败后，保留" + parseInt(1 + 50 * this.data.itemNum2[25] + .03 * e("scr_public").role.maxHp() * this.data.itemNum2[25]) + "点生命！", button: function () {
-                                n.playText("Canvas/notify", "上边似乎画着一个性感的二次元妹子~", 100)
+                    },
+                    25: {
+                        itemName: "护身符LV" + this.data.itemNum2[25],
+                        needDes: "※收集类道具",
+                        des: "※战败后，保留" + parseInt(1 + 50 * this.data.itemNum2[25] + .03 * e("scr_public").role.maxHp() * this.data.itemNum2[25]) + "点生命！",
+                        button: function () {
+                            n.playText("Canvas/notify", "上边似乎画着一个性感的二次元妹子~", 100);
                             }
                         }
                     };
-                    return a
-                }, creatPrefab: function (e, t) {
-                    var n = cc.instantiate(this.itemUI), a = this.itemContent()[e], c = a.button, i = "item" + e;
-                    n.name = i, n.getChildByName("button").getChildByName("name").getComponent("cc.Label").string = a.itemName, n.getChildByName("need").getComponent("cc.Label").string = a.needDes, n.getChildByName("des").getComponent("cc.Label").string = a.des, n.getChildByName("button").getChildByName("name").getComponent("cc.Button").scheduleOnce(function () {
-                        n.getChildByName("button").getChildByName("name").on("touchstart", c, this)
-                    }, .4), cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n), "undefined" != typeof a.ifEnough && a.ifEnough(i)
-                }, creatItemUI1: function () {
+                return a;
+            },
+            creatPrefab: function (e, t) {
+                var n = cc.instantiate(this.itemUI), a = this.itemContent()[e], i = a.button, c = "item" + e;
+                n.name = c;
+                n.getChildByName("button").getChildByName("name").getComponent("cc.Label").string = a.itemName;
+                n.getChildByName("need").getComponent("cc.Label").string = a.needDes;
+                n.getChildByName("des").getComponent("cc.Label").string = a.des;
+                n.getChildByName("button").getChildByName("name").getComponent("cc.Button").scheduleOnce(function () {
+                    n.getChildByName("button").getChildByName("name").on("touchstart", i, this);
+                }, .4);
+                cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n);
+                "undefined" != typeof a.ifEnough && a.ifEnough(c);
+            },
+            creatItemUI1: function () {
                     cc.find("Canvas/Page/view/content/page_1").removeAllChildren();
-                    for (var e = 0; e <= 3; e++)this.creatPrefab(e, "page_1")
-                }, creatItemUI2: function () {
+                for (var e = 0; e <= 3; e++) this.creatPrefab(e, "page_1");
+            },
+            creatItemUI2: function () {
                     cc.find("Canvas/Page/view/content/page_2").removeAllChildren();
-                    for (var e = 4; e <= 7; e++)this.creatPrefab(e, "page_2")
-                }, creatItemUI3: function () {
-                    var t = e("scr_data");
-                    if (t.distance >= 100) {
+                for (var e = 4; e <= 7; e++) this.creatPrefab(e, "page_2");
+            },
+            creatItemUI3: function () {
+                if (e("scr_data").distance >= 100) {
                         cc.find("Canvas/Page/view/content/page_3").removeAllChildren();
-                        for (var n = 8; n <= 11; n++)this.creatPrefab(n, "page_3")
-                    } else this.creatText(cc.find("Canvas/Page/view/content/page_3"), "notify", "※第3页内容，将在到达县城后解锁！")
-                }, creatItemUI4: function () {
-                    var t = e("scr_data");
-                    if (t.distance >= 100) {
+                    for (var t = 8; t <= 11; t++) this.creatPrefab(t, "page_3");
+                } else this.creatText(cc.find("Canvas/Page/view/content/page_3"), "notify", "※第3页内容，将在到达县城后解锁！");
+            },
+            creatItemUI4: function () {
+                if (e("scr_data").distance >= 100) {
                         cc.find("Canvas/Page/view/content/page_4").removeAllChildren();
-                        for (var n = 12; n <= 15; n++)this.creatPrefab(n, "page_4")
-                    } else this.creatText(cc.find("Canvas/Page/view/content/page_4"), "notify", "※第4页内容，将在到达县城后解锁！")
-                }, creatItemUI5: function () {
-                    var t = e("scr_data");
-                    if (t.distance >= 100) {
+                    for (var t = 12; t <= 15; t++) this.creatPrefab(t, "page_4");
+                } else this.creatText(cc.find("Canvas/Page/view/content/page_4"), "notify", "※第4页内容，将在到达县城后解锁！");
+            },
+            creatItemUI5: function () {
+                if (e("scr_data").distance >= 100) {
                         cc.find("Canvas/Page/view/content/page_5").removeAllChildren();
-                        for (var n = 16; n <= 19; n++)this.creatPrefab(n, "page_5")
-                    } else this.creatText(cc.find("Canvas/Page/view/content/page_5"), "notify", "※第5页内容，将在到达县城后解锁！")
-                }, creatItemUI6: function () {
-                    var t = e("scr_data");
-                    if (t.distance >= 100) {
+                    for (var t = 16; t <= 19; t++) this.creatPrefab(t, "page_5");
+                } else this.creatText(cc.find("Canvas/Page/view/content/page_5"), "notify", "※第5页内容，将在到达县城后解锁！");
+            },
+            creatItemUI6: function () {
+                if (e("scr_data").distance >= 100) {
                         cc.find("Canvas/Page/view/content/page_6").removeAllChildren();
-                        for (var n = 20; n <= 23; n++)this.creatPrefab(n, "page_6")
-                    } else this.creatText(cc.find("Canvas/Page/view/content/page_6"), "notify", "※第6页内容，将在到达县城后解锁！")
-                }, creatItemUI7: function () {
-                    var t = e("scr_data");
-                    if (t.distance >= 100) {
+                    for (var t = 20; t <= 23; t++) this.creatPrefab(t, "page_6");
+                } else this.creatText(cc.find("Canvas/Page/view/content/page_6"), "notify", "※第6页内容，将在到达县城后解锁！");
+            },
+            creatItemUI7: function () {
+                if (e("scr_data").distance >= 100) {
                         cc.find("Canvas/Page/view/content/page_7").removeAllChildren();
-                        for (var n = 24; n <= 25; n++)this.creatPrefab(n, "page_7")
-                    } else this.creatText(cc.find("Canvas/Page/view/content/page_7"), "notify", "※第7页内容，将在到达县城后解锁！")
-                }, delayCreatItemUI: function () {
+                    for (var t = 24; t <= 25; t++) this.creatPrefab(t, "page_7");
+                } else this.creatText(cc.find("Canvas/Page/view/content/page_7"), "notify", "※第7页内容，将在到达县城后解锁！");
+            },
+            delayCreatItemUI: function () {
                     var e = this;
                     this.scheduleOnce(function () {
-                        e.creatItemUI1(), e.creatItemUI2()
-                    }, .2)
-                }, delayCreatItemUI1: function () {
-                    this.scheduleOnce(this.creatItemUI1, .2)
-                }, delayCreatItemUI2: function () {
-                    this.scheduleOnce(this.creatItemUI2, .2)
-                }, delayCreatItemUI3: function () {
-                    this.scheduleOnce(this.creatItemUI3, .2)
-                }, delayCreatItemUI4: function () {
-                    this.scheduleOnce(this.creatItemUI4, .2)
-                }, delayCreatItemUI5: function () {
-                    this.scheduleOnce(this.creatItemUI5, .2)
-                }, delayCreatItemUI6: function () {
-                    this.scheduleOnce(this.creatItemUI6, .2)
-                }, delayCreatItemUI7: function () {
-                    this.scheduleOnce(this.creatItemUI7, .2)
-                }, onLoad: function () {
-                    this.creatItemUI1(), this.creatItemUI2(), this.creatItemUI3(), this.creatItemUI4(), this.creatItemUI5(), this.creatItemUI6(), this.creatItemUI7()
+                    e.creatItemUI1();
+                    e.creatItemUI2();
+                }, .2);
+            },
+            delayCreatItemUI1: function () {
+                this.scheduleOnce(this.creatItemUI1, .2);
+            },
+            delayCreatItemUI2: function () {
+                this.scheduleOnce(this.creatItemUI2, .2);
+            },
+            delayCreatItemUI3: function () {
+                this.scheduleOnce(this.creatItemUI3, .2);
+            },
+            delayCreatItemUI4: function () {
+                this.scheduleOnce(this.creatItemUI4, .2);
+            },
+            delayCreatItemUI5: function () {
+                this.scheduleOnce(this.creatItemUI5, .2);
+            },
+            delayCreatItemUI6: function () {
+                this.scheduleOnce(this.creatItemUI6, .2);
+            },
+            delayCreatItemUI7: function () {
+                this.scheduleOnce(this.creatItemUI7, .2);
+            },
+            onLoad: function () {
+                this.creatItemUI1();
+                this.creatItemUI2();
+                this.creatItemUI3();
+                this.creatItemUI4();
+                this.creatItemUI5();
+                this.creatItemUI6();
+                this.creatItemUI7();
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_effect: "scr_effect", scr_public: "scr_public" }], scr_newGame: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_effect: "scr_effect",
+        scr_public: "scr_public"
+    }],
+    scr_newGame: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "116b0dQK4RNd6tA1hozVnWG", "scr_newGame"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    JSON.parse(cc.sys.localStorage.getItem("userData")) ? cc.director.loadScene("notice") : cc.director.loadScene("choice")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
-                }
-            }), cc._RFpop()
-        }, {}], scr_notice2: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "5d6b1w/rEpC5bWSm2L4xLZt", "scr_notice2"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
+        cc._RF.push(t, "116b0dQK4RNd6tA1hozVnWG", "scr_newGame");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                JSON.parse(cc.sys.localStorage.getItem("userData")) ? cc.director.loadScene("notice") : cc.director.loadScene("choice");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_notice2: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "5d6b1w/rEpC5bWSm2L4xLZt", "scr_notice2");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
                     var t = cc.find("Canvas/button");
                     cc.find("Canvas/button/button1").on("touchstart", function () {
-                        cc.director.loadScene("main")
-                    }, this), cc.find("Canvas/button/button2").on("touchstart", function () {
-                        cc.director.loadScene("diary")
-                    }, this), e("scr_effect").playText("Canvas/text", "系统检测到你还有没用完的精力，你确定要睡觉吗？", 80), t.opacity = 0, this.scheduleOnce(function () {
-                        t.runAction(cc.fadeIn(2))
-                    }, 2)
+                    cc.director.loadScene("main");
+                }, this);
+                cc.find("Canvas/button/button2").on("touchstart", function () {
+                    cc.director.loadScene("diary");
+                }, this);
+                e("scr_effect").playText("Canvas/text", "系统检测到你还有没用完的精力，你确定要睡觉吗？", 80);
+                t.opacity = 0;
+                this.scheduleOnce(function () {
+                    t.runAction(cc.fadeIn(2));
+                }, 2);
                 }
-            }), cc._RFpop()
-        }, { scr_effect: "scr_effect" }], scr_notice: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_effect: "scr_effect"
+    }],
+    scr_notice: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "8a8f3K8uShD74FI50VPMkWg", "scr_notice"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
+        cc._RF.push(t, "8a8f3K8uShD74FI50VPMkWg", "scr_notice");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
                     var t = cc.find("Canvas/button");
                     cc.find("Canvas/button/button1").on("touchstart", function () {
-                        cc.sys.localStorage.removeItem("userData"), cc.director.loadScene("choice")
-                    }, this), cc.find("Canvas/button/button2").on("touchstart", function () {
-                        cc.director.loadScene("start")
-                    }, this), e("scr_effect").playText("Canvas/text", "新开会删除旧存档，你确定要新开吗？", 80), t.opacity = 0, this.scheduleOnce(function () {
-                        t.runAction(cc.fadeIn(2))
-                    }, 2)
+                    cc.sys.localStorage.removeItem("userData");
+                    cc.director.loadScene("choice");
+                }, this);
+                cc.find("Canvas/button/button2").on("touchstart", function () {
+                    cc.director.loadScene("start");
+                }, this);
+                e("scr_effect").playText("Canvas/text", "新开会删除旧存档，你确定要新开吗？", 80);
+                t.opacity = 0;
+                this.scheduleOnce(function () {
+                    t.runAction(cc.fadeIn(2));
+                }, 2);
                 }
-            }), cc._RFpop()
-        }, { scr_effect: "scr_effect" }], scr_open: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_effect: "scr_effect"
+    }],
+    scr_open: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "72e60aF4atJaJ3b2ZL0hIlb", "scr_open"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
+        cc._RF.push(t, "72e60aF4atJaJ3b2ZL0hIlb", "scr_open");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
                     var a = new cc.Node(t);
                     a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.opacity = 0, a.runAction(cc.fadeIn(3)), a.color = new cc.Color(255, 255, 255), a.getComponent(cc.Label).overflow = 3, a.getComponent(cc.Label).horizontalAlign = 1, a.setContentSize(600, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 50, a.getComponent(cc.Label).fontSize = 40
-                }, onLoad: function () {
-                    function e() {
-                        a.creatText(i, "plot" + c, n[c]), c++
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.opacity = 0;
+                a.runAction(cc.fadeIn(3));
+                a.color = new cc.Color(255, 255, 255);
+                a.getComponent(cc.Label).overflow = 3;
+                a.getComponent(cc.Label).horizontalAlign = 1;
+                a.setContentSize(600, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 50;
+                a.getComponent(cc.Label).fontSize = 40;
+            },
+            onLoad: function () {
+                var e = ["昨天，", "和父亲大吵一架后，", "我双手空空的逃了出来。", "我决定离开这个家，", "再也不回去了..."], t = (e.length,
+                    this), n = 0, a = cc.find("Canvas/Layout"), i = cc.find("Canvas/skip");
+                function c() {
+                    t.creatText(a, "plot" + n, e[n]);
+                    n++;
                     }
-                    function t() {
-                        var t = {
-                            500: function () { e() }, 3500: function () { e() }, 6500: function () { e() }, 9500: function () { e() }, 12500: function () { e() }, 17500: function () { var e = i.children; for (var t in e) e[t].runAction(cc.fadeOut(2)) }, 2e4: function () {
-                                window.clearInterval(r), cc.director.loadScene("main")
+                var o = window.setInterval(function () {
+                    var e = {
+                        500: function () {
+                            c();
+                        },
+                        3500: function () {
+                            c();
+                        },
+                        6500: function () {
+                            c();
+                        },
+                        9500: function () {
+                            c();
+                        },
+                        12500: function () {
+                            c();
+                        },
+                        17500: function () {
+                            var e = a.children;
+                            for (var t in e) e[t].runAction(cc.fadeOut(2));
+                        },
+                        20000: function () {
+                            window.clearInterval(o);
+                            cc.director.loadScene("main");
                             }
                         };
-                        s += 500, "undefined" != typeof t[s] && t[s]()
+                    "undefined" != typeof e[r += 500] && e[r]();
+                }, 500), r = 0;
+                i.on("touchstart", function () {
+                    o && window.clearTimeout(o);
+                    cc.director.loadScene("main");
+                }, this);
+                this.scheduleOnce(function () {
+                    i.active = !0;
+                    i.runAction(cc.fadeTo(3, 60));
+                }, 2);
                     }
-                    var n = ["昨天，", "和父亲大吵一架后，", "我双手空空的逃了出来。", "我决定离开这个家，", "再也不回去了..."], a = (n.length, this), c = 0, i = cc.find("Canvas/Layout"), o = cc.find("Canvas/skip"), r = window.setInterval(t, 500), s = 0;
-                    o.on("touchstart", function () {
-                        r && window.clearTimeout(r), cc.director.loadScene("main")
-                    }, this), this.scheduleOnce(function () {
-                        o.active = !0, o.runAction(cc.fadeTo(3, 60))
-                    }, 8)
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_over2_1: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "62e498iaclK8KXOlDUYWsAs", "scr_over2_1");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
+                var a = new cc.Node(t);
+                a.addComponent(cc.Label);
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.opacity = 0;
+                a.runAction(cc.fadeIn(3));
+                a.color = new cc.Color(255, 255, 255);
+                a.getComponent(cc.Label).overflow = 3;
+                a.getComponent(cc.Label).horizontalAlign = 1;
+                a.setContentSize(600, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 70;
+                a.getComponent(cc.Label).fontSize = 40;
+            },
+            onLoad: function () {
+                e("scr_data");
+                var t = e("scr_data2"), n = e("scr_public"), a = ["很好，", "你可能有点轻微的强迫症，", "但是我还是决定给你一点补偿,", "虽然我认为你接受的可能性只有\n20%，", "但是，你也没办法寄刀片给我\n(｀?ω?′)", "因为我是一个虚拟现实角色！"];
+                console.log(a);
+                var i = a.length, c = 0, o = cc.find("Canvas/Show"), r = cc.find("Canvas/Determine"), s = this, l = Math.min(20 + 10 * t.dieChoice[3], 40);
+                cc.find("Canvas/Determine/choice1/text").getComponent("cc.Label").string = "带着作者给的" + parseInt(l / 10) + "元钱，重新开始";
+                r.active = !1;
+                r.opacity = 0;
+                this.schedule(function () {
+                    s.creatText(o, "plot" + c, a[c]);
+                    console.log(a[c]);
+                    c++;
+                }, 3, i - 1);
+                this.scheduleOnce(function () {
+                    r.active = !0;
+                    r.runAction(cc.fadeIn(2));
+                }, 3 * (i + 1));
+                r.getChildByName("choice1").on("touchstart", function () {
+                    t.initMoney = l;
+                    t.dieChoice[3] += 0;
+                    n.save2();
+                    (function () {
+                        JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.sys.localStorage.removeItem("userData");
+                        cc.director.loadScene("start");
+                    })();
+                }, this);
+                r.getChildByName("choice2").on("touchstart", function () {
+                    t.dieChoice[3] += 1;
+                    n.save2();
+                    cc.director.loadScene("over");
+                }, this);
                 }
-            }), cc._RFpop()
-        }, {}], scr_over2_1: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_data2: "scr_data2",
+        scr_public: "scr_public"
+    }],
+    scr_over2: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "62e498iaclK8KXOlDUYWsAs", "scr_over2_1"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
+        cc._RF.push(t, "aca905dFBlPoYq+iajnsZIA", "scr_over2");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
                     var a = new cc.Node(t);
                     a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.opacity = 0, a.runAction(cc.fadeIn(3)), a.color = new cc.Color(255, 255, 255), a.getComponent(cc.Label).overflow = 3, a.getComponent(cc.Label).horizontalAlign = 1, a.setContentSize(600, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 70, a.getComponent(cc.Label).fontSize = 40
-                }, onLoad: function () {
-                    function t() {
-                        h.creatText(m, "plot" + p, l[p]), console.log(l[p]), p++
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.opacity = 0;
+                a.runAction(cc.fadeIn(3));
+                a.color = new cc.Color(255, 255, 255);
+                a.getComponent(cc.Label).overflow = 3;
+                a.getComponent(cc.Label).horizontalAlign = 1;
+                a.setContentSize(600, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 60;
+                a.getComponent(cc.Label).fontSize = 40;
+            },
+            onLoad: function () {
+                var t = e("scr_data"), n = e("scr_public"), a = ["由于一些人的吐槽，\n(；′⌒`)", "从现在开始，\n→_→", "神一般存在的作者可以将你复活，\n︿(￣︶￣)︿", "但是，你必须放弃一样东西！\n(╬￣皿￣)", "——请做出你的选择！\n(●｀エ′)"], i = a.length, c = 0, o = cc.find("Canvas/Show"), r = cc.find("Canvas/Determine"), s = this;
+                r.active = !1;
+                r.opacity = 0;
+                this.schedule(function () {
+                    s.creatText(o, "plot" + c, a[c]);
+                    c++;
+                }, 2.5, i - 1);
+                this.scheduleOnce(function () {
+                    r.active = !0;
+                    r.runAction(cc.fadeIn(2));
+                }, 2.5 * (i + 1));
+                r.getChildByName("choice1").on("touchstart", function () {
+                    var e = t.role;
+                    e.maxHp -= parseInt(.04 * n.role.maxHp());
+                    e.def -= parseInt(.04 * n.role.def());
+                    e.att -= parseInt(.04 * n.role.att());
+                    l();
+                }, this);
+                r.getChildByName("choice2").on("touchstart", function () {
+                    t.maxEnergy -= 10;
+                    l();
+                }, this);
+                r.getChildByName("choice3").on("touchstart", function () {
+                    if (t.money >= 80 || t.itemNum2[7] >= 8 || t.itemNum2[12] >= 16) {
+                        t.money >= 80 ? t.money -= 80 : t.itemNum2[7] >= 8 ? t.itemNum2[7] -= 8 : t.itemNum2[12] >= 16 && (t.itemNum2[12] -= 16);
+                        l();
+                    } else cc.find("Canvas/Determine/choice3/text").getComponent("cc.Label").string = "你怕是一个条件都不满足喔（笑）！";
+                }, this);
+                r.getChildByName("choice4").on("touchstart", function () {
+                    cc.director.loadScene("over2_1");
+                }, this);
+                4e3 == n.regionId() && (r.getChildByName("choice4").active = !1);
+                function l() {
+                    t.health = 30;
+                    t.role.hp = n.role.maxHp();
+                    t.hunger = n.maxHunger();
+                    n.save();
+                    cc.director.loadScene("main");
                     }
-                    function n() {
-                        f.active = !0, f.runAction(cc.fadeIn(2))
                     }
-                    function a() {
-                        JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.sys.localStorage.removeItem("userData"), cc.director.loadScene("start")
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_public: "scr_public"
+    }],
+    scr_over: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "6d161adbZhGOIo8GmNaz6i6", "scr_over");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
+                var a = new cc.Node(t);
+                a.addComponent(cc.Label);
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.opacity = 0;
+                a.runAction(cc.fadeIn(3));
+                a.color = new cc.Color(255, 255, 255);
+                a.getComponent(cc.Label).overflow = 3;
+                a.getComponent(cc.Label).horizontalAlign = 1;
+                a.setContentSize(600, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 50;
+                a.getComponent(cc.Label).fontSize = 40;
+            },
+            onLoad: function () {
+                var t = [["几天后，", "你在草丛中被人发现，", "全身浮肿，面目全非。", "结局——", "【客死他乡】"], ["几天后，", "你在草丛中被人发现，", "奄奄一息，身上散发着难闻的味道。", "你立刻被送往救助站。", "父亲当晚从老家赶来，", "你的流浪生涯就此结束。", "结局——", "【无奈的人生】"]], n = "", a = e("scr_public").regionId(), i = (n = a < 4e3 ? t[0] : t[1]).length, c = 0, o = cc.find("Canvas/Show"), r = cc.find("Canvas/Determine"), s = this;
+                this.schedule(function () {
+                    s.creatText(o, "plot" + c, n[c]);
+                    c++;
+                }, 2, i - 1);
+                this.scheduleOnce(function () {
+                    r.active = !0;
+                    r.runAction(cc.fadeIn(2));
+                }, 2 * (i + 1));
+                r.on("touchstart", function () {
+                    JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.sys.localStorage.removeItem("userData");
+                    cc.director.loadScene("start");
+                }, this);
                     }
-                    function c() {
-                        o.initMoney = v, o.dieChoice[3] += 0, r.save2(), a()
-                    }
-                    function i() {
-                        o.dieChoice[3] += 1, r.save2(), cc.director.loadScene("over")
-                    }
-                    var o = (e("scr_data"), e("scr_data2")), r = e("scr_public"), s = ["很好，", "你可能有点轻微的强迫症，", "但是我还是决定给你一点补偿,", "虽然我认为你接受的可能性只有\n20%，", "但是，你也没办法寄刀片给我\n(｀?ω?′)", "因为我是一个虚拟现实角色！"], l = s;
-                    console.log(l);
-                    var u = l.length, p = 0, d = 3, m = cc.find("Canvas/Show"), f = cc.find("Canvas/Determine"), h = this, v = Math.min(20 + 10 * o.dieChoice[3], 40);
-                    cc.find("Canvas/Determine/choice1/text").getComponent("cc.Label").string = "带着作者给的" + parseInt(v / 10) + "元钱，重新开始", f.active = !1, f.opacity = 0, this.schedule(t, d, u - 1), this.scheduleOnce(n, d * (u + 1)), f.getChildByName("choice1").on("touchstart", c, this), f.getChildByName("choice2").on("touchstart", i, this)
-                }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_data2: "scr_data2", scr_public: "scr_public" }], scr_over2: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_public: "scr_public"
+    }],
+    scr_playAds: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "602f4GJE5dHeJbKWFm68u1y", "scr_playAds");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () { },
+            onLoad: function () { },
+            start: function () { }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_plot: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "aca905dFBlPoYq+iajnsZIA", "scr_over2"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
+        cc._RF.push(t, "22594SzhLdDFIhFu3G4ZURs", "scr_plot");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
                     var a = new cc.Node(t);
                     a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.opacity = 0, a.runAction(cc.fadeIn(3)), a.color = new cc.Color(255, 255, 255), a.getComponent(cc.Label).overflow = 3, a.getComponent(cc.Label).horizontalAlign = 1, a.setContentSize(600, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 60, a.getComponent(cc.Label).fontSize = 40
-                }, onLoad: function () {
-                    function t() {
-                        y.creatText(h, "plot" + m, p[m]), m++
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.opacity = 0;
+                a.runAction(cc.fadeIn(2));
+                a.color = new cc.Color(255, 255, 255);
+                a.getComponent(cc.Label).overflow = 3;
+                a.getComponent(cc.Label).horizontalAlign = 1;
+                a.setContentSize(600, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 60;
+                a.getComponent(cc.Label).fontSize = 40;
+            },
+            plotData: function () {
+                var t = e("scr_data"), n = e("scr_public");
+                e("scr_effect");
+                return {
+                    0: {
+                        text: ["你好，我是本游戏作者，", "你可能现在一脸懵逼。", "我现在要给你两个选项，", "因为我想知道你接下来会怎么处理。", "回到认识晓月之前", "不管她，把我复活，继续赶路"],
+                        BGM: "",
+                        choice1: function () { },
+                        choice2: function () { }
+                    },
+                    1: {
+                        text: ["安静的午后，", "一阵剧烈的尖叫声划破天际，", "我慌忙赶到，", "一个光膀子大汉正将晓月按在身下！", "", "我要杀了他！"],
+                        BGM: "",
+                        choice1: function () { },
+                        choice2: function () {
+                            if (0 == e("scr_data2").gameData[4]) {
+                                t.skillLv[4] = 0;
+                                t.enemyId = 108;
+                                t.role.hp = n.role.maxHp();
+                                n.save();
+                                cc.director.loadScene("main");
+                            } else cc.director.loadScene("main", function () {
+                                e("scr_data").itemNum2[10] += 1;
+                                e("scr_public").save();
+                                e("scr_effect").playText("Canvas/Text/txt_notify", "“美女没摔到吧~”，大汉担心的说道，“这荒郊野外的，走路也不当心点！摔伤倒是小事，你这么漂亮，要是碰到流氓可咋整？这样，我送你一把小刀，留着防身用哈~”。获得【黑刀】*1", 60);
+                            });
                     }
-                    function n() {
-                        v.active = !0, v.runAction(cc.fadeIn(2))
-                    }
-                    function a() {
-                        s.health = 30, s.role.hp = l.role.maxHp(), s.hunger = l.maxHunger(), l.save(), cc.director.loadScene("main")
-                    }
-                    function c() {
-                        var e = s.role, t = .04;
-                        e.maxHp -= parseInt(l.role.maxHp() * t), e.def -= parseInt(l.role.def() * t), e.att -= parseInt(l.role.att() * t), a()
-                    }
-                    function i() {
-                        s.maxEnergy -= 10, a()
-                    }
-                    function o() {
-                        s.money >= 80 || s.itemNum2[7] >= 8 || s.itemNum2[12] >= 16 ? (s.money >= 80 ? s.money -= 80 : s.itemNum2[7] >= 8 ? s.itemNum2[7] -= 8 : s.itemNum2[12] >= 16 && (s.itemNum2[12] -= 16), a()) : cc.find("Canvas/Determine/choice3/text").getComponent("cc.Label").string = "你怕是一个条件都不满足喔（笑）！"
-                    }
-                    function r() {
-                        cc.director.loadScene("over2_1")
-                    }
-                    var s = e("scr_data"), l = e("scr_public"), u = ["由于一些人的吐槽，\n(；′⌒`)", "从现在开始，\n→_→", "神一般存在的作者可以将你复活，\n︿(￣︶￣)︿", "但是，你必须放弃一样东西！\n(╬￣皿￣)", "——请做出你的选择！\n(●｀エ′)"], p = u, d = p.length, m = 0, f = 2.5, h = cc.find("Canvas/Show"), v = cc.find("Canvas/Determine"), y = this;
-                    v.active = !1, v.opacity = 0, this.schedule(t, f, d - 1), this.scheduleOnce(n, f * (d + 1)), v.getChildByName("choice1").on("touchstart", c, this), v.getChildByName("choice2").on("touchstart", i, this), v.getChildByName("choice3").on("touchstart", o, this), v.getChildByName("choice4").on("touchstart", r, this), 4e3 == l.regionId() && (v.getChildByName("choice4").active = !1)
-                }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_public: "scr_public" }], scr_over: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "6d161adbZhGOIo8GmNaz6i6", "scr_over"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
-                    var a = new cc.Node(t);
-                    a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.opacity = 0, a.runAction(cc.fadeIn(3)), a.color = new cc.Color(255, 255, 255), a.getComponent(cc.Label).overflow = 3, a.getComponent(cc.Label).horizontalAlign = 1, a.setContentSize(600, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 50, a.getComponent(cc.Label).fontSize = 40
-                }, onLoad: function () {
-                    function t() {
-                        d.creatText(u, "plot" + s, i[s]), s++
-                    }
-                    function n() {
-                        p.active = !0, p.runAction(cc.fadeIn(2))
-                    }
-                    function a() {
-                        JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.sys.localStorage.removeItem("userData"), cc.director.loadScene("start")
-                    }
-                    var c = [["几天后，", "你在草丛中被人发现，", "全身浮肿，面目全非。", "结局——", "【客死他乡】"], ["几天后，", "你在草丛中被人发现，", "奄奄一息，身上散发着难闻的味道。", "你立刻被送往救助站。", "父亲当晚从老家赶来，", "你的流浪生涯就此结束。", "结局——", "【无奈的人生】"]], i = "", o = e("scr_public").regionId();
-                    i = o < 4e3 ? c[0] : c[1];
-                    var r = i.length, s = 0, l = 2, u = cc.find("Canvas/Show"), p = cc.find("Canvas/Determine"), d = this;
-                    this.schedule(t, l, r - 1), this.scheduleOnce(n, l * (r + 1)), p.on("touchstart", a, this)
-                }
-            }), cc._RFpop()
-        }, { scr_public: "scr_public" }], scr_plot: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "22594SzhLdDFIhFu3G4ZURs", "scr_plot"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
-                    var a = new cc.Node(t);
-                    a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.opacity = 0, a.runAction(cc.fadeIn(2)), a.color = new cc.Color(255, 255, 255), a.getComponent(cc.Label).overflow = 3, a.getComponent(cc.Label).horizontalAlign = 1, a.setContentSize(600, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 60, a.getComponent(cc.Label).fontSize = 40
-                }, plotData: function () {
-                    var t = e("scr_data"), n = e("scr_public"), a = (e("scr_effect"), {
-                        0: { text: ["你好，我是本游戏作者，", "你可能现在一脸懵逼。", "我现在要给你两个选项，", "因为我想知道你接下来会怎么处理。", "回到认识晓月之前", "不管她，把我复活，继续赶路"], BGM: "", choice1: function () { }, choice2: function () { } }, 1: {
-                            text: ["安静的午后，", "一阵剧烈的尖叫声划破天际，", "我慌忙赶到，", "一个光膀子大汉正将晓月按在身下！", "", "我要杀了他！"], BGM: "", choice1: function () { }, choice2: function () {
-                                0 == e("scr_data2").gameData[4] ? (t.skillLv[4] = 0, t.enemyId = 108, t.role.hp = n.role.maxHp(), n.save(), cc.director.loadScene("main")) : cc.director.loadScene("main", function () {
-                                    e("scr_data").itemNum2[10] += 1, e("scr_public").save(), e("scr_effect").playText("Canvas/Text/txt_notify", "“美女没摔到吧~”，大汉担心的说道，“这荒郊野外的，走路也不当心点！摔伤倒是小事，你这么漂亮，要是碰到流氓可咋整？这样，我送你一把小刀，留着防身用哈~”。获得【黑刀】*1", 60)
-                                })
-                            }
-                        }, 2: {
-                            text: ["你好，欢迎来到小黑屋，", "虽然你可能现在是一脸懵逼", "但是事实就是这么不讲道理——", "如果你无法通过挑战，你就不能拥有晓月", "我要回到认识晓月的前一天，我再试试", "我选择放弃晓月"], BGM: "", choice1: function () {
-                                var t = e("scr_data"), a = e("scr_data2");
-                                a.gameData[0] += 1, t = JSON.parse(cc.sys.localStorage.getItem("dataCopy")), cc.sys.localStorage.setItem("userData", JSON.stringify(t)), n.save2(), cc.director.loadScene("main")
-                            }, choice2: function () {
-                                t.health += 999, t.distance += 1, t.enemyId = 0, t.role.hp = n.role.maxHp(), n.save(), cc.director.loadScene("main", function () {
-                                    e("scr_data").itemNum[12] += 1, e("scr_public").save(), e("scr_effect").playText("Canvas/Text/txt_notify", "晓月在你背后，流下了一滴眼泪，获得【眼泪】*1", 60)
-                                })
-                            }
-                        }, 3: {
-                            text: ["“如果你不能给她呵护和未来，", "那么，请放手。”", "“也许，从一开始就选择不认识，才是对她真正的保护”", "回到认识晓月之前", "好吧，我放弃"], BGM: "", choice1: function () {
-                                var t = e("scr_data"), a = e("scr_data2");
-                                a.gameData[0] += 1, t = JSON.parse(cc.sys.localStorage.getItem("dataCopy")), cc.sys.localStorage.setItem("userData", JSON.stringify(t)), n.save2(), cc.director.loadScene("main", function () {
-                                    e("scr_data").itemNum[12] += 1, e("scr_public").save(), e("scr_effect").playText("Canvas/Text/txt_notify", "晓月在你背后，流下了一滴眼泪，获得【眼泪】*1", 60)
-                                })
-                            }, choice2: function () {
-                                t.health += 999, t.distance += 1, t.enemyId = 0, t.role.hp = n.role.maxHp(), n.save(), cc.director.loadScene("main", function () {
-                                    e("scr_data").itemNum[12] += 1, e("scr_public").save(), e("scr_effect").playText("Canvas/Text/txt_notify", "晓月在你背后，流下了一滴眼泪，获得【眼泪】*1", 60)
-                                })
-                            }
-                        }, 4: {
-                            text: ["“不是你喜欢，", "所以就应该得到。”", "“你太过偏执，才容易遍体鳞伤”", "作者，我要杀了你", "把我复活"], BGM: "", choice1: function () {
-                                t.enemyId = 998, t.health += 999, t.role.hp = n.role.maxHp(), n.save(), cc.director.loadScene("main")
-                            }, choice2: function () {
-                                t.health += 999, t.distance += 1, t.enemyId = 0, t.role.hp = n.role.maxHp(), n.save(), cc.director.loadScene("main", function () {
-                                    e("scr_data").itemNum[12] += 1, e("scr_public").save(), e("scr_effect").playText("Canvas/Text/txt_notify", "晓月在你背后，流下了一滴眼泪，获得【眼泪】*1", 60)
-                                })
-                            }
-                        }, 5: {
-                            text: ["虽然很不舍，", "但是晓月也需要回家报告平安了...", "摸摸头，道别", "拍拍肩膀，道别"], BGM: "", choice1: function () {
-                                t.distance += 1, t.ifFollow[0] = 0, n.save(), cc.director.loadScene("main", function () {
-                                    e("scr_effect").playText("Canvas/Text/txt_notify", "晓月依依不舍的离开了", 60)
-                                })
-                            }, choice2: function () {
-                                t.distance += 1, t.choice[5] += 10, t.ifFollow[0] = 0, n.save(), cc.director.loadScene("main", function () {
-                                    e("scr_effect").playText("Canvas/Text/txt_notify", "“我还会来找你玩的！( ? ?ω?? )?”", 60)
-                                })
-                            }
-                        }, 98: {
-                            text: ["陈碧瑶好感已满足要求，是否邀请碧瑶成为伙伴？（如果碧瑶成为伙伴，其它伙伴将会被顶掉，且无法再邀请其它伙伴；如果你拒绝邀请，以后则不会再有机会邀请碧瑶，请考虑清楚！）", "是", "算了"], BGM: "", choice1: function () {
-                                t.ifFollow[0] = 0, t.ifFollow[1] = 1, t.publicVar[8] = 1, n.save(), cc.director.loadScene("home", function () {
-                                    e("scr_effect").playText("Canvas/notify", "陈碧瑶成为伙伴！请好好珍惜吧~", 60)
-                                })
-                            }, choice2: function () {
-                                t.publicVar[8] = 1, cc.director.loadScene("home")
-                            }
-                        }, 99: {
-                            text: ["是否邀请晓月成为伙伴？（如果晓月成为伙伴，其它伙伴将会被顶掉，且无法再邀请其它伙伴，请考虑清楚）", "是", "算了"], BGM: "", choice1: function () {
-                                t.ifFollow[0] = 1, t.ifFollow[1] = 0, n.save(), cc.director.loadScene("home", function () {
-                                    e("scr_effect").playText("Canvas/notify", "晓月成为伙伴！请好好珍惜吧~", 60)
-                                })
-                            }, choice2: function () {
-                                cc.director.loadScene("home")
-                            }
-                        }, 1001: {
-                            text: ["五十年后，在城中村、一间充满恶臭的破旧出租屋内，几名带着消毒面具的消防人员正在清理地上的垃圾。", "房间很小，阴暗而潮湿，墙角堆满了酒瓶和没来得及处理的烟头。", "一位中年消防员拍了拍一个年轻消防员的肩膀责备道，“别看啦，该干活了”。“知道啦。没想到这位奇怪的老人还有这么一段往事啊~”，说完，年轻人把手中发黄的日记本\n丢进了焚烧箱...", "", "...全剧终..."], BGM: "", choice1: function () { }, choice2: function () {
-                                cc.director.loadScene("end")
-                            }
-                        }, 1002: {
-                            text: ["一年后，在一座人迹罕至的深山中，一间新建的小木屋旁，淡青色的花朵在清晨的阳光下、轻盈地跳起了舞蹈。", "这是房子的男主人，给一位短发女孩精心修建的小花园。", "他对女孩说，“我们在这里相守一辈子吧~”", "...待续...", "", "本游戏已完结，后续待开发"], BGM: "", choice1: function () { }, choice2: function () {
-                                cc.director.loadScene("end")
-                            }
-                        }, 1003: {
-                            text: ["半年后，冬日的夜幕悄悄降临；在一所大学门口，嬉笑的学生三三两两的走出校门。", "橘黄色的路灯下，一个穿着破旧军大衣的男孩、安静的等在门口，丝毫不在意旁人异样的眼光。", "不一会儿，一个干干净净、梳着单马尾的女孩，焦急的跑出校门，她停在男孩旁边，微笑着拉起他的手，一起消失在寒冬的夜幕中...", "...全剧终...", "", "本游戏已完结，后续待定..."], BGM: "", choice1: function () { }, choice2: function () {
-                                cc.director.loadScene("end")
-                            }
+                    },
+                    2: {
+                        text: ["你好，欢迎来到小黑屋，", "虽然你可能现在是一脸懵逼", "但是事实就是这么不讲道理——", "如果你无法通过挑战，你就不能拥有晓月", "我要回到认识晓月的前一天，我再试试", "我选择放弃晓月"],
+                        BGM: "",
+                        choice1: function () {
+                            var t = e("scr_data");
+                            e("scr_data2").gameData[0] += 1;
+                            t = JSON.parse(cc.sys.localStorage.getItem("dataCopy"));
+                            cc.sys.localStorage.setItem("userData", JSON.stringify(t));
+                            n.save2();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            t.health += 999;
+                            t.distance += 1;
+                            t.enemyId = 0;
+                            t.role.hp = n.role.maxHp();
+                            n.save();
+                            cc.director.loadScene("main", function () {
+                                e("scr_data").itemNum[12] += 1;
+                                e("scr_public").save();
+                                e("scr_effect").playText("Canvas/Text/txt_notify", "晓月在你背后，流下了一滴眼泪，获得【眼泪】*1", 60);
+                            });
                         }
-                    });
-                    return a
-                }, startPlot: function () {
-                    function t() {
-                        this.creatText(m, "plot" + p, r[p]), p++
+                    },
+                    3: {
+                        text: ["“如果你不能给她呵护和未来，", "那么，请放手。”", "“也许，从一开始就选择不认识，才是对她真正的保护”", "回到认识晓月之前", "好吧，我放弃"],
+                        BGM: "",
+                        choice1: function () {
+                            var t = e("scr_data");
+                            e("scr_data2").gameData[0] += 1;
+                            t = JSON.parse(cc.sys.localStorage.getItem("dataCopy"));
+                            cc.sys.localStorage.setItem("userData", JSON.stringify(t));
+                            n.save2();
+                            cc.director.loadScene("main", function () {
+                                e("scr_data").itemNum[12] += 1;
+                                e("scr_public").save();
+                                e("scr_effect").playText("Canvas/Text/txt_notify", "晓月在你背后，流下了一滴眼泪，获得【眼泪】*1", 60);
+                            });
+                        },
+                        choice2: function () {
+                            t.health += 999;
+                            t.distance += 1;
+                            t.enemyId = 0;
+                            t.role.hp = n.role.maxHp();
+                            n.save();
+                            cc.director.loadScene("main", function () {
+                                e("scr_data").itemNum[12] += 1;
+                                e("scr_public").save();
+                                e("scr_effect").playText("Canvas/Text/txt_notify", "晓月在你背后，流下了一滴眼泪，获得【眼泪】*1", 60);
+                            });
                     }
-                    function n() {
-                        var e = o.choice1, t = o.choice2, n = cc.find("Canvas/Choice/Choice1"), a = cc.find("Canvas/Choice/Choice2");
-                        n.getChildByName("choiceText").getComponent("cc.Label").string = l, a.getChildByName("choiceText").getComponent("cc.Label").string = s, "" == l && (n.active = !1, cc.find("Canvas/Choice/label").active = !1), cc.find("Canvas/Choice").runAction(cc.fadeIn(2)), n.on("touchstart", e, this), a.on("touchstart", t, this)
+                    },
+                    4: {
+                        text: ["“不是你喜欢，", "所以就应该得到。”", "“你太过偏执，才容易遍体鳞伤”", "作者，我要杀了你", "把我复活"],
+                        BGM: "",
+                        choice1: function () {
+                            t.enemyId = 998;
+                            t.health += 999;
+                            t.role.hp = n.role.maxHp();
+                            n.save();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            t.health += 999;
+                            t.distance += 1;
+                            t.enemyId = 0;
+                            t.role.hp = n.role.maxHp();
+                            n.save();
+                            cc.director.loadScene("main", function () {
+                                e("scr_data").itemNum[12] += 1;
+                                e("scr_public").save();
+                                e("scr_effect").playText("Canvas/Text/txt_notify", "晓月在你背后，流下了一滴眼泪，获得【眼泪】*1", 60);
+                            });
                     }
-                    function a() {
-                        var e = cc.find("Canvas/Choice");
-                        e.stopAllActions(), e.opacity = 0, cc.find("Canvas/EventText").removeAllChildren(), e.getChildByName("Choice1").targetOff(this), e.getChildByName("Choice2").targetOff(this)
+                    },
+                    5: {
+                        text: ["虽然很不舍，", "但是晓月也需要回家报告平安了...", "摸摸头，道别", "拍拍肩膀，道别"],
+                        BGM: "",
+                        choice1: function () {
+                            t.distance += 1;
+                            t.ifFollow[0] = 0;
+                            n.save();
+                            cc.director.loadScene("main", function () {
+                                e("scr_effect").playText("Canvas/Text/txt_notify", "晓月依依不舍的离开了", 60);
+                            });
+                        },
+                        choice2: function () {
+                            t.distance += 1;
+                            t.choice[5] += 10;
+                            t.ifFollow[0] = 0;
+                            n.save();
+                            cc.director.loadScene("main", function () {
+                                e("scr_effect").playText("Canvas/Text/txt_notify", "“我还会来找你玩的！( ? ?ω?? )?”", 60);
+                            });
                     }
-                    var c = e("scr_data"), i = (e("scr_public"), this.plotId || c.plotId), o = this.plotData()[i], r = o.text, s = r.pop(), l = r.pop(), u = r.length, p = 0, d = 2.5, m = cc.find("Canvas/EventText");
-                    a(), this.schedule(t, d, u - 1), this.scheduleOnce(n, d * (u + 1))
-                }, onLoad: function () {
-                    this.startPlot()
+                    },
+                    98: {
+                        text: ["陈碧瑶好感已满足要求，是否邀请碧瑶成为伙伴？（如果碧瑶成为伙伴，其它伙伴将会被顶掉，且无法再邀请其它伙伴；如果你拒绝邀请，以后则不会再有机会邀请碧瑶，请考虑清楚！）", "是", "算了"],
+                        BGM: "",
+                        choice1: function () {
+                            t.ifFollow[0] = 0;
+                            t.ifFollow[1] = 1;
+                            t.publicVar[8] = 1;
+                            n.save();
+                            cc.director.loadScene("home", function () {
+                                e("scr_effect").playText("Canvas/notify", "陈碧瑶成为伙伴！请好好珍惜吧~", 60);
+                            });
+                        },
+                        choice2: function () {
+                            t.publicVar[8] = 1;
+                            cc.director.loadScene("home");
+                    }
+                    },
+                    99: {
+                        text: ["是否邀请晓月成为伙伴？（如果晓月成为伙伴，其它伙伴将会被顶掉，且无法再邀请其它伙伴，请考虑清楚）", "是", "算了"],
+                        BGM: "",
+                        choice1: function () {
+                            t.ifFollow[0] = 1;
+                            t.ifFollow[1] = 0;
+                            n.save();
+                            cc.director.loadScene("home", function () {
+                                e("scr_effect").playText("Canvas/notify", "晓月成为伙伴！请好好珍惜吧~", 60);
+                            });
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("home");
+                    }
+                    },
+                    1001: {
+                        text: ["五十年后，在城中村、一间充满恶臭的破旧出租屋内，几名带着消毒面具的消防人员正在清理地上的垃圾。", "房间很小，阴暗而潮湿，墙角堆满了酒瓶和没来得及处理的烟头。", "一位中年消防员拍了拍一个年轻消防员的肩膀责备道，“别看啦，该干活了”。“知道啦。没想到这位奇怪的老人还有这么一段往事啊~”，说完，年轻人把手中发黄的日记本\n丢进了焚烧箱...", "", "...全剧终..."],
+                        BGM: "",
+                        choice1: function () { },
+                        choice2: function () {
+                            cc.director.loadScene("end");
+                    }
+                    },
+                    1002: {
+                        text: ["一年后，在一座人迹罕至的深山中，一间新建的小木屋旁，淡青色的花朵在清晨的阳光下、轻盈地跳起了舞蹈。", "这是房子的男主人，给一位短发女孩精心修建的小花园。", "他对女孩说，“我们在这里相守一辈子吧~”", "...待续...", "", "本游戏已完结，后续待开发"],
+                        BGM: "",
+                        choice1: function () { },
+                        choice2: function () {
+                            cc.director.loadScene("end");
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_data2: "scr_data2", scr_effect: "scr_effect", scr_public: "scr_public" }], scr_public: [function (e, t, n) {
+                    },
+                    1003: {
+                        text: ["半年后，冬日的夜幕悄悄降临；在一所大学门口，嬉笑的学生三三两两的走出校门。", "橘黄色的路灯下，一个穿着破旧军大衣的男孩、安静的等在门口，丝毫不在意旁人异样的眼光。", "不一会儿，一个干干净净、梳着单马尾的女孩，焦急的跑出校门，她停在男孩旁边，微笑着拉起他的手，一起消失在寒冬的夜幕中...", "...全剧终...", "", "本游戏已完结，后续待定..."],
+                        BGM: "",
+                        choice1: function () { },
+                        choice2: function () {
+                            cc.director.loadScene("end");
+                }
+                    }
+                };
+            },
+            startPlot: function () {
+                var t = e("scr_data"), n = (e("scr_public"), this.plotId || t.plotId), a = this.plotData()[n], i = a.text, c = i.pop(), o = i.pop(), r = i.length, s = 0, l = cc.find("Canvas/EventText");
+                (function () {
+                        var e = cc.find("Canvas/Choice");
+                    e.stopAllActions();
+                    e.opacity = 0;
+                    cc.find("Canvas/EventText").removeAllChildren();
+                    e.getChildByName("Choice1").targetOff(this);
+                    e.getChildByName("Choice2").targetOff(this);
+                })();
+                this.schedule(function () {
+                    this.creatText(l, "plot" + s, i[s]);
+                    s++;
+                }, 2.5, r - 1);
+                this.scheduleOnce(function () {
+                    var e = a.choice1, t = a.choice2, n = cc.find("Canvas/Choice/Choice1"), i = cc.find("Canvas/Choice/Choice2");
+                    n.getChildByName("choiceText").getComponent("cc.Label").string = o;
+                    i.getChildByName("choiceText").getComponent("cc.Label").string = c;
+                    if ("" == o) {
+                        n.active = !1;
+                        cc.find("Canvas/Choice/label").active = !1;
+                    }
+                    cc.find("Canvas/Choice").runAction(cc.fadeIn(2));
+                    n.on("touchstart", e, this);
+                    i.on("touchstart", t, this);
+                }, 2.5 * (r + 1));
+            },
+            onLoad: function () {
+                this.startPlot();
+                }
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_data2: "scr_data2",
+        scr_effect: "scr_effect",
+        scr_public: "scr_public"
+    }],
+    scr_public: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "4bdd0LrXWhLypzYw/KwkeQ9", "scr_public"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
+        cc._RF.push(t, "4bdd0LrXWhLypzYw/KwkeQ9", "scr_public");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
                     var n = {
-                        itemName: ["果子", "木材", "易拉罐", "生肉", "亚麻", "艾草", "烟草", "烟头", "黑曜石", "火狐皮", "50ml啤酒", "白色粉末", "眼泪"], itemName2: ["熟肉", "伤药", "帐篷", "木棍", "麻布衣", "陷阱", "驱蚊工具", "香烟", "匕首", "皮衣", "黑刀", "红夹克", "啤酒", "┑(=^ω^=)┑", "子弹", "晓风披肩", "漂亮石头", "放大镜", "装避鞋", "枪", "板砖", "小裤裤", "女装", "创口贴", "滑稽裤", "护身符", "幸运石", "晓月手链"], ifNotify: !1, init: function () { var t = cc.find("Canvas/Text"), n = e("scr_data"); t.getChildByName("txt_day").getComponent("cc.Label").string = this.regionName() + n.day + "天", t.getChildByName("txt_energy").getComponent("cc.Label").string = n.energy + "/" + this.maxEnergy(), t.getChildByName("txt_hunger").getComponent("cc.Label").string = n.hunger + "/" + this.maxHunger(), t.getChildByName("txt_health").getComponent("cc.Label").string = "健康  " + n.health, t.getChildByName("txt_hp").getComponent("cc.Label").string = "生命  " + n.role.hp + "/" + this.role.maxHp(), t.getChildByName("txt_att").getComponent("cc.Label").string = "攻击  " + this.role.att(), t.getChildByName("txt_def").getComponent("cc.Label").string = "防御  " + this.role.def(), t.getChildByName("txt_money").getComponent("cc.Label").string = "金钱  " + (n.money / 10).toFixed(1), t.getChildByName("txt_distance").getComponent("cc.Label").string = "离家  " + n.distance + "km", t.getChildByName("txt_item1").getComponent("cc.Label").string = "伤药  " + n.itemNum2[1], t.getChildByName("txt_item2").getComponent("cc.Label").string = "食物  " + n.itemNum[0] + "+" + n.itemNum2[0], this.mainUITextColor(), this.buttonState(), this.showPlace() }, mainUITextColor: function () { var t = e("scr_data"), n = cc.find("Canvas/Button"), a = ""; t.hunger <= 0 && (a += "【饥饿】"), t.skillLv[4] >= 1 && (a += "【烟瘾】"), t.buffState[0] >= 1 && (a += "【暴躁】"), n.getChildByName("txt_state").getComponent("cc.Label").string = a }, showPlace: function () {
+                    itemName: ["果子", "木材", "易拉罐", "生肉", "亚麻", "艾草", "烟草", "烟头", "黑曜石", "火狐皮", "50ml啤酒", "白色粉末", "眼泪"],
+                    itemName2: ["熟肉", "伤药", "帐篷", "木棍", "麻布衣", "陷阱", "驱蚊工具", "香烟", "匕首", "皮衣", "黑刀", "红夹克", "啤酒", "┑(=^ω^=)┑", "子弹", "晓风披肩", "漂亮石头", "放大镜", "装避鞋", "枪", "板砖", "小裤裤", "女装", "创口贴", "滑稽裤", "护身符", "幸运石", "晓月手链"],
+                    ifNotify: !1,
+                    init: function () {
+                        var t = cc.find("Canvas/Text"), n = e("scr_data");
+                        t.getChildByName("txt_day").getComponent("cc.Label").string = this.regionName() + n.day + "天";
+                        t.getChildByName("txt_energy").getComponent("cc.Label").string = n.energy + "/" + this.maxEnergy();
+                        t.getChildByName("txt_hunger").getComponent("cc.Label").string = n.hunger + "/" + this.maxHunger();
+                        t.getChildByName("txt_health").getComponent("cc.Label").string = "健康  " + n.health;
+                        t.getChildByName("txt_hp").getComponent("cc.Label").string = "生命  " + n.role.hp + "/" + this.role.maxHp();
+                        t.getChildByName("txt_att").getComponent("cc.Label").string = "攻击  " + this.role.att();
+                        t.getChildByName("txt_def").getComponent("cc.Label").string = "防御  " + this.role.def();
+                        t.getChildByName("txt_money").getComponent("cc.Label").string = "金钱  " + (n.money / 10).toFixed(1);
+                        t.getChildByName("txt_distance").getComponent("cc.Label").string = "离家  " + n.distance + "km";
+                        t.getChildByName("txt_item1").getComponent("cc.Label").string = "伤药  " + n.itemNum2[1];
+                        t.getChildByName("txt_item2").getComponent("cc.Label").string = "食物  " + n.itemNum[0] + "+" + n.itemNum2[0];
+                        this.mainUITextColor();
+                        this.buttonState();
+                        this.showPlace();
+                    },
+                    mainUITextColor: function () {
+                        var t = e("scr_data"), n = cc.find("Canvas/Button"), a = "";
+                        t.hunger <= 0 && (a += "【饥饿】");
+                        t.skillLv[4] >= 1 && (a += "【烟瘾】");
+                        t.buffState[0] >= 1 && (a += "【暴躁】");
+                        n.getChildByName("txt_state").getComponent("cc.Label").string = a;
+                    },
+                    showPlace: function () {
                             var t = e("scr_data");
                             if (300 == t.distance) {
                                 var n = cc.find("Canvas/Button/txt_place").getComponent("cc.Label");
-                                0 == t.publicVar[13] ? n.string = "「城中村」" : 1 == t.publicVar[13] ? n.string = "「郊外」" : 2 == t.publicVar[13] ? n.string = "「市中心」" : 3 == t.publicVar[13] && (n.string = "「山洞" + t.publicVar3[1] + "米」")
+                            0 == t.publicVar[13] ? n.string = "「城中村」" : 1 == t.publicVar[13] ? n.string = "「郊外」" : 2 == t.publicVar[13] ? n.string = "「市中心」" : 3 == t.publicVar[13] && (n.string = "「山洞" + t.publicVar3[1] + "米」");
                             }
-                        }, buttonState: function () { var t = e("scr_data"), n = cc.find("Canvas/Button"), a = n.getChildByName("button_forward"), c = n.getChildByName("button_shop"), i = n.getChildByName("button_explore"); t.button[0] ? a.active = !0 : a.active = !1, t.button[1] && 0 == t.publicVar3[3] ? c.active = !0 : c.active = !1, t.button[2] ? i.active = !0 : i.active = !1 }, save: function () { var t = e("scr_data"); cc.sys.localStorage.setItem("userData", JSON.stringify(t)) }, save2: function () { var t = e("scr_data2"); cc.sys.localStorage.setItem("data2", JSON.stringify(t)) }, saveCopy: function () { var t = e("scr_dataCopy"); cc.sys.localStorage.setItem("dataCopy", JSON.stringify(t)) }, creatText: function (e, t, n, a, c, i) { var o = new cc.Node(t); o.addComponent(cc.Label); o.parent = e, o.setPosition(n, a), o.setContentSize(600, 300), o.setAnchorPoint(.5, .5), o.getComponent(cc.Label).overflow = 3, o.getComponent(cc.Label).string = c, o.getComponent(cc.Label).lineHeight = 60, o.getComponent(cc.Label).fontSize = 40 }, role: {
-                            maxHp: function a() { var t = e("scr_data"), a = t.role.maxHp + 50 * t.itemNum2[4] + 150 * t.itemNum2[11] + 50 * t.skillLv[2] + 100 * t.skillLv[15] + 150 * t.skillLv[19] + 25 * t.itemNum2[22] + t.publicVar3[16]; return a = Math.round(a * (1 + t.publicVar[15] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100)) }, att: function c() { var t = e("scr_data"), n = 1; 1 == t.publicVar && (n = 1); var c = t.role.att + 10 * t.itemNum2[3] + 20 * t.itemNum2[8] + 30 * t.itemNum2[10] + 10 * t.skillLv[11] + 20 * t.skillLv[18] + 30 * t.skillLv[22] + 5 * t.itemNum2[20] + t.publicVar3[4]; return "undefined" != typeof t.ifFollow[0] && 1 == t.ifFollow[0] && (c += parseInt(t.choice[5] / 4 + 10)), c = Math.round(c * (1 - t.skillLv[4] * n) * (1 + t.publicVar[17] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100)) }, def: function i() {
+                    },
+                    buttonState: function () {
+                        var t = e("scr_data"), n = cc.find("Canvas/Button"), a = n.getChildByName("button_forward"), i = n.getChildByName("button_shop"), c = n.getChildByName("button_explore");
+                        t.button[0] ? a.active = !0 : a.active = !1;
+                        t.button[1] && 0 == t.publicVar3[3] ? i.active = !0 : i.active = !1;
+                        t.button[2] ? c.active = !0 : c.active = !1;
+                    },
+                    save: function () {
+                        var t = e("scr_data");
+                        cc.sys.localStorage.setItem("userData", JSON.stringify(t));
+                    },
+                    save2: function () {
+                        var t = e("scr_data2");
+                        cc.sys.localStorage.setItem("data2", JSON.stringify(t));
+                    },
+                    saveCopy: function () {
+                        var t = e("scr_dataCopy");
+                        cc.sys.localStorage.setItem("dataCopy", JSON.stringify(t));
+                    },
+                    creatText: function (e, t, n, a, i, c) {
+                        var o = new cc.Node(t);
+                        o.addComponent(cc.Label);
+                        o.parent = e;
+                        o.setPosition(n, a);
+                        o.setContentSize(600, 300);
+                        o.setAnchorPoint(.5, .5);
+                        o.getComponent(cc.Label).overflow = 3;
+                        o.getComponent(cc.Label).string = i;
+                        o.getComponent(cc.Label).lineHeight = 60;
+                        o.getComponent(cc.Label).fontSize = 40;
+                    },
+                    role: {
+                        maxHp: function () {
+                            var t = e("scr_data"), n = t.role.maxHp + 50 * t.itemNum2[4] + 150 * t.itemNum2[11] + 50 * t.skillLv[2] + 100 * t.skillLv[15] + 150 * t.skillLv[19] + 25 * t.itemNum2[22] + t.publicVar3[16];
+                            n = Math.round(n * (1 + t.publicVar[15] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
+                            return n;
+                        },
+                        att: function () {
                                 var t = e("scr_data"), n = 1;
                                 1 == t.publicVar && (n = 1);
-                                var i = t.role.def + 10 * t.itemNum2[9] + 15 * t.itemNum2[11] + 10 * t.skillLv[8] + 20 * t.skillLv[16] + 30 * t.skillLv[20] + 5 * t.itemNum2[21] + t.publicVar3[10];
-                                return i = Math.round(i * (1 - t.skillLv[4] * n) * (1 + t.publicVar[16] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100))
+                            var a = t.role.att + 10 * t.itemNum2[3] + 20 * t.itemNum2[8] + 30 * t.itemNum2[10] + 10 * t.skillLv[11] + 20 * t.skillLv[18] + 30 * t.skillLv[22] + 5 * t.itemNum2[20] + t.publicVar3[4];
+                            "undefined" != typeof t.ifFollow[0] && 1 == t.ifFollow[0] && (a += parseInt(t.choice[5] / 4 + 10));
+                            a = Math.round(a * (1 - t.skillLv[4] * n) * (1 + t.publicVar[17] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
+                            return a;
+                        },
+                        def: function () {
+                            var t = e("scr_data"), n = 1;
+                            1 == t.publicVar && (n = 1);
+                            var a = t.role.def + 10 * t.itemNum2[9] + 15 * t.itemNum2[11] + 10 * t.skillLv[8] + 20 * t.skillLv[16] + 30 * t.skillLv[20] + 5 * t.itemNum2[21] + t.publicVar3[10];
+                            a = Math.round(a * (1 - t.skillLv[4] * n) * (1 + t.publicVar[16] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
+                            return a;
+                        }
+                    },
+                    ifMaxHp: function () {
+                        var t = e("scr_data"), n = this.role.maxHp();
+                        t.role.hp > n && (t.role.hp = n);
+                    },
+                    creatNode: function () {
+                        var e = this;
+                        cc.loader.loadRes("button1", cc.SpriteFrame, function (t, n) {
+                            var a = new cc.Node("NewSprite");
+                            a.addComponent(cc.Sprite).spriteFrame = n;
+                            a.parent = e.node;
+                        });
+                    },
+                    regionId: function () {
+                        var t = 0, n = [100, 300], a = e("scr_data").distance;
+                        a < n[0] && (t = 1e3);
+                        a == n[0] && (t = 2e3);
+                        a > n[0] && a < n[1] && (t = 3e3);
+                        a == n[1] && (t = 4e3);
+                        return t;
+                    },
+                    regionName: function () {
+                        var t = 0, n = [100, 300], a = e("scr_data").distance;
+                        a < n[0] && (t = "荒野.");
+                        a == n[0] && (t = "县城.");
+                        a > n[0] && a < n[1] && (t = "山脉.");
+                        a == n[1] && (t = "省城.");
+                        return t;
+                    },
+                    maxEnergy: function () {
+                        var t = e("scr_data"), n = t.skillLv, a = t.maxEnergy + 10 * n[1] + 20 * n[7] + 30 * n[12] + 10 * t.itemNum2[2] + t.friendSkill1[1] * t.ifFollow[0] * 20 + 10 * t.publicVar[18];
+                        return a;
+                    },
+                    maxHunger: function () {
+                        var t = e("scr_data"), n = t.skillLv, a = t.maxHunger + 50 * n[13];
+                        return a;
+                    },
+                    autoEat: function () {
+                        var t = e("scr_data");
+                        if (t.hunger <= 0) {
+                            if (t.itemNum[0] >= 1) {
+                                t.itemNum[0] -= 1;
+                                t.orderTimes[5] += 1;
+                                t.hunger += 20;
+                                100 * Math.random() < 15 && (t.health += 1);
+                                this.save();
+                                return !0;
                             }
-                        }, ifMaxHp: function () { var t = e("scr_data"), n = this.role.maxHp(); t.role.hp > n && (t.role.hp = n) }, creatNode: function () {
-                            var e = this, t = "button1"; cc.loader.loadRes(t, cc.SpriteFrame, function (t, n) {
-                                var a = new cc.Node("NewSprite"), c = a.addComponent(cc.Sprite);
-                                c.spriteFrame = n, a.parent = e.node
-                            })
-                        }, regionId: function () { var t = 0, n = e("scr_data"), a = [100, 300], c = n.distance; return c < a[0] && (t = 1e3), c == a[0] && (t = 2e3), c > a[0] && c < a[1] && (t = 3e3), c == a[1] && (t = 4e3), t }, regionName: function () { var t = 0, n = e("scr_data"), a = [100, 300], c = n.distance; return c < a[0] && (t = "荒野."), c == a[0] && (t = "县城."), c > a[0] && c < a[1] && (t = "山脉."), c == a[1] && (t = "省城."), t }, maxEnergy: function o() { var t = e("scr_data"), n = t.skillLv, o = t.maxEnergy + 10 * n[1] + 20 * n[7] + 30 * n[12] + 10 * t.itemNum2[2] + t.friendSkill1[1] * t.ifFollow[0] * 20 + 10 * t.publicVar[18]; return o }, maxHunger: function r() { var t = e("scr_data"), n = t.skillLv, r = t.maxHunger + 50 * n[13]; return r }, autoEat: function () {
-                            function t() {
-                                var e = 100 * Math.random();
-                                e < 15 && (n.health += 1)
-                            } var n = e("scr_data"); return n.hunger <= 0 && (n.itemNum[0] >= 1 ? (n.itemNum[0] -= 1, n.orderTimes[5] += 1, n.hunger += 20, t(), this.save(), !0) : !(n.itemNum2[0] >= 1) || (n.itemNum2[0] -= 1, n.orderTimes[2] += 1, n.hunger += 70, this.save(), !0))
-                        }, playBGM: function (e) { cc.audioEngine.stopAll(); var t = cc.game._persistRootNodes; for (var n in t) var a = t[n].getComponent("scr_BGM")[e]; cc.audioEngine.play(a, !1, 1) }, ifGameOver: function () {
+                            if (t.itemNum2[0] >= 1) {
+                                t.itemNum2[0] -= 1;
+                                t.orderTimes[2] += 1;
+                                t.hunger += 70;
+                                this.save();
+                                return !0;
+                            }
+                            return !0;
+                        }
+                        return !1;
+                    },
+                    playBGM: function (e) {
+                        cc.audioEngine.stopAll();
+                        var t = cc.game._persistRootNodes;
+                        for (var n in t) var a = t[n].getComponent("scr_BGM")[e];
+                        cc.audioEngine.play(a, !1, 1);
+                    },
+                    ifGameOver: function () {
                             if (e("scr_data").health <= 0) {
                                 var t = this.regionId();
-                                1e3 == t && cc.director.loadScene("over"), t > 1e3 && cc.director.loadScene("over2")
+                            1e3 == t && cc.director.loadScene("over");
+                            t > 1e3 && cc.director.loadScene("over2");
                             }
-                        }, showText: function (e, t, n, a) { var c = new cc.Node(t); c.addComponent(cc.Label); c.parent = e, c.setPosition(0, 0), c.opacity = 0, c.runAction(cc.fadeIn(3)), c.color = new cc.Color(255, 255, 255), c.getComponent(cc.Label).overflow = 3, c.getComponent(cc.Label).horizontalAlign = 1, c.setContentSize(600, 300), c.getComponent(cc.Label).string = n, c.getComponent(cc.Label).lineHeight = a || 40, c.getComponent(cc.Label).fontSize = 40 }, showText2: function (e, t, n, a) {
-                            var c = new cc.Node(t);
-                            c.addComponent(cc.Label);
-                            c.parent = e, c.setPosition(0, 0), c.color = new cc.Color(115, 115, 115), c.getComponent(cc.Label).overflow = 3, c.setContentSize(630, 300), c.getComponent(cc.Label).string = n, c.getComponent(cc.Label).lineHeight = a, c.getComponent(cc.Label).fontSize = 32
+                    },
+                    showText: function (e, t, n, a) {
+                        var i = new cc.Node(t);
+                        i.addComponent(cc.Label);
+                        i.parent = e;
+                        i.setPosition(0, 0);
+                        i.opacity = 0;
+                        i.runAction(cc.fadeIn(3));
+                        i.color = new cc.Color(255, 255, 255);
+                        i.getComponent(cc.Label).overflow = 3;
+                        i.getComponent(cc.Label).horizontalAlign = 1;
+                        i.setContentSize(600, 300);
+                        i.getComponent(cc.Label).string = n;
+                        i.getComponent(cc.Label).lineHeight = a || 40;
+                        i.getComponent(cc.Label).fontSize = 40;
+                    },
+                    showText2: function (e, t, n, a) {
+                        var i = new cc.Node(t);
+                        i.addComponent(cc.Label);
+                        i.parent = e;
+                        i.setPosition(0, 0);
+                        i.color = new cc.Color(115, 115, 115);
+                        i.getComponent(cc.Label).overflow = 3;
+                        i.setContentSize(630, 300);
+                        i.getComponent(cc.Label).string = n;
+                        i.getComponent(cc.Label).lineHeight = a;
+                        i.getComponent(cc.Label).fontSize = 32;
                         }
                     };
-                    t.exports = n
+                t.exports = n;
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_data2: "scr_data2", scr_dataCopy: "scr_dataCopy" }], scr_quitGame: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_data2: "scr_data2",
+        scr_dataCopy: "scr_dataCopy"
+    }],
+    scr_quitGame: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "b8981TVaLZEQZriw0Ikoosd", "scr_quitGame"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    var e = this;
+        cc._RF.push(t, "b8981TVaLZEQZriw0Ikoosd", "scr_quitGame");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
                     cc.eventManager.addListener({
-                        event: cc.EventListener.KEYBOARD, onKeyPressed: function (e, t) {
-                            e === cc.KEY.back && cc.director.end()
+                    event: cc.EventListener.KEYBOARD,
+                    onKeyPressed: function (e, t) {
+                        e === cc.KEY.back && cc.director.end();
                         }
-                    }, e.node)
+                }, this.node);
                 }
-            }), cc._RFpop()
-        }, {}], scr_readConfession: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_readConfession: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "edbeey5ue9CDZU2M2ziBjld", "scr_readConfession"), cc.Class({
-                "extends": cc.Component, properties: {}, read: function () {
-                    var t = ["1111111", "我是个失败的人", "aaa", "bbb", "ccc"], n = e("scr_effect"), a = e("scr_data").achieve, c = Math.random(), i = t.length, o = parseInt(a / 100);
-                    o > i - 5 && (o = i - 5);
+        cc._RF.push(t, "edbeey5ue9CDZU2M2ziBjld", "scr_readConfession");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            read: function () {
+                var t = ["1111111", "我是个失败的人", "aaa", "bbb", "ccc"], n = e("scr_effect"), a = e("scr_data").achieve, i = Math.random(), c = t.length, o = parseInt(a / 100);
+                o > c - 5 && (o = c - 5);
                     var r = Math.round(4 * Math.random() + o);
-                    c > .5 ? n.playText("Canvas/Text/txt_confession", "我该做点什么呢？", 120) : n.playText("Canvas/Text/txt_confession", t[r], 120)
-                }, onLoad: function () {
-                    this.schedule(this.read, 30)
+                i > .5 ? n.playText("Canvas/Text/txt_confession", "我该做点什么呢？", 120) : n.playText("Canvas/Text/txt_confession", t[r], 120);
+            },
+            onLoad: function () {
+                this.schedule(this.read, 30);
                 }
-            }), cc._RFpop();
-        }, { scr_data: "scr_data", scr_effect: "scr_effect" }], scr_restDetermine: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_effect: "scr_effect"
+    }],
+    scr_restDetermine: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "64f6f/B7StMlZJx3Vgs0Rn/", "scr_restDetermine");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                cc.director.loadScene("event");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_rest: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "64f6f/B7StMlZJx3Vgs0Rn/", "scr_restDetermine"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    cc.director.loadScene("event")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
-                }
-            }), cc._RFpop()
-        }, {}], scr_rest: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "6fbc4dkoxJCWoP/GvoxW/9l", "scr_rest"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t) {
+        cc._RF.push(t, "6fbc4dkoxJCWoP/GvoxW/9l", "scr_rest");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t) {
                     var n = new cc.Node(e);
                     n.addComponent(cc.Label);
-                    n.parent = cc.find("Canvas/SkillShow"), n.setPosition(0, 0), n.color = new cc.Color(255, 255, 255), n.getComponent(cc.Label).overflow = 3, n.getComponent(cc.Label).horizontalAlign = 0, n.setContentSize(600, 300), n.getComponent(cc.Label).string = t, n.getComponent(cc.Label).lineHeight = 60, n.getComponent(cc.Label).fontSize = 40
-                }, restMain: function () {
-                    function t() {
-                        S.publicVar2[20] = parseInt(100 * Math.random() - 40), S.publicVar[14] = parseInt(50 * Math.random()), S.publicVar3[4] = 0, S.publicVar3[9] = 0, S.publicVar3[10] = 0, S.publicVar3[11] = 0, S.publicVar3[16] = 0, S.publicVar3[17] = 0, S.publicVar3[18] = 0, 0 == S.publicVar3[2] ? S.publicVar[13] = 0 : S.publicVar[13] = 1, S.publicVar3[15] = 0, S.plotId = 0
+                n.parent = cc.find("Canvas/SkillShow");
+                n.setPosition(0, 0);
+                n.color = new cc.Color(255, 255, 255);
+                n.getComponent(cc.Label).overflow = 3;
+                n.getComponent(cc.Label).horizontalAlign = 0;
+                n.setContentSize(600, 300);
+                n.getComponent(cc.Label).string = t;
+                n.getComponent(cc.Label).lineHeight = 60;
+                n.getComponent(cc.Label).fontSize = 40;
+            },
+            restMain: function () {
+                var t = e("scr_data"), n = e("scr_public"), a = t.skillLv, i = this;
+                (function () {
+                    t.publicVar2[20] = parseInt(100 * Math.random() - 40);
+                    t.publicVar[14] = parseInt(50 * Math.random());
+                    t.publicVar3[4] = 0;
+                    t.publicVar3[9] = 0;
+                    t.publicVar3[10] = 0;
+                    t.publicVar3[11] = 0;
+                    t.publicVar3[16] = 0;
+                    t.publicVar3[17] = 0;
+                    t.publicVar3[18] = 0;
+                    0 == t.publicVar3[2] ? t.publicVar[13] = 0 : t.publicVar[13] = 1;
+                    t.publicVar3[15] = 0;
+                    t.plotId = 0;
+                })();
+                (function () {
+                    t.day += 1;
+                    cc.find("Canvas/Day").getComponent("cc.Label").string = "第" + t.day + "天";
+                })();
+                n.autoEat();
+                (function () {
+                    var e = 3 * t.orderTimes[1] - t.orderTimes[4], n = 100 * Math.random();
+                    1 == t.publicVar[1] && (e = t.orderTimes[1] - t.orderTimes[4]);
+                    if (n < e) {
+                        t.publicVar2[8] += 1;
+                        t.skillLv[4] = 1;
+                        i.creatText("smoke", "【烟瘾】发作！");
+                    } else t.skillLv[4] = 0;
+                })();
+                (function () {
+                    cc.find("Canvas/energy/text");
+                    var e = 0, a = n.maxEnergy();
+                    t.energy += a;
+                    t.energy > a && (t.energy = a);
+                    if (c()) {
+                        e = 20;
+                        t.energy += e;
                     }
-                    function n() {
-                        S.day += 1, cc.find("Canvas/Day").getComponent("cc.Label").string = "第" + S.day + "天"
+                    cc.find("Canvas/AttrShow/energy/text").getComponent("cc.Label").string = "精力 +" + (a + e) + "（" + t.energy + "/" + a + "）";
+                })();
+                (function () {
+                    if (t.itemNum2[6] > 0) {
+                        var e = 30 * t.itemNum2[6];
+                        n.role.maxHp();
+                        c() && (e *= 2);
+                        t.role.hp += e;
+                        n.ifMaxHp();
+                        cc.find("Canvas/AttrShow/hp/text").getComponent("cc.Label").string = "生命 +" + e + "（" + t.role.hp + "/" + n.role.maxHp() + "）";
+                    } else cc.find("Canvas/AttrShow/hp").active = !1;
+                })();
+                (function () {
+                    var e = n.regionId();
+                    1e3 == e && (t.stayDay[0] += 1);
+                    2e3 == e && (t.stayDay[1] += 1);
+                    3e3 == e && (t.stayDay[2] += 1);
+                    4e3 == e && (t.stayDay[3] += 1);
+                })();
+                (function () {
+                    if (100 * Math.random() < 20) {
+                        var e = function () {
+                            var e = 100 * Math.random(), a = n.regionId(), i = 800, c = 10 * (t.itemNum2[19] - 1) + 1;
+                            if (e < 70) {
+                                var o = t.randomEvent[3], r = [800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 881, 882, 0];
+                                i = r[o];
+                            } else if (4e3 == a) {
+                                var o = t.randomEvent[3], r = [800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 881, 882, 0];
+                                i = r[o];
+                            } else s = t.randomEvent[4], i = [700, 701, 702, 703, 704, 705, 0][s];
+                            var s;
+                            t.day >= 21 && 1e3 == a && (i = 997);
+                            t.day >= 83 && 3e3 == a && (i = 996);
+                            e < c && (i = 900003);
+                            t.day >= 178 && (i = 0);
+                            return i;
+                        }();
+                        0 != e && (t.enemyId = e);
                     }
-                    function a() {
-                        var e = 3 * S.orderTimes[1] - S.orderTimes[4], t = 100 * Math.random();
-                        1 == S.publicVar[1] && (e = S.orderTimes[1] - S.orderTimes[4]), t < e ? (S.publicVar2[8] += 1, S.skillLv[4] = 1, w.creatText("smoke", "【烟瘾】发作！")) : S.skillLv[4] = 0
+                })();
+                !function () {
+                    if (100 == t.distance && t.stayDay[1] >= 23) {
+                        t.button[0] = !0;
+                        t.button[1] = !0;
                     }
-                    function c() {
-                        var e = (cc.find("Canvas/energy/text"), 0), t = H.maxEnergy();
-                        S.energy += t, S.energy > t && (S.energy = t), _() && (e = 20, S.energy += e), cc.find("Canvas/AttrShow/energy/text").getComponent("cc.Label").string = "精力 +" + (t + e) + "（" + S.energy + "/" + t + "）"
+                }();
+                (function () {
+                    (function () {
+                        if (t.hunger <= 0) {
+                            t.health -= 2;
+                            i.creatText("hunger", "【饥饿】健康值降低2点！");
                     }
-                    function i() {
-                        var e = 20;
-                        100 * Math.random();
-                        S.hunger <= 0 && (e = 0), S.hunger -= e, cc.find("Canvas/AttrShow/hunger/text").getComponent("cc.Label").string = "饥饿 -" + e + "（" + S.hunger + "/" + H.maxHunger() + "）"
+                    })();
+                    (function () {
+                        var e = 100 * Math.random(), n = t.itemNum2[5];
+                        if (t.itemNum2[5] > 0 && e < 30) {
+                            var a = 100 * Math.random();
+                            if (a <= 20) {
+                                t.itemNum[3] += n;
+                                i.creatText("skill1", "【陷阱】获得「生肉」*" + n);
+                                return !0;
                     }
-                    function o() {
-                        if (S.itemNum2[6] > 0) {
-                            var e = 30 * S.itemNum2[6];
-                            H.role.maxHp();
-                            _() && (e = 2 * e), S.role.hp += e, H.ifMaxHp(), cc.find("Canvas/AttrShow/hp/text").getComponent("cc.Label").string = "生命 +" + e + "（" + S.role.hp + "/" + H.role.maxHp() + "）"
-                        } else cc.find("Canvas/AttrShow/hp").active = !1
-                    }
-                    function r() {
-                        var e = H.regionId();
-                        1e3 == e && (S.stayDay[0] += 1), 2e3 == e && (S.stayDay[1] += 1), 3e3 == e && (S.stayDay[2] += 1), 4e3 == e && (S.stayDay[3] += 1)
-                    }
-                    function s() {
-                        var e = 100 * Math.random();
-                        if (e < 20) {
-                            var t = l();
-                            0 != t && (S.enemyId = t)
+                            if (a > 20 && a <= 40) {
+                                t.itemNum[5] += n;
+                                i.creatText("skill1", "【陷阱】获得「艾草」*" + n);
+                                return !0;
                         }
+                            if (a > 40 && a <= 60) {
+                                t.itemNum[0] += n;
+                                i.creatText("skill1", "【陷阱】获得「果子」*" + n);
+                                return !0;
                     }
-                    function l() {
-                        function e() {
-                            var e = S.randomEvent[4], t = [700, 701, 702, 703, 704, 705, 0];
-                            a = t[e]
-                        }
-                        var t = 100 * Math.random(), n = H.regionId(), a = 800, c = 10 * (S.itemNum2[19] - 1) + 1;
-                        if (t < 70) {
-                            var i = S.randomEvent[3], o = [800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 881, 882, 0];
-                            a = o[i]
-                        } else if (4e3 == n) {
-                            var i = S.randomEvent[3], o = [800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 881, 882, 0];
-                            a = o[i]
-                        } else e();
-                        return S.day >= 21 && 1e3 == n && (a = 997), S.day >= 83 && 3e3 == n && (a = 996), t < c && (a = 900003), S.day >= 178 && (a = 0), a
+                            if (a > 60 && a <= 80) {
+                                t.itemNum[1] += n;
+                                i.creatText("skill1", "【陷阱】获得「木材」*" + n);
+                                return !0;
                     }
-                    function u() {
-                        p()
+                            if (a > 80) {
+                                t.itemNum[4] += n;
+                                i.creatText("skill1", "【陷阱】获得「亚麻」*" + n);
                     }
-                    function p() {
-                        100 == S.distance && S.stayDay[1] >= 23 && (S.button[0] = !0, S.button[1] = !0)
                     }
-                    function d() {
-                        f(), h(), v(), y(), g(), b(), m(), x(), E(), I(), V(), N(), T(), k()
-                    }
-                    function m() {
-                        var e = 100 * Math.random(), t = S.publicVar[0] / 3;
-                        e < t && (S.energy -= parseInt(.5 * S.energy), w.creatText("hunger", "【失眠】精力-50%！"))
-                    }
-                    function f() {
-                        S.hunger <= 0 && (S.health -= 2, w.creatText("hunger", "【饥饿】健康值降低2点！"))
-                    }
-                    function h() {
-                        var e = 100 * Math.random(), t = S.itemNum2[5];
-                        if (S.itemNum2[5] > 0 && e < 30) {
-                            var n = 100 * Math.random();
-                            if (n <= 20) return S.itemNum[3] += t, w.creatText("skill1", "【陷阱】获得「生肉」*" + t), !0;
-                            if (n > 20 && n <= 40) return S.itemNum[5] += t, w.creatText("skill1", "【陷阱】获得「艾草」*" + t), !0;
-                            if (n > 40 && n <= 60) return S.itemNum[0] += t, w.creatText("skill1", "【陷阱】获得「果子」*" + t), !0;
-                            if (n > 60 && n <= 80) return S.itemNum[1] += t, w.creatText("skill1", "【陷阱】获得「木材」*" + t), !0;
-                            if (n > 80) return S.itemNum[4] += t, w.creatText("skill1", "【陷阱】获得「亚麻」*" + t), !0
-                        }
-                    }
-                    function v() {
-                        if (R[10] > 0) {
+                    })();
+                    (function () {
+                        if (a[10] > 0) {
                             var e = 100 * Math.random();
                             if (e < 40) {
-                                var t = R[10];
-                                _() && (t = 2 * t), S.health += t, w.creatText("skill2", "【自愈】健康值+" + t)
+                                var n = a[10];
+                                c() && (n *= 2);
+                                t.health += n;
+                                i.creatText("skill2", "【自愈】健康值+" + n);
                             }
                         }
-                    }
-                    function y() {
+                    })();
+                    (function () {
                         var e = 100 * Math.random();
-                        if (R[6] > 0 && e < 40) {
-                            var t = R[6] + parseInt(S.randomEvent[6] / 10);
-                            S.money += t, w.creatText("skill3", "【捡钱】获得" + (t / 10).toFixed(1) + "元")
+                        if (a[6] > 0 && e < 40) {
+                            var n = a[6] + parseInt(t.randomEvent[6] / 10);
+                            t.money += n;
+                            i.creatText("skill3", "【捡钱】获得" + (n / 10).toFixed(1) + "元");
                         }
-                    }
-                    function g() {
-                        var e = S.itemNum2[13];
+                    })();
+                    (function () {
+                        var e = t.itemNum2[13];
                         if (e > 0) {
-                            var t = 1 * e;
-                            S.money += t, w.creatText("getMoney", "【┑(=^ω^=)┑】获得" + (t / 10).toFixed(1) + "元")
+                            var n = 1 * e;
+                            t.money += n;
+                            i.creatText("getMoney", "【┑(=^ω^=)┑】获得" + (n / 10).toFixed(1) + "元");
                         }
-                    }
-                    function b() {
+                    })();
+                    (function () {
                         var e = 100 * Math.random();
-                        S.skillLv[26] > 0 && e < 30 && (S.energy += parseInt(.3 * H.maxEnergy()), w.creatText("spirit", "【不屈的精神力】额外恢复30%精力！"))
+                        if (t.skillLv[26] > 0 && e < 30) {
+                            t.energy += parseInt(.3 * n.maxEnergy());
+                            i.creatText("spirit", "【不屈的精神力】额外恢复30%精力！");
                     }
-                    function _() {
-                        return 1 == S.ifFollow[0] && 1 == S.friendSkill1[4]
+                    })();
+                    (function () {
+                        var e = 100 * Math.random(), n = t.publicVar[0] / 3;
+                        if (e < n) {
+                            t.energy -= parseInt(.5 * t.energy);
+                            i.creatText("hunger", "【失眠】精力-50%！");
                     }
-                    function x() {
-                        1 == S.ifFollow[0] && 0 == S.publicVar[2] && (S.publicVar2[10] += 1, S.choice[5] -= 1, w.creatText("ifEat", "【不开森】晓月好感-1（哼！）")), S.publicVar[2] = 0
+                    })();
+                    (function () {
+                        if (1 == t.ifFollow[0] && 0 == t.publicVar[2]) {
+                            t.publicVar2[10] += 1;
+                            t.choice[5] -= 1;
+                            i.creatText("ifEat", "【不开森】晓月好感-1（哼！）");
                     }
-                    function C() {
-                        if (9 == S.stayDay[2]) {
-                            var t = e("scr_dataCopy");
-                            t = JSON.parse(cc.sys.localStorage.getItem("userData")), cc.sys.localStorage.setItem("dataCopy", JSON.stringify(t))
-                        }
-                    }
-                    function E() {
-                        if (S.publicVar2[17] > 0) {
+                        t.publicVar[2] = 0;
+                    })();
+                    (function () {
+                        if (t.publicVar2[17] > 0) {
                             var e = 10 * Math.random() + 1;
-                            S.publicVar2[18] += e
+                            t.publicVar2[18] += e;
+                        }
+                    })();
+                    (function () {
+                        if (t.publicVar2[17] > 0 && t.itemNum2[16] > 0) {
+                            var e = t.itemNum2[16], n = 2 * e, a = parseInt(n * t.publicVar2[21] / 10), c = Math.max(parseInt(n - a + 7 - t.publicVar2[21] + 3), 0);
+                            t.money += a;
+                            t.publicVar2[18] += n - a;
+                            t.itemNum2[16] = 0;
+                            t.publicVar[7] += c;
+                            i.creatText("sell", "【出售】漂亮石头" + e + "个，总售额" + (n / 10).toFixed(1) + "元，你分到" + (a / 10).toFixed(1) + "元！碧瑶好感+" + c);
+                    }
+                    })();
+                    (function () {
+                        if (1 == t.ifFollow[1] && t.friendSkill[2] > 0) {
+                            var e = 100 * Math.random(), n = Math.max(parseInt(t.publicVar[7] / 15 + 25), 25);
+                            if (e < n) {
+                                var a = parseInt(.02 * t.publicVar2[18]);
+                                t.publicVar2[18] -= a;
+                                t.money += a;
+                                i.creatText("sell", "【爱心】碧瑶给了你" + (a / 10).toFixed(1) + "元零钱！");
                         }
                     }
-                    function I() {
-                        if (S.publicVar2[17] > 0 && S.itemNum2[16] > 0) {
-                            var e = S.itemNum2[16], t = 2 * e, n = parseInt(t * S.publicVar2[21] / 10), a = Math.max(parseInt(t - n + 7 - S.publicVar2[21] + 3), 0);
-                            S.money += n, S.publicVar2[18] += t - n, S.itemNum2[16] = 0, S.publicVar[7] += a, w.creatText("sell", "【出售】漂亮石头" + e + "个，总售额" + (t / 10).toFixed(1) + "元，你分到" + (n / 10).toFixed(1) + "元！碧瑶好感+" + a)
+                    })();
+                    (function () {
+                        if (1 == t.ifFollow[1] && t.friendSkill[7]) {
+                            var e = 100 * Math.random(), n = Math.max(parseInt(t.publicVar[7] / 10 + 20), 20);
+                            if (e < n) {
+                                t.orderTimes[4] += 1;
+                                i.creatText("reduceSmoke", "【监督】烟瘾降低1%！");
                         }
                     }
-                    function V() {
-                        if (1 == S.ifFollow[1] && S.friendSkill[2] > 0) {
-                            var e = 100 * Math.random(), t = Math.max(parseInt(S.publicVar[7] / 15 + 25), 25);
-                            if (e < t) {
-                                var n = parseInt(.02 * S.publicVar2[18]);
-                                S.publicVar2[18] -= n, S.money += n, w.creatText("sell", "【爱心】碧瑶给了你" + (n / 10).toFixed(1) + "元零钱！")
+                    })();
+                    (function () {
+                        if (t.publicVar3[5] > 0) {
+                            var e = parseInt(.2 * t.publicVar3[5] + 1);
+                            t.publicVar3[5] -= e;
+                            t.publicVar3[5] < 0 && (t.publicVar3[5] = 0);
+                            i.creatText("gameBuff", "【兴奋消退】玩游戏获得的属性加成效果消退" + e + "%，还剩下" + t.publicVar3[5] + "%");
                             }
+                    })();
+                    (function () {
+                        if (t.stayDay[3] > 3) {
+                            t.publicVar3[7] += parseInt(15 * Math.random() + 5);
+                            t.publicVar3[8] += 1;
                         }
+                    })();
+                })();
+                (function () {
+                    var e = 20;
+                    Math.random();
+                    t.hunger <= 0 && (e = 0);
+                    t.hunger -= e;
+                    cc.find("Canvas/AttrShow/hunger/text").getComponent("cc.Label").string = "饥饿 -" + e + "（" + t.hunger + "/" + n.maxHunger() + "）";
+                })();
+                (function () {
+                    if (9 == t.stayDay[2]) {
+                        var n = e("scr_dataCopy");
+                        n = JSON.parse(cc.sys.localStorage.getItem("userData"));
+                        cc.sys.localStorage.setItem("dataCopy", JSON.stringify(n));
                     }
-                    function N() {
-                        if (1 == S.ifFollow[1] && S.friendSkill[7]) {
-                            var e = 100 * Math.random(), t = Math.max(parseInt(S.publicVar[7] / 10 + 20), 20);
-                            e < t && (S.orderTimes[4] += 1, w.creatText("reduceSmoke", "【监督】烟瘾降低1%！"))
+                })();
+                n.save();
+                function c() {
+                    return 1 == t.ifFollow[0] && 1 == t.friendSkill1[4];
                         }
+            },
+            onLoad: function () {
+                var t = 0;
+                e("scr_data");
+                this.restMain();
+                cc.find("Canvas/Day").runAction(cc.fadeIn(1));
+                this.schedule(function () {
+                    var e = ["Canvas/AttrShow", "Canvas/SkillShow", "Canvas/Determine"];
+                    "Canvas/Determine" == e[t] && (cc.find("Canvas/Determine").active = !0);
+                    cc.find(e[t]).runAction(cc.fadeIn(1));
+                    t++;
+                }, 1, 2);
+                e("scr_public").save();
                     }
-                    function T() {
-                        if (S.publicVar3[5] > 0) {
-                            var e = parseInt(.2 * S.publicVar3[5] + 1);
-                            S.publicVar3[5] -= e, S.publicVar3[5] < 0 && (S.publicVar3[5] = 0), w.creatText("gameBuff", "【兴奋消退】玩游戏获得的属性加成效果消退" + e + "%，还剩下" + S.publicVar3[5] + "%")
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_dataCopy: "scr_dataCopy",
+        scr_public: "scr_public"
+    }],
+    scr_shop2: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "83a81yV4XxNdIIu5OySpYvE", "scr_shop2");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public"), i = cc.find("Canvas/UI1"), c = i.getChildByName("choice1"), o = i.getChildByName("choice2"), r = i.getChildByName("choice3"), s = i.getChildByName("choice4"), l = i.getChildByName("choice5"), u = i.getChildByName("choice6"), p = i.getChildByName("choice7");
+                f();
+                (function () {
+                    c.on("touchstart", d, this);
+                    o.on("touchstart", m, this);
+                    r.on("touchstart", h, this);
+                    s.on("touchstart", v, this);
+                    l.on("touchstart", y, this);
+                    u.on("touchstart", g, this);
+                    p.on("touchstart", b, this);
+                })();
+                function f() {
+                    cc.find("Canvas/money").getComponent("cc.Label").string = "白色粉末：" + t.itemNum[11] + " / 金钱:" + (t.money / 10).toFixed(1);
+                    cc.find("Canvas/UI1/choice5/text").getComponent("cc.Label").string = "枪（需" + (10 + 10 * t.itemNum2[19]) + "个白色粉末）";
+                    cc.find("Canvas/UI1/choice7/text").getComponent("cc.Label").string = "出售所有漂亮石头（每个1毛，已有" + t.itemNum2[16] + "个）";
                         }
-                    }
-                    function k() {
-                        S.stayDay[3] > 3 && (S.publicVar3[7] += parseInt(15 * Math.random() + 5), S.publicVar3[8] += 1)
-                    }
-                    var S = e("scr_data"), H = e("scr_public"), R = S.skillLv, w = this;
-                    t(), n(), H.autoEat(), a(), c(), o(), r(), s(), u(), d(), i(), C(), H.save()
-                }, onLoad: function () {
-                    function t() {
-                        var e = ["Canvas/AttrShow", "Canvas/SkillShow", "Canvas/Determine"]; "Canvas/Determine"
-                            == e[n] && (cc.find("Canvas/Determine").active = !0), cc.find(e[n]).runAction(cc.fadeIn(1)), n++
-                    }
-                    var n = 0, a = (e("scr_data"), 1);
-                    this.restMain(), cc.find("Canvas/Day").runAction(cc.fadeIn(1)), this.schedule(t, a, 2), e("scr_public").save()
+                function d() {
+                    if (t.itemNum[11] >= 1) {
+                        t.itemNum[11] -= 1;
+                        t.money += 10;
+                        a.save();
+                        n.playText("Canvas/notify", "获得1元！", 60);
+                        f();
+                    } else n.playText("Canvas/notify", "白色粉末不足！", 60);
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_dataCopy: "scr_dataCopy", scr_public: "scr_public" }], scr_shop2: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "83a81yV4XxNdIIu5OySpYvE", "scr_shop2"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    function t() {
-                        cc.find("Canvas/money").getComponent("cc.Label").string = "白色粉末：" + u.itemNum[11] + " / 金钱:" + (u.money / 10).toFixed(1), cc.find("Canvas/UI1/choice5/text").getComponent("cc.Label").string = "枪（需" + (10 + 10 * u.itemNum2[19]) + "个白色粉末）", cc.find("Canvas/UI1/choice7/text").getComponent("cc.Label").string = "出售所有漂亮石头（每个1毛，已有" + u.itemNum2[16] + "个）"
+                function m() {
+                    if (t.itemNum[11] >= 4 && 0 == t.publicVar2[29]) {
+                        t.itemNum[11] -= 4;
+                        t.publicVar2[29] = 1;
+                        n.playText("Canvas/notify", "获得《少妇白洁》！请到看书界面使用。", 60);
+                        f();
+                    } else t.itemNum[11] < 4 ? n.playText("Canvas/notify", "白色粉末不足！", 60) : n.playText("Canvas/notify", "你已拥有此书！", 60);
                     }
-                    function n() {
-                        f.on("touchstart", a, this), h.on("touchstart", c, this), v.on("touchstart", i, this), y.on("touchstart", o, this), g.on("touchstart", r, this), b.on("touchstart", s, this), _.on("touchstart", l, this)
+                function h() {
+                    if (t.money >= 60 && 0 == t.publicVar2[23]) {
+                        t.money -= 60;
+                        t.publicVar2[23] = 1;
+                        n.playText("Canvas/notify", "获得《搬砖，从入门到放弃》！请到看书界面使用。", 60);
+                        f();
+                    } else t.money < 60 ? n.playText("Canvas/notify", "金钱不足！", 60) : n.playText("Canvas/notify", "你已拥有此书！", 60);
                     }
-                    function a() {
-                        u.itemNum[11] >= 1 ? (u.itemNum[11] -= 1, u.money += 10, d.save(), p.playText("Canvas/notify", "获得1元！", 60), t()) : p.playText("Canvas/notify", "白色粉末不足！", 60)
+                function v() {
+                    if (t.money >= 60 && 0 == t.publicVar2[26]) {
+                        t.money -= 60;
+                        t.publicVar2[26] = 1;
+                        n.playText("Canvas/notify", "获得《中国居民膳食指南1997版》！请到看书界面使用。", 60);
+                        f();
+                    } else t.money < 60 ? n.playText("Canvas/notify", "金钱不足！", 60) : n.playText("Canvas/notify", "你已拥有此书！", 60);
                     }
-                    function c() {
-                        u.itemNum[11] >= 4 && 0 == u.publicVar2[29] ? (u.itemNum[11] -= 4, u.publicVar2[29] = 1, p.playText("Canvas/notify", "获得《少妇白洁》！请到看书界面使用。", 60), t()) : u.itemNum[11] < 4 ? p.playText("Canvas/notify", "白色粉末不足！", 60) : p.playText("Canvas/notify", "你已拥有此书！", 60)
+                function y() {
+                    var e = 10 + 10 * t.itemNum2[19];
+                    if (t.itemNum[11] >= e) {
+                        t.itemNum[11] -= e;
+                        t.itemNum2[19] += 1;
+                        n.playText("Canvas/notify", "获得「枪」！", 60);
+                        f();
+                    } else n.playText("Canvas/notify", "白色粉末不足！", 60);
                     }
-                    function i() {
-                        u.money >= 60 && 0 == u.publicVar2[23] ? (u.money -= 60, u.publicVar2[23] = 1, p.playText("Canvas/notify", "获得《搬砖，从入门到放弃》！请到看书界面使用。", 60), t()) : u.money < 60 ? p.playText("Canvas/notify", "金钱不足！", 60) : p.playText("Canvas/notify", "你已拥有此书！", 60)
+                function g() {
+                    if (t.money >= 5) {
+                        t.money -= 5;
+                        t.itemNum2[14] += 1;
+                        n.playText("Canvas/notify", "获得「子弹」*1", 60);
+                        f();
+                    } else n.playText("Canvas/notify", "钱不够！", 60);
                     }
-                    function o() {
-                        u.money >= 60 && 0 == u.publicVar2[26] ? (u.money -= 60, u.publicVar2[26] = 1, p.playText("Canvas/notify", "获得《中国居民膳食指南1997版》！请到看书界面使用。", 60), t()) : u.money < 60 ? p.playText("Canvas/notify", "金钱不足！", 60) : p.playText("Canvas/notify", "你已拥有此书！", 60)
+                function b() {
+                    if (t.itemNum2[16] > 0) {
+                        var e = t.itemNum2[16];
+                        t.money += e;
+                        t.itemNum2[16] -= e;
+                        n.playText("Canvas/notify", "出售「漂亮石头」*" + e + "，获得" + (e / 10).toFixed(1) + "元！", 60);
+                        f();
+                    } else n.playText("Canvas/notify", "你身上没有漂亮石头~", 60);
                     }
-                    function r() {
-                        var e = 10 + 10 * u.itemNum2[19];
-                        u.itemNum[11] >= e ? (u.itemNum[11] -= e, u.itemNum2[19] += 1, p.playText("Canvas/notify", "获得「枪」！", 60), t()) : p.playText("Canvas/notify", "白色粉末不足！", 60)
                     }
-                    function s() {
-                        u.money >= 5 ? (u.money -= 5, u.itemNum2[14] += 1, p.playText("Canvas/notify", "获得「子弹」*1", 60), t()) : p.playText("Canvas/notify", "钱不够！", 60)
-                    }
-                    function l() {
-                        if (u.itemNum2[16] > 0) {
-                            var e = u.itemNum2[16];
-                            u.money += e, u.itemNum2[16] -= e, p.playText("Canvas/notify", "出售「漂亮石头」*" + e + "，获得" + (e / 10).toFixed(1) + "元！", 60), t()
-                        } else p.playText("Canvas/notify", "你身上没有漂亮石头~", 60)
-                    }
-                    var u = e("scr_data"), p = e("scr_effect"), d = e("scr_public"), m = cc.find("Canvas/UI1"), f = m.getChildByName("choice1"), h = m.getChildByName("choice2"), v = m.getChildByName("choice3"), y = m.getChildByName("choice4"), g = m.getChildByName("choice5"), b = m.getChildByName("choice6"), _ = m.getChildByName("choice7");
-                    t(), n()
-                }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_effect: "scr_effect", scr_public: "scr_public" }], scr_shop3: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "bddbc1AxUZNv63YXc4kCfkQ", "scr_shop3"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    function t() {
-                        I.getChildByName("back").on("touchstart", function () {
-                            e("scr_public").save(), cc.director.loadScene("main")
-                        }, this), _.r1 < R[0] ? N.on("touchstart", r, N) : N.on("touchstart", m, N), _.r2 < R[1] ? T.on("touchstart", s, T) : T.on("touchstart", m, T), _.r3 < R[2] ? k.on("touchstart", c, k) : k.on("touchstart", m, k), _.r4 < R[3] ? S.on("touchstart", a, S) : S.on("touchstart", m, S), x.publicVar3[7] > 800 ? H.on("touchstart", d, H) : _.r5 < R[4] ? H.on("touchstart", f, H) : H.on("touchstart", n, H), V.getChildByName("choice1").on("touchstart", i, this), V.getChildByName("choice2").on("touchstart", o, this), V.getChildByName("back").on("touchstart", function () {
-                            y(), v()
-                        }, this)
-                    }
-                    function n() {
-                        if (_.cureTimes >= 3) C.playText("Canvas/notify", "“啊哈哈哈哈哈~有些累了...下次再来哈~”", 60);
-                        else if (x.money >= 10) {
-                            var e = Math.max(100 - x.publicVar3[8], 0), t = 100 * Math.random();
-                            x.publicVar3[7] -= 10, _.cureTimes += 1, x.money -= 10, t < e ? (x.orderTimes[4] += 1, C.playText("Canvas/notify", "电疗成功！烟瘾减少1%，电疗店总资产+1元", 60)) : (x.health -= 1, C.playText("Canvas/notify", "电疗失败...健康减1点...电疗店总资产+1元", 60)), u()
-                        } else C.playText("Canvas/notify", "没钱！", 60)
-                    }
-                    function a() {
-                        if (_.gameTime2 - _.gameTime1 > 30) C.playText("Canvas/notify", "“小兄弟，没身份证的人只能临时上机两小时哦，我怕警察来查，请下次再玩吧~”", 60);
-                        else if (20 == x.publicVar3[6]) x.money += 1, x.publicVar3[6] += 1, C.playText("Canvas/notify", "你玩游戏的热情让网吧老板很是感动，老板鼓励你坚持梦想，并奖励你0.1元，~", 60);
-                        else if (50 == x.publicVar3[6]) x.money += 5, x.publicVar3[6] += 1, C.playText("Canvas/notify", "你成功晋级青铜段位，老板流出喜悦的泪水，并奖励你0.5元~", 60);
-                        else if (90 == x.publicVar3[6]) x.hunger = E.maxHunger(), x.publicVar3[6] += 1, C.playText("Canvas/notify", "你成功晋级白银段位，老板高兴的请你吃了一顿麻辣烫，饥饿全恢复！", 60);
-                        else if (140 == x.publicVar3[6]) x.money += 20, x.itemNum2[25] += 1, x.publicVar3[6] += 1, u(), C.playText("Canvas/notify", "你成功晋级黄金段位，老板奖励你2元钱，和一件个护身符~", 60);
-                        else if (200 == x.publicVar3[6]) x.itemNum2[21] += 1, x.itemNum2[22] += 1, x.publicVar3[6] += 1, C.playText("Canvas/notify", "你成功晋级白金段位，老板赠送你她的贴身衣物，获得【女装】*1和【小裤裤】*1！", 60);
-                        else if (300 == x.publicVar3[6]) x.hunger = E.maxHunger(), x.publicVar3[6] += 1, u(), C.playText("Canvas/notify", "你成功晋级砖石段位，老板兴奋的邀你去她房里睡一觉，精力全恢复！", 60);
-                        else if (450 == x.publicVar3[6]) x.itemNum2[17] += 1, x.itemNum2[26] += 1, x.itemNum2[27] += 1, x.publicVar3[6] += 1, C.playText("Canvas/notify", "你成功晋级大师段位，老板赠送你一些收集品，获得【晓月手链】*1【幸运石】*1【放大镜】*1！", 60);
-                        else if (700 == x.publicVar3[6]) x.role.att += 50, x.role.def += 25, x.role.maxHp += 250, x.publicVar3[6] += 1, E.save(), C.playText("Canvas/notify", "你成功晋级王者段位，老板授予你「王的男人」称号，攻击永久+50，防御永久+25，生命永久+250！", 60);
-                        else if (x.money >= 1) {
-                            var e = Math.min((40 + x.publicVar3[6] / 10).toFixed(1), 75), t = 100 * Math.random();
-                            x.money -= 1, t < e ? (x.publicVar3[5] < 99 && (x.publicVar3[5] += 1), x.publicVar3[6] += 1, _.gameTime2 += 1, C.playText("Canvas/notify", "游戏胜利！炒开森~攻防血提高1%（临时效果，随天数缓慢衰减）。游戏技术+1", 60), u()) : (x.publicVar3[5] = 0, x.publicVar3[6] += 1, _.gameTime2 += 1, C.playText("Canvas/notify", "游戏失败！不开心~属性加成消失...游戏技术+1", 60), u())
-                        } else C.playText("Canvas/notify", "没钱...", 60)
-                    }
-                    function c() {
-                        h(), g()
-                    }
-                    function i() {
-                        x.hunger > E.maxHunger() ? C.playText("Canvas/notify", "已经吃不下啦...", 60) : x.itemNum[3] >= 4 && x.itemNum[0] >= 5 ? (x.hunger += 350, x.maxHunger += 5, x.itemNum[3] -= 4, x.itemNum[0] -= 5, x.publicVar3[13] += 1, C.playText("Canvas/notify", "饥饿+350，最大饥饿值提高5点！", 60), u()) : C.playText("Canvas/notify", "食材不足~", 60)
-                    }
-                    function o() {
-                        x.hunger > E.maxHunger() ? C.playText("Canvas/notify", "已经吃不下啦...", 60) : x.itemNum[0] >= 5 ? (x.hunger += 100, x.health += 1, x.itemNum[0] -= 5, C.playText("Canvas/notify", "饥饿+100，健康值+1！", 60), u()) : C.playText("Canvas/notify", "食材不足~", 60)
-                    }
-                    function r() {
-                        var e = 100 * Math.random();
-                        if (0 == _.makeMoneyRate) C.playText("Canvas/notify", "“今日已投资，请明日再来吧~”", 60);
-                        else if (0 == x.money) C.playText("Canvas/notify", "“不好意思，请你出去~”", 60);
-                        else if (x.money > 500) C.playText("Canvas/notify", "“不好意思，你已超过国家监管限定金额，请你去实体银行吧，我们只是网上的小银行~”", 60);
-                        else if (e < _.makeMoneyRate) {
-                            var t = parseInt(x.money * _.makeMoneyProfit / 100);
-                            x.money += t, C.playText("Canvas/notify", "投资成功！金钱增加" + _.makeMoneyProfit + "%(+" + (t / 10).toFixed(1) + ")", 60), _.makeMoneyRate = 0, u()
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_effect: "scr_effect",
+        scr_public: "scr_public"
+    }],
+    scr_shop3: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "bddbc1AxUZNv63YXc4kCfkQ", "scr_shop3");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var t = this, n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = cc.find("Canvas/UI1"), o = cc.find("Canvas/UI2"), r = c.getChildByName("choice1"), s = c.getChildByName("choice2"), l = c.getChildByName("choice3"), u = c.getChildByName("choice4"), p = c.getChildByName("choice5"), f = (c.getChildByName("choice6"),
+                    [70, 70, 70, 70, 50]), d = [["披风", 15, 1, 100], ["小裤裤", 21, 1, 20], ["晓月手链", 27, 1, 20], ["幸运石", 26, 1, 20], ["板砖", 20, 1, 20], ["滑稽裤", 24, 1, 20]];
+                (function () {
+                    c.active = !0;
+                    o.active = !0;
+                    o.scale = 0;
+                    t.cureTimes = 0;
+                    t.gameTime1 = n.publicVar3[6];
+                    t.gameTime2 = n.publicVar3[6];
+                    t.r1 = 100 * Math.random();
+                    t.r2 = 100 * Math.random();
+                    t.r3 = 100 * Math.random();
+                    t.r4 = 100 * Math.random();
+                    t.r5 = 100 * Math.random();
+                    t.makeMoneyRate = (50 * Math.random() + 25).toFixed(1);
+                    t.makeMoneyProfit = (50 * Math.random()).toFixed(1);
+                    t.r3 < f[2] && (l.getChildByName("text").getComponent("cc.Label").string = "三楼：晓风料理");
+                    t.itemId = parseInt(5.99 * Math.random());
+                    t.itemDiscount = parseInt(30 * Math.random() + 60);
+                    t.itemName = d[t.itemId][0];
+                    t.itemPrice = d[t.itemId][3];
+                    t.finalPrice = parseInt(t.itemPrice * t.itemDiscount / 100);
+                })();
+                C();
+                (function () {
+                    c.getChildByName("back").on("touchstart", function () {
+                        e("scr_public").save();
+                        cc.director.loadScene("main");
+                    }, this);
+                    t.r1 < f[0] ? r.on("touchstart", b, r) : r.on("touchstart", I, r);
+                    t.r2 < f[1] ? s.on("touchstart", _, s) : s.on("touchstart", I, s);
+                    t.r3 < f[2] ? l.on("touchstart", v, l) : l.on("touchstart", I, l);
+                    t.r4 < f[3] ? u.on("touchstart", h, u) : u.on("touchstart", I, u);
+                    n.publicVar3[7] > 800 ? p.on("touchstart", E, p) : t.r5 < f[4] ? p.on("touchstart", V, p) : p.on("touchstart", m, p);
+                    o.getChildByName("choice1").on("touchstart", y, this);
+                    o.getChildByName("choice2").on("touchstart", g, this);
+                    o.getChildByName("back").on("touchstart", function () {
+                        o.runAction(cc.scaleTo(.3, 0));
+                        (function () {
+                            N();
+                            c.runAction(cc.scaleTo(.3, 1));
+                        })();
+                    }, this);
+                })();
+                x();
+                function m() {
+                    if (t.cureTimes >= 3) a.playText("Canvas/notify", "“啊哈哈哈哈哈~有些累了...下次再来哈~”", 60); else if (n.money >= 10) {
+                        var e = Math.max(100 - n.publicVar3[8], 0), i = 100 * Math.random();
+                        n.publicVar3[7] -= 10;
+                        t.cureTimes += 1;
+                        n.money -= 10;
+                        if (i < e) {
+                            n.orderTimes[4] += 1;
+                            a.playText("Canvas/notify", "电疗成功！烟瘾减少1%，电疗店总资产+1元", 60);
                         } else {
-                            var t = parseInt(x.money * _.makeMoneyProfit / 100);
-                            x.money -= t, C.playText("Canvas/notify", "投资失败...金钱缩水" + _.makeMoneyProfit + "%(-" + (t / 10).toFixed(1) + ")", 60), _.makeMoneyRate = 0, u()
+                            n.health -= 1;
+                            a.playText("Canvas/notify", "电疗失败...健康减1点...电疗店总资产+1元", 60);
+                    }
+                        C();
+                    } else a.playText("Canvas/notify", "没钱！", 60);
+                    }
+                function h() {
+                    if (t.gameTime2 - t.gameTime1 > 30) a.playText("Canvas/notify", "“小兄弟，没身份证的人只能临时上机两小时哦，我怕警察来查，请下次再玩吧~”", 60); else if (20 == n.publicVar3[6]) {
+                        n.money += 1;
+                        n.publicVar3[6] += 1;
+                        a.playText("Canvas/notify", "你玩游戏的热情让网吧老板很是感动，老板鼓励你坚持梦想，并奖励你0.1元，~", 60);
+                    } else if (50 == n.publicVar3[6]) {
+                        n.money += 5;
+                        n.publicVar3[6] += 1;
+                        a.playText("Canvas/notify", "你成功晋级青铜段位，老板流出喜悦的泪水，并奖励你0.5元~", 60);
+                    } else if (90 == n.publicVar3[6]) {
+                        n.hunger = i.maxHunger();
+                        n.publicVar3[6] += 1;
+                        a.playText("Canvas/notify", "你成功晋级白银段位，老板高兴的请你吃了一顿麻辣烫，饥饿全恢复！", 60);
+                    } else if (140 == n.publicVar3[6]) {
+                        n.money += 20;
+                        n.itemNum2[25] += 1;
+                        n.publicVar3[6] += 1;
+                        C();
+                        a.playText("Canvas/notify", "你成功晋级黄金段位，老板奖励你2元钱，和一件个护身符~", 60);
+                    } else if (200 == n.publicVar3[6]) {
+                        n.itemNum2[21] += 1;
+                        n.itemNum2[22] += 1;
+                        n.publicVar3[6] += 1;
+                        a.playText("Canvas/notify", "你成功晋级白金段位，老板赠送你她的贴身衣物，获得【女装】*1和【小裤裤】*1！", 60);
+                    } else if (300 == n.publicVar3[6]) {
+                        n.hunger = i.maxHunger();
+                        n.publicVar3[6] += 1;
+                        C();
+                        a.playText("Canvas/notify", "你成功晋级砖石段位，老板兴奋的邀你去她房里睡一觉，精力全恢复！", 60);
+                    } else if (450 == n.publicVar3[6]) {
+                        n.itemNum2[17] += 1;
+                        n.itemNum2[26] += 1;
+                        n.itemNum2[27] += 1;
+                        n.publicVar3[6] += 1;
+                        a.playText("Canvas/notify", "你成功晋级大师段位，老板赠送你一些收集品，获得【晓月手链】*1【幸运石】*1【放大镜】*1！", 60);
+                    } else if (700 == n.publicVar3[6]) {
+                        n.role.att += 50;
+                        n.role.def += 25;
+                        n.role.maxHp += 250;
+                        n.publicVar3[6] += 1;
+                        i.save();
+                        a.playText("Canvas/notify", "你成功晋级王者段位，老板授予你「王的男人」称号，攻击永久+50，防御永久+25，生命永久+250！", 60);
+                    } else if (n.money >= 1) {
+                        var e = Math.min((40 + n.publicVar3[6] / 10).toFixed(1), 75), c = 100 * Math.random();
+                        n.money -= 1;
+                        if (c < e) {
+                            n.publicVar3[5] < 99 && (n.publicVar3[5] += 1);
+                            n.publicVar3[6] += 1;
+                            t.gameTime2 += 1;
+                            a.playText("Canvas/notify", "游戏胜利！炒开森~攻防血提高1%（临时效果，随天数缓慢衰减）。游戏技术+1", 60);
+                            C();
+                        } else {
+                            n.publicVar3[5] = 0;
+                            n.publicVar3[6] += 1;
+                            t.gameTime2 += 1;
+                            a.playText("Canvas/notify", "游戏失败！不开心~属性加成消失...游戏技术+1", 60);
+                            C();
+                    }
+                    } else a.playText("Canvas/notify", "没钱...", 60);
+                    }
+                function v() {
+                    c.runAction(cc.scaleTo(.3, 0));
+                    (function () {
+                        N();
+                        o.runAction(cc.scaleTo(.3, 1));
+                    })();
+                    }
+                function y() {
+                    if (n.hunger > i.maxHunger()) a.playText("Canvas/notify", "已经吃不下啦...", 60); else if (n.itemNum[3] >= 4 && n.itemNum[0] >= 5) {
+                        n.hunger += 350;
+                        n.maxHunger += 5;
+                        n.itemNum[3] -= 4;
+                        n.itemNum[0] -= 5;
+                        n.publicVar3[13] += 1;
+                        a.playText("Canvas/notify", "饥饿+350，最大饥饿值提高5点！", 60);
+                        C();
+                    } else a.playText("Canvas/notify", "食材不足~", 60);
+                    }
+                function g() {
+                    if (n.hunger > i.maxHunger()) a.playText("Canvas/notify", "已经吃不下啦...", 60); else if (n.itemNum[0] >= 5) {
+                        n.hunger += 100;
+                        n.health += 1;
+                        n.itemNum[0] -= 5;
+                        a.playText("Canvas/notify", "饥饿+100，健康值+1！", 60);
+                        C();
+                    } else a.playText("Canvas/notify", "食材不足~", 60);
+                    }
+                function b() {
+                        var e = 100 * Math.random();
+                    if (0 == t.makeMoneyRate) a.playText("Canvas/notify", "“今日已投资，请明日再来吧~”", 60); else if (0 == n.money) a.playText("Canvas/notify", "“不好意思，请你出去~”", 60); else if (n.money > 500) a.playText("Canvas/notify", "“不好意思，你已超过国家监管限定金额，请你去实体银行吧，我们只是网上的小银行~”", 60); else if (e < t.makeMoneyRate) {
+                        var i = parseInt(n.money * t.makeMoneyProfit / 100);
+                        n.money += i;
+                        a.playText("Canvas/notify", "投资成功！金钱增加" + t.makeMoneyProfit + "%(+" + (i / 10).toFixed(1) + ")", 60);
+                        t.makeMoneyRate = 0;
+                        C();
+                        } else {
+                        i = parseInt(n.money * t.makeMoneyProfit / 100);
+                        n.money -= i;
+                        a.playText("Canvas/notify", "投资失败...金钱缩水" + t.makeMoneyProfit + "%(-" + (i / 10).toFixed(1) + ")", 60);
+                        t.makeMoneyRate = 0;
+                        C();
+                    }
+                }
+                function _() {
+                    if (t.itemDiscount >= 9999) a.playText("Canvas/notify", "商品已售罄~", 60); else if (n.money >= t.finalPrice) {
+                        var e = d[t.itemId][1], i = d[t.itemId][2];
+                        n.money -= t.finalPrice;
+                        n.itemNum2[e] += i;
+                        a.playText("Canvas/notify", "获得【" + t.itemName + "】*" + i, 60);
+                        t.itemDiscount = 9999;
+                        C();
+                        x();
+                    } else a.playText("Canvas/notify", "金钱不足！", 60);
                         }
+                function x() {
+                    t.itemDiscount >= 9999 ? s.getChildByName("text").getComponent("cc.Label").string = "二楼：晓风服饰（已售罄~）" : t.r2 < f[1] ? s.getChildByName("text").getComponent("cc.Label").string = "二楼：晓风服饰（" + t.itemName + "," + t.itemDiscount + "折," + (t.finalPrice / 10).toFixed(1) + "元）" : s.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）";
                     }
-                    function s() {
-                        if (_.itemDiscount >= 9999) C.playText("Canvas/notify", "商品已售罄~", 60);
-                        else if (x.money >= _.finalPrice) {
-                            var e = w[_.itemId][1], t = w[_.itemId][2];
-                            x.money -= _.finalPrice, x.itemNum2[e] += t, C.playText("Canvas/notify", "获得【" + _.itemName + "】*" + t, 60), _.itemDiscount = 9999, u(), l()
-                        } else C.playText("Canvas/notify", "金钱不足！", 60)
+                function C() {
+                    t.r1 < f[0] ? r.getChildByName("text").getComponent("cc.Label").string = "一楼：晓风金融（赢钱概率" + t.makeMoneyRate + "%）" : r.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）";
+                    t.r4 < f[3] ? u.getChildByName("text").getComponent("cc.Label").string = "四楼：晓风网咖（属性+" + n.publicVar3[5] + "%,胜率" + Math.min((40 + n.publicVar3[6] / 10).toFixed(1), 75) + "%）" : u.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）";
+                    cc.find("Canvas/UI2/hunger").getComponent("cc.Label").string = "饥饿 " + n.hunger + "/" + i.maxHunger();
+                    cc.find("Canvas/money").getComponent("cc.Label").string = "金钱 " + (n.money / 10).toFixed(1);
+                    n.publicVar3[7] > 800 ? p.getChildByName("text").getComponent("cc.Label").string = "关门大吉！转行啦~" : t.r5 < f[4] ? p.getChildByName("text").getComponent("cc.Label").string = "？？？？（心情不好，外出旅游啦~）" : p.getChildByName("text").getComponent("cc.Label").string = "五楼：小风电疗（资产" + ((800 - n.publicVar3[7]) / 10).toFixed(1) + "元,成功率" + Math.max(100 - n.publicVar3[8], 0) + "%）";
+                    i.save();
+                }
+                function E() {
+                    a.playText("Canvas/notify", "由于经济不景气，公司倒闭，老板转行卖土鸡蛋去啦~", 60);
                     }
-                    function l() {
-                        _.itemDiscount >= 9999 ? T.getChildByName("text").getComponent("cc.Label").string = "二楼：晓风服饰（已售罄~）" : _.r2 < R[1] ? T.getChildByName("text").getComponent("cc.Label").string = "二楼：晓风服饰（" + _.itemName + "," + _.itemDiscount + "折," + (_.finalPrice / 10).toFixed(1) + "元）" : T.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）"
+                function I() {
+                    a.playText("Canvas/notify", "“放假啦！哈哈哈哈哈！”", 60);
                     }
-                    function u() {
-                        _.r1 < R[0] ? N.getChildByName("text").getComponent("cc.Label").string = "一楼：晓风金融（赢钱概率" + _.makeMoneyRate + "%）" : N.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）", _.r4 < R[3] ? S.getChildByName("text").getComponent("cc.Label").string = "四楼：晓风网咖（属性+" + x.publicVar3[5] + "%,胜率" + Math.min((40 + x.publicVar3[6] / 10).toFixed(1), 75) + "%）" : S.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）", cc.find("Canvas/UI2/hunger").getComponent("cc.Label").string = "饥饿 " + x.hunger + "/" + E.maxHunger(), cc.find("Canvas/money").getComponent("cc.Label").string = "金钱 " + (x.money / 10).toFixed(1), x.publicVar3[7] > 800 ? H.getChildByName("text").getComponent("cc.Label").string = "关门大吉！转行啦~" : _.r5 < R[4] ? H.getChildByName("text").getComponent("cc.Label").string = "？？？？（心情不好，外出旅游啦~）" : H.getChildByName("text").getComponent("cc.Label").string = "五楼：小风电疗（资产" + ((800 - x.publicVar3[7]) / 10).toFixed(1) + "元,成功率" + Math.max(100 - x.publicVar3[8], 0) + "%）", E.save()
+                function V() {
+                    a.playText("Canvas/notify", "“再为难~也不能耽误放假呀！哈哈哈哈哈！”", 60);
                     }
-                    function p() {
-                        I.active = !0, V.active = !0, V.scale = 0, _.cureTimes = 0, _.gameTime1 = x.publicVar3[6], _.gameTime2 = x.publicVar3[6], _.r1 = 100 * Math.random(), _.r2 = 100 * Math.random(), _.r3 = 100 * Math.random(), _.r4 = 100 * Math.random(), _.r5 = 100 * Math.random(), _.makeMoneyRate = (50 * Math.random() + 25).toFixed(1), _.makeMoneyProfit = (50 * Math.random()).toFixed(1), _.r3 < R[2] && (k.getChildByName("text").getComponent("cc.Label").string = "三楼：晓风料理"), _.itemId = parseInt(5.99 * Math.random()), _.itemDiscount = parseInt(30 * Math.random() + 60), _.itemName = w[_.itemId][0], _.itemPrice = w[_.itemId][3], _.finalPrice = parseInt(_.itemPrice * _.itemDiscount / 100)
+                function N() {
+                    cc.find("Canvas/notify").getComponent("cc.Label").string = "";
                     }
-                    function d() {
-                        C.playText("Canvas/notify", "由于经济不景气，公司倒闭，老板转行卖土鸡蛋去啦~", 60)
                     }
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_effect: "scr_effect",
+        scr_public: "scr_public"
+    }],
+    scr_shop4: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "981fdTWKwRAN6F2FBk0OJHn", "scr_shop4");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var t = this, n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = cc.find("Canvas/UI1"), o = c.getChildByName("choice2"), r = c.getChildByName("choice3"), s = c.getChildByName("choice4"), l = [["放大镜*1", 17, 1, 50], ["熟肉*3", 0, 3, 12], ["晓月手链*1", 27, 1, 50], ["幸运石*1", 26, 1, 50], ["啤酒*1", 12, 1, 30], ["伤药*4", 1, 4, 12]];
+                t.itemId = parseInt(5.99 * Math.random());
+                t.itemDiscount = Math.random();
+                t.ifSellOut = 0;
+                var u = parseInt(l[t.itemId][3] * t.itemDiscount), p = l[t.itemId][0], f = l[t.itemId][1], d = l[t.itemId][2];
+                m();
+                (function () {
+                    o.on("touchstart", h, this);
+                    r.on("touchstart", v, this);
+                    s.on("touchstart", y, this);
+                })();
                     function m() {
-                        C.playText("Canvas/notify", "“放假啦！哈哈哈哈哈！”", 60)
-                    }
-                    function f() {
-                        C.playText("Canvas/notify", "“再为难~也不能耽误放假呀！哈哈哈哈哈！”", 60)
+                    cc.find("Canvas/money").getComponent("cc.Label").string = "金钱：" + (n.money / 10).toFixed(1);
+                    cc.find("Canvas/UI1/choice2/text").getComponent("cc.Label").string = "出售伤药（每个1毛，已拥有" + n.itemNum2[1] + "）";
+                    cc.find("Canvas/UI1/choice3/text").getComponent("cc.Label").string = "出售烟（每个6毛，已拥有" + n.itemNum2[7] + "）";
+                    cc.find("Canvas/UI1/choice4/text").getComponent("cc.Label").string = p + "（活动价" + (u / 10).toFixed(1) + "元，限购！！！）";
                     }
                     function h() {
-                        I.runAction(cc.scaleTo(.3, 0))
+                    if (n.itemNum2[1] > 0) {
+                        var e = parseInt(.5 * n.itemNum2[1] + 1);
+                        n.money += e;
+                        n.itemNum2[1] -= e;
+                        i.save();
+                        a.playText("Canvas/notify", "出售【伤药】*" + e + "，获得" + e + "毛", 100);
+                        m();
+                    } else a.playText("Canvas/notify", "道具不足！", 100);
                     }
                     function v() {
-                        b(), I.runAction(cc.scaleTo(.3, 1))
+                    if (n.itemNum2[7] > 0) {
+                        n.money += 6;
+                        n.itemNum2[7] -= 1;
+                        i.save();
+                        a.playText("Canvas/notify", "出售【烟】*1，获得6毛", 100);
+                        m();
+                    } else a.playText("Canvas/notify", "道具不足！", 100);
                     }
                     function y() {
-                        V.runAction(cc.scaleTo(.3, 0))
-                    }
-                    function g() {
-                        b(), V.runAction(cc.scaleTo(.3, 1))
-                    }
-                    function b() {
-                        cc.find("Canvas/notify").getComponent("cc.Label").string = ""
-                    }
-                    var _ = this, x = e("scr_data"), C = e("scr_effect"), E = e("scr_public"), I = cc.find("Canvas/UI1"), V = cc.find("Canvas/UI2"), N = I.getChildByName("choice1"), T = I.getChildByName("choice2"), k = I.getChildByName("choice3"), S = I.getChildByName("choice4"), H = I.getChildByName("choice5"), R = (I.getChildByName("choice6"), [70, 70, 70, 70, 50]), w = [["披风", 15, 1, 100], ["小裤裤", 21, 1, 20], ["晓月手链", 27, 1, 20], ["幸运石", 26, 1, 20], ["板砖", 20, 1, 20], ["滑稽裤", 24, 1, 20]];
-                    p(), u(), t(), l()
+                    if (1 == t.ifSellOut) a.playText("Canvas/notify", "本次活动每人只能购买一次哦，下次再来吧~", 100); else if (n.money >= u) {
+                        n.money -= u;
+                        n.itemNum2[f] += d;
+                        t.ifSellOut = 1;
+                        i.save();
+                        a.playText("Canvas/notify", "获得【" + p + "】！", 100);
+                        m();
+                    } else a.playText("Canvas/notify", "余额不足...", 100);
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_effect: "scr_effect", scr_public: "scr_public" }], scr_shop4: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "981fdTWKwRAN6F2FBk0OJHn", "scr_shop4"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    function t() {
-                        cc.find("Canvas/money").getComponent("cc.Label").string = "金钱：" + (r.money / 10).toFixed(1), cc.find("Canvas/UI1/choice2/text").getComponent("cc.Label").string = "出售伤药（每个1毛，已拥有" + r.itemNum2[1] + "）", cc.find("Canvas/UI1/choice3/text").getComponent("cc.Label").string = "出售烟（每个6毛，已拥有" + r.itemNum2[7] + "）", cc.find("Canvas/UI1/choice4/text").getComponent("cc.Label").string = v + "（活动价" + (h / 10).toFixed(1) + "元，限购！！！）"
                     }
-                    function n() {
-                        p.on("touchstart", a, this), d.on("touchstart", c, this), m.on("touchstart", i, this)
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_effect: "scr_effect",
+        scr_public: "scr_public"
+    }],
+    scr_shopButton: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "46243Z6bxNGuK5lVJQiKZD4", "scr_shopButton");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                cc.director.loadScene("shop");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_shopUI: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "ca1d33wMc1MzoV4yHqs7mr9", "scr_shopUI");
+        cc.Class({
+            extends: cc.Component,
+            properties: {
+                itemUI: {
+                    default: null,
+                    type: cc.Prefab
                     }
-                    function a() {
-                        if (r.itemNum2[1] > 0) {
-                            var e = parseInt(.5 * r.itemNum2[1] + 1);
-                            r.money += e, r.itemNum2[1] -= e, l.save(), s.playText("Canvas/notify", "出售【伤药】*" + e + "，获得" + e + "毛", 100), t()
-                        } else s.playText("Canvas/notify", "道具不足！", 100)
+            },
+            itemContent: function () {
+                var t = this;
+                this.data = e("scr_data");
+                var n = {
+                    0: {
+                        itemName: " 木材*10（拥有" + this.data.itemNum[1] + ")",
+                        needDes: "购买/出售：1元/0.5元",
+                        ifEnough: function (t) {
+                            e("scr_data").money >= 10 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0));
+                        },
+                        button1: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.money >= 10) {
+                                n.money -= 10;
+                                n.itemNum[1] += 10;
+                                n.shopPoint += 10;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【木材】*10！积分*10！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "钱不够！", 100);
+                        },
+                        button2: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.itemNum[1] >= 10) {
+                                n.money += 5;
+                                n.itemNum[1] -= 10;
+                                i.save();
+                                a.playText("Canvas/notify", "失去【木材】*10，获得0.5元！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "道具不足！", 100);
                     }
-                    function c() {
-                        r.itemNum2[7] > 0 ? (r.money += 6, r.itemNum2[7] -= 1, l.save(), s.playText("Canvas/notify", "出售【烟】*1，获得6毛", 100), t()) : s.playText("Canvas/notify", "道具不足！", 100)
-                    }
-                    function i() {
-                        1 == o.ifSellOut ? s.playText("Canvas/notify", "本次活动每人只能购买一次哦，下次再来吧~", 100) : r.money >= h ? (r.money -= h, r.itemNum2[y] += g, o.ifSellOut = 1, l.save(), s.playText("Canvas/notify", "获得【" + v + "】！", 100), t()) : s.playText("Canvas/notify", "余额不足...", 100)
-                    }
-                    var o = this, r = e("scr_data"), s = e("scr_effect"), l = e("scr_public"), u = cc.find("Canvas/UI1"), p = u.getChildByName("choice2"), d = u.getChildByName("choice3"), m = u.getChildByName("choice4"), f = [["放大镜*1", 17, 1, 50], ["熟肉*3", 0, 3, 12], ["晓月手链*1", 27, 1, 50], ["幸运石*1", 26, 1, 50], ["啤酒*1", 12, 1, 30], ["伤药*4", 1, 4, 12]];
-                    o.itemId = parseInt(5.99 * Math.random()), o.itemDiscount = Math.random(), o.ifSellOut = 0;
-                    var h = parseInt(f[o.itemId][3] * o.itemDiscount), v = f[o.itemId][0], y = f[o.itemId][1], g = f[o.itemId][2];
-                    t(), n()
+                    },
+                    1: {
+                        itemName: " 亚麻*10（拥有" + this.data.itemNum[4] + ")",
+                        needDes: "购买/出售：1元/0.5元",
+                        ifEnough: function (t) {
+                            e("scr_data").money >= 10 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0));
+                        },
+                        button1: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.money >= 10) {
+                                n.money -= 10;
+                                n.itemNum[4] += 10;
+                                n.shopPoint += 10;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【亚麻】*10！积分*10！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "钱不够！", 100);
+                        },
+                        button2: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.itemNum[4] >= 10) {
+                                n.money += 5;
+                                n.itemNum[4] -= 10;
+                                i.save();
+                                a.playText("Canvas/notify", "失去【亚麻】*10，获得0.5元！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "道具不足！", 100);
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_effect: "scr_effect", scr_public: "scr_public" }], scr_shopButton: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "46243Z6bxNGuK5lVJQiKZD4", "scr_shopButton"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    cc.director.loadScene("shop")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
+                    },
+                    2: {
+                        itemName: " 果子*5（拥有" + this.data.itemNum[0] + ")",
+                        needDes: "购买/出售：0.5元/0.2元",
+                        ifEnough: function (t) {
+                            e("scr_data").money >= 5 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0));
+                        },
+                        button1: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.money >= 5) {
+                                n.money -= 5;
+                                n.itemNum[0] += 5;
+                                n.shopPoint += 5;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【果子】*5！积分*5！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "钱不够！", 100);
+                        },
+                        button2: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.itemNum[0] >= 5) {
+                                n.money += 2;
+                                n.itemNum[0] -= 5;
+                                i.save();
+                                a.playText("Canvas/notify", "失去【果子】*5，获得0.2元！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "道具不足！", 100);
+                    }
+                    },
+                    3: {
+                        itemName: " 易拉罐（拥有" + this.data.itemNum[2] + ")",
+                        needDes: "售价：每只1毛~",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum[2] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0));
+                        },
+                        button1: void 0,
+                        button2: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum[2];
+                            if (c > 0) {
+                                n.money += c;
+                                n.itemNum[2] -= c;
+                                n.shopPoint += c;
+                                i.save();
+                                a.playText("Canvas/notify", "失去【易拉罐】*" + c + "，获得" + c + "毛钱，积分+" + c, 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "道具不足！", 100);
+                    }
+                    },
+                    4: {
+                        itemName: " 生肉*2（拥有" + this.data.itemNum[3] + ")",
+                        needDes: "购买/出售：0.4元/0.2元",
+                        ifEnough: function (t) {
+                            e("scr_data").money >= 4 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/name").color = new cc.color(0, 255, 0));
+                        },
+                        button1: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.money >= 4) {
+                                n.money -= 4;
+                                n.itemNum[3] += 2;
+                                n.shopPoint += 4;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【生肉】*2！积分*4！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "钱不够！", 100);
+                        },
+                        button2: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.itemNum[3] >= 2) {
+                                n.money += 2;
+                                n.itemNum[3] -= 2;
+                                i.save();
+                                a.playText("Canvas/notify", "失去【生肉】*2，获得0.2元！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "道具不足！", 100);
+                    }
+                    },
+                    5: {
+                        itemName: " 艾草*4（拥有" + this.data.itemNum[5] + ")",
+                        needDes: "购买/出售：0.4元/0.2元",
+                        ifEnough: function (t) {
+                            e("scr_data").money >= 4 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/name").color = new cc.color(0, 255, 0));
+                        },
+                        button1: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.money >= 4) {
+                                n.money -= 4;
+                                n.itemNum[5] += 4;
+                                n.shopPoint += 4;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【艾草】*4！积分*4！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "钱不够！", 100);
+                        },
+                        button2: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.itemNum[5] >= 4) {
+                                n.money += 2;
+                                n.itemNum[5] -= 4;
+                                i.save();
+                                a.playText("Canvas/notify", "失去【艾草】*4，获得0.2元！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "道具不足！", 100);
                 }
-            }), cc._RFpop()
-        }, {}], scr_shopUI: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "ca1d33wMc1MzoV4yHqs7mr9", "scr_shopUI"), cc.Class({
-                "extends": cc.Component, properties: { itemUI: { "default": null, type: cc.Prefab } }, itemContent: function a() {
-                    var t = this;
-                    this.data = e("scr_data");
-                    var a = {
-                        0: {
-                            itemName: " 木材*10（拥有" + this.data.itemNum[1] + ")", needDes: "购买/出售：1元/0.5元", ifEnough: function (t) { var n = e("scr_data"); n.money >= 10 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0)) }, button1: function () { var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 10, o = n.money, r = 10, s = 10; o >= i ? (n.money -= i, n.itemNum[1] += r, n.shopPoint += s, c.save(), a.playText("Canvas/notify", "获得【木材】*10！积分*" + s + "！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "钱不够！", 100) }, button2: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 10, o = n.itemNum[1], r = 5;
-                                o >= i ? (n.money += r, n.itemNum[1] -= i, c.save(), a.playText("Canvas/notify", "失去【木材】*10，获得0.5元！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "道具不足！", 100)
-                            }
-                        }, 1: {
-                            itemName: " 亚麻*10（拥有" + this.data.itemNum[4] + ")", needDes: "购买/出售：1元/0.5元", ifEnough: function (t) { var n = e("scr_data"); n.money >= 10 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0)) }, button1: function () { var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 10, o = n.money, r = 10, s = 10; o >= i ? (n.money -= i, n.itemNum[4] += r, n.shopPoint += s, c.save(), a.playText("Canvas/notify", "获得【亚麻】*10！积分*" + s + "！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "钱不够！", 100) }, button2: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 10, o = n.itemNum[4], r = 5;
-                                o >= i ? (n.money += r, n.itemNum[4] -= i, c.save(), a.playText("Canvas/notify", "失去【亚麻】*10，获得0.5元！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "道具不足！", 100)
-                            }
-                        }, 2: {
-                            itemName: " 果子*5（拥有" + this.data.itemNum[0] + ")", needDes: "购买/出售：0.5元/0.2元", ifEnough: function (t) { var n = e("scr_data"); n.money >= 5 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0)) }, button1: function () { var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 5, o = n.money, r = 5, s = 5; o >= i ? (n.money -= i, n.itemNum[0] += r, n.shopPoint += s, c.save(), a.playText("Canvas/notify", "获得【果子】*5！积分*" + s + "！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "钱不够！", 100) }, button2: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 5, o = n.itemNum[0], r = 2;
-                                o >= i ? (n.money += r, n.itemNum[0] -= i, c.save(), a.playText("Canvas/notify", "失去【果子】*5，获得0.2元！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "道具不足！", 100)
-                            }
-                        }, 3: {
-                            itemName: " 易拉罐（拥有" + this.data.itemNum[2] + ")", needDes: "售价：每只1毛~", ifEnough: function (t) { var n = e("scr_data"); n.itemNum[2] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0)) }, button1: void 0, button2: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = n.itemNum[2];
-                                i > 0 ? (n.money += i, n.itemNum[2] -= i, n.shopPoint += i, c.save(), a.playText("Canvas/notify", "失去【易拉罐】*" + i + "，获得" + i + "毛钱，积分+" + i, 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "道具不足！", 100)
-                            }
-                        }, 4: {
-                            itemName: " 生肉*2（拥有" + this.data.itemNum[3] + ")", needDes: "购买/出售：0.4元/0.2元", ifEnough: function (t) { var n = e("scr_data"); n.money >= 4 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/name").color = new cc.color(0, 255, 0)) }, button1: function () { var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 4, o = n.money, r = 2, s = 4; o >= i ? (n.money -= i, n.itemNum[3] += r, n.shopPoint += s, c.save(), a.playText("Canvas/notify", "获得【生肉】*2！积分*" + s + "！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "钱不够！", 100) }, button2: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 2, o = n.itemNum[3], r = 2;
-                                o >= i ? (n.money += r, n.itemNum[3] -= i, c.save(), a.playText("Canvas/notify", "失去【生肉】*2，获得0.2元！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "道具不足！", 100)
-                            }
-                        }, 5: {
-                            itemName: " 艾草*4（拥有" + this.data.itemNum[5] + ")", needDes: "购买/出售：0.4元/0.2元", ifEnough: function (t) { var n = e("scr_data"); n.money >= 4 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/name").color = new cc.color(0, 255, 0)) }, button1: function () { var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 4, o = n.money, r = 4, s = 4; o >= i ? (n.money -= i, n.itemNum[5] += r, n.shopPoint += s, c.save(), a.playText("Canvas/notify", "获得【艾草】*4！积分*" + s + "！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "钱不够！", 100) }, button2: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 4, o = n.itemNum[5], r = 2;
-                                o >= i ? (n.money += r, n.itemNum[5] -= i, c.save(), a.playText("Canvas/notify", "失去【艾草】*4，获得0.2元！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "道具不足！", 100)
-                            }
-                        }, 6: { itemName: " 匕首（当前等级" + this.data.itemNum2[8] + ")", needDes: "价格：" + (3.2 + .3 * this.data.itemNum2[8]).toFixed(1) + "元", ifEnough: function (t) { cc.find("Canvas/Page/view/content/page_2/" + t + "/button1/text").getComponent("cc.Label").string = "升级"; var n = e("scr_data"); n.money >= 32 + 3 * n.itemNum2[8] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/name").color = new cc.color(0, 255, 0)) }, button1: function () { var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 32 + 3 * n.itemNum2[8], o = n.money, r = 1, s = 32 + 3 * n.itemNum2[8]; o >= i ? (n.money -= i, n.itemNum2[8] += r, n.shopPoint += s, c.save(), a.playText("Canvas/notify", "匕首等级提高1级！积分*" + s + "！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "钱不够！", 100) }, button2: void 0 }, 7: { itemName: " 皮衣（当前等级" + this.data.itemNum2[9] + ")", needDes: "价格：" + (2 + .2 * this.data.itemNum2[9]).toFixed(1) + "元", ifEnough: function (t) { cc.find("Canvas/Page/view/content/page_2/" + t + "/button1/text").getComponent("cc.Label").string = "升级"; var n = e("scr_data"); n.money >= 20 + 2 * n.itemNum2[9] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/name").color = new cc.color(0, 255, 0)) }, button1: function () { var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 20 + 2 * n.itemNum2[9], o = n.money, r = 1, s = 20 + 2 * n.itemNum2[9]; o >= i ? (n.money -= i, n.itemNum2[9] += r, n.shopPoint += s, c.save(), a.playText("Canvas/notify", "皮衣等级提高1级！积分*" + s + "！", 100), t.delayCreatItemUI()) : a.playText("Canvas/notify", "钱不够！", 100) }, button2: void 0 }, 8: {
-                            itemName: "  抽奖  ", needDes: "价格：100积分，随机获得一份奖励！", ifEnough: function (t) { cc.find("Canvas/Page/view/content/page_3/" + t + "/button1/text").getComponent("cc.Label").string = "抽奖"; var n = e("scr_data"); n.shopPoint >= 100 && (cc.find("Canvas/Page/view/content/page_3/" + t + "/name").color = new cc.color(0, 255, 0)) }, button1: function () {
-                                function n() {
+                    },
+                    6: {
+                        itemName: " 匕首（当前等级" + this.data.itemNum2[8] + ")",
+                        needDes: "价格：" + (3.2 + .3 * this.data.itemNum2[8]).toFixed(1) + "元",
+                        ifEnough: function (t) {
+                            cc.find("Canvas/Page/view/content/page_2/" + t + "/button1/text").getComponent("cc.Label").string = "升级";
+                            var n = e("scr_data");
+                            n.money >= 32 + 3 * n.itemNum2[8] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/name").color = new cc.color(0, 255, 0));
+                        },
+                        button1: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 32 + 3 * n.itemNum2[8], o = n.money, r = 32 + 3 * n.itemNum2[8];
+                            if (o >= c) {
+                                n.money -= c;
+                                n.itemNum2[8] += 1;
+                                n.shopPoint += r;
+                                i.save();
+                                a.playText("Canvas/notify", "匕首等级提高1级！积分*" + r + "！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "钱不够！", 100);
+                        },
+                        button2: void 0
+                    },
+                    7: {
+                        itemName: " 皮衣（当前等级" + this.data.itemNum2[9] + ")",
+                        needDes: "价格：" + (2 + .2 * this.data.itemNum2[9]).toFixed(1) + "元",
+                        ifEnough: function (t) {
+                            cc.find("Canvas/Page/view/content/page_2/" + t + "/button1/text").getComponent("cc.Label").string = "升级";
+                            var n = e("scr_data");
+                            n.money >= 20 + 2 * n.itemNum2[9] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/name").color = new cc.color(0, 255, 0));
+                        },
+                        button1: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 20 + 2 * n.itemNum2[9], o = n.money, r = 20 + 2 * n.itemNum2[9];
+                            if (o >= c) {
+                                n.money -= c;
+                                n.itemNum2[9] += 1;
+                                n.shopPoint += r;
+                                i.save();
+                                a.playText("Canvas/notify", "皮衣等级提高1级！积分*" + r + "！", 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "钱不够！", 100);
+                        },
+                        button2: void 0
+                    },
+                    8: {
+                        itemName: "  抽奖  ",
+                        needDes: "价格：100积分，随机获得一份奖励！",
+                        ifEnough: function (t) {
+                            cc.find("Canvas/Page/view/content/page_3/" + t + "/button1/text").getComponent("cc.Label").string = "抽奖";
+                            e("scr_data").shopPoint >= 100 && (cc.find("Canvas/Page/view/content/page_3/" + t + "/name").color = new cc.color(0, 255, 0));
+                        },
+                        button1: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.shopPoint >= 100) {
+                                n.shopPoint -= 100;
+                                var c = function () {
                                     var t = "", n = 100 * Math.random(), a = e("scr_data");
-                                    return n <= 60 && (a.money += 10, t = "1元钱！"), n > 60 && n <= 70 && (a.itemNum2[23] += 1, t = "【创可贴】*1！"), n > 70 && n <= 75 && (a.itemNum2[21] += 1, t = "【小裤裤】*1！"), n > 75 && n <= 80 && (a.itemNum2[20] += 1, t = "【板砖】*1！"), n > 80 && n <= 85 && (a.itemNum2[26] += 1, t = "【幸运石】*1！"), n > 85 && n <= 90 && (a.itemNum2[27] += 1, t = "【晓月手链】*1！"), n > 90 && n <= 100 && (a.itemNum2[24] += 1, t = "【滑稽裤】*1！"), t
-                                } var a = e("scr_data"), c = e("scr_effect"), i = e("scr_public"), o = 100, r = a.shopPoint; if (r >= o) {
-                                    a.shopPoint -= o;
-                                    var s = n();
-                                    i.save(), c.playText("Canvas/notify", "恭喜获得，" + s, 100), t.delayCreatItemUI()
-                                } else c.playText("Canvas/notify", "积分不够！", 100)
-                            }, button2: void 0
-                        }
-                    };
-                    return a
-                }, creatPrefab: function (e, t) {
-                    var n = cc.instantiate(this.itemUI), a = this.itemContent()[e], c = a.button1, i = a.button2, o = "item" + e;
-                    n.name = o, n.getChildByName("name").getComponent("cc.Label").string = a.itemName, n.getChildByName("need").getComponent("cc.Label").string = a.needDes, "undefined" != typeof c ? n.getChildByName("button1").getComponent("cc.Button").scheduleOnce(function () {
-                        n.getChildByName("button1").on("touchstart", c, this)
-                    }, .4) : n.getChildByName("button1").active = !1, "undefined" != typeof i ? n.getChildByName("button2").getComponent("cc.Button").scheduleOnce(function () {
-                        n.getChildByName("button2").on("touchstart", i, this)
-                    }, .6) : n.getChildByName("button2").active = !1, cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n), "undefined" != typeof a.ifEnough && a.ifEnough(o)
-                }, creatItemUI1: function () {
-                    this.initText(), cc.find("Canvas/Page/view/content/page_1").removeAllChildren();
-                    for (var e = 0; e <= 3; e++)this.creatPrefab(e, "page_1")
-                }, creatItemUI2: function () {
-                    this.initText(), cc.find("Canvas/Page/view/content/page_2").removeAllChildren();
-                    for (var e = 4; e <= 7; e++)this.creatPrefab(e, "page_2")
-                }, creatItemUI3: function () {
-                    this.initText(), cc.find("Canvas/Page/view/content/page_3").removeAllChildren();
-                    for (var e = 8; e <= 8; e++)this.creatPrefab(e, "page_3")
-                }, initText: function () {
+                                    if (n <= 60) {
+                                        a.money += 10;
+                                        t = "1元钱！";
+                                    }
+                                    if (n > 60 && n <= 70) {
+                                        a.itemNum2[23] += 1;
+                                        t = "【创可贴】*1！";
+                                    }
+                                    if (n > 70 && n <= 75) {
+                                        a.itemNum2[21] += 1;
+                                        t = "【小裤裤】*1！";
+                                    }
+                                    if (n > 75 && n <= 80) {
+                                        a.itemNum2[20] += 1;
+                                        t = "【板砖】*1！";
+                                    }
+                                    if (n > 80 && n <= 85) {
+                                        a.itemNum2[26] += 1;
+                                        t = "【幸运石】*1！";
+                                    }
+                                    if (n > 85 && n <= 90) {
+                                        a.itemNum2[27] += 1;
+                                        t = "【晓月手链】*1！";
+                                    }
+                                    if (n > 90 && n <= 100) {
+                                        a.itemNum2[24] += 1;
+                                        t = "【滑稽裤】*1！";
+                                    }
+                                    return t;
+                                }();
+                                i.save();
+                                a.playText("Canvas/notify", "恭喜获得，" + c, 100);
+                                t.delayCreatItemUI();
+                            } else a.playText("Canvas/notify", "积分不够！", 100);
+                        },
+                        button2: void 0
+                    }
+                };
+                return n;
+            },
+            creatPrefab: function (e, t) {
+                var n = cc.instantiate(this.itemUI), a = this.itemContent()[e], i = a.button1, c = a.button2, o = "item" + e;
+                n.name = o;
+                n.getChildByName("name").getComponent("cc.Label").string = a.itemName;
+                n.getChildByName("need").getComponent("cc.Label").string = a.needDes;
+                "undefined" != typeof i ? n.getChildByName("button1").getComponent("cc.Button").scheduleOnce(function () {
+                    n.getChildByName("button1").on("touchstart", i, this);
+                }, .4) : n.getChildByName("button1").active = !1;
+                "undefined" != typeof c ? n.getChildByName("button2").getComponent("cc.Button").scheduleOnce(function () {
+                    n.getChildByName("button2").on("touchstart", c, this);
+                }, .6) : n.getChildByName("button2").active = !1;
+                cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n);
+                "undefined" != typeof a.ifEnough && a.ifEnough(o);
+            },
+            creatItemUI1: function () {
+                this.initText();
+                cc.find("Canvas/Page/view/content/page_1").removeAllChildren();
+                for (var e = 0; e <= 3; e++) this.creatPrefab(e, "page_1");
+            },
+            creatItemUI2: function () {
+                this.initText();
+                cc.find("Canvas/Page/view/content/page_2").removeAllChildren();
+                for (var e = 4; e <= 7; e++) this.creatPrefab(e, "page_2");
+            },
+            creatItemUI3: function () {
+                this.initText();
+                cc.find("Canvas/Page/view/content/page_3").removeAllChildren();
+                for (var e = 8; e <= 8; e++) this.creatPrefab(e, "page_3");
+            },
+            initText: function () {
                     var t = e("scr_data");
-                    cc.find("Canvas/money").getComponent("cc.Label").string = "金钱：" + (t.money / 10).toFixed(1) + "元", cc.find("Canvas/point").getComponent("cc.Label").string = "积分：" + t.shopPoint
-                }, delayCreatItemUI: function () {
+                cc.find("Canvas/money").getComponent("cc.Label").string = "金钱：" + (t.money / 10).toFixed(1) + "元";
+                cc.find("Canvas/point").getComponent("cc.Label").string = "积分：" + t.shopPoint;
+            },
+            delayCreatItemUI: function () {
                     var e = this;
                     this.scheduleOnce(function () {
-                        e.creatItemUI1(), e.creatItemUI2(), e.creatItemUI3()
-                    }, .2)
-                }, delayCreatItemUI1: function () {
-                    this.scheduleOnce(this.creatItemUI1, .2)
-                }, delayCreatItemUI2: function () {
-                    this.scheduleOnce(this.creatItemUI2, .2)
-                }, delayCreatItemUI3: function () {
-                    this.scheduleOnce(this.creatItemUI3, .2)
-                }, onLoad: function () {
-                    this.creatItemUI1(), this.creatItemUI2(), this.creatItemUI3()
-                }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_effect: "scr_effect", scr_public: "scr_public" }], scr_skillButton: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "46028T60zdCgZQPViIBJA6V", "scr_skillButton"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    cc.director.loadScene("skill")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
-                }
-            }), cc._RFpop()
-        }, {}], scr_skillJudge2: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "fbb08mI2F9N/4eaXqX0Gf87", "scr_skillJudge2"), cc.Class({
-                "extends": cc.Component, properties: {}, skillJugge: function a() {
-                    var t = e("scr_data"), n = e("scr_public"), c = t.friendSkill, a = {
-                        1: function () { 0 == c[1] && t.publicVar[7] >= 30 && (c[1] = 1) }, 2: function () { 0 == c[2] && t.publicVar[7] >= 60 && (c[2] = 1) }, 3: function () { 0 == c[3] && t.publicVar[7] >= 100 && (c[3] = 1) }, 4: function () { 0 == c[4] && t.publicVar[7] >= 160 && (c[4] = 1) }, 5: function () { 0 == c[5] && t.publicVar[7] >= 240 && (c[5] = 1) }, 6: function () { 0 == c[6] && t.publicVar[7] >= 340 && (c[6] = 1) }, 7: function () { 0 == c[7] && t.publicVar[7] >= 460 && (c[7] = 1) }, 8: function () {
-                            0 == c[8] && t.publicVar[7] >= 600 && (c[8] = 1)
+                    e.creatItemUI1();
+                    e.creatItemUI2();
+                    e.creatItemUI3();
+                }, .2);
+            },
+            delayCreatItemUI1: function () {
+                this.scheduleOnce(this.creatItemUI1, .2);
+            },
+            delayCreatItemUI2: function () {
+                this.scheduleOnce(this.creatItemUI2, .2);
+            },
+            delayCreatItemUI3: function () {
+                this.scheduleOnce(this.creatItemUI3, .2);
+            },
+            onLoad: function () {
+                this.creatItemUI1();
+                this.creatItemUI2();
+                this.creatItemUI3();
+            }
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_effect: "scr_effect",
+        scr_public: "scr_public"
+    }],
+    scr_skillButton: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "46028T60zdCgZQPViIBJA6V", "scr_skillButton");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                cc.director.loadScene("skill");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_skillJudge2: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "fbb08mI2F9N/4eaXqX0Gf87", "scr_skillJudge2");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            skillJugge: function () {
+                var t = e("scr_data"), n = e("scr_public"), a = t.friendSkill, i = {
+                    1: function () {
+                        0 == a[1] && t.publicVar[7] >= 30 && (a[1] = 1);
+                    },
+                    2: function () {
+                        0 == a[2] && t.publicVar[7] >= 60 && (a[2] = 1);
+                    },
+                    3: function () {
+                        0 == a[3] && t.publicVar[7] >= 100 && (a[3] = 1);
+                    },
+                    4: function () {
+                        0 == a[4] && t.publicVar[7] >= 160 && (a[4] = 1);
+                    },
+                    5: function () {
+                        0 == a[5] && t.publicVar[7] >= 240 && (a[5] = 1);
+                    },
+                    6: function () {
+                        0 == a[6] && t.publicVar[7] >= 340 && (a[6] = 1);
+                    },
+                    7: function () {
+                        0 == a[7] && t.publicVar[7] >= 460 && (a[7] = 1);
+                    },
+                    8: function () {
+                        0 == a[8] && t.publicVar[7] >= 600 && (a[8] = 1);
                         }
                     };
-                    for (var i in a) a[i]();
-                    n.save()
-                }, onLoad: function () {
-                    this.skillJugge()
+                for (var c in i) i[c]();
+                n.save();
+            },
+            onLoad: function () {
+                this.skillJugge();
+            }
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_public: "scr_public"
+    }],
+    scr_skillJudge: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "daeebn9rLFFwagiEBrNgbsO", "scr_skillJudge");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var t = e("scr_data"), n = e("scr_public"), a = t.skillLv, i = {
+                    0: function () {
+                        t.hunger <= 0 ? a[0] = 1 : a[0] = 0;
+                    },
+                    1: function () {
+                        0 == a[1] && t.winTimes >= 8 && (a[1] = 1);
+                    },
+                    2: function () {
+                        0 == a[2] && t.orderTimes[5] >= 30 && (a[2] = 1);
+                    },
+                    3: function () {
+                        0 == a[3] && t.orderTimes[0] >= 15 && (a[3] = 1);
+                    },
+                    5: function () {
+                        0 == a[5] && t.winTimes >= 15 && (a[5] = 1);
+                    },
+                    6: function () {
+                        0 == a[6] && t.randomEvent[6] >= 10 && (a[6] = 1);
+                    },
+                    7: function () {
+                        0 == a[7] && t.orderTimes[2] >= 30 && (a[7] = 1);
+                    },
+                    8: function () {
+                        0 == a[8] && t.figthExp[0] >= 20 && (a[8] = 1);
+                    },
+                    9: function () {
+                        0 == a[9] && t.winTimes >= 20 && (a[9] = 1);
+                    },
+                    10: function () {
+                        0 == a[10] && t.itemNum2[2] >= 5 && (a[10] = 1);
+                    },
+                    11: function () {
+                        0 == a[11] && t.figthExp[1] >= 30 && (a[11] = 1);
+                    },
+                    12: function () {
+                        0 == a[12] && t.orderTimes[5] >= 666 && (a[12] = 1);
+                    },
+                    13: function () {
+                        0 == a[13] && t.orderTimes[5] >= 200 && t.orderTimes[2] >= 60 && (a[13] = 1);
+                    },
+                    14: function () {
+                        0 == a[14] && t.winTimes >= 60 && (a[14] = 1);
+                    },
+                    15: function () {
+                        0 == a[15] && t.figthExp[2] >= 40 && (a[15] = 1);
+                    },
+                    17: function () {
+                        0 == a[17] && t.orderTimes[0] >= 99 && (a[17] = 1);
+                    },
+                    19: function () {
+                        0 == a[19] && t.publicVar3[13] >= 4 && (a[19] = 1);
+                    },
+                    21: function () {
+                        0 == a[21] && t.itemNum2[6] >= 10 && (a[21] = 1);
+                    },
+                    23: function () {
+                        0 == a[23] && t.publicVar2[1] >= 233 && (a[23] = 1);
+                    },
+                    24: function () {
+                        0 == a[24] && t.publicVar3[12] >= 79 && (a[24] = 1);
+                    },
+                    25: function () {
+                        0 == a[25] && t.itemNum2[3] >= 15 && t.itemNum2[4] >= 15 && (a[25] = 1);
+                    },
+                    26: function () {
+                        0 == a[26] && t.kills[2] >= 40 && (a[26] = 1);
+                    }
+                };
+                for (var c in i) i[c]();
+                n.save();
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_public: "scr_public" }], scr_skillJudge: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_public: "scr_public"
+    }],
+    scr_skillUI: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "daeebn9rLFFwagiEBrNgbsO", "scr_skillJudge"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    var t = e("scr_data"), n = e("scr_public"), a = t.skillLv, c = {
-                        0: function () { t.hunger <= 0 ? a[0] = 1 : a[0] = 0 }, 1: function () { 0 == a[1] && t.winTimes >= 8 && (a[1] = 1) }, 2: function () { 0 == a[2] && t.orderTimes[5] >= 30 && (a[2] = 1) }, 3: function () { 0 == a[3] && t.orderTimes[0] >= 15 && (a[3] = 1) }, 5: function () { 0 == a[5] && t.winTimes >= 15 && (a[5] = 1) }, 6: function () { 0 == a[6] && t.randomEvent[6] >= 10 && (a[6] = 1) }, 7: function () { 0 == a[7] && t.orderTimes[2] >= 30 && (a[7] = 1) }, 8: function () { 0 == a[8] && t.figthExp[0] >= 20 && (a[8] = 1) }, 9: function () { 0 == a[9] && t.winTimes >= 20 && (a[9] = 1) }, 10: function () { 0 == a[10] && t.itemNum2[2] >= 5 && (a[10] = 1) }, 11: function () { 0 == a[11] && t.figthExp[1] >= 30 && (a[11] = 1) }, 12: function () { 0 == a[12] && t.orderTimes[5] >= 666 && (a[12] = 1) }, 13: function () { 0 == a[13] && t.orderTimes[5] >= 200 && t.orderTimes[2] >= 60 && (a[13] = 1) }, 14: function () { 0 == a[14] && t.winTimes >= 60 && (a[14] = 1) }, 15: function () { 0 == a[15] && t.figthExp[2] >= 40 && (a[15] = 1) }, 17: function () { 0 == a[17] && t.orderTimes[0] >= 99 && (a[17] = 1) }, 19: function () { 0 == a[19] && t.publicVar3[13] >= 4 && (a[19] = 1) }, 21: function () { 0 == a[21] && t.itemNum2[6] >= 10 && (a[21] = 1) }, 23: function () { 0 == a[23] && t.publicVar2[1] >= 233 && (a[23] = 1) }, 24: function () { 0 == a[24] && t.publicVar3[12] >= 79 && (a[24] = 1) }, 25: function () { 0 == a[25] && t.itemNum2[3] >= 15 && t.itemNum2[4] >= 15 && (a[25] = 1) }, 26: function () {
-                            0 == a[26] && t.kills[2] >= 40 && (a[26] = 1)
-                        }
-                    };
-                    for (var i in c) c[i]();
-                    n.save()
-                }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_public: "scr_public" }], scr_skillUI: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "ae252WOSz5CF6dAaVPNVzC8", "scr_skillUI"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
+        cc._RF.push(t, "ae252WOSz5CF6dAaVPNVzC8", "scr_skillUI");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
                     var a = new cc.Node(t);
                     a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.color = new cc.Color(115, 115, 115), a.getComponent(cc.Label).overflow = 3, a.setContentSize(630, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 50, a.getComponent(cc.Label).fontSize = 32
-                }, onLoad: function () {
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.color = new cc.Color(115, 115, 115);
+                a.getComponent(cc.Label).overflow = 3;
+                a.setContentSize(630, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 50;
+                a.getComponent(cc.Label).fontSize = 32;
+            },
+            onLoad: function () {
                     var t = e("scr_data"), n = (t.figthExp, 3 * t.orderTimes[1] - t.orderTimes[4]);
                     1 == t.publicVar[1] && (n = t.orderTimes[1] - t.orderTimes[4]);
                     var a = {
-                        0: "【饥饿】当饥饿值低于0时激活。饥饿状态下，前进/探索有几率减少健康值，且睡觉时必定减少健康！（另外：饥饿时系统会自动使用食物，直到用光为止哦^_^）"
-                        , 1: "【精力强化1】精力上限+10，战斗胜利8次后激活（"
-                            + t.winTimes + "/8）。", 2: "【生命强化1】最大生命值+50，吃「果子」30次后激活("
-                                + t.orderTimes[5] + "/30）。", 3: "【恢复1】前进/探索时，生命恢复量提高8点。使用「伤药」15次后激活（"
-                                    + t.orderTimes[0] + "/15）。", 4: "【烟瘾】攻击/防御减为零！每天有"
-                                        + n + "%概率激活，效果持续1天。（抽烟次数越多激活概率越高，每次增加3%）", 5: "【平衡架势】造成"
-                                            + (t.figthExp[0] / 5 + 100).toFixed(1) + "%伤害，承受" + (100 - t.figthExp[0] / 5).toFixed(1) + "%伤害。效果随熟练度提升而提升（" + t.figthExp[0] + "/150）。战斗胜利15次(" + t.winTimes + "/15)后开启。", 6: "【捡钱】每天40%概率额外捡到1毛钱，扶老奶奶10次激活！此特性可升级，每扶10次涨1毛哈~(^_?)☆！（"
-                                                + t.randomEvent[6] + "/10）。", 7: "【精力强化2】精力上限+20，吃「熟肉」30次后激活（"
-                                                    + t.orderTimes[2] + "/30）。", 8: "【防御强化1】防御增加10点，平衡架势熟练度达20后激活（"
-                                                        + t.figthExp[0] + "/20）。", 9: "【拼命架势】可切换到拼命架势。攻击时，造成"
-                                                            + (t.figthExp[1] / 2 + 132).toFixed(1) + "%伤害，每次攻击损失8%最大生命值。效果随熟练度而提升（" + t.figthExp[1] + "/150）。战斗胜利" + t.winTimes + "/20次后激活。注意1：一场战斗中，使用最多的架势将获得1点熟练度", 10: "【自愈1】睡觉时40%几率恢复1点健康值，帐篷达到5级激活。"
-                        , 11: "【攻击强化1】攻击增加10点，拼命架势熟练度达30激活（"
-                            + t.figthExp[1] + "/30）。", 12: "【精力强化3】精力上限+30，吃果子666次后激活，吃草更健康哦（"
-                                + t.orderTimes[5] + "/666）。", 13: "【大胃王】饥饿上限+50，吃（"
-                                    + t.orderTimes[5] + "/200）次「果子」和（" + t.orderTimes[2] + "/60）次「熟肉」后激活。", 14: "【猥琐架势】可切换到猥琐架势。受击时，承受"
-                                        + (70 - t.figthExp[2] / 6).toFixed(1) + "%的伤害，且恢复" + parseInt(t.figthExp[2] + 10) + "点生命，但造成伤害减也少30%。效果随熟练度而提升（" + t.figthExp[2] + "/150）。战斗胜利" + t.winTimes + "/60次后激活。注意2：逃跑时系统将自动切换为猥琐架势！", 15: "【生命强化2】最大生命值+100，猥琐架势熟练度达40激活（"
-                                            + t.figthExp[2] + "/40）。", 16: "【防御强化2】防御+20，第三次击败山脉中「山顶巨人」后激活。"
-                        , 17: "【恢复2】前进/探索时，生命恢复量提高36点，使用「伤药」99次后激活（"
-                            + t.orderTimes[0] + "/99）。", 18: "【攻击强化2】攻击+20，击败挑战副本中「女剑士」后激活。"
-                        , 19: "【生命强化3】最大生命值+150。在省城市中心的晓风料理店食用4次「巨无霸」套餐后激活！（"
-                            + t.publicVar3[13] + "/4）", 20: "【防御强化3】防御+30。击败省城郊外的「杀.破.狼」4次后激活！"
-                        , 21: "【恢复强化】前进/探索时，生命恢复效果翻倍。「驱蚊工具」等级达到10级后激活（"
-                            + t.itemNum2[6] + "/10）。你目前前进/探索回恢复量为" + (4 + 8 * t.skillLv[3] + 36 * t.skillLv[17] + 2 * t.itemNum2[23]) * (1 + t.skillLv[21]) + "（激活后此数值将会翻倍，创可贴恢复效果也将翻倍！）。", 22: "【攻击强化3】攻击+30，击败挑战副本中「双枪老太婆」后激活。"
-                        , 23: "【非酋逆袭】如果前进/探索时没发现道具，则必定获得1毛钱！没发现道具次数达233次后激活（"
-                            + t.publicVar2[1] + "/233）。", 24: "【圣斗士】战斗失败后，"
-                                + Math.min(Math.max(parseInt(t.publicVar3[12] / 5), 20), 40).toFixed(1) + "%几率满血复活！战斗失败79次后激活（" + t.publicVar3[12] + "/79）",
-                        25: "【霸气】狂拽炫酷吊炸天！攻击时，10%几率无视目标防御，且恢复自身3%生命。木棍、麻布衣达到15级时激活"
-                        , 26: "【不屈的精神力】睡觉时30%几率额外再恢复30%精力！击败「草带男孩」40次后激活！（"
-                            + t.kills[2] + "/40）"
-                    }, c = e("scr_data").skillLv, i = cc.find("Canvas/Scroll/view/content"), o = parseInt(1 + t.day / 3), r = Object.keys(a).length; "undefined"
-                        == typeof r && (r = 99);
+                    0: "【饥饿】当饥饿值低于0时激活。饥饿状态下，前进/探索有几率减少健康值，且睡觉时必定减少健康！（另外：饥饿时系统会自动使用食物，直到用光为止哦^_^）",
+                    1: "【精力强化1】精力上限+10，战斗胜利8次后激活（" + t.winTimes + "/8）。",
+                    2: "【生命强化1】最大生命值+50，吃「果子」30次后激活(" + t.orderTimes[5] + "/30）。",
+                    3: "【恢复1】前进/探索时，生命恢复量提高8点。使用「伤药」15次后激活（" + t.orderTimes[0] + "/15）。",
+                    4: "【烟瘾】攻击/防御减为零！每天有" + n + "%概率激活，效果持续1天。（抽烟次数越多激活概率越高，每次增加3%）",
+                    5: "【平衡架势】造成" + (t.figthExp[0] / 5 + 100).toFixed(1) + "%伤害，承受" + (100 - t.figthExp[0] / 5).toFixed(1) + "%伤害。效果随熟练度提升而提升（" + t.figthExp[0] + "/150）。战斗胜利15次(" + t.winTimes + "/15)后开启。",
+                    6: "【捡钱】每天40%概率额外捡到1毛钱，扶老奶奶10次激活！此特性可升级，每扶10次涨1毛哈~(^_?)☆！（" + t.randomEvent[6] + "/10）。",
+                    7: "【精力强化2】精力上限+20，吃「熟肉」30次后激活（" + t.orderTimes[2] + "/30）。",
+                    8: "【防御强化1】防御增加10点，平衡架势熟练度达20后激活（" + t.figthExp[0] + "/20）。",
+                    9: "【拼命架势】可切换到拼命架势。攻击时，造成" + (t.figthExp[1] / 2 + 132).toFixed(1) + "%伤害，每次攻击损失8%最大生命值。效果随熟练度而提升（" + t.figthExp[1] + "/150）。战斗胜利" + t.winTimes + "/20次后激活。注意1：一场战斗中，使用最多的架势将获得1点熟练度",
+                    10: "【自愈1】睡觉时40%几率恢复1点健康值，帐篷达到5级激活。",
+                    11: "【攻击强化1】攻击增加10点，拼命架势熟练度达30激活（" + t.figthExp[1] + "/30）。",
+                    12: "【精力强化3】精力上限+30，吃果子666次后激活，吃草更健康哦（" + t.orderTimes[5] + "/666）。",
+                    13: "【大胃王】饥饿上限+50，吃（" + t.orderTimes[5] + "/200）次「果子」和（" + t.orderTimes[2] + "/60）次「熟肉」后激活。",
+                    14: "【猥琐架势】可切换到猥琐架势。受击时，承受" + (70 - t.figthExp[2] / 6).toFixed(1) + "%的伤害，且恢复" + parseInt(t.figthExp[2] + 10) + "点生命，但造成伤害减也少30%。效果随熟练度而提升（" + t.figthExp[2] + "/150）。战斗胜利" + t.winTimes + "/60次后激活。注意2：逃跑时系统将自动切换为猥琐架势！",
+                    15: "【生命强化2】最大生命值+100，猥琐架势熟练度达40激活（" + t.figthExp[2] + "/40）。",
+                    16: "【防御强化2】防御+20，第三次击败山脉中「山顶巨人」后激活。",
+                    17: "【恢复2】前进/探索时，生命恢复量提高36点，使用「伤药」99次后激活（" + t.orderTimes[0] + "/99）。",
+                    18: "【攻击强化2】攻击+20，击败挑战副本中「女剑士」后激活。",
+                    19: "【生命强化3】最大生命值+150。在省城市中心的晓风料理店食用4次「巨无霸」套餐后激活！（" + t.publicVar3[13] + "/4）",
+                    20: "【防御强化3】防御+30。击败省城郊外的「杀.破.狼」4次后激活！",
+                    21: "【恢复强化】前进/探索时，生命恢复效果翻倍。「驱蚊工具」等级达到10级后激活（" + t.itemNum2[6] + "/10）。你目前前进/探索回恢复量为" + (4 + 8 * t.skillLv[3] + 36 * t.skillLv[17] + 2 * t.itemNum2[23]) * (1 + t.skillLv[21]) + "（激活后此数值将会翻倍，创可贴恢复效果也将翻倍！）。",
+                    22: "【攻击强化3】攻击+30，击败挑战副本中「双枪老太婆」后激活。",
+                    23: "【非酋逆袭】如果前进/探索时没发现道具，则必定获得1毛钱！没发现道具次数达233次后激活（" + t.publicVar2[1] + "/233）。",
+                    24: "【圣斗士】战斗失败后，" + Math.min(Math.max(parseInt(t.publicVar3[12] / 5), 20), 40).toFixed(1) + "%几率满血复活！战斗失败79次后激活（" + t.publicVar3[12] + "/79）",
+                    25: "【霸气】狂拽炫酷吊炸天！攻击时，10%几率无视目标防御，且恢复自身3%生命。木棍、麻布衣达到15级时激活",
+                    26: "【不屈的精神力】睡觉时30%几率额外再恢复30%精力！击败「草带男孩」40次后激活！（" + t.kills[2] + "/40）"
+                }, i = e("scr_data").skillLv, c = cc.find("Canvas/Scroll/view/content"), o = parseInt(1 + t.day / 3), r = Object.keys(a).length;
+                "undefined" == typeof r && (r = 99);
                     for (var s in a) {
                         var l = r - s - 1;
-                        l > o - 1 || (this.creatText(i, "skill" + l, a[l]), c[l] > 0 && (i.getChildByName("skill" + l).color = new cc.Color(0, 255, 0)))
+                    if (l > o - 1); else {
+                        this.creatText(c, "skill" + l, a[l]);
+                        i[l] > 0 && (c.getChildByName("skill" + l).color = new cc.Color(0, 255, 0));
+                    }
                     }
                     var u = cc.find("Canvas/Button_loadAchieve"), p = cc.find("Canvas/Button_system");
                     u.on("touchstart", function () {
-                        cc.director.loadScene("achieve")
-                    }, u), p.on("touchstart", function () {
-                        cc.director.loadScene("system")
-                    }, p)
+                    cc.director.loadScene("achieve");
+                }, u);
+                p.on("touchstart", function () {
+                    cc.director.loadScene("system");
+                }, p);
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data" }], scr_startChoice: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "abb1fsZ7zZIh7RCgg95JM2L", "scr_startChoice"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    function t() {
-                        m.opacity = 0, f.opacity = 0
-                    }
-                    function n() {
-                        b.playText("Canvas/text1", "请选择一种初始道具套餐...", 80), h.schedule(a, 2, 1)
-                    }
-                    function a() {
-                        var e = ["Canvas/Determine", "Canvas/text2"];
-                        cc.find(e[_]).runAction(cc.fadeIn(2)), _++
-                    }
-                    function c() {
-                        v.itemNum[0] += 20, v.itemNum2[1] += 20, v.money += 30, d()
-                    }
-                    function i() {
-                        v.itemNum2[20] += 3, d()
-                    }
-                    function o() {
-                        v.itemNum2[24] += 13, d()
-                    }
-                    function r() {
-                        v.itemNum2[13] += 1, v.money += 20, d()
-                    }
-                    function s() {
-                        v.itemNum2[17] += 6, d()
-                    }
-                    function l() {
-                        v.itemNum2[27] += 20, v.publicVar[1] = -1, d()
-                    }
-                    function u() {
-                        y.gameData[1] > 0 ? (v.publicVar[1] = 1, d()) : b.playText("Canvas/text1", "修罗模式需先通关游戏", 80)
-                    }
-                    function p() {
-                        b.playText("Canvas/text1", "该模式还在奋力开发中，敬请期待哦←_←", 80)
-                    }
-                    function d() {
-                        cc.find("Canvas/Determine").active = !1, cc.find("Canvas/text1").active = !1, cc.find("Canvas/text2").active = !1, g.save(), cc.director.loadScene("open")
-                    }
-                    var m = cc.find("Canvas/Determine"), f = cc.find("Canvas/text2"), h = this, v = e("scr_data"), y = e("scr_data2"), g = e("scr_public"), b = e("scr_effect"), _ = 0;
-                    m.getChildByName("choice1").on("touchstart", c, this), m.getChildByName("choice2").on("touchstart", i, this), m.getChildByName("choice3").on("touchstart", o, this), m.getChildByName("choice4").on("touchstart", r, this), m.getChildByName("choice5").on("touchstart", s, this), m.getChildByName("choice6").on("touchstart", l, this), m.getChildByName("choice7").on("touchstart", u, this), m.getChildByName("choice8").on("touchstart", p, this), t(), n()
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data"
+    }],
+        scr_startChoice: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "abb1fsZ7zZIh7RCgg95JM2L", "scr_startChoice");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var t = cc.find("Canvas/Determine"), n = cc.find("Canvas/text2"), a = this, i = e("scr_data"), c = e("scr_data2"), o = e("scr_public"), r = e("scr_effect"), s = 0;
+                t.getChildByName("choice1").on("touchstart", function () {
+                    i.itemNum[0] += 20;
+                    i.itemNum2[1] += 20;
+                    i.money += 30;
+                    u();
+                }, this);
+                t.getChildByName("choice2").on("touchstart", function () {
+                    i.itemNum2[20] += 3;
+                    u();
+                }, this);
+                t.getChildByName("choice3").on("touchstart", function () {
+                    i.itemNum2[24] += 13;
+                    u();
+                }, this);
+                t.getChildByName("choice4").on("touchstart", function () {
+                    i.itemNum2[13] += 1;
+                    i.money += 20;
+                    u();
+                }, this);
+                t.getChildByName("choice5").on("touchstart", function () {
+                    i.itemNum2[17] += 6;
+                    u();
+                }, this);
+                t.getChildByName("choice6").on("touchstart", function () {
+                    i.itemNum2[27] += 20;
+                    i.publicVar[1] = -1;
+                    u();
+                }, this);
+                t.getChildByName("choice7").on("touchstart", function () {
+                    if (c.gameData[1] > 0) {
+                        i.publicVar[1] = 1;
+                        u();
+                    } else r.playText("Canvas/text1", "修罗模式需先通关游戏", 80);
+                }, this);
+                t.getChildByName("choice8").on("touchstart", function () {
+                    r.playText("Canvas/text1", "该模式还在奋力开发中，敬请期待哦←_←", 80);
+                }, this);
+                (function () {
+                    t.opacity = 0;
+                    n.opacity = 0;
+                })();
+                (function () {
+                    r.playText("Canvas/text1", "请选择一种初始道具套餐...", 80);
+                    a.schedule(l, 2, 1);
+                })();
+                function l() {
+                    cc.find(["Canvas/Determine", "Canvas/text2"][s]).runAction(cc.fadeIn(2));
+                    s++;
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_data2: "scr_data2", scr_effect: "scr_effect", scr_public: "scr_public" }], scr_startUI: [function (e, t, n) {
+                function u() {
+                    cc.find("Canvas/Determine").active = !1;
+                    cc.find("Canvas/text1").active = !1;
+                    cc.find("Canvas/text2").active = !1;
+                    o.save();
+                    cc.director.loadScene("open");
+                }
+            }
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_data2: "scr_data2",
+        scr_effect: "scr_effect",
+        scr_public: "scr_public"
+    }], 
+    scr_startUI: [function (e, t, n) {
             "use strict";
             cc._RFpush(t, "cea75di7zpJiqfvO6EeKLF9", "scr_startUI"), cc.Class({
                 "extends": cc.Component, properties: {}, supportButton: function () {
@@ -11784,7 +13199,8 @@ require = function e(t, n, a) {
                     t(), c.on("touchstart", n, c)
                 }
             }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_effect: "scr_effect" }], scr_weixin: [function (e, t, n) {
+        }, { scr_data: "scr_data", scr_effect: "scr_effect" }], 
+        scr_weixin: [function (e, t, n) {
             "use strict";
             cc._RFpush(t, "30448HDiXRBAKQpqrA00msY", "scr_weixin"), cc.Class({
                 "extends": cc.Component, properties: {}, callBack: function () {
@@ -11793,7 +13209,8 @@ require = function e(t, n, a) {
                     this.node.on("touchstart", this.callBack, this)
                 }
             }), cc._RFpop()
-        }, {}], testAll: [function (e, t, n) {
+        }, {}], 
+        testAll: [function (e, t, n) {
             "use strict";
             cc._RFpush(t, "90bfc8sWA1FKba1y8235I0Y", "testAll"), cc.Class({
                 "extends": cc.Component, properties: {}, callBack: function () {
