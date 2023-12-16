@@ -9340,48 +9340,67 @@ require = function e(t, n, a) {
             properties: {},
             onLoad: function () {
                     var t = e("scr_data"), n = e("scr_data2"), a = e("scr_public");
-                    if (0 != n.initMoney && (t.money += n.initMoney, n.initMoney = 0), n.gameData[2] < 9999) {
-                        var c = new Date, i = parseInt(c.getTime() / 36e5);
-                        n.gameData[2] = i
+                if (0 != n.initMoney) {
+                    t.money += n.initMoney;
+                    n.initMoney = 0;
+                }
+                if (n.gameData[2] < 9999) {
+                    var i = new Date(), c = parseInt(i.getTime() / 36e5);
+                    n.gameData[2] = c;
                     }
-                    n.gameData[3] = 0, t.publicVar[6] = 2, a.save(), a.save2()
+                n.gameData[3] = 0;
+                t.publicVar[6] = 2;
+                a.save();
+                a.save2();
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_data2: "scr_data2", scr_public: "scr_public" }], scr_liveModeMain: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_data2: "scr_data2",
+        scr_public: "scr_public"
+    }],
+    scr_liveModeMain: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "b3dbdX/PEZG2b06UXyCtd3Z", "scr_liveModeMain"), cc.Class({ "extends": cc.Component, properties: {}, onLoad: function () { } }), cc._RFpop()
-        }, {}], scr_logo: [function (e, t, n) {
+        cc._RF.push(t, "b3dbdX/PEZG2b06UXyCtd3Z", "scr_liveModeMain");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () { }
+        });
+        cc._RF.pop();
+        }, {}], 
+    scr_mainUIEvent: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "a828bjfK8lPi6WqkkH2XVy2", "scr_logo"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    var e = cc.find("Canvas/zwsf"), t = [cc.p(-100, 0), cc.p(100, 0), cc.p(0, 0)];
-                    cc.bezierTo(1, t), cc.jumpBy(2, cc.p(300, 0), 50, 4);
-                    this.scheduleOnce(function () {
-                        cc.director.loadScene("start")
-                    }, 2), cc.find("Canvas/zwsf").runAction(cc.fadeTo(2, 255)), e.runAction(cc.jumpBy(1.5, cc.p(300, 0), 50, 3)), cc.find("Canvas/load").runAction(cc.fadeTo(2, 255))
-                }
-            }), cc._RFpop()
-        }, {}], scr_mainUIEvent: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "449f7/pnslKIp1sHAfscrPC", "scr_mainUIEvent"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
+        cc._RF.push(t, "449f7/pnslKIp1sHAfscrPC", "scr_mainUIEvent");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
                     var a = new cc.Node(t);
                     a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.opacity = 0, a.runAction(cc.fadeIn(1)), a.color = new cc.Color(0, 0, 0), a.getComponent(cc.Label).overflow = 3, a.getComponent(cc.Label).horizontalAlign = 1, a.setContentSize(600, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 50, a.getComponent(cc.Label).fontSize = 40
-                }, event: function a() {
-                    function t() {
-                        var t = 59 - 10 * e("scr_data2").gameData[4];
-                        i.skillLv[4] = 0, c.gamePoint = 3 * i.choice[2] + 6 * i.choice[7] + 6 * i.publicVar2[14] + 2 * (10 - i.publicVar2[21]) + 5 * i.publicVar[9] - Math.max(Math.min((4 * i.orderTimes[1] - i.orderTimes[4]) / 10, 10), 0), c.gamePoint += parseInt(3 * i.publicVar2[19] / 50) + 3 * i.publicVar2[15], c.attPoint = parseInt(21 - 6 * o.role.maxHp() / 1e4 - 6 * o.role.att() / 2e3 - 6 * o.role.def() / 1e3), c.attPoint = Math.min(Math.max(c.attPoint, 0), 18), c.totalPoint = c.gamePoint + c.attPoint + i.publicVar[11], c.totalPoint < t ? (i.publicVar3[3] = 111, c.closeUI("......")) : (i.publicVar3[3] = 211, c.closeUI("......"))
-                    }
-                    function n() {
-                        var t = e("scr_data");
-                        t.hunger <= 20 && (t.itemNum2[0] >= 1 ? (t.itemNum2[0] -= 1, t.orderTimes[2] += 1, t.hunger += 60) : t.itemNum[0] >= 1 && (t.itemNum[0] -= 1, t.orderTimes[5] += 1, t.hunger += 20))
-                    }
-                    var c = this, i = e("scr_data"), o = e("scr_public"), r = (e("scr_effect"), parseInt(9 * Math.random() + 1));
-                    this.randomItemNum = parseInt(7 * Math.random() + 1), this.stealMoney = parseInt(10 * Math.random() + 1), this.stealRate = parseInt(100 * Math.random());
-                    var s = [["女装", 22, 1, 1], ["创口贴", 23, 1, 1], ["护身符", 25, 1, 1], ["滑稽裤", 24, 1, 1], ["晓月手链", 27, 1, 1], ["幸运石", 26, 1, 1], ["板砖", 20, 1, 1], ["放大镜", 17, 1, 1], ["小裤裤", 21, 1, 1]];
-                    c.drawDiscount = parseInt(9 * Math.random() + 1), this.changeItemId2 = parseInt(8.99 * Math.random()), this.changeItemId3 = parseInt(3.99 * Math.random());
-                    var a = {
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.opacity = 0;
+                a.runAction(cc.fadeIn(1));
+                a.color = new cc.Color(0, 0, 0);
+                a.getComponent(cc.Label).overflow = 3;
+                a.getComponent(cc.Label).horizontalAlign = 1;
+                a.setContentSize(600, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 50;
+                a.getComponent(cc.Label).fontSize = 40;
+            },
+            event: function () {
+                var t = this, n = e("scr_data"), a = e("scr_public"), i = (e("scr_effect"), parseInt(9 * Math.random() + 1));
+                this.randomItemNum = parseInt(7 * Math.random() + 1);
+                this.stealMoney = parseInt(10 * Math.random() + 1);
+                this.stealRate = parseInt(100 * Math.random());
+                var c = [["女装", 22, 1, 1], ["创口贴", 23, 1, 1], ["护身符", 25, 1, 1], ["滑稽裤", 24, 1, 1], ["晓月手链", 27, 1, 1], ["幸运石", 26, 1, 1], ["板砖", 20, 1, 1], ["放大镜", 17, 1, 1], ["小裤裤", 21, 1, 1]];
+                t.drawDiscount = parseInt(9 * Math.random() + 1);
+                this.changeItemId2 = parseInt(8.99 * Math.random());
+                this.changeItemId3 = parseInt(3.99 * Math.random());
+                var o = {
                         1: {
                             text: ["路上发现0.2元钱，是否要捡起来？", "捡", "不捡"], choice1: function () { var e = 100 * Math.random(); e < 25 ? (i.randomEvent[0] += 1, c.closeUI(), cc.find("Canvas/Button").stopAllActions(), cc.find("Event/scr_fight").getComponent("scr_fight").fight(900001)) : (i.money += 2, c.closeUI("获得0.2元！")) }, choice2: function () {
                                 c.closeUI()
@@ -11009,4 +11028,4 @@ require = function e(t, n, a) {
                 }
             }), cc._RFpop()
         }, { scr_data: "scr_data" }]
-    }, {}, ["scr_eatButton", "scr_makeButton", "scr_shopButton", "scr_skillButton", "scr_backMainUI", "scr_diaryDetermine", "scr_eventDetermine", "scr_restDetermine", "scr_backStartUI", "scr_backSupport", "scr_continueButton", "scr_initGame", "scr_newGame", "scr_notice", "scr_notice2", "scr_open", "scr_startChoice", "scr_startUI", "scr_weixin", "scr_achieve", "scr_eatUI", "scr_eventData", "scr_makeUI", "scr_shop2", "scr_shop3", "scr_shop4", "scr_shopUI", "scr_skillJudge", "scr_skillUI", "scr_data", "scr_data2", "scr_dataCopy", "scr_diary", "scr_event", "scr_mainUIEvent", "scr_plot", "scr_rest", "scr_enemy", "scr_explore", "scr_fight", "scr_fightState", "scr_forwardButton", "scr_friendSkillJudge1", "scr_friendSkillUI1", "scr_friendSkillUI2", "scr_friendUI1", "scr_skillJudge2", "scr_effect", "scr_public", "scr_home", "scr_mainUIinit", "scr_readConfession", "scr_end", "scr_initData", "scr_over", "scr_over2", "scr_over2_1", "scr_system", "scr_BGM", "scr_logo", "scr_quitGame", "test", "testAll", "scr_liveModeMain"]);
+    }, {}, ["scr_eatButton", "scr_makeButton", "scr_shopButton", "scr_skillButton", "scr_backMainUI", "scr_diaryDetermine", "scr_eventDetermine", "scr_restDetermine", "scr_backStartUI", "scr_backSupport", "scr_continueButton", "scr_initGame", "scr_newGame", "scr_notice", "scr_notice2", "scr_open", "scr_startChoice", "scr_startUI", "scr_weixin", "scr_achieve", "scr_eatUI", "scr_eventData", "scr_makeUI", "scr_shop2", "scr_shop3", "scr_shop4", "scr_shopUI", "scr_skillJudge", "scr_skillUI", "scr_data", "scr_data2", "scr_dataCopy", "scr_diary", "scr_event", "scr_mainUIEvent", "scr_plot", "scr_rest", "scr_enemy", "scr_explore", "scr_fight", "scr_fightState", "scr_forwardButton", "scr_friendSkillJudge1", "scr_friendSkillUI1", "scr_friendSkillUI2", "scr_friendUI1", "scr_skillJudge2", "scr_effect", "scr_public", "scr_home", "scr_mainUIinit", "scr_readConfession", "scr_end", "scr_initData", "scr_over", "scr_over2", "scr_over2_1", "scr_system", "scr_BGM", "scr_quitGame", "test", "testAll", "scr_liveModeMain"]);

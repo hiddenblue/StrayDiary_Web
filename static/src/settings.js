@@ -54,11 +54,11 @@ _CCSettings = {
         }
     },
     "assetTypes": ["cc.Texture2D", "cc.SpriteFrame"],
-    "launchScene": "db://assets/Scene/other/logo.fire",
-    "scenes": [{
+    "launchScene":"db://assets/Scene/other/start.fire", //"db://assets/Scene/other/logo.fire",
+    "scenes": [/*{
         "url": "db://assets/Scene/other/logo.fire",
         "uuid": "0547dc3f-900b-4005-a152-2313865c192a"
-    }, {
+    },*/ {
         "url": "db://assets/Scene/friend/friendSkill1.fire",
         "uuid": "d68c9c5c-990e-4ebd-8337-4429ae6a9d2f"
     }, {
