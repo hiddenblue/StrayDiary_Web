@@ -22,7 +22,7 @@ require = function e(t, n, a) {
     ({
         scr_BGM: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "8d8c2z+e3xAIqUkxCqE4NZW", "scr_BGM"),
+        cc._RF.push(t, "8d8c2z+e3xAIqUkxCqE4NZW", "scr_BGM");
                 cc.Class({
                     "extends":
                         cc.Component, properties:
@@ -32,234 +32,1097 @@ require = function e(t, n, a) {
                         BGM3: { url: cc.AudioClip, "default": null },
                         BGM4: { url: cc.AudioClip, "default": null }
                     }, onLoad: function () { }
-                }), cc._RFpop()
+                }), cc._RFpop();
         }, {}],
         scr_achieve: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "141caSLnsJIHJZ46hPGujwi", "scr_achieve"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
+        cc._RF.push(t, "141caSLnsJIHJZ46hPGujwi", "scr_achieve");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
                     var a = new cc.Node(t);
                     a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.color = new cc.Color(115, 115, 115), a.getComponent(cc.Label).overflow = 3, a.setContentSize(630, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 50, a.getComponent(cc.Label).fontSize = 32
-                }, day: function () {
-                    var t = new Date, n = parseInt(t.getTime() / 36e5), a = parseInt(n - e("scr_data2").gameData[2]);
-                    return a
-                }, onLoad: function () {
-                    var t = e("scr_data"), n = e("scr_data2"), a = e("scr_public"), c = t.publicVar2[2] + t.publicVar2[3] + t.publicVar2[4], i = t.itemNum2[17] + t.itemNum2[18] + t.itemNum2[20] + t.itemNum2[21] + t.itemNum2[22] + t.itemNum2[23] + t.itemNum2[24] + t.itemNum2[25], o = this.day(), r = t.choice[5] + t.publicVar[7], s = { 0: "【第一次】第一次击败女贼（小学生）", 1: "【dalao】声望达到99（" + t.achieve + "/99，目前版本声望系统暂未开放）", 2: "【非酋矿老板】被劫匪抢劫66次！（" + t.publicVar2[0] + "/66，包括66次以上，下同）", 3: "【非酋勘察队】前进探索999次，且啥也没找到比例超过25%！你目前一共前进探索" + c + "次，其中有" + t.publicVar2[1] + "次啥也没找到，占比" + (100 * t.publicVar2[1] / c).toFixed(1) + "%", 4: "【非酋流浪汉】捡钱被打10次（" + t.randomEvent[0] + "/10），翻垃圾被抢10次（" + t.publicVar2[13] + "/10）", 5: "【一身骚气∠( ? 」∠)＿】前进探索999次，且战斗占比超过24%！你目前一共前进探索" + c + "次，其中战斗" + t.publicVar2[2] + "次（占比" + (100 * t.publicVar2[2] / c).toFixed(1) + "%），捡道具" + t.publicVar2[3] + "次（占比" + (100 * t.publicVar2[3] / c).toFixed(1) + "%），事件" + t.publicVar2[4] + "次（占" + (100 * t.publicVar2[4] / c).toFixed(1) + "%）", 6: "【震惊！一小伙被十个阿姨轮流摸】被老奶奶摸钱10次（" + t.publicVar2[5] + "/10）！", 7: "【扶我起来，我还能跑】逃跑失败999次（" + t.publicVar2[6] + "/999）", 8: "【一个约定】“10年后，如果你还在，咱们就结婚吧！”女流氓：“嗯...”碰到女流氓49次（" + t.publicVar2[12] + "/49）！", 9: "【巨人杀手】击杀山顶巨人10只或以上（" + t.kills[3] + "/10）", 10: "【县城一霸】击败刀疤男", 11: "【残废】触发烟瘾36次（" + t.publicVar2[8] + "/36）", 12: "【对不起，我要做个坏人】罪恶值60（" + t.publicVar[0] + "/60）", 13: "【抱走晓月】晓月好感400（" + t.choice[5] + "/400）", 14: "【饥渴少女（晓月）】“老哥，我想要...”“没有！滚~”。连续30天不喂食晓月！（" + t.publicVar2[10] + "/30）", 15: "【真.爱】触发回到认识晓月前一天后，放弃认识晓月，并到达省城", 16: "【决心】击败通缉犯", 17: "【你是个好人】拥有6个人的「好人卡」（" + t.randomEvent[1] + "/6）", 18: "【珍.爱】击败草带男孩40次（" + t.kills[2] + "/40），并且被击败20次（" + t.publicVar2[7] + "/20）", 19: "【雷电法王】电疗成功21次（" + t.orderTimes[3] + "/21）", 20: "【收集癖】拥有99个收集类道具（" + i + "/99）", 21: "【就算被伤透，我依然爱着你】找工作失败49次（" + t.publicVar2[9] + "/49）", 22: "【生而为人，我很抱歉】拥有6个人的「眼泪」（" + t.itemNum[12] + "/6，最难成就 ）", 23: "【鬼武者】拥有9级黑刀和9级红夹克", 24: "【人狠话不多】打出99颗以上子弹（" + t.publicVar3[14] + "/99）", 25: "【表白女神】陈碧瑶好感600（" + t.publicVar[7] + "/600），且晓月好感等于0", 26: "【调戏女神】还没想到hiahiahia(?ω?)", 27: "【蛰居族】晓月好感+陈碧瑶达好感达1999（" + r + "/1999）", 28: "【天下第二】通关挑战副本", 29: "【真爱粉】本游戏通关6次以上（" + n.gameData[1] + "/6）", 30: "【作者亲爹妈】本游戏在你手机中存活达300小时（" + o + "/300）" }, l = {
-                        0: function () { return t.randomEvent[3] > 0 }, 1: function () { var e = 100 * t.publicVar2[1] / c; return c >= 999 && e >= 24 }, 2: function () { return t.publicVar2[0] >= 66 }, 3: function () { return t.publicVar2[1] >= 999 }, 4: function () { return t.randomEvent[0] >= 10 && t.publicVar2[13] >= 10 }, 5: function () { var e = 100 * t.publicVar2[2] / c; return c >= 999 && e >= 24 }, 6: function () { return t.publicVar2[5] >= 10 }, 7: function () { return t.publicVar2[6] >= 999 }, 8: function () { return t.publicVar2[12] >= 49 }, 9: function () { return t.kills[3] >= 10 }, 10: function () { return 1 == t.publicVar[5] }, 11: function () { return t.publicVar2[8] >= 36 }, 12: function () { return t.publicVar[0] >= 60 }, 13: function () { return t.choice[5] >= 400 }, 14: function () { return (t.publicVar2[10] >= 30 || 1 == t.publicVar2[11]) && (t.publicVar2[11] = 1, a.save(), !0) }, 15: function () { return 300 == t.distance && n.gameData[0] > 0 && 0 == t.choice[5] }, 16: function () { return t.publicVar[3] > 0 }, 17: function () { return t.randomEvent[1] >= 6 }, 18: function () { return t.kills[2] >= 40 && t.publicVar2[7] >= 20 }, 19: function () { return t.orderTimes[3] >= 21 }, 20: function () { return i >= 99 }, 21: function () { return t.publicVar2[9] >= 49 }, 22: function () { return t.itemNum[12] >= 6 }, 23: function () { return t.itemNum2[10] >= 9 && t.itemNum2[11] >= 9 }, 24: function () { return t.publicVar3[14] >= 99 }, 25: function () { return t.publicVar[7] >= 600 && t.choice[5] <= 0 }, 26: function () { return t.publicVar2[9] >= 49 }, 27: function () { return r >= 1999 }, 28: function () { return t.choice[6] >= 16 }, 29: function () { return n.gameData[1] + 1 >= 6 }, 30: function () {
-                            return o >= 300
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.color = new cc.Color(115, 115, 115);
+                a.getComponent(cc.Label).overflow = 3;
+                a.setContentSize(630, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 50;
+                a.getComponent(cc.Label).fontSize = 32;
+            },
+            day: function () {
+                var t = new Date(), n = parseInt(t.getTime() / 36e5);
+                return parseInt(n - e("scr_data2").gameData[2]);
+            },
+            //成就传送门            
+            onLoad: function () {
+                var t = e("scr_data"), n = e("scr_data2"), a = e("scr_public"), i = t.publicVar2[2] + t.publicVar2[3] + t.publicVar2[4], c = t.itemNum2[17] + t.itemNum2[18] + t.itemNum2[20] + t.itemNum2[21] + t.itemNum2[22] + t.itemNum2[23] + t.itemNum2[24] + t.itemNum2[25], o = this.day(), r = t.choice[5] + t.publicVar[7], s = {
+                    0: "【第一次】第一次击败女贼（小学生）",
+                    1: "【dalao】声望达到99（" + t.achieve + "/99，目前版本声望系统暂未开放）",
+                    2: "【非酋矿老板】被劫匪抢劫66次！（" + t.publicVar2[0] + "/66，包括66次以上，下同）",
+                    3: "【非酋勘察队】前进探索999次，且啥也没找到比例超过25%！你目前一共前进探索" + i + "次，其中有" + t.publicVar2[1] + "次啥也没找到，占比" + (100 * t.publicVar2[1] / i).toFixed(1) + "%",
+                    4: "【非酋流浪汉】捡钱被打10次（" + t.randomEvent[0] + "/10），翻垃圾被抢10次（" + t.publicVar2[13] + "/10）",
+                    5: "【一身骚气∠( ᐛ 」∠)＿】前进探索999次，且战斗占比超过24%！你目前一共前进探索" + i + "次，其中战斗" + t.publicVar2[2] + "次（占比" + (100 * t.publicVar2[2] / i).toFixed(1) + "%），捡道具" + t.publicVar2[3] + "次（占比" + (100 * t.publicVar2[3] / i).toFixed(1) + "%），事件" + t.publicVar2[4] + "次（占" + (100 * t.publicVar2[4] / i).toFixed(1) + "%）",
+                    6: "【震惊！一小伙被十个阿姨轮流摸】被老奶奶摸钱10次（" + t.publicVar2[5] + "/10）！",
+                    7: "【扶我起来，我还能跑】逃跑失败999次（" + t.publicVar2[6] + "/999）",
+                    8: "【一个约定】“10年后，如果你还在，咱们就结婚吧！”女流氓：“嗯...”碰到女流氓49次（" + t.publicVar2[12] + "/49）！",
+                    9: "【巨人杀手】击杀山顶巨人10只或以上（" + t.kills[3] + "/10）",
+                    10: "【县城一霸】击败刀疤男",
+                    11: "【残废】触发烟瘾36次（" + t.publicVar2[8] + "/36）",
+                    12: "【对不起，我要做个坏人】罪恶值60（" + t.publicVar[0] + "/60）",
+                    13: "【抱走晓月】晓月好感400（" + t.choice[5] + "/400）",
+                    14: "【饥渴少女（晓月）】“老哥，我想要...”“没有！滚~”。连续30天不喂食晓月！（" + t.publicVar2[10] + "/30）",
+                    15: "【真.爱】触发回到认识晓月前一天后，放弃认识晓月，并到达省城",
+                    16: "【决心】击败通缉犯",
+                    17: "【你是个好人】拥有6个人的「好人卡」（" + t.randomEvent[1] + "/6）",
+                    18: "【珍.爱】击败草带男孩40次（" + t.kills[2] + "/40），并且被击败20次（" + t.publicVar2[7] + "/20）",
+                    19: "【雷电法王】电疗成功21次（" + t.orderTimes[3] + "/21）",
+                    20: "【收集癖】拥有99个收集类道具（" + c + "/99）",
+                    21: "【就算被伤透，我依然爱着你】找工作失败49次（" + t.publicVar2[9] + "/49）",
+                    22: "【生而为人，我很抱歉】拥有6个人的「眼泪」（" + t.itemNum[12] + "/6，最难成就 ）",
+                    23: "【鬼武者】拥有9级黑刀和9级红夹克",
+                    24: "【人狠话不多】打出99颗以上子弹（" + t.publicVar3[14] + "/99）",
+                    25: "【表白女神】陈碧瑶好感600（" + t.publicVar[7] + "/600），且晓月好感等于0",
+                    26: "【调戏女神】还没想到hiahiahia(ಡωಡ)",
+                    27: "【蛰居族】晓月好感+陈碧瑶达好感达1999（" + r + "/1999）",
+                    28: "【天下第二】通关挑战副本",
+                    29: "【真爱粉】本游戏通关6次以上（" + n.gameData[1] + "/6）",
+                    30: "【作者亲爹妈】本游戏在你手机中存活达300小时（" + o + "/300）"
+                }, l = {
+                    0: function () {
+                        if(n.gameData2[0] == 1){n.achieveMent[0] = 1;}
+                        return n.achieveMent[0]==1;
+
+                    },
+                    1: function () {
+                        if(t.achieve >=99){n.achieveMent[1] = 1;}
+                        return n.achieveMent[1] == 1;
+                    },
+                    2: function () {
+                        if(t.publicVar2[0] >= 66){n.achieveMent[2] = 1;}
+                        return n.achieveMent[2] == 1;
+                    },
+                    3: function () {
+                        if((t.publicVar2[1] / i)>=.25 && i>=999){n.achieveMent[3] = 1;}
+                        return n.achieveMent[3] == 1;
+                    },
+                    4: function () {
+                        if(t.randomEvent[0] >= 10 && t.publicVar2[13] >= 10){n.achieveMent[4] = 1;}
+                        return n.achieveMent[4] == 1;
+                    },
+                    5: function () {
+                        var e = 100 * t.publicVar2[2] / i;
+                        if(i >= 999 && e >= 24){n.achieveMent[5] = 1;}
+                        return n.achieveMent[5] == 1;
+                    },
+                    6: function () {
+                        if(t.publicVar2[5] >= 10){n.achieveMent[6] = 1;}
+                        return n.achieveMent[6] == 1;
+                    },
+                    7: function () {
+                        if( t.publicVar2[6] >= 999 ){ n.achieveMent[7] = 1 ; }
+                        return n.achieveMent[7] == 1;
+                    },
+                    8: function () {
+                        if( t.publicVar2[12] >= 49 ){ n.achieveMent[8] = 1 ; }
+                        return n.achieveMent[8] == 1;
+                    },
+                    9: function () {
+                        if( t.kills[3] >= 10 ){ n.achieveMent[9] = 1 ; }
+                        return n.achieveMent[9] == 1;
+                    },
+                    10: function () {
+                        if( 1 == t.publicVar[5] ){ n.achieveMent[10] = 1 ; }
+                        return n.achieveMent[10] == 1;
+                    },
+                    11: function () {
+                        if( t.publicVar2[8] >= 36 ){ n.achieveMent[11] = 1 ; }
+                        return n.achieveMent[11] == 1;
+                    },
+                    12: function () {
+                        if( t.publicVar[0] >= 60 ){ n.achieveMent[12] = 1 ; }
+                        return n.achieveMent[12] == 1;
+                    },
+                    13: function () {
+                        if( t.choice[5] >= 400 ){ n.achieveMent[13] = 1 ; }
+                        return n.achieveMent[13] == 1;
+                    },
+                    14: function () {
+                        if (t.publicVar2[10] >= 30 || 1 == t.publicVar2[11]) {
+                            t.publicVar2[11] = 1;
+                            n.achieveMent[14] = 1 ;
+                            a.save();
+                            return !0;
                         }
-                    }, u = cc.find("Canvas/Scroll/view/content");
-                    s.length;
-                    for (var p in s) this.creatText(u, "skill" + p, s[p]), l[p]() && (u.getChildByName("skill" + p).color = new cc.Color(0, 255, 0));
-                    var d = cc.find("Canvas/Button_backMainUI");
-                    d.on("touchstart", function () {
-                        cc.director.loadScene("main")
-                    }, d)
-                }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_data2: "scr_data2", scr_public: "scr_public" }], scr_backMainUI: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "3e3ebJJTbNAf4EOh0d4HMO1", "scr_backMainUI"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    e("scr_public").save(), cc.director.loadScene("main")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
-                }
-            }), cc._RFpop()
-        }, { scr_public: "scr_public" }], scr_backStartUI: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "d5fa6dHVPtCmIx1Z7ZMSeDh", "scr_backStartUI"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    cc.director.loadScene("start")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
-                }
-            }), cc._RFpop()
-        }, {}], scr_backSupport: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "210d2Bb6a1Dho5//c333ltz", "scr_backSupport"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    cc.director.loadScene("support")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
-                }
-            }), cc._RFpop()
-        }, {}], scr_continueButton: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "4ffa5hmUdNEyJa2jWF2c0nr", "scr_continueButton"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.director.loadScene("main")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
-                }
-            }), cc._RFpop()
-        }, {}], scr_data2: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "77dc9QHo3RF5IGfGNhXskkd", "scr_data2"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    function e(e) {
-                        "undefined" == typeof e.gameData && (e.gameData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), "undefined" == typeof e.gameData2 && (e.gameData2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+                        return !1;
+                    },
+                    15: function () {
+                        if( 300 == t.distance && n.gameData[0] > 0 && 0 == t.choice[5] ){ n.achieveMent[15] = 1 ; }
+                        return n.achieveMent[15] == 1;
+                    },
+                    16: function () {
+                        if( t.publicVar[3] > 0 ){ n.achieveMent[16] = 1 ; }
+                        return n.achieveMent[16] == 1;
+                    },
+                    17: function () {
+                        if( t.randomEvent[1] >= 6 ){ n.achieveMent[17] = 1 ; }
+                        return n.achieveMent[17] == 1;
+                    },
+                    18: function () {
+                        if( t.kills[2] >= 40 && t.publicVar2[7] >= 20 ){ n.achieveMent[18] = 1 ; }
+                        return n.achieveMent[18] == 1;
+                    },
+                    19: function () {
+                        if( t.orderTimes[3] >= 21 ){ n.achieveMent[19] = 1 ; }
+                        return n.achieveMent[19] == 1;
+                    },
+                    20: function () {
+                        if( c >= 99 ){ n.achieveMent[20] = 1 ; }
+                        return n.achieveMent[20] == 1;
+                    },
+                    21: function () {
+                        if( t.publicVar2[9] >= 49 ){ n.achieveMent[21] = 1 ; }
+                        return n.achieveMent[21] == 1;
+                    },
+                    22: function () {
+                        if( t.itemNum[12] >= 6 ){ n.achieveMent[22] = 1 ; }
+                        return n.achieveMent[22] == 1;
+                    },
+                    23: function () {
+                        if( t.itemNum2[10] >= 9 && t.itemNum2[11] >= 9 ){ n.achieveMent[23] = 1 ; }
+                        return n.achieveMent[23] == 1;
+                    },
+                    24: function () {
+                        if( t.publicVar3[14] >= 99 ){ n.achieveMent[24] = 1 ; }
+                        return n.achieveMent[24] == 1;
+                    },
+                    25: function () {
+                        if( t.publicVar[7] >= 600 && t.choice[5] <= 0 ){ n.achieveMent[25] = 1 ; }
+                        return n.achieveMent[25] == 1;
+                    },
+                    26: function () {
+                        if( t.publicVar2[9] >= 49 ){ n.achieveMent[26] = 1 ; }
+                        return n.achieveMent[26] == 1;
+                    },
+                    27: function () {
+                        if( r >= 1999 ){ n.achieveMent[27] = 1 ; }
+                        return n.achieveMent[27] == 1;
+                    },
+                    28: function () {
+                        if( t.choice[6] >= 17 ){ n.achieveMent[28] = 1 ; }
+                        return n.achieveMent[28] == 1;
+                    },
+                    29: function () {
+                        if( n.gameData[1] + 1 >= 6 ){ n.achieveMent[29] = 1 ; }
+                        return n.achieveMent[29] == 1;
+                    },
+                    30: function () {
+                        if( o >= 300 ){ n.achieveMent[30] = 1 ; }
+                        return o >= 300;
                     }
-                    var n = { initMoney: 0, dieChoice: [0, 0, 0, 0, 0], gameData: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], gameData2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] };
-                    JSON.parse(cc.sys.localStorage.getItem("data2")) && (n = JSON.parse(cc.sys.localStorage.getItem("data2")), e(n)), t.exports = n
+                }, 
+                u = cc.find("Canvas/Scroll/view/content");
+                for (var p in s) {//把文字内容输出到屏幕上
+                    this.creatText(u, "skill" + p, s[p]);
+                    l[p]() && (u.getChildByName("skill" + p).color = new cc.Color(0, 255, 0));
                 }
-            }), cc._RFpop()
-        }, {}], scr_dataCopy: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "44ab5HIdTVLaYk0L5S0uxkB", "scr_dataCopy"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    var e = {}; "undefined"
-                        == typeof JSON.parse(cc.sys.localStorage.getItem("dataCopy")) && (e = JSON.parse(cc.sys.localStorage.getItem("userData"))), t.exports = e
+                var f = cc.find("Canvas/Button_backMainUI");
+                f.on("touchstart", function () {
+                    cc.director.loadScene("main");
+                    a.save2();
+                }, f);
+            }
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_data2: "scr_data2",
+        scr_public: "scr_public"
+    }],
+    scr_backMainUI: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "3e3ebJJTbNAf4EOh0d4HMO1", "scr_backMainUI");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                e("scr_public").save();
+                cc.director.loadScene("main");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
+            }
+        });
+        cc._RF.pop();
+    }, {
+        scr_public: "scr_public"
+    }],
+    scr_backStartUI: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "d5fa6dHVPtCmIx1Z7ZMSeDh", "scr_backStartUI");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                cc.director.loadScene("start");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_backSupport: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "210d2Bb6a1Dho5//c333ltz", "scr_backSupport");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                cc.director.loadScene("support");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_continueButton: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "4ffa5hmUdNEyJa2jWF2c0nr", "scr_continueButton");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.director.loadScene("main");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_data2: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "77dc9QHo3RF5IGfGNhXskkd", "scr_data2");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var e = {
+                    initMoney: 0,
+                    achieveMent: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],//新增一堆数据，用来永久保存成就
+                    dieChoice: [0, 0, 0, 0, 0],
+                    gameData: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    gameData2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                };
+                JSON.parse(cc.sys.localStorage.getItem("data2")) && function (e) {
+                    "undefined" == typeof e.achieveMent &&(e.achieveMent = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+                    "undefined" == typeof e.gameData && (e.gameData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                    "undefined" == typeof e.gameData2 && (e.gameData2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);				/*新增gamedate函数传送门*/
+                }(e = JSON.parse(cc.sys.localStorage.getItem("data2")));
+                t.exports = e;
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_dataCopy: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "44ab5HIdTVLaYk0L5S0uxkB", "scr_dataCopy");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var e = {};
+                "undefined" == typeof JSON.parse(cc.sys.localStorage.getItem("dataCopy")) && (e = JSON.parse(cc.sys.localStorage.getItem("userData")));
+                t.exports = e;
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_autodataCopy: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "FUNautodataCopy", "scr_autodataCopy");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var e = {};
+                "undefined" == typeof JSON.parse(cc.sys.localStorage.getItem("autogamesave")) && (e = JSON.parse(cc.sys.localStorage.getItem("userData")));
+                t.exports = e;
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_data: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "cc6a6czpoJOeJjLRi9RcHDb", "scr_data");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var e = {
+                    distance: 1,
+                    stayDay: [1, 1, 1, 1],
+                    role: {
+                        hp: 50,
+                        maxHp: 50,
+                        att: 10,
+                        def: 0
+                    },
+                    money: 5,
+                    day: 1,
+                    energy: 50,
+                    maxEnergy: 50,
+                    hunger: 100,
+                    maxHunger: 100,
+                    health: 30,
+                    achieve: 0,
+                    shopPoint: 0,
+                    enemyId: 0,
+                    //初始属性传送门
+                    publicVar: [0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    publicVar2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    publicVar3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    orderTimes: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    //加入ordertimes8,9
+                    randomEvent: [0, 0, 0, 0, 0, 0, 0, 99, 588, 0, 0, 0, 0, 0],
+                    choice: [2, 0, 0, 0, 0, 0, 0, 0, 0],
+                    chioce2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    kills: [0, 0, 0, 0],
+                    itemNum: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//ITEMNUM【17】
+                    itemNum2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    ifFollow: [0, 0],
+                    plotId: 0,
+                    talkTimes: [0, 0],
+                    choiceAtt: 0,
+                    button: [!0, !1, !1],
+                    figthState: 0,
+                    figthExp: [0, 0, 0],
+                    workExp: 0,
+                    winTimes: 0,
+                    escapeExp: 0,
+                    buffState: [0, 0],
+                    ifNotify: !1,
+                    skillLv: {
+                        0: 0,
+                        1: 0,
+                        2: 0,
+                        3: 0,
+                        4: 0,
+                        5: 0,
+                        6: 0,
+                        7: 0,
+                        8: 0,
+                        9: 0,
+                        10: 0,
+                        11: 0,
+                        12: 0,
+                        13: 0,
+                        14: 0,
+                        15: 0,
+                        16: 0,
+                        17: 0,
+                        18: 0,
+                        19: 0,
+                        20: 0,
+                        21: 0,
+                        22: 0,
+                        23: 0,
+                        24: 0,
+                        25: 0,
+                        26: 0,
+                        27: 0
+                    },
+                    //特殊敌人传送门
+                    specialEnemy: {
+                        100001: {
+                            lv: 1,
+                            hp: 20,
+                            maxHp: 20,
+                            att: 1,
+                            def: 0
+                        },
+                        100002: {
+                            lv: 25,
+                            hp: 875,
+                            maxHp: 875,
+                            att: 0,
+                            def: 0
+                        },
+                        200001: {
+                            lv: 8,
+                            hp: 310,
+                            maxHp: 310,
+                            att: 20,
+                            def: 0
+                        },
+                        300001: {
+                            lv: 20,
+                            hp: 510,
+                            maxHp: 510,
+                            att: 0,
+                            def: 0
+                        },
+                        300002: {
+                            lv: 45,
+                            hp: 1550,
+                            maxHp: 1550,
+                            att: 0,
+                            def: 0
+                        },
+                        300003: {
+                            lv: 35,
+                            hp: 3270,
+                            maxHp: 3270,
+                            att: 0,
+                            def: 0
+                        },
+                        400001: {
+                            lv: 100,
+                            hp: 3345,
+                            maxHp: 3345,
+                            att: 0,
+                            def: 234
+                        },
+                        400002: {
+                            lv: 199,
+                            hp: 19999,
+                            maxHp: 19999,
+                            att: 0,
+                            def: 20
+                        },
+                        400003: {
+                            lv: 60,
+                            hp: 2050,
+                            maxHp: 2050,
+                            att: 310,
+                            def: 121
+                        },
+                        900001: {
+                            lv: 15,
+                            hp: 575,
+                            maxHp: 575,
+                            att: 59,
+                            def: 16
+                        },
+                        900002: {
+                            lv: 20,
+                            hp: 998,
+                            maxHp: 998,
+                            att: 50,
+                            def: 36
+                        },
+                        900003: {
+                            lv: 500,
+                            hp: 16500,
+                            maxHp: 16500,
+                            att: 1500,
+                            def: 1150
+                        },
+                        900004: {
+                            lv: 1,
+                            hp: 999999,
+                            maxHp: 999999,
+                            att: 999,
+                            def: 0
+                        },
+                        900005: {
+                            lv: 500,
+                            hp: 599999,
+                            maxHp: 599999,
+                            att: 0,
+                            def: 0
+                        },
+                        900006: {
+                            lv: 200,
+                            hp: 299999,
+                            maxHp: 299999,
+                            att: 0,
+                            def: 0
+                        },
+                        900007: {
+                            lv: 40,
+                            hp: 3900,
+                            maxHp: 3900,
+                            att: 90,
+                            def: 50
+                        }
+                    },
+                    friendSkill1: [1, 0, 0, 0, 0],
+                    friendSkill2: [1, 0, 0, 0, 0],
+                    friendSkill: [1, 0, 0, 0, 0, 0, 0, 0, 0]
+                };
+                JSON.parse(cc.sys.localStorage.getItem("userData")) && function (e) {
+                    "undefined" == typeof e.itemNum[10] && (e.itemNum[10] = 0);
+                    "undefined" == typeof e.itemNum[11] && (e.itemNum[11] = 0);
+                    "undefined" == typeof e.itemNum[12] && (e.itemNum[12] = 0);
+                    "undefined" == typeof e.itemNum[13] && (e.itemNum[13] = 0);
+                    "undefined" == typeof e.itemNum[14] && (e.itemNum[14] = 0);
+                    "undefined" == typeof e.itemNum[15] && (e.itemNum[15] = 0);
+                    "undefined" == typeof e.itemNum[16] && (e.itemNum[16] = 0);
+                    "undefined" == typeof e.itemNum[17] && (e.itemNum[17] = 0);
+                    "undefined" == typeof e.itemNum2[18] && (e.itemNum2[18] = 0);
+                    "undefined" == typeof e.itemNum2[19] && (e.itemNum2[19] = 0);
+                    "undefined" == typeof e.itemNum2[20] && (e.itemNum2[20] = 0);
+                    "undefined" == typeof e.itemNum2[21] && (e.itemNum2[21] = 0);
+                    "undefined" == typeof e.itemNum2[22] && (e.itemNum2[22] = 0);
+                    "undefined" == typeof e.itemNum2[23] && (e.itemNum2[23] = 0);
+                    "undefined" == typeof e.itemNum2[24] && (e.itemNum2[24] = 0);
+                    "undefined" == typeof e.itemNum2[25] && (e.itemNum2[25] = 0);
+                    "undefined" == typeof e.itemNum2[26] && (e.itemNum2[26] = 0);
+                    "undefined" == typeof e.itemNum2[27] && (e.itemNum2[27] = 0);
+                    //新增物品传送门
+                    "undefined" == typeof e.ifFollow && (e.ifFollow = [0, 0]);
+                    "undefined" == typeof e.talkTimes && (e.talkTimes = [0, 0]);
+                    "undefined" == typeof e.friendSkill1 && (e.friendSkill1 = [1, 0, 0, 0, 0]);
+                    "undefined" == typeof e.friendSkill2 && (e.friendSkill2 = [1, 0, 0, 0, 0]);
+                    "undefined" == typeof e.friendSkill && (e.friendSkill = [1, 0, 0, 0, 0, 0, 0, 0]);
+                    "undefined" == typeof e.choice[6] && (e.choice[6] = 0);
+                    "undefined" == typeof e.choice[7] && (e.choice[7] = 0);
+                    "undefined" == typeof e.choice[8] && (e.choice[8] = 0);
+                    "undefined" == typeof e.chioce2 && (e.chioce2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                    "undefined" == typeof e.plotId && (e.plotId = 0);
+                    "undefined" == typeof e.escapeExp && (e.escapeExp = 0);
+                    "undefined" == typeof e.randomEvent[11] && (e.randomEvent[11] = 0);
+                    "undefined" == typeof e.randomEvent[12] && (e.randomEvent[12] = 0);
+                    "undefined" == typeof e.randomEvent[13] && (e.randomEvent[13] = 0);
+                    "undefined" == typeof e.publicVar && (e.publicVar = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                    "undefined" == typeof e.publicVar2 && (e.publicVar2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                    "undefined" == typeof e.publicVar3 && (e.publicVar3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                    "undefined" == typeof e.specialEnemy[300001] && (e.specialEnemy[300001] = {
+                        lv: 35,
+                        hp: 510,
+                        maxHp: 510,
+                        att: 0,
+                        def: 0
+                    });
+                    "undefined" == typeof e.specialEnemy[300002] && (e.specialEnemy[300002] = {
+                        lv: 45,
+                        hp: 1550,
+                        maxHp: 1550,
+                        att: 0,
+                        def: 0
+                    });
+                    "undefined" == typeof e.specialEnemy[300003] && (e.specialEnemy[300003] = {
+                        lv: 35,
+                        hp: 3270,
+                        maxHp: 3270,
+                        att: 0,
+                        def: 0
+                    });
+                    "undefined" == typeof e.specialEnemy[400001] && (e.specialEnemy[400001] = {
+                        lv: 100,
+                        hp: 3345,
+                        maxHp: 3345,
+                        att: 0,
+                        def: 234
+                    });
+                    "undefined" == typeof e.specialEnemy[400002] && (e.specialEnemy[400002] = {
+                        lv: 199,
+                        hp: 19999,
+                        maxHp: 19999,
+                        att: 0,
+                        def: 20
+                    });
+                    "undefined" == typeof e.specialEnemy[400003] && (e.specialEnemy[400003] = {
+                        lv: 60,
+                        hp: 2050,
+                        maxHp: 2050,
+                        att: 310,
+                        def: 121
+                    });
+                    "undefined" == typeof e.specialEnemy[900001] && (e.specialEnemy[900001] = {
+                        lv: 15,
+                        hp: 575,
+                        maxHp: 575,
+                        att: 59,
+                        def: 16
+                    });
+                    "undefined" == typeof e.specialEnemy[900002] && (e.specialEnemy[900002] = {
+                        lv: 20,
+                        hp: 998,
+                        maxHp: 998,
+                        att: 50,
+                        def: 36
+                    });
+                    "undefined" == typeof e.specialEnemy[900003] && (e.specialEnemy[900003] = {
+                        lv: 500,
+                        hp: 16500,
+                        maxHp: 16500,
+                        att: 1500,
+                        def: 1150
+                    });
+                    "undefined" == typeof e.specialEnemy[900004] && (e.specialEnemy[900004] = {
+                        lv: 1,
+                        hp: 999999,
+                        maxHp: 999999,
+                        att: 999,
+                        def: 0
+                    });
+                    "undefined" == typeof e.specialEnemy[900005] && (e.specialEnemy[900005] = {
+                        lv: 500,
+                        hp: 599999,
+                        maxHp: 599999,
+                        att: 0,
+                        def: 0
+                    });
+                    "undefined" == typeof e.specialEnemy[900006] && (e.specialEnemy[900006] = {
+                        lv: 200,
+                        hp: 299999,
+                        maxHp: 299999,
+                        att: 0,
+                        def: 0
+                    });
+                    "undefined" == typeof e.specialEnemy[900007] && (e.specialEnemy[900007] = {
+                        lv: 40,
+                        hp: 3900,
+                        maxHp: 3900,
+                        att: 90,
+                        def: 50
+                    });
+                }(e = JSON.parse(cc.sys.localStorage.getItem("userData")));
+                t.exports = e;
+            }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_diaryDetermine: [function (e, t, n) {
+        "use strict";
+        cc._RF.push(t, "12297Yy5bdDErxPgTf9kaM9", "scr_diaryDetermine");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                cc.director.loadScene("rest");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
                 }
-            }), cc._RFpop()
-        }, {}], scr_data: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_diary: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "cc6a6czpoJOeJjLRi9RcHDb", "scr_data"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    function e(e) {
-                        "undefined" == typeof e.itemNum2[18] && (e.itemNum2[18] = 0), "undefined" == typeof e.itemNum2[19] && (e.itemNum2[19] = 0), "undefined" == typeof e.itemNum2[20] && (e.itemNum2[20] = 0), "undefined" == typeof e.itemNum2[21] && (e.itemNum2[21] = 0), "undefined" == typeof e.itemNum2[22] && (e.itemNum2[22] = 0), "undefined" == typeof e.itemNum2[23] && (e.itemNum2[23] = 0), "undefined" == typeof e.itemNum2[24] && (e.itemNum2[24] = 0), "undefined" == typeof e.itemNum2[25] && (e.itemNum2[25] = 0), "undefined" == typeof e.itemNum2[26] && (e.itemNum2[26] = 0), "undefined" == typeof e.itemNum2[27] && (e.itemNum2[27] = 0), "undefined" == typeof e.ifFollow && (e.ifFollow = [0, 0]), "undefined" == typeof e.talkTimes && (e.talkTimes = [0, 0]), "undefined" == typeof e.friendSkill1 && (e.friendSkill1 = [1, 0, 0, 0, 0]), "undefined" == typeof e.friendSkill2 && (e.friendSkill2 = [1, 0, 0, 0, 0]), "undefined" == typeof e.friendSkill && (e.friendSkill = [1, 0, 0, 0, 0, 0, 0, 0]), "undefined" == typeof e.choice[6] && (e.choice[6] = 0), "undefined" == typeof e.choice[7] && (e.choice[7] = 0), "undefined" == typeof e.choice[8] && (e.choice[8] = 0), "undefined" == typeof e.chioce2 && (e.chioce2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), "undefined" == typeof e.plotId && (e.plotId = 0), "undefined" == typeof e.escapeExp && (e.escapeExp = 0), "undefined" == typeof e.randomEvent[11] && (e.randomEvent[11] = 0), "undefined" == typeof e.randomEvent[12] && (e.randomEvent[12] = 0), "undefined" == typeof e.randomEvent[13] && (e.randomEvent[13] = 0), "undefined" == typeof e.publicVar && (e.publicVar = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), "undefined" == typeof e.publicVar2 && (e.publicVar2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
-                            "undefined" == typeof e.publicVar3 && (e.publicVar3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), "undefined" == typeof e.specialEnemy[300001] && (e.specialEnemy[300001] = { lv: 35, hp: 510, maxHp: 510, att: 0, def: 0 }), "undefined" == typeof e.specialEnemy[300002] && (e.specialEnemy[300002] = { lv: 45, hp: 1550, maxHp: 1550, att: 0, def: 0 }), "undefined" == typeof e.specialEnemy[300003] && (e.specialEnemy[300003] = { lv: 35, hp: 3270, maxHp: 3270, att: 0, def: 0 }), "undefined" == typeof e.specialEnemy[400001] && (e.specialEnemy[400001] = { lv: 100, hp: 3345, maxHp: 3345, att: 0, def: 234 }), "undefined" == typeof e.specialEnemy[400002] && (e.specialEnemy[400002] = { lv: 199, hp: 19999, maxHp: 19999, att: 0, def: 20 }), "undefined" == typeof e.specialEnemy[400003] && (e.specialEnemy[400003] = { lv: 60, hp: 2050, maxHp: 2050, att: 310, def: 121 }), "undefined" == typeof e.specialEnemy[900001] && (e.specialEnemy[900001] = { lv: 15, hp: 575, maxHp: 575, att: 59, def: 16 }), "undefined" == typeof e.specialEnemy[900002] && (e.specialEnemy[900002] = { lv: 20, hp: 998, maxHp: 998, att: 50, def: 36 }), "undefined" == typeof e.specialEnemy[900003] && (e.specialEnemy[900003] = { lv: 500, hp: 16500, maxHp: 16500, att: 1500, def: 1150 }), "undefined" == typeof e.specialEnemy[900004] && (e.specialEnemy[900004] = { lv: 1, hp: 999999, maxHp: 999999, att: 999, def: 0 }), "undefined" == typeof e.specialEnemy[900005] && (e.specialEnemy[900005] = { lv: 500, hp: 599999, maxHp: 599999, att: 0, def: 0 }), "undefined" == typeof e.specialEnemy[900006] && (e.specialEnemy[900006] = { lv: 200, hp: 299999, maxHp: 299999, att: 0, def: 0 }), "undefined" == typeof e.specialEnemy[900007] && (e.specialEnemy[900007] = { lv: 40, hp: 3900, maxHp: 3900, att: 90, def: 50 })
-                    }
-                    var n = { distance: 1, stayDay: [1, 1, 1, 1], role: { hp: 50, maxHp: 50, att: 10, def: 0 }, money: 5, day: 1, energy: 50, maxEnergy: 50, hunger: 100, maxHunger: 100, health: 30, achieve: 0, shopPoint: 0, enemyId: 0, publicVar: [0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], publicVar2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], publicVar3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], orderTimes: [0, 0, 0, 0, 0, 0, 0, 0], randomEvent: [0, 0, 0, 0, 0, 0, 0, 99, 588, 0, 0, 0, 0, 0], choice: [2, 0, 0, 0, 0, 0, 0, 0, 0], chioce2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], kills: [0, 0, 0, 0], itemNum: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], itemNum2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ifFollow: [0, 0], plotId: 0, talkTimes: [0, 0], choiceAtt: 0, button: [!0, !1, !1], figthState: 0, figthExp: [0, 0, 0], workExp: 0, winTimes: 0, escapeExp: 0, buffState: [0, 0], ifNotify: !1, skillLv: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0, 21: 0, 22: 0, 23: 0, 24: 0, 25: 0, 26: 0 }, specialEnemy: { 100001: { lv: 1, hp: 20, maxHp: 20, att: 1, def: 0 }, 100002: { lv: 25, hp: 875, maxHp: 875, att: 0, def: 0 }, 200001: { lv: 8, hp: 310, maxHp: 310, att: 20, def: 0 }, 300001: { lv: 20, hp: 510, maxHp: 510, att: 0, def: 0 }, 300002: { lv: 45, hp: 1550, maxHp: 1550, att: 0, def: 0 }, 300003: { lv: 35, hp: 3270, maxHp: 3270, att: 0, def: 0 }, 400001: { lv: 100, hp: 3345, maxHp: 3345, att: 0, def: 234 }, 400002: { lv: 199, hp: 19999, maxHp: 19999, att: 0, def: 20 }, 400003: { lv: 60, hp: 2050, maxHp: 2050, att: 310, def: 121 }, 900001: { lv: 15, hp: 575, maxHp: 575, att: 59, def: 16 }, 900002: { lv: 20, hp: 998, maxHp: 998, att: 50, def: 36 }, 900003: { lv: 500, hp: 16500, maxHp: 16500, att: 1500, def: 1150 }, 900004: { lv: 1, hp: 999999, maxHp: 999999, att: 999, def: 0 }, 900005: { lv: 500, hp: 599999, maxHp: 599999, att: 0, def: 0 }, 900006: { lv: 200, hp: 299999, maxHp: 299999, att: 0, def: 0 }, 900007: { lv: 40, hp: 3900, maxHp: 3900, att: 90, def: 50 } }, friendSkill1: [1, 0, 0, 0, 0], friendSkill2: [1, 0, 0, 0, 0], friendSkill: [1, 0, 0, 0, 0, 0, 0, 0, 0] };
-                    JSON.parse(cc.sys.localStorage.getItem("userData")) && (n = JSON.parse(cc.sys.localStorage.getItem("userData")), e(n)), t.exports = n
-                }
-            }), cc._RFpop()
-        }, {}], scr_diaryDetermine: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "12297Yy5bdDErxPgTf9kaM9", "scr_diaryDetermine"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    cc.director.loadScene("rest")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
-                }
-            }), cc._RFpop()
-        }, {}], scr_diary: [function (e, t, n) {
-            "use strict";
-            cc._RFpush(t, "a2b8155a0tO3ILQFxW/6pRv", "scr_diary"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
+        cc._RF.push(t, "a2b8155a0tO3ILQFxW/6pRv", "scr_diary");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
                     var a = new cc.Node(t);
                     a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.opacity = 0, a.runAction(cc.fadeIn(3)), a.color = new cc.Color(255, 255, 255), a.getComponent(cc.Label).overflow = 3, a.getComponent(cc.Label).horizontalAlign = 1, a.setContentSize(600, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 60, a.getComponent(cc.Label).fontSize = 40
-                }, playBGM: function (e) {
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.opacity = 0;
+                a.runAction(cc.fadeIn(.3));
+                a.color = new cc.Color(255, 255, 255);
+                a.getComponent(cc.Label).overflow = 3;
+                a.getComponent(cc.Label).horizontalAlign = 1;
+                a.setContentSize(600, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 60;
+                a.getComponent(cc.Label).fontSize = 40;
+            },
+            playBGM: function (e) {
                     if ("undefined" != typeof e && "" != e) {
                         cc.audioEngine.stopAll();
                         var t = cc.game._persistRootNodes;
                         for (var n in t) var a = t[n].getComponent("scr_BGM")[e];
-                        cc.audioEngine.play(a, !1, 1)
+                    cc.audioEngine.play(a, !1, 1);
                     }
-                }, ifEnd: function () {
-                    var t = e("scr_data");
-                    t.day > 80 && cc.director.loadScene("end")
-                }, onLoad: function () {
-                    function t() {
-                        var t = e("scr_public").regionId(), n = c.stayDay, a = 0;
-                        return 1e3 == t && (a = 1e3 + n[0]), 2e3 == t && (a = 2e3 + n[1]), 3e3 == t && (a = 3e3 + n[2]), 4e3 == t && (a = 4e3 + n[3]), c.day > 143 && (a = c.day), a
-                    }
-                    var n = cc.find("Canvas/skip"), a = e("scr_public");
-                    n.on("touchstart", function () {
-                        cc.director.loadScene("rest")
-                    }, this), a.ifGameOver(), n.runAction(cc.fadeTo(3, 150));
-                    var c = e("scr_data"), i = {
-                        1001: ["“你不配做一个父亲！”", "“既然那么恨我！为什么要生下我！”", "“没有你我照样可以活！”", "BGM1", [c.distance, 0]], 1003: ["晚上下起了雨，", "又湿又冷，", "但是，我是不会回去的！:-)", "BGM2", []], 1005: ["16年前，1988年一个炎热的下午，", "我出生在一个小山村。", "母亲在我一岁时离家出走。", "我的童年，只有父亲醉酒后的叫骂声和远处的大山。", "BGM1", []], 1009: ["敏感、内向、偏执，", "不愿在社交上投入任何时间，", "几乎没什么朋友；", "而我唯一的亲人，", "现在也断了联系…", "我以后该怎么办?", "到了县城再去想吧...", "BGM3", []], 2007: ["我来到昨天面试的小区，", "屋里早已没了人影", "", [c.choice[1], 2]], 2021: ["未成年，没技能，不善言谈...", "如果我死了，", "会有人伤心吗？", "BGM3", []], 2022: ["今天街道上聚集了一群人，", "我凑过去一看，", "——我的父亲——正被旁人拉着，他满脸通红，对着一个年轻人大声叫骂，", "他还是一如既往的暴躁，只是头上多了些许白发。", "我没敢多看，赶紧离开了。", "我决定，明天就离开县城，待在这里迟早会被发现。", "BGM1", []], 3001: ["山里异常安静，", "晚上湿度很大，篝火没法驱散。", "我喜欢这种安静，", "——这里才是我的世界。", "BGM2", []], 3002: ["母亲出走后的第二年，", "父亲开始带一些女人回家，", "而我，就像是一个不存在的人。", "或者，", "是个累赘...", "", []], 3003: ["既不种田，也不会哄女人的父亲，", "很快就没人愿意跟着他。", "他开始变得极度暴躁，动不动就砸东西。", "", []], 3004: ["由于生活习惯极差，", "父亲患上了痛风，", "我经常听到他晚上疼得大声叫骂。", "但是，第二天他依然会喝得酩酊大醉。", "", []], 3018: ["邻村，有一个我暗恋多年的女孩", "她清澈、而又懵懂的眼睛，就像朝阳下雾气缭绕的小河。", "然而，", "今年春节，在她辍学外出打工一年后，", "我亲耳听到她对她妈吼道", "“这种破地方！我TM再也不会回来了！......”", "", []], 3027: ["月光透过树叶，映入帐篷，", "斑驳的树影，在夏虫声中轻轻摇曳。", "我，", "真的可以脱开一切关系，而独自存活吗？", "", []],
-                        3028: ["世界上有这么一类人，", "即使明知某种关系不健康，", "却依然难以舍弃。", "这是亲情、爱情、无奈、还是无知呢？", "", []], 4001: ["迷宫般的大都会，让我有些彷徨。", "我把帐篷安置在城中村附近的一个桥洞里，", "桥洞已经下住着位中年大叔、一对老人和一个胖女人", "", []], 4004: ["老人和胖女人似乎是一家人。", "老奶奶上午出去，老爷爷下午和晚上出去，留下的一个在家照顾胖女人。", "胖女人要么睡觉，要么整天发呆...", "", []], 4008: ["深夜，老爷爷和胖女人吵了起来。", "“你努力一把、出去工作一下会怎样？”", "“我这样的人谁肯要！”，这是我第一次听见妇女说话。", "“我死了以后、看你怎么办！”，老爷爷大吼。", "“不知道！”，妇女反驳...", "", []], 4009: ["中年大叔，一到晚上就咳嗽得很厉害。", "但是，只要有钱，无论是苦力钱还是怜悯钱，他都会拿去买酒肉和彩票。", "呵呵，和某人，像极了", "", []], 4010: ["碧瑶每天都是早出晚归，", "睡觉时，稍有响动，她就会立即就会坐起来。", "", []], 4018: ["中年大叔对两个新伙伴的加入感到很兴奋，但是发现新来的又是两只闷葫芦后，就只能成天靠逗流浪猫打发时间。", "他聊天的内容无非是，“上过三年学，除了自己名字，一个字也不认识”，“要是中了500万，我就用钱铺张床！”，也没人愿意听。", "", []], 4019: ["“你为什么不去医院看看呢？”", "“看不得！一看一身病，不看没准还能多活几年”，中年大叔认真的说道。", "“......你这身体。以后打算怎么办？”", "“等死吧...”", []], 4022: ["胖女人几天不吃、不喝，不洗漱。", "“你到底有啥苦嘛，我啥子也不要你做，不要求你成家，只希望你能自立，你为什么要把自己搞成这样？”", "老头子一边说，一边抹眼泪。", "", []], 4023: ["“你知不知道那个女人和老人是啥关系？”", "“那个女的是老人的独生女儿，中学开始患上‘郁闷症’，直到现在一直都靠老两口养着”，中年大叔立马来了精神，", "“老人知道自己活不长，想最后拼一把，带女儿来城里看病；为了节约钱，就在桥洞下搭了个窝，一个星期去一次医院呢。”，中年大叔接嘀咕，", "“不过，我觉得她没啥病，说白点，就是懒...”", "", []], 4025: ["一年冬天，我藏在箱底，打算买书的钱，不翼而飞。", "我冲到房间，看到地上的酒瓶和昏昏沉沉的父亲，我立马就明白了。", "我使劲踢了父亲一脚，扔下一句，“你这种懒人，就不应该活着！”", "然后我逃到山里躲了三天...", "", []],
-                        4026: ["懒惰、愚蠢、随性，是我很早就给父亲贴上的三个标签。", "这三个标签不断的得到证实、强化和发展，并且一次又一次的激怒着我，最终根深蒂固；我开始拒绝一切沟通，父子感情在标签的指向下，越走越远。", "我的标签是什么？冷漠？自私？孤僻？强势？我并不知道...", "", []], 4028: ["中年大叔晚上肚子疼得厉害，睡不着，把我拉起来聊天，", "“哎，咱们要是病了只能硬抗呀！去年桥下一位糖尿病老大爷，捡破烂时划伤了脚板，没管，结果伤口一直烂到大腿，送到医院没几天就死了，遗体到现在都没人来领呢。”", "我无言以对...", "", []], 4033: ["城中村道路狭窄、密集，一线青天下布满各种电线，不时还有污水滴落；地面潮湿、肮脏，墙上贴满各种小广告，空气中飘来腐败的气味和电视的声音。", "这里既有刚毕业的打工男孩，也有做着明星梦的女孩；有街头小贩，也有无人问津的油画家；有天真浪漫的小孩，也有终身未婚的孤独老人。", "这里就是永不谢幕的百态剧场。", "", []], 4036: ["吃完捡来的盒饭，中年大叔开始感到恶心呕吐，随后开始呕血，", "我急忙向附近民警求助，", "中年大叔被送往附近的医院。", "", []], 4038: ["中年大叔又回到桥下。“怎么样？”，我问道。", "\n“胃上一个大瘤子，光手术就得八千！”", "我心头一紧。中年大叔却接着平静的说道，\n“检查就花了医院不少钱，实在过意不去，就跑了出来...”", "“你赶快去救助站，那里条件比这好！”\n“不想去，反正怎么都会死，还不如死得自由点，这儿至少能有人说说话。”", "“...”", "", []], 4043: ["小时候，山里大雪。", "在挂满了冰溜子的屋檐下，我正向几小个伙伴吹嘘自己的「轻功」。", "小伙伴们嗤之以鼻，我气急败的拉着他们来到结冰的塘边；没走几步，噗通一声，我掉进了塘里；幸好被路过的叔叔救起...", "回家后，父亲一边骂我「傻子」，一边狠命的抽打", "最后，我整整在床上躺了两个星期", "", []], 4044: ["胖女人突然大发脾气、铁盆被踢得咕噜噜的响。", "“你这病，就是闲出来的！你就是没吃过苦！”，老头子涨红了脸。", "“那你让我死呀！！！”，胖女人对吼。", "老奶奶头发凌乱，哭天喊地，死死抱住女儿的大腿。", "最后，中年大叔拉住老爷爷，碧瑶不停的安慰着胖女人，这场风波才算平息。", "", []],
-                        4045: ["中年大叔疼痛发作越来越频繁，有时深夜、我还能听到牙齿咬得咯吱响的声音。", "“你不想回老家吗？”，我问道。", "“晚啦！回不去啦！”", "“如果在这里就世，你会甘心？”", "“人都没了，那还管得了这些！你还年轻，我每年都要见几次这种事。”，中年大叔眼神似乎有些疑惑。", "", []], 4048: ["父亲游手好闲、脾气暴躁，像祭山、放荷灯、彩船舞，这些村里的活动，他从来都不参与，村里人对他、避而远之。", "但是他似乎不以为意，照样喝酒闹事，拿着菜刀追赶扔石头的小孩。在别人眼中，他就是个怪人。", "", []], 4051: ["此时正值九月中旬，桥边红色的梧桐落叶上、开始泛起点点露珠，桥下也开始显得阴冷起来。", "痛苦呻吟的中年大叔，心事重重的吉他女孩，迷茫的我。", "每一个活着的人都不简单，我的磨难又算得了什么？", "", []],
-                        4052: ["中年大叔腹部出现积水，吃东西就胀，又时候呕吐，浑身疼痛。", "只能依靠上次剩下的止痛药，才能稍稍睡儿。", "", []], 4062: ["中年大叔原本臃肿的身材，现在已经瘦成皮包骨。发霉的床单旁放着大伙给他买的水果、零食，但是他已经完全吃不下了。", "我听见他在小声喊我，我赶忙过去，他蒙蒙脓脓的说道，", "“你还很年轻...别把青春耗在这里...赶紧回去吧...好好充实自己...做个有用的人...不要像我一样...”", "我流下了眼泪。", "", []], 4063: ["中年大叔走了。", "老爷爷请来了民警，民警看了看、通知了民政局。", "不一会儿，就来了一辆白色汽车。中年大叔遗体被装进黑色塑料袋。一分钟不到，汽车就消失在视野中。我猛然惊醒，就像做完一场梦。", "", []], 147: ["小时候，山里穷，小孩子几乎啥都吃，青蛙、蜂蛹、沙虫、茅根、覆盆子......", "不过最有趣是的晚上，邀上几个小伙伴，拿上弹弓、点着领着灯，去林子里打鸟！", "由于我家没人管，打好的鸟、小伙伴都会拿到我家来弄。", "父亲经常馋的流口水，但是没人愿意给他。有一次，我们放下烤熟的肉，去田里偷玉米，回家后被吃光了，父亲说是被狗吃了...", "", []], 148: ["胖女人突然变得高兴起来，", "一边洗碗一边哼着歌，还过来和我打招呼，让人摸不着头脑。", "莫非她真的是在装病？", "", []],
-                        150: ["碧瑶开始主动找胖女人聊天、帮她梳理头发，两人似乎成了很好的朋友；如果有时间，碧瑶还会帮老两口洗脏衣服。", "突然觉得自己有些自闭，我一直习惯独来独往、不依靠任何人，从没有想过如何去建立关系网络。", "", []], 153: ["然而，事情似乎比我想得要麻烦，胖女人又开始整天昏睡，而且比原来更加严重。", "“你觉得她是在装病吗？”，我问碧瑶。", "“不是，我以前有一个好姐妹和她情况很像，情绪波动极大，一会儿要寻死，一会儿高兴得像只麻雀；最后，她被诊断出「双相障碍」，重抑郁、轻狂躁，一直靠药物稳定病情。”", "“那她现在好了没？”\n“不知道，后来她去国外了，我没再联系了...”", "", []], 156: ["“你以后有打算怎么办？”，我问碧瑶。", "“等妈妈病好后，我打算回到学校，我想做一个会吉他的英语老师，嘻嘻~”", "“欠债呢？”，我追问。", "“总会有办法的嘛~”，碧瑶似乎很乐观。", "“你将来想做啥？总不能这么混一辈子吧”，碧瑶反问。", "“我不知道...”", "", []], 159: ["除了强悍的野外求生能力，我似乎一无所有————工作技能、社交能力、身份和户口，还有最重要的、规划和理想。", "我只是一个半成品，我需要为我的无知付出代价。", "", []], 165: ["天气慢慢变冷。", "胖女人和老两口也回老家了。", "老人花光了所有积蓄，但是女儿的病依旧没有好转。", "老爷爷并不担心自己以后怎么生存，他最担心依然是自己去世后，女儿该如何安顿的问题。", "至少，目前，似乎还看不到解决的办法。", "", []], 167: ["我走出阴冷的桥洞，来到一座小桥。", "夜已深沉，繁华退去，留下的只有空荡的街道、昏暗的路灯、和翻滚的树叶。", "这里的夜晚没有星星和月亮，我突然想起老家帆布一般质朴的天空，那里才是离天空最近的地方。", "", []], 169: ["整个十月都在下雨，曾经热闹的桥洞开始变得阴冷起来。", "有时没法外出，就只能在桥洞逗逗流浪猫。", "城里开始张灯结彩，随处都能看到有人在张贴红色横幅——“热烈欢迎各位领导莅临XX市视察工作”", "", []], 171: ["整个城市开始躁动不安，到处都在打扫、清理。", "整条街道焕然一新，之前随处可见的流浪汉，都莫名的消失了，", "不知道他们都去了哪里。", "", []], 173: ["1964年，一个叫吴晓雪的女孩出身在一个普通的农家。", "女孩有极高的音乐天赋，吹、拉、弹、唱，样样都会。", "然而命运不济，她因几分之差高考落榜。", "（待续）", "", []], 174: ["1980年，女孩独自来到县城一家餐馆打工。", "一位不善言谈的同店伙计对她倍加照顾，女孩对这个年轻人非常感激。", "后来，饭店因经营不善倒闭。", "年轻人以「能找到更好的工作」为由，将女孩带回山区老家。", "（待续）", "", []], 175: ["在与世隔绝的山中，", "年轻人原形毕露，多次强迫女孩发生关系。", "女孩几次出逃，都被年轻人的父母连同全村村民找回。", "回家后，一顿毒打，并由年轻人父母轮流看管。", "（待续）", "", []], 176: ["后来，年轻人外出打工，在工地上右脚被钢筋穿透，被迫截肢，丧失了工作能力。", "1983年，陷入极度贫困的年轻一家人，在别人的介绍下、以1600元价格把女孩卖给邻省山区一个贫困的男人————大她10岁的杨世军。", "（待续）", "", []], 177: ["杨世军虽然游手好闲、手脚不干净，但是对女孩却非常好，从也不打骂。", "或许太久没有尝过温暖，女孩渐渐在大山里、安定了下来，", "开始了一段平静的生活。", "（待续）", "", []], 178: ["女孩似乎为了报答杨世军，非常努力，", "挑水、扎荆条、养猪、下田...样样都做", "杨世军在女孩反复的劝说下，也开始做些简单的农活。", "日子，开始渐渐有了起色。", "（待续）", "", []], 179: ["1988年，女孩生下一名男孩，杨世军对女孩更加喜爱。", "一年后，杨世军第一次允许女孩独自去县城。", "然而，女孩离开后，就再也没有回来过。", "直到一个月后才得知，女孩已回到\n自己老家...", "这个女孩是我的母亲。", "杨世军是我的父亲。他最常说的一句话是，", "“我不需要你们来可怜！”", "（剧终）", "", []]
-                    }, o = i[t()];
-                    if ("undefined" == typeof o) cc.director.loadScene("rest");
-                    else {
-                        var r = o.pop();
-                        o.pop();
-                        if (0 == r.length || r[0] >= r[1]) {
-                            var s = function () { this.creatText(f, "plot" + d, o[d]), d++ }, l = function () { h.active = !0, h.runAction(cc.fadeIn(2)) }, u = o.length, p = this, d = 1, m = 3, f = cc.find("Canvas/Layout"), h = cc.find("Canvas/Determine");
+            },
+            ifEnd: function () {
+                e("scr_data").day > 80 && cc.director.loadScene("end");
+            },
+            onLoad: function () {
+                var t = cc.find("Canvas/skip"), n = e("scr_public");
+                t.on("touchstart", function () {
+                    cc.director.loadScene("rest");
+                }, this);
+                n.ifGameOver();
+                t.runAction(cc.fadeTo(3, 150));
+                var a = e("scr_data"), i = {
+                    //每日睡觉时剧情传送门
+                    1001: ["“你不配做一个父亲！”", "“既然那么恨我！为什么要生下我！”", "“没有你我照样可以活！”", "BGM1", [a.distance, 0]],
+                    1002: ["现在回头已经看不见家的方向了", "我回头看了看，", "他果然没有追过来", "BGM2", []],
+                    1003: ["晚上下起了雨，", "又湿又冷，", "但是，我是不会回去的！:-)", "BGM2", []],
+                    1004: ["路上饿了就摘不知名的果树上的果子，", "有时候能看见一些猎物，但我确很难抓得住", "偶尔抓到一两只还能吃吃烤肉。", "感觉味道比家里的饭好吃。", "BGM1", []],
+                    1005: ["16年前，1988年一个炎热的下午，", "我出生在一个小山村。", "母亲在我一岁时离家出走。", "我的童年，只有父亲醉酒后的叫骂声和远处的大山。", "BGM1", []],
+                    1007: ["夜里，我思索着以后的去路，", "我没有能去的地方，", "我想起了以前经常去玩的城里", "在城里逛的日子是我少数开心的时候，", "我决定去县城", "我来到了马路边", "勉强辨认出了方向", "BGM3", []],
+                    1009: ["敏感、内向、偏执，", "不愿在社交上投入任何时间，", "几乎没什么朋友；", "而我唯一的亲人，", "现在也断了联系…", "我以后该怎么办?", "到了县城再去想吧...", "BGM3", []],
+                    2001: ["当我到达县城的时候，", "我的身上早脏的不成样子","我从垃圾桶翻出来了一些干净一点的衣服","顺便把自己洗了一下", "", []],
+                    2004: ["在县城我感觉到了自力更生的感觉，", "我偶尔可以打上零工","我也会从一些打折的商场买衣服","但我不喜欢这，太吵闹了", "", []],
+                    2007: ["我来到昨天面试的小区，", "屋里早已没了人影", "", [a.choice[1], 2]],
+                    2014: ["不知道从何时起", "城里的小混混开始怕我了，", "这个县城我已经如鱼得水了", "BGM3", []],
+                    2021: ["未成年，没技能，不善言谈...", "如果我死了，", "会有人伤心吗？", "BGM3", []],
+                    2022: ["今天街道上聚集了一群人，", "我凑过去一看，", "——我的父亲——正被旁人拉着，他满脸通红，对着一个年轻人大声叫骂，", "他还是一如既往的暴躁，只是头上多了些许白发。", "我没敢多看，赶紧离开了。", "我决定，明天就离开县城，待在这里迟早会被发现。", "BGM1", []],
+                    3001: ["山里异常安静，", "晚上湿度很大，篝火没法驱散。", "我喜欢这种安静，", "——这里才是我的世界。", "BGM2", []],
+                    3002: ["母亲出走后的第二年，", "父亲开始带一些女人回家，", "而我，就像是一个不存在的人。", "或者，", "是个累赘...", "", []],
+                    3003: ["既不种田，也不会哄女人的父亲，", "很快就没人愿意跟着他。", "他开始变得极度暴躁，动不动就砸东西。", "", []],
+                    3004: ["由于生活习惯极差，", "父亲患上了痛风，", "我经常听到他晚上疼得大声叫骂。", "但是，第二天他依然会喝得酩酊大醉。", "", []],
+                    3014: ["晓月的性格很奇怪", "有时候会突然发脾气 ，", "有时候又会突然很开心，", "而且她很爱吃，只要我给她吃东西她就会很高兴", "难道她的肚子是无底洞吗", "", [a.ifFollow[0],0]],
+                    3018: ["邻村，有一个我暗恋多年的女孩", "她清澈、而又懵懂的眼睛，就像朝阳下雾气缭绕的小河。", "然而，", "今年春节，在她辍学外出打工一年后，", "我亲耳听到她对她妈吼道", "“这种破地方！我TM再也不会回来了！......”", "", []],
+                    3027: ["月光透过树叶，映入帐篷，", "斑驳的树影，在夏虫声中轻轻摇曳。", "我，", "真的可以脱开一切关系，而独自存活吗？", "", []],
+                    3028: ["世界上有这么一类人，", "即使明知某种关系不健康，", "却依然难以舍弃。", "这是亲情、爱情、无奈、还是无知呢？", "", []],
+                    4001: ["迷宫般的大都会，让我有些彷徨。", "我把帐篷安置在城中村附近的一个桥洞里，", "桥洞已经下住着位中年大叔、一对老人和一个胖女人", "", []],
+                    4004: ["老人和胖女人似乎是一家人。", "老奶奶上午出去，老爷爷下午和晚上出去，留下的一个在家照顾胖女人。", "胖女人要么睡觉，要么整天发呆...", "", []],
+                    4008: ["深夜，老爷爷和胖女人吵了起来。", "“你努力一把、出去工作一下会怎样？”", "“我这样的人谁肯要！”，这是我第一次听见妇女说话。", "“我死了以后、看你怎么办！”，老爷爷大吼。", "“不知道！”，妇女反驳...", "", []],
+                    4009: ["中年大叔，一到晚上就咳嗽得很厉害。", "但是，只要有钱，无论是苦力钱还是怜悯钱，他都会拿去买酒肉和彩票。", "呵呵，和某人，像极了", "", []],
+                    4010: ["碧瑶每天都是早出晚归，", "睡觉时，稍有响动，她就会立即就会坐起来。", "", []],
+                    4018: ["中年大叔对两个新伙伴的加入感到很兴奋，但是发现新来的又是两只闷葫芦后，就只能成天靠逗流浪猫打发时间。", "他聊天的内容无非是，“上过三年学，除了自己名字，一个字也不认识”，“要是中了500万，我就用钱铺张床！”，也没人愿意听。", "", []],
+                    4019: ["“你为什么不去医院看看呢？”", "“看不得！一看一身病，不看没准还能多活几年”，中年大叔认真的说道。", "“......你这身体。以后打算怎么办？”", "“等死吧...”", []],
+                    4022: ["胖女人几天不吃、不喝，不洗漱。", "“你到底有啥苦嘛，我啥子也不要你做，不要求你成家，只希望你能自立，你为什么要把自己搞成这样？”", "老头子一边说，一边抹眼泪。", "", []],
+                    4023: ["“你知不知道那个女人和老人是啥关系？”", "“那个女的是老人的独生女儿，中学开始患上‘郁闷症’，直到现在一直都靠老两口养着”，中年大叔立马来了精神，", "“老人知道自己活不长，想最后拼一把，带女儿来城里看病；为了节约钱，就在桥洞下搭了个窝，一个星期去一次医院呢。”，中年大叔接嘀咕，", "“不过，我觉得她没啥病，说白点，就是懒...”", "", []],
+                    4025: ["一年冬天，我藏在箱底，打算买书的钱，不翼而飞。", "我冲到房间，看到地上的酒瓶和昏昏沉沉的父亲，我立马就明白了。", "我使劲踢了父亲一脚，扔下一句，“你这种懒人，就不应该活着！”", "然后我逃到山里躲了三天...", "", []],
+                    4026: ["懒惰、愚蠢、随性，是我很早就给父亲贴上的三个标签。", "这三个标签不断的得到证实、强化和发展，并且一次又一次的激怒着我，最终根深蒂固；我开始拒绝一切沟通，父子感情在标签的指向下，越走越远。", "我的标签是什么？冷漠？自私？孤僻？强势？我并不知道...", "", []],
+                    4028: ["中年大叔晚上肚子疼得厉害，睡不着，把我拉起来聊天，", "“哎，咱们要是病了只能硬抗呀！去年桥下一位糖尿病老大爷，捡破烂时划伤了脚板，没管，结果伤口一直烂到大腿，送到医院没几天就死了，遗体到现在都没人来领呢。”", "我无言以对...", "", []],
+                    4033: ["城中村道路狭窄、密集，一线青天下布满各种电线，不时还有污水滴落；地面潮湿、肮脏，墙上贴满各种小广告，空气中飘来腐败的气味和电视的声音。", "这里既有刚毕业的打工男孩，也有做着明星梦的女孩；有街头小贩，也有无人问津的油画家；有天真浪漫的小孩，也有终身未婚的孤独老人。", "这里就是永不谢幕的百态剧场。", "", []],
+                    4036: ["吃完捡来的盒饭，中年大叔开始感到恶心呕吐，随后开始呕血，", "我急忙向附近民警求助，", "中年大叔被送往附近的医院。", "", []],
+                    4038: ["中年大叔又回到桥下。“怎么样？”，我问道。", "\n“胃上一个大瘤子，光手术就得八千！”", "我心头一紧。中年大叔却接着平静的说道，\n“检查就花了医院不少钱，实在过意不去，就跑了出来...”", "“你赶快去救助站，那里条件比这好！”\n“不想去，反正怎么都会死，还不如死得自由点，这儿至少能有人说说话。”", "“...”", "", []],
+                    4043: ["小时候，山里大雪。", "在挂满了冰溜子的屋檐下，我正向几小个伙伴吹嘘自己的「轻功」。", "小伙伴们嗤之以鼻，我气急败的拉着他们来到结冰的塘边；没走几步，噗通一声，我掉进了塘里；幸好被路过的叔叔救起...", "回家后，父亲一边骂我「傻子」，一边狠命的抽打", "最后，我整整在床上躺了两个星期", "", []],
+                    4044: ["胖女人突然大发脾气、铁盆被踢得咕噜噜的响。", "“你这病，就是闲出来的！你就是没吃过苦！”，老头子涨红了脸。", "“那你让我死呀！！！”，胖女人对吼。", "老奶奶头发凌乱，哭天喊地，死死抱住女儿的大腿。", "最后，中年大叔拉住老爷爷，碧瑶不停的安慰着胖女人，这场风波才算平息。", "", []],
+                    4045: ["中年大叔疼痛发作越来越频繁，有时深夜、我还能听到牙齿咬得咯吱响的声音。", "“你不想回老家吗？”，我问道。", "“晚啦！回不去啦！”", "“如果在这里就世，你会甘心？”", "“人都没了，那还管得了这些！你还年轻，我每年都要见几次这种事。”，中年大叔眼神似乎有些疑惑。", "", []],
+                    4048: ["父亲游手好闲、脾气暴躁，像祭山、放荷灯、彩船舞，这些村里的活动，他从来都不参与，村里人对他、避而远之。", "但是他似乎不以为意，照样喝酒闹事，拿着菜刀追赶扔石头的小孩。在别人眼中，他就是个怪人。", "", []],
+                    4051: ["此时正值九月中旬，桥边红色的梧桐落叶上、开始泛起点点露珠，桥下也开始显得阴冷起来。", "痛苦呻吟的中年大叔，心事重重的吉他女孩，迷茫的我。", "每一个活着的人都不简单，我的磨难又算得了什么？", "", []],
+                    4052: ["中年大叔腹部出现积水，吃东西就胀，又时候呕吐，浑身疼痛。", "只能依靠上次剩下的止痛药，才能稍稍睡儿。", "", []],
+                    4062: ["中年大叔原本臃肿的身材，现在已经瘦成皮包骨。发霉的床单旁放着大伙给他买的水果、零食，但是他已经完全吃不下了。", "我听见他在小声喊我，我赶忙过去，他蒙蒙脓脓的说道，", "“你还很年轻...别把青春耗在这里...赶紧回去吧...好好充实自己...做个有用的人...不要像我一样...”", "我流下了眼泪。", "", []],
+                    4063: ["中年大叔走了。", "老爷爷请来了民警，民警看了看、通知了民政局。", "不一会儿，就来了一辆白色汽车。中年大叔遗体被装进黑色塑料袋。一分钟不到，汽车就消失在视野中。我猛然惊醒，就像做完一场梦。", "", []],
+                    147: ["小时候，山里穷，小孩子几乎啥都吃，青蛙、蜂蛹、沙虫、茅根、覆盆子......", "不过最有趣是的晚上，邀上几个小伙伴，拿上弹弓、点着领着灯，去林子里打鸟！", "由于我家没人管，打好的鸟、小伙伴都会拿到我家来弄。", "父亲经常馋的流口水，但是没人愿意给他。有一次，我们放下烤熟的肉，去田里偷玉米，回家后被吃光了，父亲说是被狗吃了...", "", []],
+                    148: ["胖女人突然变得高兴起来，", "一边洗碗一边哼着歌，还过来和我打招呼，让人摸不着头脑。", "莫非她真的是在装病？", "", []],
+                    150: ["碧瑶开始主动找胖女人聊天、帮她梳理头发，两人似乎成了很好的朋友；如果有时间，碧瑶还会帮老两口洗脏衣服。", "突然觉得自己有些自闭，我一直习惯独来独往、不依靠任何人，从没有想过如何去建立关系网络。", "", []],
+                    153: ["然而，事情似乎比我想得要麻烦，胖女人又开始整天昏睡，而且比原来更加严重。", "“你觉得她是在装病吗？”，我问碧瑶。", "“不是，我以前有一个好姐妹和她情况很像，情绪波动极大，一会儿要寻死，一会儿高兴得像只麻雀；最后，她被诊断出「双相障碍」，重抑郁、轻狂躁，一直靠药物稳定病情。”", "“那她现在好了没？”\n“不知道，后来她去国外了，我没再联系了...”", "", []],
+                    156: ["“你以后有打算怎么办？”，我问碧瑶。", "“等妈妈病好后，我打算回到学校，我想做一个会吉他的英语老师，嘻嘻~”", "“欠债呢？”，我追问。", "“总会有办法的嘛~”，碧瑶似乎很乐观。", "“你将来想做啥？总不能这么混一辈子吧”，碧瑶反问。", "“我不知道...”", "", []],
+                    159: ["除了强悍的野外求生能力，我似乎一无所有————工作技能、社交能力、身份和户口，还有最重要的、规划和理想。", "我只是一个半成品，我需要为我的无知付出代价。", "", []],
+                    165: ["天气慢慢变冷。", "胖女人和老两口也回老家了。", "老人花光了所有积蓄，但是女儿的病依旧没有好转。", "老爷爷并不担心自己以后怎么生存，他最担心依然是自己去世后，女儿该如何安顿的问题。", "至少，目前，似乎还看不到解决的办法。", "", []],
+                    167: ["我走出阴冷的桥洞，来到一座小桥。", "夜已深沉，繁华退去，留下的只有空荡的街道、昏暗的路灯、和翻滚的树叶。", "这里的夜晚没有星星和月亮，我突然想起老家帆布一般质朴的天空，那里才是离天空最近的地方。", "", []],
+                    169: ["整个十月都在下雨，曾经热闹的桥洞开始变得阴冷起来。", "有时没法外出，就只能在桥洞逗逗流浪猫。", "城里开始张灯结彩，随处都能看到有人在张贴红色横幅——“热烈欢迎各位领导莅临XX市视察工作”", "", []],
+                    171: ["整个城市开始躁动不安，到处都在打扫、清理。", "整条街道焕然一新，之前随处可见的流浪汉，都莫名的消失了，", "不知道他们都去了哪里。", "", []],
+                    173: ["1964年，一个叫吴晓雪的女孩出身在一个普通的农家。", "女孩有极高的音乐天赋，吹、拉、弹、唱，样样都会。", "然而命运不济，她因几分之差高考落榜。", "（待续）", "", []],
+                    174: ["1980年，女孩独自来到县城一家餐馆打工。", "一位不善言谈的同店伙计对她倍加照顾，女孩对这个年轻人非常感激。", "后来，饭店因经营不善倒闭。", "年轻人以「能找到更好的工作」为由，将女孩带回山区老家。", "（待续）", "", []],
+                    175: ["在与世隔绝的山中，", "年轻人原形毕露，多次强迫女孩发生关系。", "女孩几次出逃，都被年轻人的父母连同全村村民找回。", "回家后，一顿毒打，并由年轻人父母轮流看管。", "（待续）", "", []],
+                    176: ["后来，年轻人外出打工，在工地上右脚被钢筋穿透，被迫截肢，丧失了工作能力。", "1983年，陷入极度贫困的年轻一家人，在别人的介绍下、以1600元价格把女孩卖给邻省山区一个贫困的男人————大她10岁的杨世军。", "（待续）", "", []],
+                    177: ["杨世军虽然游手好闲、手脚不干净，但是对女孩却非常好，从也不打骂。", "或许太久没有尝过温暖，女孩渐渐在大山里、安定了下来，", "开始了一段平静的生活。", "（待续）", "", []],
+                    178: ["女孩似乎为了报答杨世军，非常努力，", "挑水、扎荆条、养猪、下田...样样都做", "杨世军在女孩反复的劝说下，也开始做些简单的农活。", "日子，开始渐渐有了起色。", "（待续）", "", []],
+                    179: ["1988年，女孩生下一名男孩，杨世军对女孩更加喜爱。", "一年后，杨世军第一次允许女孩独自去县城。", "然而，女孩离开后，就再也没有回来过。", "直到一个月后才得知，女孩已回到\n自己老家...", "这个女孩是我的母亲。", "杨世军是我的父亲。他最常说的一句话是，", "“我不需要你们来可怜！”", "（剧终）", "", []]
+                }
+                [function () {
+                    var t = e("scr_public").regionId(), n = a.stayDay, i = 0;
+                    1e3 == t && (i = 1e3 + n[0]);
+                    2e3 == t && (i = 2e3 + n[1]);
+                    3e3 == t && (i = 3e3 + n[2]);
+                    4e3 == t && (i = 4e3 + n[3]);
+                    a.day > 143 && (i = a.day);
+                    return i;
+                }()];
+                if ("undefined" == typeof i) cc.director.loadScene("rest"); else {
+                    var c = i.pop();
+                    i.pop();//显示每日睡觉剧情处
+                    if (0 == c.length || c[0] >= c[1]) {//这个c0c1是用来判断是否显示的，c0大于c1才会显示
+                        var o = i.length, r = this, s = 1, l = cc.find("Canvas/Layout"), u = cc.find("Canvas/Determine");
                             window.setTimeout(function () {
-                                p.creatText(f, "plot0", o[0])
-                            }, 500), this.schedule(s, m, u - 2), this.scheduleOnce(l, m * u)
-                        } else cc.director.loadScene("rest")
+                            r.creatText(l, "plot0", i[0]);
+                        }, 500);
+                        this.schedule(function () {
+                            this.creatText(l, "plot" + s, i[s]);
+                            s++;
+                        }, 3, o - 2);
+                        this.scheduleOnce(function () {
+                            u.active = !0;
+                            u.runAction(cc.fadeIn(.2));
+                        }, 0.3 * o); // 在 3 * o 秒之后执行一次以下逻辑。
+                    } else cc.director.loadScene("rest");
                     }
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_public: "scr_public" }], scr_eatButton: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_public: "scr_public"
+    }],
+    scr_eatButton: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "c5f14lLVmRA6r8LzGX0k1Ik", "scr_eatButton"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    cc.director.loadScene("eat")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
+        cc._RF.push(t, "c5f14lLVmRA6r8LzGX0k1Ik", "scr_eatButton");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                cc.director.loadScene("eat");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
                 }
-            }), cc._RFpop()
-        }, {}], scr_eatUI: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_eatUI: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "d3b81KfDgxIVoCTL1xk+Q03", "scr_eatUI"), cc.Class({
-                "extends": cc.Component, properties: { itemUI: { "default": null, type: cc.Prefab } }, itemContent: function a() {
+        cc._RF.push(t, "d3b81KfDgxIVoCTL1xk+Q03", "scr_eatUI");
+        cc.Class({
+            extends: cc.Component,
+            properties: {
+                itemUI: {
+                    default: null,
+                    type: cc.Prefab
+                }
+            },
+            //进食物品传送门
+            itemContent: function () {
                     var t = this;
                     this.data = e("scr_data");
                     var n = 3 * this.data.orderTimes[1] - this.data.orderTimes[4];
                     1 == this.data.publicVar[1] && (n = 1 * this.data.orderTimes[1] - this.data.orderTimes[4]);
                     var a = {
                         0: {
-                            itemName: " 果子 ", needDes: "※拥有：" + this.data.itemNum[0], des: "※效果：饥饿+20，15%几率恢复1点健康值", ifEnough: function (t) { var n = e("scr_data"); n.itemNum[0] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 20, o = n.itemNum[0], r = c.maxHunger();
-                                if (n.hunger < r) if (o >= 1) {
-                                    var s = "饥饿+20", l = 100 * Math.random();
-                                    n.itemNum[0] -= 1, n.hunger += i, n.orderTimes[5] += 1, l < 15 && (n.health += 1, s += "，健康值+1"), c.save(), a.playText("Canvas/notify", s + "！", 100), t.delayCreatItemUI1()
+                        itemName: " 果子 ",
+                        needDes: "※拥有：" + this.data.itemNum[0],
+                        des: "※效果：饥饿+20，15%几率恢复1点健康值",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum[0] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum[0], o = i.maxHunger();
+                            if (n.hunger < o) if (c >= 1) {
+                                var r = "饥饿+20", s = 100 * Math.random();
+                                n.itemNum[0] -= 1;
+                                n.hunger += 20;
+                                n.orderTimes[5] += 1;
+                                if (s < 15) {
+                                    n.health += 1;
+                                    r += "，健康值+1";
+                                }
+                                i.save();
+                                a.playText("Canvas/notify", r + "！", 100);
+                                t.delayCreatItemUI1();
+                            } else a.playText("Canvas/notify", "道具不足！", 100); else a.playText("Canvas/notify", "已经吃不下了！", 100);
+                        }
+                    },
+                    1: {
+                        itemName: " 熟肉 ",
+                        needDes: "※拥有：" + this.data.itemNum2[0],
+                        des: "※效果：饥饿+70",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum2[0] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum2[0], o = i.maxHunger();
+                            if (n.hunger < o) if (c >= 1) {
+                                n.itemNum2[0] -= 1;
+                                n.hunger += 70;
+                                n.orderTimes[2] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "饥饿+70！", 60);
+                                t.delayCreatItemUI1();
+                            } else a.playText("Canvas/notify", "道具不足！", 100); else a.playText("Canvas/notify", "已经吃不下了！", 100);
+                        }
+                    },
+                    2: {
+                        itemName: " 伤药 ",
+                        needDes: "※拥有：" + this.data.itemNum2[1],
+                        des: "※效果：恢复" + (30 + this.data.orderTimes[0]) + "生命值，且每次使用恢复量永久提高1点",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum2[1] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 30 + n.orderTimes[0], o = n.itemNum2[1], r = n.role.hp, s = i.role.maxHp();
+                            if (r < s) if (o >= 1) {
+                                n.itemNum2[1] -= 1;
+                                n.role.hp += c;
+                                n.role.hp > s && (n.role.hp = s);
+                                n.orderTimes[0] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "Hp+" + c, 60);
+                                t.delayCreatItemUI1();
+                            } else a.playText("Canvas/notify", "道具不足！", 100); else a.playText("Canvas/notify", "生命已达最大值！", 100);
+                        }
+                    },
+                    3: {
+                        itemName: " 香烟 ",
+                        needDes: "※拥有：" + this.data.itemNum2[7] + "（你当前烟瘾为" + n + "%）",
+                        des: "※效果：减少1点健康。恢复一半的精力，解除【烟瘾】BUFF！你，今天第" + this.data.orderTimes[8] + "次抽烟",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum2[7] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum2[7],
+                            //Energy = 10 * parseInt(Math.max(0.05 - 0.01 * n.orderTimes[8], 0) * i.maxEnergy());
+                            Energy = 10 * parseInt(0.05 * i.maxEnergy());
+                            if (2 == n.publicVar[1]) {
+                                a.playText("Canvas/notify", "好孩子不能抽烟哦！", 100)
+                            }
+                            else if (c >= 1) {
+                                n.health -= 1;
+                                n.itemNum2[7] -= 1;
+                                n.energy += Energy;
+                                n.orderTimes[1] += 1;
+                                n.orderTimes[8] += 1;
+                                n.role.hp = i.role.maxHp();
+                                n.skillLv[4] = 0;
+                                n.itemNum[7] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "健康-1，精力恢复" + Energy + "%！生命恢复为满，获得烟头*1", 100);
+                                t.delayCreatItemUI1();
                                 } else a.playText("Canvas/notify", "道具不足！", 100);
-                                else a.playText("Canvas/notify", "已经吃不下了！", 100)
                             }
-                        }, 1: {
-                            itemName: " 熟肉 ", needDes: "※拥有：" + this.data.itemNum2[0], des: "※效果：饥饿+70", ifEnough: function (t) { var n = e("scr_data"); n.itemNum2[0] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 70, o = n.itemNum2[0], r = c.maxHunger();
-                                n.hunger < r ? o >= 1 ? (n.itemNum2[0] -= 1, n.hunger += i, n.orderTimes[2] += 1, c.save(), a.playText("Canvas/notify", "饥饿+" + i + "！", 60), t.delayCreatItemUI1()) : a.playText("Canvas/notify", "道具不足！", 100) : a.playText("Canvas/notify", "已经吃不下了！", 100)
+                    },
+                    4: {
+                        itemName: " 啤酒 ",
+                        needDes: "※拥有：" + this.data.itemNum2[12],
+                        des: "※效果：恢复30精力，并获得一个【易拉罐】。开罐有奖！你今天已经喝了"
+                            + this.data.orderTimes[9] + "次酒，30%几率获得【暴躁】状态（伤害增加30%，战后一定几率消失）",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum2[12] > 0 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (2 == n.publicVar[1]) {
+                                a.playText("Canvas/notify", "好孩子不能喝酒哦！", 100)
                             }
-                        }, 2: {
-                            itemName: " 伤药 ", needDes: "※拥有：" + this.data.itemNum2[1], des: "※效果：恢复" + (30 + this.data.orderTimes[0]) + "生命值，且每次使用恢复量永久提高1点", ifEnough: function (t) { var n = e("scr_data"); n.itemNum2[1] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 30 + n.orderTimes[0], o = n.itemNum2[1], r = n.role.hp, s = c.role.maxHp();
-                                r < s ? o >= 1 ? (n.itemNum2[1] -= 1, n.role.hp += i, n.role.hp > s && (n.role.hp = s), n.orderTimes[0] += 1, c.save(), a.playText("Canvas/notify", "Hp+" + i, 60), t.delayCreatItemUI1()) : a.playText("Canvas/notify", "道具不足！", 100) : a.playText("Canvas/notify", "生命已达最大值！", 100)
-                            }
-                        }, 3: {
-                            itemName: " 香烟 ", needDes: "※拥有：" + this.data.itemNum2[7] + "（你当前烟瘾为" + n + "%）", des: "※效果：减少1点健康。恢复全部的精力、饥饿和生命！解除【烟瘾】BUFF！(慎用)", ifEnough: function (t) { var n = e("scr_data"); n.itemNum2[7] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = (50 + n.orderTimes[1], n.itemNum2[7]);
-                                1 + n.orderTimes[1];
-                                i >= 1 ? (n.health -= 1, n.itemNum2[7] -= 1, n.energy = c.maxEnergy(), n.role.hp = c.role.maxHp(), n.hunger = c.maxHunger(), n.orderTimes[1] += 1, n.skillLv[4] = 0, n.itemNum[7] += 1, c.save(), a.playText("Canvas/notify", "健康-1，精力/生命/饥饿恢全恢复！获得烟头*1", 100), t.delayCreatItemUI1()) : a.playText("Canvas/notify", "道具不足！", 100)
-                            }
-                        }, 4: {
-                            itemName: " 啤酒 ", needDes: "※拥有：" + this.data.itemNum2[12], des: "※效果：恢复30精力，并获得一个【易拉罐】。10%几率，开罐有奖！30%几率获得【暴躁】状态（伤害增加30%，战后一定几率消失）", ifEnough: function (t) { var n = e("scr_data"); n.itemNum2[12] > 0 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0)) }, button: function () {
-                                var n = e("scr_data"), a = e("scr_effect"), c = e("scr_public"), i = 30, o = n.itemNum2[12], r = 30;
-                                if (o >= 1) {
-                                    var s = 100 * Math.random(), l = 100 * Math.random(), u = "精力+" + i + "，获得【易拉罐】*1";
-                                    n.itemNum2[12] -= 1, n.energy += i, n.itemNum[2] += 1, s >= 90 && s < 97 && (n.itemNum2[12] += 1, u += "，恭喜再来一瓶！"), s >= 97 && (n.money += 10, u += "，恭喜获得1元大奖！"), l < r && (n.buffState[0] = 1, u += "，获得【暴躁】！"), c.save(), a.playText("Canvas/notify", u, 100), t.delayCreatItemUI2()
-                                } else a.playText("Canvas/notify", "道具不足！", 100)
+                            else if (n.itemNum2[12] >= 1) {
+                                var c = 100 * Math.random(), o = 100 * Math.random(), r = "精力+30，获得【易拉罐】*1";
+                                n.itemNum2[12] -= 1;
+                                n.orderTimes[9] += 1;
+                                n.energy += 30;
+                                n.itemNum[2] += 1;
+                                if (c >= 90 && c < 97) {
+                                    n.itemNum2[12] += 1;
+                                    r += "，恭喜再来一瓶！";
+                                }
+                                if (c >= 97) {
+                                    n.money += 10;
+                                    r += "，恭喜获得1元大奖！";
+                                }
+                                if (o < 30) {
+                                    n.buffState[0] = 1;
+                                    r += "，获得【暴躁】！";
+                                }
+                                i.save();
+                                a.playText("Canvas/notify", r, 100);
+                                t.delayCreatItemUI2();
+                            } else a.playText("Canvas/notify", "道具不足！", 100);
+                        }
+                    },
+                    5: {
+                        itemName: " 晓月的爱心料理 ",
+                        needDes: "※注满了晓月对你的爱，你有"+ this.data.itemNum[13] +"个",
+                        des: "※你发誓，这是你这辈子吃过最好吃的东西 。所有属性全面提高，晓月好感越高，加成越高",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum[13] > 0 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(255, 0, 0));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.choice[5],
+                            r = "入口的那一刻，你快哭出来了" ;
+                                if (n.itemNum[13] >= 0) {
+                                n.itemNum[13] -= 1;
+                                i.maxHunger += parseInt(Math.max( c/50, 0));
+                                i.maxEnergy += parseInt(Math.max( c/50, 0));
+                                n.health += parseInt(Math.max( c, 0));
+				                n.energy = i.maxEnergy();
+				                n.hunger = i.maxHunger();
+				                n.role.att += parseInt(Math.max( c/10, 0));
+				                n.maxHp += parseInt(Math.max( c/5, 0));
+				                n.role.def += parseInt(Math.max( c/25, 0));
+				                n.role.hp = i.role.maxHp();
+                                i.save();
+                                a.playText("Canvas/notify", r + "！", 100);
+                                t.delayCreatItemUI1();
+                            } else a.playText("Canvas/notify", "道具不足！", 100);
+                        }
+                    },
+                    6: {
+                        itemName: " 剩饭 ",
+                        needDes: "※在餐厅后厨里偷出来的没吃完的饭，你有"+ this.data.itemNum[14] +"个",
+                        des: "※有些上好的菜几乎只吃了几口...更多的是你没见过的菜",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum[14] > 1 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 0, 255));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum[0], o = i.maxHunger();
+                            if (n.hunger < o) if (n.itemNum[14] >= 1) {
+                                var r = "你大吃了一顿，感觉味道还不错，精力恢复50", s = 100 * Math.random();
+                                n.itemNum[14] -= 1;
+                                n.energy += 50;
+                                n.hunger += 150;
+                                if (s > 70 && s < 90) {
+                                    n.orderTimes[4] += 1;
+                                    r += "，体内的灵能风暴卷走了你对地嗪的渴望，烟瘾-%1";
+                                }
+                                if (s >= 90) {
+                                    n.energy = i.maxEnergy();
+                                    n.role.hp = i.role.maxHp();
+                                    n.hunger = i.maxHunger();
+                                    r += "，我放眼望去，是艾尔的黄金舰队在为我闪烁（属性全满）";
+                                }
+                                i.save();
+                                a.playText("Canvas/notify", r + "！", 100);
+                                t.delayCreatItemUI2();
+                            } else a.playText("Canvas/notify", "道具不足！", 100); else a.playText("Canvas/notify", "已经吃不下了！", 100);
+                        }
+                    },
+                    7: {
+                        itemName: " 时光炸弹·败者食尘 ",
+                        needDes: "※拥有：" + this.data.itemNum2[33],
+                        des: "※通过轰炸时间线来让时间回溯到前一天，并且距离减少50km。这是从帝国科研部冒着九死一生的风险偷来的无价之宝，拥有扭曲时间的能力",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum2[33] > 0 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(255, 182, 193));
+                        },
+                        button: function () {
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum2[33];
+                            if (n.distance >= 60) if (c >= 1) {
+                                n.itemNum2[33] -= 1;
+                                n.distance -= 50;
+                                n.day -= 1;
+                                n.button[0] = !0;
+                                n.button[1] = !0;
+                                n.button[2] = !0;
+                                i.save();
+                                a.playText("Canvas/notify", "随着一段记忆在眼前闪过，你回到了昨天", 60);
+                                t.delayCreatItemUI2();
+                            } else a.playText("Canvas/notify", "道具不足！", 100); else a.playText("Canvas/notify", "无法回头！", 100);
                             }
                         }
                     };
-                    return a
-                }, creatPrefab: function (e, t) {
-                    var n = cc.instantiate(this.itemUI), a = this.itemContent()[e], c = a.button, i = "item" + e;
-                    n.name = i, n.getChildByName("button").getChildByName("name").getComponent("cc.Label").string = a.itemName, n.getChildByName("need").getComponent("cc.Label").string = a.needDes, n.getChildByName("des").getComponent("cc.Label").string = a.des, n.getChildByName("button").getChildByName("name").getComponent("cc.Button").scheduleOnce(function () {
-                        n.getChildByName("button").getChildByName("name").on("touchstart", c, this)
-                    }, .4), cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n), "undefined" != typeof a.ifEnough && a.ifEnough(i)
-                }, creatItemUI1: function () {
-                    this.initText(), cc.find("Canvas/Page/view/content/page_1").removeAllChildren();
-                    for (var e = 0; e <= 3; e++)this.creatPrefab(e, "page_1")
-                }, creatItemUI2: function () {
-                    this.initText(), cc.find("Canvas/Page/view/content/page_2").removeAllChildren();
-                    for (var e = 4; e <= 4; e++)this.creatPrefab(e, "page_2")
-                }, creatItemUI3: function () {
-                    this.initText(), cc.find("Canvas/Page/view/content/page_3").removeAllChildren();
-                    for (var e = 8; e <= 11; e++)this.creatPrefab(e, "page_3")
-                }, initText: function () {
+                return a;
+            },
+            creatPrefab: function (e, t) {
+                var n = cc.instantiate(this.itemUI), a = this.itemContent()[e], i = a.button, c = "item" + e;
+                n.name = c;
+                n.getChildByName("button").getChildByName("name").getComponent("cc.Label").string = a.itemName;
+                n.getChildByName("need").getComponent("cc.Label").string = a.needDes;
+                n.getChildByName("des").getComponent("cc.Label").string = a.des;
+                n.getChildByName("button").getChildByName("name").getComponent("cc.Button").scheduleOnce(function () {
+                    n.getChildByName("button").getChildByName("name").on("touchstart", i, this);
+                }, .2);
+                cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n);
+                "undefined" != typeof a.ifEnough && a.ifEnough(c);
+            },
+            creatItemUI1: function () {
+                this.initText();
+                cc.find("Canvas/Page/view/content/page_1").removeAllChildren();
+                for (var e = 0; e <= 3; e++) this.creatPrefab(e, "page_1");
+            },
+            creatItemUI2: function () {
+                this.initText();
+                cc.find("Canvas/Page/view/content/page_2").removeAllChildren();
+                for (var e = 4; e <= 7; e++) this.creatPrefab(e, "page_2");
+            },
+            creatItemUI3: function () {
+                this.initText();
+                cc.find("Canvas/Page/view/content/page_3").removeAllChildren();
+                for (var e = 8; e <= 11; e++) this.creatPrefab(e, "page_3");
+            },
+            initText: function () {
                     var t = e("scr_data"), n = e("scr_public");
                     cc.find("Canvas/hunger").getComponent("cc.Label").string = "饥饿：" + t.hunger + "/" + n.maxHunger() + "  精力：" + t.energy + "/" + n.maxEnergy() + "  生命：" + t.role.hp + "/" + n.role.maxHp()
                 }, delayCreatItemUI1: function () {
-                    this.scheduleOnce(this.creatItemUI1, .1)
+                    this.scheduleOnce(this.creatItemUI1, .1);//使用 scheduleOnce 方法，在当前帧结束后延迟 0.1 秒执行 creatItemUI1 函数。
                 }, delayCreatItemUI2: function () {
-                    this.scheduleOnce(this.creatItemUI2, .1)
+                    this.scheduleOnce(this.creatItemUI2, .1);
                 }, delayCreatItemUI3: function () {
-                    this.scheduleOnce(this.creatItemUI3, .1)
+                    this.scheduleOnce(this.creatItemUI3, .1);
                 }, onLoad: function () {
-                    this.creatItemUI1(), this.creatItemUI2()
+                    this.creatItemUI1(); this.creatItemUI2();
                 }
             }), cc._RFpop()
         }, { scr_data: "scr_data", scr_effect: "scr_effect", scr_public: "scr_public" }], scr_effect: [function (e, t, n) {

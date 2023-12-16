@@ -47,7 +47,7 @@ body {
   position: absolute;
   margin: 0;
   overflow: hidden;
-  left: 0px;
+  left: -706px;/*往右706可以贴在最左边*/
   top: 0px;
 
   display: -webkit-box;
