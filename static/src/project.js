@@ -13162,41 +13162,60 @@ require = function e(t, n, a) {
     }], 
     scr_startUI: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "cea75di7zpJiqfvO6EeKLF9", "scr_startUI"), cc.Class({
-                "extends": cc.Component, properties: {}, supportButton: function () {
-                    cc.director.loadScene("support")
-                }, messageButton: function () {
-                    cc.director.loadScene("message")
-                }, controlButton: function () {
-                    JSON.parse(cc.sys.localStorage.getItem("userData")) || (cc.find("Canvas/button/button_continue").active = !1)
-                }, onLoad: function () {
+        cc._RF.push(t, "cea75di7zpJiqfvO6EeKLF9", "scr_startUI");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+                supportButton: function () {
+                cc.director.loadScene("support");
+            },
+            messageButton: function () {
+                cc.director.loadScene("message");
+            },
+            controlButton: function () {
+                JSON.parse(cc.sys.localStorage.getItem("userData")) || (cc.find("Canvas/button/button_continue").active = !1);
+                }, 
+                onLoad: function () {
                     this.controlButton()
                 }
-            }), cc._RFpop()
-        }, {}], scr_system: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_system: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "00817ZNI7hJb4XVsFxczkla", "scr_system"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    function t() {
-                        cc.find("Canvas/text/speed").getComponent("cc.Label").string = "你目前剧情（部分）播放速度为" + a[i.publicVar[6] || 2]
+        cc._RF.push(t, "00817ZNI7hJb4XVsFxczkla", "scr_system");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var t = ["一般", "快", "一般"], n = cc.find("Canvas/button/speed"), a = e("scr_data"), i = e("scr_effect");
+                cc.find("Canvas/text/speed").getComponent("cc.Label").string = "你目前剧情（部分）播放速度为" + t[a.publicVar[6] || 2];
+                n.on("touchstart", function () {
+                    a.publicVar[6] += 1;
+                    a.publicVar[6] > 2 && (a.publicVar[6] = 1);
+                    i.playText("Canvas/text/speed", "你目前剧情播放速度为" + t[a.publicVar[6]], 60);
+                }, n);
                     }
-                    function n() {
-                        i.publicVar[6] += 1, i.publicVar[6] > 2 && (i.publicVar[6] = 1), o.playText("Canvas/text/speed", "你目前剧情播放速度为" + a[i.publicVar[6]], 60)
-                    }
-                    var a = ["一般", "快", "一般"], c = cc.find("Canvas/button/speed"), i = e("scr_data"), o = e("scr_effect");
-                    t(), c.on("touchstart", n, c)
-                }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_effect: "scr_effect" }], 
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_effect: "scr_effect"
+    }],
         scr_weixin: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "30448HDiXRBAKQpqrA00msY", "scr_weixin"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    cc.director.loadScene("support2")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
+        cc._RF.push(t, "30448HDiXRBAKQpqrA00msY", "scr_weixin");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                cc.director.loadScene("support2");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
                 }
-            }), cc._RFpop()
+        });
+        cc._RF.pop();
         }, {}], 
         testAll: [function (e, t, n) {
             "use strict";
