@@ -11385,18 +11385,6 @@ require = function e(t, n, a) {
     }, {
         scr_public: "scr_public"
     }],
-    scr_playAds: [function (e, t, n) {
-        "use strict";
-        cc._RF.push(t, "602f4GJE5dHeJbKWFm68u1y", "scr_playAds");
-        cc.Class({
-            extends: cc.Component,
-            properties: {},
-            callBack: function () { },
-            onLoad: function () { },
-            start: function () { }
-        });
-        cc._RF.pop();
-    }, {}],
     scr_plot: [function (e, t, n) {
             "use strict";
         cc._RF.push(t, "22594SzhLdDFIhFu3G4ZURs", "scr_plot");
@@ -13212,30 +13200,67 @@ require = function e(t, n, a) {
         }, {}], 
         testAll: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "90bfc8sWA1FKba1y8235I0Y", "testAll"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    this.changeData()
-                }, changeData: function () {
+        cc._RF.push(t, "90bfc8sWA1FKba1y8235I0Y", "testAll");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                this.changeData();
+            },
+            changeData: function () {
                     var t = e("scr_data"), n = e("scr_public");
                     e("scr_data2");
-                    t.day = 179, t.ifFollow[0] = 0, t.publicVar[7] = 999, t.publicVar3[3] = 0, n.save(), n.save2(), n.init()
-                }, changeData2: function () {
+                t.day = 179;
+                t.ifFollow[0] = 0;
+                t.publicVar[7] = 999;
+                t.publicVar3[3] = 0;
+                n.save();
+                n.save2();
+                n.init();
+            },
+            changeData2: function () {
                     var t = e("scr_data"), n = e("scr_public");
-                    t.itemNum2[3] = 30, t.itemNum2[4] = 30, t.itemNum2[8] = 15, t.itemNum2[9] = 15, t.itemNum2[10] = 6, t.itemNum2[11] = 6, t.itemNum2[14] = 999, t.itemNum2[19] = 2, t.itemNum2[20] = 500, t.itemNum2[21] = 200, t.itemNum2[22] = 200, t.ifFollow[0] = 1, t.choice[5] = 999, t.skillLv[5] = 1, t.skillLv[9] = 1, t.skillLv[14] = 1, t.skillLv[25] = 1, t.figthExp[0] = 150, t.figthExp[1] = 150, t.figthExp[2] = 150, t.role.hp = n.role.maxHp()
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
+                t.itemNum2[3] = 30;
+                t.itemNum2[4] = 30;
+                t.itemNum2[8] = 15;
+                t.itemNum2[9] = 15;
+                t.itemNum2[10] = 6;
+                t.itemNum2[11] = 6;
+                t.itemNum2[14] = 999;
+                t.itemNum2[19] = 2;
+                t.itemNum2[20] = 500;
+                t.itemNum2[21] = 200;
+                t.itemNum2[22] = 200;
+                t.ifFollow[0] = 1;
+                t.choice[5] = 999;
+                t.skillLv[5] = 1;
+                t.skillLv[9] = 1;
+                t.skillLv[14] = 1;
+                t.skillLv[25] = 1;
+                t.figthExp[0] = 150;
+                t.figthExp[1] = 150;
+                t.figthExp[2] = 150;
+                t.role.hp = n.role.maxHp();
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_data2: "scr_data2", scr_public: "scr_public" }], test: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_data2: "scr_data2",
+        scr_public: "scr_public"
+    }],
+        test: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "8d2adDidEdDNoDEfhV+1NKI", "test"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.sys.localStorage.removeItem("userData"), cc.director.loadScene("end", function () {
-                        e("scr_data").day = 168
-                    })
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
-                }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data" }]
-    }, {}, ["scr_eatButton", "scr_makeButton", "scr_shopButton", "scr_skillButton", "scr_backMainUI", "scr_diaryDetermine", "scr_eventDetermine", "scr_restDetermine", "scr_backStartUI", "scr_backSupport", "scr_continueButton", "scr_initGame", "scr_newGame", "scr_notice", "scr_notice2", "scr_open", "scr_startChoice", "scr_startUI", "scr_weixin", "scr_achieve", "scr_eatUI", "scr_eventData", "scr_makeUI", "scr_shop2", "scr_shop3", "scr_shop4", "scr_shopUI", "scr_skillJudge", "scr_skillUI", "scr_data", "scr_data2", "scr_dataCopy", "scr_diary", "scr_event", "scr_mainUIEvent", "scr_plot", "scr_rest", "scr_enemy", "scr_explore", "scr_fight", "scr_fightState", "scr_forwardButton", "scr_friendSkillJudge1", "scr_friendSkillUI1", "scr_friendSkillUI2", "scr_friendUI1", "scr_skillJudge2", "scr_effect", "scr_public", "scr_home", "scr_mainUIinit", "scr_readConfession", "scr_end", "scr_initData", "scr_over", "scr_over2", "scr_over2_1", "scr_system", "scr_BGM", "scr_quitGame", "test", "testAll", "scr_liveModeMain"]);
+        cc._RF.push(t, "8d2adDidEdDNoDEfhV+1NKI", "test");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () { },
+            onLoad: function () { }
+        });
+        cc._RF.pop();
+    }, {}]
+}, {}, ["scr_eatButton", "scr_makeButton", "scr_shopButton", "scr_skillButton", "scr_backMainUI", "scr_diaryDetermine", "scr_eventDetermine", "scr_restDetermine"/*, "scr_QQpay"*/, "scr_backStartUI", "scr_backSupport", "scr_continueButton", "scr_initGame", "scr_newGame", "scr_notice", "scr_notice2", "scr_open", "scr_startChoice", "scr_startUI", "scr_weixin", "scr_achieve", "scr_eatUI", "scr_eventData", "scr_makeUI", "scr_shop2", "scr_shop3", "scr_shop4", "scr_shopUI", "scr_skillJudge", "scr_skillUI", "scr_data", "scr_data2", "scr_dataCopy", "scr_diary", "scr_event", "scr_mainUIEvent", "scr_plot", "scr_rest", "scr_enemy", "scr_explore", "scr_fight", "scr_fightState", "scr_forwardButton", "scr_friendSkillJudge1", "scr_friendSkillUI1", "scr_friendSkillUI2", "scr_friendUI1", "scr_skillJudge2", "scr_effect", "scr_public", "scr_home", "scr_mainUIinit", "scr_readConfession", "scr_end", "scr_initData", "scr_over", "scr_over2", "scr_over2_1", "scr_system"/*, "NewScript"*/, "scr_BGM"/*, "scr_playAds"*/, "scr_quitGame", "test", "testAll", "scr_liveModeMain"]);
