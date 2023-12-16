@@ -1093,7 +1093,7 @@ require = function e(t, n, a) {
                 n.getChildByName("des").getComponent("cc.Label").string = a.des;
                 n.getChildByName("button").getChildByName("name").getComponent("cc.Button").scheduleOnce(function () {
                     n.getChildByName("button").getChildByName("name").on("touchstart", i, this);
-                }, .2);
+                }, .4);
                 cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n);
                 "undefined" != typeof a.ifEnough && a.ifEnough(c);
             },
@@ -1105,7 +1105,7 @@ require = function e(t, n, a) {
             creatItemUI2: function () {
                 this.initText();
                 cc.find("Canvas/Page/view/content/page_2").removeAllChildren();
-                for (var e = 4; e <= 7; e++) this.creatPrefab(e, "page_2");
+                for (var e = 4; e <= 4; e++) this.creatPrefab(e, "page_2");
             },
             creatItemUI3: function () {
                 this.initText();
@@ -1114,1281 +1114,6201 @@ require = function e(t, n, a) {
             },
             initText: function () {
                     var t = e("scr_data"), n = e("scr_public");
-                    cc.find("Canvas/hunger").getComponent("cc.Label").string = "饥饿：" + t.hunger + "/" + n.maxHunger() + "  精力：" + t.energy + "/" + n.maxEnergy() + "  生命：" + t.role.hp + "/" + n.role.maxHp()
-                }, delayCreatItemUI1: function () {
-                    this.scheduleOnce(this.creatItemUI1, .1);//使用 scheduleOnce 方法，在当前帧结束后延迟 0.1 秒执行 creatItemUI1 函数。
-                }, delayCreatItemUI2: function () {
+                cc.find("Canvas/hunger").getComponent("cc.Label").string = "饥饿：" + t.hunger + "/" + n.maxHunger() + "  精力：" + t.energy + "/" + n.maxEnergy() + "  生命：" + t.role.hp + "/" + n.role.maxHp();
+            },
+            delayCreatItemUI1: function () {
+                this.scheduleOnce(this.creatItemUI1, .1);
+            },
+            delayCreatItemUI2: function () {
                     this.scheduleOnce(this.creatItemUI2, .1);
-                }, delayCreatItemUI3: function () {
+            },
+            delayCreatItemUI3: function () {
                     this.scheduleOnce(this.creatItemUI3, .1);
-                }, onLoad: function () {
-                    this.creatItemUI1(); this.creatItemUI2();
+            },
+            onLoad: function () {
+                this.creatItemUI1();
+                this.creatItemUI2();
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_effect: "scr_effect", scr_public: "scr_public" }], scr_effect: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_effect: "scr_effect",
+        scr_public: "scr_public"
+    }],
+    scr_effect: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "25c8dKmEHlHoYjQ6qvBKaef", "scr_effect"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
+        cc._RF.push(t, "25c8dKmEHlHoYjQ6qvBKaef", "scr_effect");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
                     var e = this, n = {
                         playText: function (e, t, n) {
-                            function a() {
-                                if (null != cc.find(e)) if (c <= t.length) {
-                                    var i = t.slice(0, c++);
-                                    cc.find(e).getComponent("cc.Label").string = i, cc.game.startPlay = window.setTimeout(a, n)
-                                } else cc.game.startPlay && window.clearTimeout(cc.game.startPlay)
-                            } var c = 0; cc.game.startPlay && window.clearTimeout(cc.game.startPlay), a()
-                        }, textZoon: function (e) { var t = cc.sequence(cc.scaleTo(.2, 1.3), cc.scaleTo(.2, 1)); cc.find(e).runAction(t) }, blink2: function (e) { var t = cc.sequence(cc.tintBy(.1, 0, -200, -200), cc.tintBy(.1, 0, 200, 200)); cc.find(e).runAction(t) }, blink: function (t) {
-                            var n = 0; e.schedule(function () {
+                        var a = 0;
+                        cc.game.startPlay && window.clearTimeout(cc.game.startPlay);
+                        (function i() {
+                            if (null != cc.find(e)) if (a <= t.length) {
+                                var c = t.slice(0, a++);
+                                cc.find(e).getComponent("cc.Label").string = c;
+                                cc.game.startPlay = window.setTimeout(i, n);
+                            } else cc.game.startPlay && window.clearTimeout(cc.game.startPlay);
+                        })();
+                    },
+                    textZoon: function (e) {
+                        var t = cc.sequence(cc.scaleTo(.2, 1.3), cc.scaleTo(.2, 1));
+                        cc.find(e).runAction(t);
+                    },
+                    blink2: function (e) {
+                        var t = cc.sequence(cc.tintBy(.1, 0, -200, -200), cc.tintBy(.1, 0, 200, 200));
+                        cc.find(e).runAction(t);
+                    },
+                    blink: function (t) {
+                        var n = 0;
+                        e.schedule(function () {
                                 var e = n % 2;
-                                cc.find(t).color = new cc.Color(255, 255 - 200 * e, 255 - 200 * e), n++
-                            }, .06, 4)
-                        }, textZoon2: function (e) { cc.find(e).setScale(0, 0); var t = cc.sequence(cc.scaleTo(.2, 1.3), cc.scaleTo(.1, 1)); cc.find(e).runAction(t) }, attackEfect1: function () {
+                            cc.find(t).color = new cc.Color(255, 255 - 200 * e, 255 - 200 * e);
+                            n++;
+                        }, .06, 4);
+                    },
+                    textZoon2: function (e) {
+                        cc.find(e).setScale(0, 0);
+                        var t = cc.sequence(cc.scaleTo(.2, 1.3), cc.scaleTo(.1, 1));
+                        cc.find(e).runAction(t);
+                    },
+                    attackEfect1: function () {
                             var e = cc.find("Canvas/Text").children, t = cc.find("Canvas/Fight").children;
                             for (var n in e) {
-                                var a = 500 * Math.random() - 300, c = 1e3 * Math.random() - 500;
-                                e[n].x = a, e[n].y = c
+                            var a = 500 * Math.random() - 300, i = 1e3 * Math.random() - 500;
+                            e[n].x = a;
+                            e[n].y = i;
                             }
-                            for (var i in t) {
+                        for (var c in t) {
                                 var o = 500 * Math.random() - 300, r = 1e3 * Math.random() - 500;
-                                t[i].x = o, t[i].y = r
+                            t[c].x = o;
+                            t[c].y = r;
                             }
                         }
                     };
-                    t.exports = n
+                t.exports = n;
                 }
-            }), cc._RFpop()
-        }, {}], scr_end: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_end: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "0fdab+YcARFVIOBpUAMxsNQ", "scr_end"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
+        cc._RF.push(t, "0fdab+YcARFVIOBpUAMxsNQ", "scr_end");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
                     var a = new cc.Node(t);
                     a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.opacity = 0, a.runAction(cc.fadeIn(3)), a.color = new cc.Color(255, 255, 255), a.getComponent(cc.Label).overflow = 3, a.getComponent(cc.Label).horizontalAlign = 0, a.setContentSize(600, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 50, a.getComponent(cc.Label).fontSize = 36
-                }, onLoad: function () {
-                    function t() {
-                        var e = u.choice[5] + u.publicVar[7];
-                        0 == l.gameData[3] && (l.gameData[1] += 1, l.gameData[3] = 1), e >= 799 && (l.gameData[5] = 1), v.save2()
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.opacity = 0;
+                a.runAction(cc.fadeIn(3));
+                a.color = new cc.Color(255, 255, 255);
+                a.getComponent(cc.Label).overflow = 3;
+                a.getComponent(cc.Label).horizontalAlign = 0;
+                a.setContentSize(600, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 50;
+                a.getComponent(cc.Label).fontSize = 36;
+            },
+            onLoad: function () {
+                var t = ["正式开始全职制作游戏已有大半年，我并不担心自己的生存问题，但是对于能否长期做下去却感到有些焦虑。", "国产独立游戏的发展其实上是取决于玩家（或者说市场），而不是开发商或者平台（有市场才会有平台，有平台才会有开发商...）。虽然可能短期内不会有太大问题，但是能否长期、甚至终身坚持，我不是很确定，因为有太多难以控制的因素掺杂。不过，至少目前我会坚持下去——我的目标是打造文字游戏精品品牌。", "如果你真的喜欢独立游戏，恳求您推荐给周围的人————我真的需要你的帮助。", "我是晓风。（2017.10.1）"], n = (t.length,
+                    this), a = e("scr_data2"), i = e("scr_data"), c = 0, o = cc.find("Canvas/Show"), r = cc.find("Canvas/choice"), s = r.getChildByName("determine1"), l = r.getChildByName("determine2"), u = e("scr_public");
+                (function () {
+                    var e = i.choice[5] + i.publicVar[7];
+                    if (0 == a.gameData[3]) {
+                        a.gameData[1] += 1;
+                        a.gameData[3] = 1;
                     }
-                    function n() {
-                        s.creatText(d, "plot" + p, r[p]), p++
+                    e >= 799 && (a.gameData[5] = 1);
+                    u.save2();
+                })();
+                e("scr_data2").gameData[4] = 0;
+                e("scr_public").save2();
+                function p() {
+                    n.creatText(o, "plot" + c, t[c]);
+                    c++;
                     }
-                    function a() {
-                        function e() {
-                            var e = {
-                                2e3: function () { n() }, 5e3: function () { n() }, 8e3: function () { n() }, 11e3: function () { n() }, 15e3: function () {
-                                    c()
+                (function () {
+                    window.setInterval(function () {
+                        var t = {
+                            2000: function () {
+                                p();
+                            },
+                            5000: function () {
+                                p();
+                            },
+                            8000: function () {
+                                p();
+                            },
+                            11000: function () {
+                                p();
+                            },
+                            15000: function () {
+                                (function () {
+                                    r.active = !0;
+                                    r.runAction(cc.fadeIn(2));
+                                    s.on("touchstart", f, this);
+                                    l.on("touchstart", d, this);
+                                })();
                                 }
                             };
-                            t += 1e3, "undefined" != typeof e[t] && e[t]()
+                        "undefined" != typeof t[e += 1e3] && t[e]();
+                    }, 1e3);
+                    var e = 0;
+                })();
+                function f() {
+                    u.save2();
+                    cc.director.loadScene("start");
                         }
-                        var t = (window.setInterval(e, 1e3), 0)
+                function d() {
+                    u.save2();
+                    JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.sys.localStorage.removeItem("userData");
+                    cc.director.loadScene("start");
                     }
-                    function c() {
-                        m.active = !0, m.runAction(cc.fadeIn(2)), f.on("touchstart", i, this), h.on("touchstart", o, this)
                     }
-                    function i() {
-                        v.save2(), cc.director.loadScene("start")
-                    }
-                    function o() {
-                        v.save2(), JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.sys.localStorage.removeItem("userData"), cc.director.loadScene("start")
-                    }
-                    var r = ["正式开始全职制作游戏已有大半年，我并不担心自己的生存问题，但是对于能否长期做下去却感到有些焦虑。", "国产独立游戏的发展其实上是取决于玩家（或者说市场），而不是开发商或者平台（有市场才会有平台，有平台才会有开发商...）。虽然可能短期内不会有太大问题，但是能否长期、甚至终身坚持，我不是很确定，因为有太多难以控制的因素掺杂。不过，至少目前我会坚持下去——我的目标是打造文字游戏精品品牌。", "如果你真的喜欢独立游戏，恳求您推荐给周围的人————我真的需要你的帮助。", "我是晓风。（2017.10.1）"], s = (r.length, this), l = e("scr_data2"), u = e("scr_data"), p = 0, d = cc.find("Canvas/Show"), m = cc.find("Canvas/choice"), f = m.getChildByName("determine1"), h = m.getChildByName("determine2"), v = e("scr_public");
-                    t(), e("scr_data2").gameData[4] = 0, e("scr_public").save2(), a()
-                }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_data2: "scr_data2", scr_public: "scr_public" }], scr_enemy: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_data2: "scr_data2",
+        scr_public: "scr_public"
+    }],
+    scr_enemy: [function (e, t, n) {
             "use strict";
+        cc._RF.push(t, "9ca7eoc05dELIgnx18JSNGI", "scr_enemy");
             function a(e, t, n) {
-                return t in e ? Object.defineProperty(e, t, { value: n, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = n, e
+            t in e ? Object.defineProperty(e, t, {
+                value: n,
+                enumerable: !0,
+                configurable: !0,
+                writable: !0
+            }) : e[t] = n;
+            return e;
             }
-            cc._RFpush(t, "9ca7eoc05dELIgnx18JSNGI", "scr_enemy"), cc.Class({
-                "extends": cc.Component, properties: {}, onLoad: function () {
-                    var n, c = e("scr_public"), i = e("scr_data"), o = { maxHp: c.role.maxHp(), att: c.role.att(), def: c.role.def() }, r = {
-                        0:
-                        {
-                            name: "女贼", lv: 99, hp: 400, maxHp: 400, att: 0, def: 0, publicVar: 0, escapeRate: 10, enemyEscapeRate: 0, lostHealth: 30, achieve: 0, getAtt: 1, drop: [[50, 1, 2, 1], [20, 2, 1, 1], [5, 3, 1, 1], [100, 99, 1, 3]], des: "遭到怪物袭击！", skill: function () { return i.money -= 1, i.role.hp -= 1, "【你被偷走0.1元,hp-1】！" }, defSkill: void 0, winEvent: void 0, lostEvent: function () {
-                                return e("scr_data").money -= 1, "被抢0.1元！"
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () {
+                var n, i = e("scr_public"), c = e("scr_data"), o = {
+                    maxHp: i.role.maxHp(),
+                    att: i.role.att(),
+                    def: i.role.def()
+                }, r = {
+                    0: {
+                        name: "女贼",
+                        lv: 99,
+                        hp: 400,
+                        maxHp: 400,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 10,
+                        enemyEscapeRate: 0,
+                        lostHealth: 30,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[50, 1, 2, 1], [20, 2, 1, 1], [5, 3, 1, 1], [100, 99, 1, 3]],
+                        des: "遭到怪物袭击！",
+                        skill: function () {
+                            c.money -= 1;
+                            c.role.hp -= 1;
+                            return "【你被偷走0.1元,hp-1】！";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: function () {
+                            e("scr_data").money -= 1;
+                            return "被抢0.1元！";
+                        }
+                    },
+                    1: {
+                        name: "小蚊",
+                        lv: 1,
+                        hp: 45,
+                        maxHp: 45,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 100,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[50, 0, 1, 1], [50, 1, 1, 2]],
+                        des: "遭到怪物袭击！",
+                        skill: function () {
+                            var t = Math.max(5 - o.def, 0);
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.kills[0] += 1;
+                            return "【你已消灭" + t.kills[0] + "只蚊子】";
+                        },
+                        lostEvent: void 0
+                    },
+                    2: {
+                        name: "小小兔",
+                        lv: 3,
+                        hp: 255,
+                        maxHp: 255,
+                        att: 0,
+                        def: 5,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 40,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 3, 1, 1]],
+                        des: "遭到怪物袭击！",
+                        skill: function () {
+                            var t = e("scr_data");
+                            this.publicVar += 1;
+                            t.itemNum[0] += 1;
+                            return "【" + this.name + "向你吐出一个果子！你受到0点伤害】你获得【果子*1】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    3: {
+                        name: "小小蛇",
+                        lv: 5,
+                        hp: 200,
+                        maxHp: 200,
+                        att: 23,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[50, 3, 1, 1], [60, 1, 1, 2]],
+                        des: "遭到怪物袭击！",
+                        skill: void 0,
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    4: {
+                        name: "小青（精英）",
+                        lv: 8,
+                        hp: 315,
+                        maxHp: 315,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 60,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 1,
+                        getAtt: 2,
+                        drop: [[100, 3, 1, 1], [100, 1, 1, 2], [5, 27, 1, 2]],
+                        des: "发现一条翠绿色的蛇！",
+                        skill: function () {
+                            var t = Math.max(11 - o.def, 0);
+                            this.publicVar += 1;
+                            var n = t * this.publicVar;
+                            e("scr_data").role.hp -= n;
+                            return "【中毒：每回合损失" + n + "点生命（" + this.publicVar + "层）】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    21: {
+                        name: "葬爱.蚊乐队",
+                        lv: 8,
+                        hp: 315,
+                        maxHp: 315,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[50, 0, 1, 1], [100, 1, 1, 2]],
+                        des: "vi vvi o o o",
+                        skill: function () {
+                            var t = Math.max(32 - o.def, 0);
+                            e("scr_data").role.hp -= t;
+                            return "【" + this.name + "使用「上下」，你损失" + t + "点生命】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.kills[0] += 2;
+                            return "【你已消灭" + t.kills[0] + "只蚊子】";
+                        },
+                        lostEvent: void 0
+                    },
+                    22: {
+                        name: "小混混",
+                        lv: 11,
+                        hp: 410,
+                        maxHp: 410,
+                        att: 43,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[50, 99, 2, 3], [100, 1, 1, 2]],
+                        des: "“你笑啥？啊？！”",
+                        skill: void 0,
+                        defSkill: function () {
+                            if (100 * Math.random() < 25) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 9999;
+                                return "【" + this.name + "使用「格挡」！】";
                             }
-                        }, 1:
-                            { name: "小蚊", lv: 1, hp: 45, maxHp: 45, att: 0, def: 0, publicVar: 0, escapeRate: 100, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[50, 0, 1, 1], [50, 1, 1, 2]], des: "遭到怪物袭击！", skill: function () { var t = Math.max(5 - o.def, 0); return e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.kills[0] += 1, "【你已消灭" + t.kills[0] + "只蚊子】" }, lostEvent: void 0 }, 2:
-                            { name: "小小兔", lv: 3, hp: 255, maxHp: 255, att: 0, def: 5, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 40, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 3, 1, 1]], des: "遭到怪物袭击！", skill: function () { var t = e("scr_data"); return this.publicVar += 1, t.itemNum[0] += 1, "【" + this.name + "向你吐出一个果子！你受到0点伤害】你获得【果子*1】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 3:
-                            { name: "小小蛇", lv: 5, hp: 200, maxHp: 200, att: 23, def: 0, publicVar: 0, escapeRate: 50, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[50, 3, 1, 1], [60, 1, 1, 2]], des: "遭到怪物袭击！", skill: void 0, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 4:
-                            { name: "小青（精英）", lv: 8, hp: 315, maxHp: 315, att: 0, def: 0, publicVar: 0, escapeRate: 60, enemyEscapeRate: 0, lostHealth: 2, achieve: 1, getAtt: 2, drop: [[100, 3, 1, 1], [100, 1, 1, 2], [5, 27, 1, 2]], des: "发现一条翠绿色的蛇！", skill: function () { var t = Math.max(11 - o.def, 0); this.publicVar += 1; var n = t * this.publicVar; return e("scr_data").role.hp -= n, "【中毒：每回合损失" + n + "点生命（" + this.publicVar + "层）】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 21:
-                            { name: "葬爱.蚊乐队", lv: 8, hp: 315, maxHp: 315, att: 0, def: 0, publicVar: 0, escapeRate: 50, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[50, 0, 1, 1], [100, 1, 1, 2]], des: "vi vvi o o o", skill: function () { var t = Math.max(32 - o.def, 0); return e("scr_data").role.hp -= t, "【" + this.name + "使用「上下」，你损失" + t + "点生命】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.kills[0] += 2, "【你已消灭" + t.kills[0] + "只蚊子】" }, lostEvent: void 0 }, 22:
-                            { name: "小混混", lv: 11, hp: 410, maxHp: 410, att: 43, def: 0, publicVar: 0, escapeRate: 50, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[50, 99, 2, 3], [100, 1, 1, 2]], des: "“你笑啥？啊？！”", skill: void 0, defSkill: function () { var e = 100 * Math.random(); return e < 25 ? (cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 9999, "【" + this.name + "使用「格挡」！】") : "" }, winEvent: void 0, lostEvent: void 0 }, 23:
-                        {
-                            name: "丐帮304代弟子"
-                            , lv: 16, hp: 575,
-                            maxHp: 575, att: 63, def: 15, publicVar: 0, escapeRate: 60, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop:
-                                [[50, 0, 1, 2], [100, 1, 1, 2], [5, 23, 1, 2]], des: "“兄弟，这是我们的地盘耶~”"
-                            , skill:
-                                void 0, defSkill:
-                                function () { var t = e("scr_public"), n = t.role.att() - t.role.def(), a = 100 * Math.random(); return a < 25 ? (e("scr_data").role.hp -= n, "【" + this.name + "使用「反震」，你损失" + n + "点生命！】") : "" }, winEvent:
-                                void 0, lostEvent:
-                                void 0
-                        }, 24:
-                            { name: "恶霸（精英）", lv: 20, hp: 750, maxHp: 750, att: 0, def: 20, publicVar: 0, escapeRate: 80, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 0, 3, 3], [100, 1, 1, 2], [5, 17, 1, 2]], des: "“不批准，也敢翻垃圾桶？”", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.25 * this.hp - o.def, 0)); return t.role.hp -= n, "【" + this.name + "使用「咆哮」，你受到" + n + "点伤害】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 25:
-                        {
-                            name: "麻城女警", lv: 65, hp: 2145, maxHp: 2145, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 0, achieve: 0, getAtt: 1, drop: [[100, 99, 1, 3], [100, 1, 1, 2], [15, 21, 1, 2]], des: "“别跑！还不快回家喝奶去！”", skill: function () { var t = e("scr_data"), n = 100 * Math.random(), t = e("scr_data"); return this.publicVar += 1, this.publicVar <= 3 ? n < 75 ? "【" + this.name + "操起电棍，向你打来！但是被你躲开啦~】" : (t.role.hp -= 999, "【你被电棍击中！损失999点生命！】") : (this.hp -= 9999, "") }, defSkill: void 0, winEvent: function () { return "【" + this.name + "气急败坏！一棍打在自己脑门上，晕了过去\n_8(:з」∠)_】" }, lostEvent: function () {
+                            return "";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    23: {
+                        name: "丐帮304代弟子",
+                        lv: 16,
+                        hp: 575,
+                        maxHp: 575,
+                        att: 63,
+                        def: 15,
+                        publicVar: 0,
+                        escapeRate: 60,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[50, 0, 1, 2], [100, 1, 1, 2], [5, 23, 1, 2]],
+                        des: "“兄弟，这是我们的地盘耶~”",
+                        skill: void 0,
+                        defSkill: function () {
+                            var t = e("scr_public"), n = t.role.att() - t.role.def();
+                            if (100 * Math.random() < 25) {
+                                e("scr_data").role.hp -= n;
+                                return "【" + this.name + "使用「反震」，你损失" + n + "点生命！】";
+                            }
+                            return "";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    24: {
+                        name: "恶霸（精英）",
+                        lv: 20,
+                        hp: 750,
+                        maxHp: 750,
+                        att: 0,
+                        def: 20,
+                        publicVar: 0,
+                        escapeRate: 80,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 0, 3, 3], [100, 1, 1, 2], [5, 17, 1, 2]],
+                        des: "“不批准，也敢翻垃圾桶？”",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.25 * this.hp - o.def, 0));
+                            t.role.hp -= n;
+                            return "【" + this.name + "使用「咆哮」，你受到" + n + "点伤害】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    25: {
+                        name: "麻城女警",
+                        lv: 65,
+                        hp: 2145,
+                        maxHp: 2145,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 0,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 1, 3], [100, 1, 1, 2], [15, 21, 1, 2]],
+                        des: "“别跑！还不快回家喝奶去！”",
+                        skill: function () {
+                            var t = e("scr_data"), n = 100 * Math.random();
+                            t = e("scr_data");
+                            this.publicVar += 1;
+                            if (this.publicVar <= 3) {
+                                if (n < 75) return "【" + this.name + "操起电棍，向你打来！但是被你躲开啦~】";
+                                t.role.hp -= 999;
+                                return "【你被电棍击中！损失999点生命！】";
+                            }
+                            this.hp -= 9999;
+                            return "";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            return "【" + this.name + "气急败坏！一棍打在自己脑门上，晕了过去\n_8(:з」∠)_】";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data");
                                 e("scr_public");
-                                return t.role.hp = o.maxHp, "【你被带到警局，小姐姐给你包扎了下伤口。然后，被放了出来...生命全恢复！】"
+                            t.role.hp = o.maxHp;
+                            return "【你被带到警局，小姐姐给你包扎了下伤口。然后，被放了出来...生命全恢复！】";
                             }
-                        }, 26:
-                            { name: "煤老板", lv: 17, hp: 545, maxHp: 545, att: 0, def: 40, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 40, lostHealth: 0, achieve: 0, getAtt: 1, drop: [[100, 99, 10, 3]], des: "“我真的是一分钱也没有啊”", skill: function () { return e("scr_data").money += 1, "【" + this.name + "丢了你0.1元，准备要溜了！】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 27:
-                        {
-                            name: "城管104小分队", lv: 45, hp: 1535, maxHp: 1535, att: 99, def: 0, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 0, achieve: 3, getAtt: 1, drop: [[100, 11, 2, 1]], des: "“这里不许睡觉！听到没！”", skill: function () {
+                    },
+                    26: {
+                        name: "煤老板",
+                        lv: 17,
+                        hp: 545,
+                        maxHp: 545,
+                        att: 0,
+                        def: 40,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 40,
+                        lostHealth: 0,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 10, 3]],
+                        des: "“我真的是一分钱也没有啊”",
+                        skill: function () {
+                            e("scr_data").money += 1;
+                            return "【" + this.name + "丢了你0.1元，准备要溜了！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    27: {
+                        name: "城管104小分队",
+                        lv: 45,
+                        hp: 1535,
+                        maxHp: 1535,
+                        att: 99,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 0,
+                        achieve: 3,
+                        getAtt: 1,
+                        drop: [[100, 11, 2, 1]],
+                        des: "“这里不许睡觉！听到没！”",
+                        skill: function () {
                                 var t = e("scr_data"), n = parseInt(4.9 * Math.random());
                                 if (0 == n) {
                                     var a = 2 * this.att;
-                                    return t.role.hp -= a, "【城管使用「真皮皮鞋」，踢中了你的屁股，你损失" + a + "点生命！】"
+                                t.role.hp -= a;
+                                return "【城管使用「真皮皮鞋」，踢中了你的屁股，你损失" + a + "点生命！】";
+                            }
+                            if (1 == n) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 30;
+                                return "【城管使用「38元皮鞋」，踢中了你的腹部，你降低30点防御！】";
+                            }
+                            if (2 == n) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 30;
+                                return "【城管使用「铁鞋」，踢中了你的胳膊，你降低30点攻击！】";
                                 }
-                                if (1 == n) return cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 30, "【城管使用「38元皮鞋」，踢中了你的腹部，你降低30点防御！】";
-                                if (2 == n) return cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 30, "【城管使用「铁鞋」，踢中了你的胳膊，你降低30点攻击！】";
                                 if (3 == n) {
                                     this.publicVar += 2;
-                                    var a = this.att * this.publicVar;
-                                    return t.role.hp -= a, "【城管使用「碎骨鞋」，踢中了你的脸部，你的脸上开始流血，损失" + a + "点生命！】"
+                                a = this.att * this.publicVar;
+                                t.role.hp -= a;
+                                return "【城管使用「碎骨鞋」，踢中了你的脸部，你的脸上开始流血，损失" + a + "点生命！】";
                                 }
                                 if (4 == n) {
-                                    var a = 5 * this.att;
-                                    return t.role.hp -= a, "【城管使用「破鞋」，踢中了你的蛋蛋，你受到" + a + "点伤害！】"
+                                a = 5 * this.att;
+                                t.role.hp -= a;
+                                return "【城管使用「破鞋」，踢中了你的蛋蛋，你受到" + a + "点伤害！】";
+                            }
+                        },
+                        defSkill: function () {
+                            var e = parseInt(.3 * (this.maxHp - this.hp)), t = 100 * Math.random(), n = "";
+                            this.hp += e;
+                            if (t < 40) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 9999;
+                                n = "【城管使用「防爆盾」！】";
                                 }
-                            }, defSkill: function () { var e = parseInt(.3 * (this.maxHp - this.hp)), t = 100 * Math.random(), n = ""; return this.hp += e, t < 40 && (cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 9999, n = "【城管使用「防爆盾」！】"), "【城管使用「急救」，恢复" + e + "点生命】" + n }, winEvent: void 0, lostEvent: function () {
+                            return "【城管使用「急救」，恢复" + e + "点生命】" + n;
+                        },
+                        winEvent: void 0,
+                        lostEvent: function () {
                                 var t = e("scr_data");
-                                return t.itemNum[7] > 0 && (t.itemNum[7] -= 1), "【你被抢走1个..烟头..】"
+                            t.itemNum[7] > 0 && (t.itemNum[7] -= 1);
+                            return "【你被抢走1个..烟头..】";
                             }
-                        }, 31:
-                            { name: "皮皮猴", lv: 16, hp: 575, maxHp: 575, att: 63, def: 17, publicVar: 0, escapeRate: 50, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 0, 1, 1], [100, 1, 1, 2]], des: "遭到怪物袭击！", skill: function () { var t = 100 * Math.random(), n = e("scr_data"); return t < 15 ? (this.enemyEscapeRate += 20, n.itemNum[0] >= 1 && (n.itemNum[0] -= 1, this.publicVar += 1), "【你被偷走「果子」*1】！") : "" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.itemNum[0] += this.publicVar, "【你抢回被偷的果子】" }, lostEvent: void 0 }, 32:
-                        {
-                            name: "野猪", lv: 24, hp: 1100, maxHp: 1100, att: 0, def: 40, publicVar: 0, escapeRate: 50, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 3, 1, 1], [100, 1, 1, 2]], des: "遭到怪物袭击！", skill: function () {
-                                var t = 100 * Math.random(), n = e("scr_data"), a = 120; if (t < 20) {
-                                    var c = Math.max(3 * (a - o.def), 0);
-                                    return n.role.hp -= c, "【野猪使用「冲撞」！你被猪撞飞啦！你损失" + c + "点生命！】"
-                                } return this.hp -= a, "【野猪使用「冲撞」！撞到树上啦！野猪损失" + a + "点生命！】"
-                            }, defSkill: void 0, winEvent: void 0, lostEvent: void 0
-                        }, 33:
-                        {
-                            name: "药贩", lv: 32, hp: 999, maxHp: 999, att: 140, def: 0, publicVar: 0, escapeRate: 60, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 1, 2, 2]], des: "“嘿嘿~我家里有132种颜色哟~”", skill: function () { var t = 100 * Math.random(), n = e("scr_data"); return t < 30 && n.itemNum[1] > 0 ? (this.publicVar += 1, n.itemNum[1] -= 1, this.enemyEscapeRate += 20, "【你的伤药被偷啦！" + this.name + "准备要溜！】") : "" }, defSkill: function () {
-                                var e = 30, t = 100 * Math.random(); if (e < t) {
-                                    var n = parseInt(.1 * this.maxHp);
-                                    return this.hp += n, this.def += 20, "【" + this.name + "使用「猥琐2」，防御+20，生命+" + n + "】"
-                                } return ""
-                            }, winEvent: function () { return e("scr_data").itemNum2[1] += this.publicVar, "【你抢回全部伤药】" }, lostEvent: void 0
-                        }, 34:
-                            { name: "流浪剑客", lv: 45, hp: 1535, maxHp: 1535, att: 0, def: 46, publicVar: 0, escapeRate: 70, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[50, 4, 2, 1], [50, 1, 2, 1], [100, 1, 2, 2], [5, 26, 1, 2]], des: "“在杀戮中，我终将绽放”", skill: function () { var t = e("scr_data"), n = parseInt(1.5 * (212 - o.def)), a = parseInt(.15 * this.hp); return this.hp -= a, t.role.hp -= n, "【" + this.name + "使用「拼命2」，你损失" + n + "点生命，" + this.name + "损失" + a + "点生命】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 35:
-                            { name: "黑熊（精英）", lv: 60, hp: 2025, maxHp: 2025, att: 110, def: 60, publicVar: 0, escapeRate: 80, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 3, 2, 1], [100, 1, 2, 2]], des: "发现一只奶奶的熊！（「咆哮」：自身当前血量越高，伤害越高）", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.2 * this.hp - o.def, 0)); return t.role.hp -= n, "【黑熊使用「咆哮」，你受到" + n + "点伤害】" }, defSkill: function () { return this.def += 10, "【黑熊使用「霸气护体」，增加10点防御】" }, winEvent: void 0, lostEvent: void 0 }, 36:
-                            { name: "果树", lv: 999, hp: 99999, maxHp: 99999, att: 0, def: 0, publicVar: 0, escapeRate: 100, enemyEscapeRate: 1, lostHealth: 0, achieve: 0, getAtt: 1, drop: [], des: "“呜呜呜~”", skill: function () { return this.publicVar += 1, 5 == this.publicVar ? (this.hp -= 999999, "【果树自杀了！】") : "【果树正在哭~】" }, defSkill: void 0, winEvent: function () { var t = this.maxHp - this.hp - 999999, n = Math.max(Math.min(Math.round(t / 500 + 1), 4), 1); return e("scr_data").itemNum[0] += n, "【果树自杀了！你对果树造成" + t + "点伤害，获得【果子】*" + n + "】" }, lostEvent: void 0 }, 41:
-                            { name: "熊孩子", lv: 28, hp: 999, maxHp: 999, att: 0, def: 72, publicVar: 0, escapeRate: 100, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 0, 1, 1]], des: "“大伙快来看哇——！来了个SX！”", skill: function () { this.publicVar += 1; var e = Math.pow(this.publicVar, 2), t = 20 * e, n = Math.pow(this.publicVar + 1, 2) - e; return i.role.hp -= t, this.hp += 50 * n, "【" + e + "个熊孩子向你扔石头！你损失" + t + "点生命！（" + n + "个新孩子加入战斗！）】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 42:
-                        {
-                            name: "阿宾", lv: 40, hp: 1370, maxHp: 1370, att: 0, def: 180, publicVar: 0, escapeRate: 60, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[80, 0, 1, 1]], des: "“我的眼睛在哪里？我给钱你，请还给我！”", skill: function () {
-                                var e = 100 * Math.random(), t = 4 * Math.random() + 2; if (e < 70) {
-                                    if (this.publicVar += 1, this.publicVar < t) {
-                                        var n = 100 * Math.random();
-                                        if (n < 50) return i.money += 1, "【阿宾给了你1毛钱！】";
-                                        var a = 599 - o.def;
-                                        return i.role.hp -= a, "【“还我眼睛！”。阿宾咬了你一口，你损失" + a + "点生命！】"
+                    },
+                    31: {
+                        name: "皮皮猴",
+                        lv: 16,
+                        hp: 575,
+                        maxHp: 575,
+                        att: 63,
+                        def: 17,
+                        publicVar: 0,
+                        escapeRate: 50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 0, 1, 1], [100, 1, 1, 2]],
+                        des: "遭到怪物袭击！",
+                        skill: function () {
+                            var t = 100 * Math.random(), n = e("scr_data");
+                            if (t < 15) {
+                                this.enemyEscapeRate += 20;
+                                if (n.itemNum[0] >= 1) {
+                                    n.itemNum[0] -= 1;
+                                    this.publicVar += 1;
+                                }
+                                return "【你被偷走「果子」*1】！";
+                            }
+                            return "";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").itemNum[0] += this.publicVar;
+                            return "【你抢回被偷的果子】";
+                        },
+                        lostEvent: void 0
+                    },
+                    32: {
+                        name: "野猪",
+                        lv: 24,
+                        hp: 1100,
+                        maxHp: 1100,
+                        att: 0,
+                        def: 40,
+                        publicVar: 0,
+                        escapeRate: 50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 3, 1, 1], [100, 1, 1, 2]],
+                        des: "遭到怪物袭击！",
+                        skill: function () {
+                            var t = 100 * Math.random(), n = e("scr_data");
+                            if (t < 20) {
+                                var a = Math.max(3 * (120 - o.def), 0);
+                                n.role.hp -= a;
+                                return "【野猪使用「冲撞」！你被猪撞飞啦！你损失" + a + "点生命！】";
+                            }
+                            this.hp -= 120;
+                            return "【野猪使用「冲撞」！撞到树上啦！野猪损失120点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    33: {
+                        name: "药贩",
+                        lv: 32,
+                        hp: 999,
+                        maxHp: 999,
+                        att: 140,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 60,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 1, 2, 2]],
+                        des: "“嘿嘿~我家里有132种颜色哟~”",
+                        skill: function () {
+                            var t = 100 * Math.random(), n = e("scr_data");
+                            if (t < 30) {
+                                if (n.itemNum[1] > 0) {
+                                    this.publicVar += 1;
+                                    n.itemNum[1] -= 1;
+                                    this.enemyEscapeRate += 20;
+                                    return "【你的伤药被偷啦！" + this.name + "准备要溜！】";
+                                }
+                                return "";
+                            }
+                            return "";
+                        },
+                        defSkill: function () {
+                            if (30 < 100 * Math.random()) {
+                                var e = parseInt(.1 * this.maxHp);
+                                this.hp += e;
+                                this.def += 20;
+                                return "【" + this.name + "使用「猥琐2」，防御+20，生命+" + e + "】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            e("scr_data").itemNum2[1] += this.publicVar;
+                            return "【你抢回全部伤药】";
+                        },
+                        lostEvent: void 0
+                    },
+                    34: {
+                        name: "流浪剑客",
+                        lv: 45,
+                        hp: 1535,
+                        maxHp: 1535,
+                        att: 0,
+                        def: 46,
+                        publicVar: 0,
+                        escapeRate: 70,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[50, 4, 2, 1], [50, 1, 2, 1], [100, 1, 2, 2], [5, 26, 1, 2]],
+                        des: "“在杀戮中，我终将绽放”",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(1.5 * (212 - o.def)), a = parseInt(.15 * this.hp);
+                            this.hp -= a;
+                            t.role.hp -= n;
+                            return "【" + this.name + "使用「拼命2」，你损失" + n + "点生命，" + this.name + "损失" + a + "点生命】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    35: {
+                        name: "黑熊（精英）",
+                        lv: 60,
+                        hp: 2025,
+                        maxHp: 2025,
+                        att: 110,
+                        def: 60,
+                        publicVar: 0,
+                        escapeRate: 80,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 3, 2, 1], [100, 1, 2, 2]],
+                        des: "发现一只奶奶的熊！（「咆哮」：自身当前血量越高，伤害越高）",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.2 * this.hp - o.def, 0));
+                            t.role.hp -= n;
+                            return "【黑熊使用「咆哮」，你受到" + n + "点伤害】";
+                        },
+                        defSkill: function () {
+                            this.def += 10;
+                            return "【黑熊使用「霸气护体」，增加10点防御】";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    36: {
+                        name: "果树",
+                        lv: 999,
+                        hp: 99999,
+                        maxHp: 99999,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 100,
+                        enemyEscapeRate: 1,
+                        lostHealth: 0,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“呜呜呜~”",
+                        skill: function () {
+                            this.publicVar += 1;
+                            if (5 == this.publicVar) {
+                                this.hp -= 999999;
+                                return "【果树自杀了！】";
+                            }
+                            return "【果树正在哭~】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = this.maxHp - this.hp - 999999, n = Math.max(Math.min(Math.round(t / 500 + 1), 4), 1);
+                            e("scr_data").itemNum[0] += n;
+                            return "【果树自杀了！你对果树造成" + t + "点伤害，获得【果子】*" + n + "】";
+                        },
+                        lostEvent: void 0
+                    },
+                    41: {
+                        name: "熊孩子",
+                        lv: 28,
+                        hp: 999,
+                        maxHp: 999,
+                        att: 0,
+                        def: 72,
+                        publicVar: 0,
+                        escapeRate: 100,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 0, 1, 1]],
+                        des: "“大伙快来看哇——！来了个SX！”",
+                        skill: function () {
+                            this.publicVar += 1;
+                            var e = Math.pow(this.publicVar, 2), t = 20 * e, n = Math.pow(this.publicVar + 1, 2) - e;
+                            c.role.hp -= t;
+                            this.hp += 50 * n;
+                            return "【" + e + "个熊孩子向你扔石头！你损失" + t + "点生命！（" + n + "个新孩子加入战斗！）】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    42: {
+                        name: "阿宾",
+                        lv: 40,
+                        hp: 1370,
+                        maxHp: 1370,
+                        att: 0,
+                        def: 180,
+                        publicVar: 0,
+                        escapeRate: 60,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[80, 0, 1, 1]],
+                        des: "“我的眼睛在哪里？我给钱你，请还给我！”",
+                        skill: function () {
+                            var e = 100 * Math.random(), t = 4 * Math.random() + 2;
+                            if (e < 70) {
+                                this.publicVar += 1;
+                                if (this.publicVar < t) {
+                                    if (100 * Math.random() < 50) {
+                                        c.money += 1;
+                                        return "【阿宾给了你1毛钱！】";
                                     }
-                                    var a = 599 - o.def;
-                                    return i.role.hp -= a, "【“还我眼睛！”。阿宾咬了你一口，你损失" + a + "点生命！】"
-                                } return this.hp -= 200, "【“啊！~不要杀我！我没偷你们的东西！”。阿宾生命-200！】"
-                            }, defSkill: void 0, winEvent: void 0, lostEvent: void 0
-                        }, 43:
-                        {
-                            name: "卖片老板", lv: 50, hp: 1700, maxHp: 1700, att: 0, def: 120, publicVar: 0, escapeRate: 60, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[60, 99, 2, 3], [40, 1, 1, 2]], des: "“刚到新货，要不要来两张？”", skill: function () {
-                                var e = 100 * Math.random(); if (e < 20) return i.money > 0 && (i.money -= 1), "【老板向你飞出一张《夫妻成长日记》。你损失1毛钱！】"; if (e < 80) {
+                                    var n = 599 - o.def;
+                                    c.role.hp -= n;
+                                    return "【“还我眼睛！”。阿宾咬了你一口，你损失" + n + "点生命！】";
+                                }
+                                n = 599 - o.def;
+                                c.role.hp -= n;
+                                return "【“还我眼睛！”。阿宾咬了你一口，你损失" + n + "点生命！】";
+                            }
+                            this.hp -= 200;
+                            return "【“啊！~不要杀我！我没偷你们的东西！”。阿宾生命-200！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    43: {
+                        name: "卖片老板",
+                        lv: 50,
+                        hp: 1700,
+                        maxHp: 1700,
+                        att: 0,
+                        def: 120,
+                        publicVar: 0,
+                        escapeRate: 60,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[60, 99, 2, 3], [40, 1, 1, 2]],
+                        des: "“刚到新货，要不要来两张？”",
+                        skill: function () {
+                            var e = 100 * Math.random();
+                            if (e < 20) {
+                                c.money > 0 && (c.money -= 1);
+                                return "【老板向你飞出一张《夫妻成长日记》。你损失1毛钱！】";
+                            }
+                            if (e < 80) {
                                     var t = 399 - o.def;
-                                    return i.role.hp -= t, "【老板向你甩出一把「老王飞刀」。你损失" + t + "点生命！】"
-                                } return i.role.hp += 99, "【老板向你飞出一张《爱拼才会赢》。你恢复99点生命！】"
-                            }, defSkill: void 0, winEvent: void 0, lostEvent: void 0
-                        }, 44:
-                            { name: "阿龙", lv: 70, hp: 2385, maxHp: 2385, att: 0, def: 167, publicVar: 0, escapeRate: 70, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 99, 2, 3], [5, 27, 1, 2]], des: "“这里的小妹全归老子管！”", skill: function () { var e = 382; return i.role.hp -= e, "【阿龙使用「空气拳！」你损失" + e + "点生命！】" }, defSkill: function () { var e = parseInt(382 - .3 * o.att); return this.hp += e, "【阿龙使用「放气治疗！」，恢复" + e + "点生命！】" }, winEvent: void 0, lostEvent: void 0 }, 45:
-                            { name: "大龄站街妹", lv: 30, hp: 1040, maxHp: 1040, att: 0, def: 99, publicVar: 0, escapeRate: 60, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 2, 3]], des: "“小伙子，来玩玩嘛，嗯~哼~”", skill: function () { if (i.money >= 1) return i.money -= 1, "【站街妹在你身上蹭了蹭，你被摸走1毛钱！】！"; var e = Math.max(600 - o.def, 0); return i.role.hp -= e, this.enemyEscapeRate += 100, "【“蛤？没钱！？...来人呀——！抓小流氓啦——！”你损失" + e + "点生命！】" }, defSkill: function () { return this.escapeRate -= 10, "【站街使用「拖拽！」你逃跑几率-10%！】！" }, winEvent: function () { return "【“我说没偷你的钱就是没偷，你想怎么着？”】！" }, lostEvent: void 0 }, 1001:
-                            { name: "金环蛇", lv: 70, hp: 2385, maxHp: 2385, att: 0, def: 150, publicVar: 0, escapeRate: 50, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[80, 3, 1, 1]], des: "滋溜~滋溜~", skill: function () { var t = Math.max(220 - o.def, 0) + 30; this.publicVar += 1; var n = t * this.publicVar; return e("scr_data").role.hp -= n, "【中毒：每回合损失" + n + "点生命（" + this.publicVar + "层）】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 1002:
-                            { name: "铃女", lv: 90, hp: 3075, maxHp: 3075, att: 400, def: 200, publicVar: 0, escapeRate: 40, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 2, 3]], des: "“喔~~呵~呵~呵~”", skill: function () { var e = 100 * Math.random(); return e < 30 ? (cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.5 * o.att), "【铃女使用「挠痒痒」，你笑得像个二愣子，攻击下降一半！】") : e < 70 ? i.money > 0 ? (i.money -= 1, "【铃女使用「光速贴近」，你损失0.1元！】") : (this.enemyEscapeRate += 100, "【铃女使用「光溜~(光速溜走)」！】") : (this.def += 60, "【铃女使用「喵盾~」，防御+60！】") }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 1003:
-                            { name: "流浪大叔", lv: 120, hp: 4035, maxHp: 4035, att: 0, def: 280, publicVar: 0, escapeRate: 100, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[50, 0, 1, 2], [100, 1, 1, 2], [5, 26, 1, 2]], des: "“小伙，来热热身子？”", skill: function () { var e = Math.max(parseInt(650 + 50 * this.publicVar - .5 * o.def), 0); return i.role.hp -= e, "【大叔使用「穿心.气合」，你损失" + e + "点生命，大叔攻击提高！】" }, defSkill: function () { var t = e("scr_public"), n = t.role.att(), a = 100 * Math.random(); return a < 30 ? (i.role.hp -= n, "【大叔使用「反震.碎骨」，你损失" + n + "点生命！】") : "" }, winEvent: void 0, lostEvent: void 0 }, 2001:
-                        {
-                            name: "喵妹", lv: 105, hp: 3599, maxHp: 3599, att: 0, def: 250, publicVar: 0, escapeRate: 40, enemyEscapeRate: 8, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[30, 0, 1, 1], [30, 0, 1, 1], [30, 0, 1, 1], [30, 0, 1, 1], [3, 21, 1, 2]], des: "“(づ?ど)”", skill: function () { var e = parseInt(.2 * i.role.hp + 50); return i.role.hp -= e, "【喵妹使用「撩裙」，你损失" + e + "点生命(当前生命的20%)！】" }, defSkill: function () { return i.role.hp -= 233, cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 99, "【喵妹使用「比心」，你降低99点攻击，233点生命！】" }, winEvent: function () { return "“呜呜呜~我只是想找个人玩玩嘛~(?_?)”" }, lostEvent: function () {
-                                return "“帅锅，记得再过来玩哈~?(^_-)”"
+                                c.role.hp -= t;
+                                return "【老板向你甩出一把「老王飞刀」。你损失" + t + "点生命！】";
                             }
-                        }, 2002:
-                            { name: "高级金融分析师", lv: 125, hp: 8125, maxHp: 8125, att: 0, def: 297, publicVar: 0, escapeRate: 40, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 4, 3]], des: "“你好，我是从华尔街回国的数据挖掘师！”", skill: function () { return this.publicVar += 1, this.publicVar % 3 == 0 ? i.money >= 4 ? (i.money -= 4, i.itemNum[4] += 1, this.enemyEscapeRate += 30, "【分析师使用「嘴强王者」，你消费了0.4元，获得赠品「亚麻」*1！】") : (i.itemNum[4] -= 3, i.itemNum[4] < 0 && (i.itemNum[4] = 0), this.enemyEscapeRate += 100, "【“mmp，你知道我时间有多宝贵吗？把东西还给我！”。你失去「果子」*3】") : i ? (this.escapeRate -= 30, this.enemyEscapeRate += 5, "【分析师使用「抱大腿」，你逃跑率-30%！】") : void 0 }, defSkill: function () { i.itemNum[0] += 1; var e = parseInt(.1 * o.att); return cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= e, "【分析师丢给你一个果子，你获得「果子」*1，你攻击降低" + e + "！】" }, winEvent: function () { return "【“mmp！不买就算了~你的钱我不还啦~有本事你报警去呀~”】" }, lostEvent: void 0 }, 2003:
-                        {
-                            name: "胖虎", lv: 155, hp: 5155, maxHp: 5155, att: 0, def: 360, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[30, 7, 1, 1], [30, 1, 1, 2], [30, 1, 1, 2], [5, 17, 1, 2]], des: "“你是要挑战我胖虎？”", skill: function () {
-                                if (this.publicVar += 1, this.publicVar % 3 != 0) {
+                            c.role.hp += 99;
+                            return "【老板向你飞出一张《爱拼才会赢》。你恢复99点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    44: {
+                        name: "阿龙",
+                        lv: 70,
+                        hp: 2385,
+                        maxHp: 2385,
+                        att: 0,
+                        def: 167,
+                        publicVar: 0,
+                        escapeRate: 70,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 2, 3], [5, 27, 1, 2]],
+                        des: "“这里的小妹全归老子管！”",
+                        skill: function () {
+                            c.role.hp -= 382;
+                            return "【阿龙使用「空气拳！」你损失382点生命！】";
+                        },
+                        defSkill: function () {
+                            var e = parseInt(382 - .3 * o.att);
+                            this.hp += e;
+                            return "【阿龙使用「放气治疗！」，恢复" + e + "点生命！】";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    45: {
+                        name: "大龄站街妹",
+                        lv: 30,
+                        hp: 1040,
+                        maxHp: 1040,
+                        att: 0,
+                        def: 99,
+                        publicVar: 0,
+                        escapeRate: 60,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 2, 3]],
+                        des: "“小伙子，来玩玩嘛，嗯~哼~”",
+                        skill: function () {
+                            if (c.money >= 1) {
+                                c.money -= 1;
+                                return "【站街妹在你身上蹭了蹭，你被摸走1毛钱！】！";
+                            }
+                            var e = Math.max(600 - o.def, 0);
+                            c.role.hp -= e;
+                            this.enemyEscapeRate += 100;
+                            return "【“蛤？没钱！？...来人呀——！抓小流氓啦——！”你损失" + e + "点生命！】";
+                        },
+                        defSkill: function () {
+                            this.escapeRate -= 10;
+                            return "【站街使用「拖拽！」你逃跑几率-10%！】！";
+                        },
+                        winEvent: function () {
+                            return "【“我说没偷你的钱就是没偷，你想怎么着？”】！";
+                        },
+                        lostEvent: void 0
+                    },
+                    1001: {
+                        name: "金环蛇",
+                        lv: 70,
+                        hp: 2385,
+                        maxHp: 2385,
+                        att: 0,
+                        def: 150,
+                        publicVar: 0,
+                        escapeRate: 50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[80, 3, 1, 1]],
+                        des: "滋溜~滋溜~",
+                        skill: function () {
+                            var t = Math.max(220 - o.def, 0) + 30;
+                            this.publicVar += 1;
+                            var n = t * this.publicVar;
+                            e("scr_data").role.hp -= n;
+                            return "【中毒：每回合损失" + n + "点生命（" + this.publicVar + "层）】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    1002: {
+                        name: "铃女",
+                        lv: 90,
+                        hp: 3075,
+                        maxHp: 3075,
+                        att: 400,
+                        def: 200,
+                        publicVar: 0,
+                        escapeRate: 40,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 2, 3]],
+                        des: "“喔~~呵~呵~呵~”",
+                        skill: function () {
+                            var e = 100 * Math.random();
+                            if (e < 30) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.5 * o.att);
+                                return "【铃女使用「挠痒痒」，你笑得像个二愣子，攻击下降一半！】";
+                            }
+                            if (e < 70) {
+                                if (c.money > 0) {
+                                    c.money -= 1;
+                                    return "【铃女使用「光速贴近」，你损失0.1元！】";
+                                }
+                                this.enemyEscapeRate += 100;
+                                return "【铃女使用「光溜~(光速溜走)」！】";
+                            }
+                            this.def += 60;
+                            return "【铃女使用「喵盾~」，防御+60！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    1003: {
+                        name: "流浪大叔",
+                        lv: 120,
+                        hp: 4035,
+                        maxHp: 4035,
+                        att: 0,
+                        def: 280,
+                        publicVar: 0,
+                        escapeRate: 100,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[50, 0, 1, 2], [100, 1, 1, 2], [5, 26, 1, 2]],
+                        des: "“小伙，来热热身子？”",
+                        skill: function () {
+                            var e = Math.max(parseInt(650 + 50 * this.publicVar - .5 * o.def), 0);
+                            c.role.hp -= e;
+                            return "【大叔使用「穿心.气合」，你损失" + e + "点生命，大叔攻击提高！】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_public").role.att();
+                            if (100 * Math.random() < 30) {
+                                c.role.hp -= t;
+                                return "【大叔使用「反震.碎骨」，你损失" + t + "点生命！】";
+                            }
+                            return "";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    2001: {
+                        name: "喵妹",
+                        lv: 105,
+                        hp: 3599,
+                        maxHp: 3599,
+                        att: 0,
+                        def: 250,
+                        publicVar: 0,
+                        escapeRate: 40,
+                        enemyEscapeRate: 8,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[30, 0, 1, 1], [30, 0, 1, 1], [30, 0, 1, 1], [30, 0, 1, 1], [3, 21, 1, 2]],
+                        des: "“(づ?ど)”",
+                        skill: function () {
+                            var e = parseInt(.2 * c.role.hp + 50);
+                            c.role.hp -= e;
+                            return "【喵妹使用「撩裙」，你损失" + e + "点生命(当前生命的20%)！】";
+                        },
+                        defSkill: function () {
+                            c.role.hp -= 233;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 99;
+                            return "【喵妹使用「比心」，你降低99点攻击，233点生命！】";
+                        },
+                        winEvent: function () {
+                            return "“呜呜呜~我只是想找个人玩玩嘛~(?_?)”";
+                        },
+                        lostEvent: function () {
+                            return "“帅锅，记得再过来玩哈~?(^_-)”";
+                        }
+                    },
+                    2002: {
+                        name: "高级金融分析师",
+                        lv: 125,
+                        hp: 8125,
+                        maxHp: 8125,
+                        att: 0,
+                        def: 297,
+                        publicVar: 0,
+                        escapeRate: 40,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 4, 3]],
+                        des: "“你好，我是从华尔街回国的数据挖掘师！”",
+                        skill: function () {
+                            this.publicVar += 1;
+                            if (this.publicVar % 3 == 0) {
+                                if (c.money >= 4) {
+                                    c.money -= 4;
+                                    c.itemNum[4] += 1;
+                                    this.enemyEscapeRate += 30;
+                                    return "【分析师使用「嘴强王者」，你消费了0.4元，获得赠品「亚麻」*1！】";
+                                }
+                                c.itemNum[4] -= 3;
+                                c.itemNum[4] < 0 && (c.itemNum[4] = 0);
+                                this.enemyEscapeRate += 100;
+                                return "【“mmp，你知道我时间有多宝贵吗？把东西还给我！”。你失去「果子」*3】";
+                            }
+                            if (c) {
+                                this.escapeRate -= 30;
+                                this.enemyEscapeRate += 5;
+                                return "【分析师使用「抱大腿」，你逃跑率-30%！】";
+                            }
+                        },
+                        defSkill: function () {
+                            c.itemNum[0] += 1;
+                            var e = parseInt(.1 * o.att);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= e;
+                            return "【分析师丢给你一个果子，你获得「果子」*1，你攻击降低" + e + "！】";
+                        },
+                        winEvent: function () {
+                            return "【“mmp！不买就算了~你的钱我不还啦~有本事你报警去呀~”】";
+                        },
+                        lostEvent: void 0
+                    },
+                    2003: {
+                        name: "胖虎",
+                        lv: 155,
+                        hp: 5155,
+                        maxHp: 5155,
+                        att: 0,
+                        def: 360,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[30, 7, 1, 1], [30, 1, 1, 2], [30, 1, 1, 2], [5, 17, 1, 2]],
+                        des: "“你是要挑战我胖虎？”",
+                        skill: function () {
+                            this.publicVar += 1;
+                            if (this.publicVar % 3 != 0) {
                                     var e = parseInt(o.def), t = parseInt(.2 * this.def * this.publicVar);
-                                    return i.role.hp -= e + t, "【胖虎使用「黑虎袭胸！」，你损失" + e + "，附加" + t + "点流血！】"
-                                } var n = parseInt(this.def * this.publicVar); return i.role.hp -= n, "【胖虎使用「绝活！千年杀！」，你损失" + n + "点生命！】"
-                            }, defSkill: function () { var e = parseInt(.5 * this.def); return i.role.hp -= e, this.def += 99, "【胖虎使用「白鹤起舞」，防御增加99，你受到" + e + "反弹伤害！】" }, winEvent: function () { return "“可以！论骚气，我胖虎服！”" }, lostEvent: function () {
-                                return "“你能拿我胖虎怎么办？”"
+                                c.role.hp -= e + t;
+                                return "【胖虎使用「黑虎袭胸！」，你损失" + e + "，附加" + t + "点流血！】";
                             }
-                        }, 2004:
-                        {
-                            name: "龙啸天", lv: 195, hp: 6470, maxHp: 6470, att: 1199, def: 480, publicVar: 0, escapeRate: 40, enemyEscapeRate: 0, lostHealth: 3, achieve: 0, getAtt: 1, drop: [[50, 0, 1, 2], [10, 14, 1, 2]], des: "“新来的，保护费没交？”", skill: function () {
+                            var n = parseInt(this.def * this.publicVar);
+                            c.role.hp -= n;
+                            return "【胖虎使用「绝活！千年杀！」，你损失" + n + "点生命！】";
+                        },
+                        defSkill: function () {
+                            var e = parseInt(.5 * this.def);
+                            c.role.hp -= e;
+                            this.def += 99;
+                            return "【胖虎使用「白鹤起舞」，防御增加99，你受到" + e + "反弹伤害！】";
+                        },
+                        winEvent: function () {
+                            return "“可以！论骚气，我胖虎服！”";
+                        },
+                        lostEvent: function () {
+                            return "“你能拿我胖虎怎么办？”";
+                            }
+                    },
+                    2004: {
+                        name: "龙啸天",
+                        lv: 195,
+                        hp: 6470,
+                        maxHp: 6470,
+                        att: 1199,
+                        def: 480,
+                        publicVar: 0,
+                        escapeRate: 40,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[50, 0, 1, 2], [10, 14, 1, 2]],
+                        des: "“新来的，保护费没交？”",
+                        skill: function () {
                                 if (480 == this.def) {
                                     var e = parseInt(this.publicVar * o.att * .2 + this.att - o.def), t = parseInt(.08 * o.def);
-                                    return i.role.hp -= e, cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= t, "【龙傲天使用「龙啸」！你受到" + e + "点伤害，防御-" + t + "！】"
-                                } return ""
-                            }, defSkillfunction: function () {
-                                var e = 100 * Math.random(); if (e < 25) return this.publicVar += 1, 480 == this.def ? (this.def += 480, this.att -= 480, "【龙啸天启动「防御姿态」，防御+480，攻击-480，气势+1！】") : (this.def += 480, this.att -= 680, "【龙啸天启动「战斗姿态」，防御-480，攻击+480，气势+1！】"); if (this.def > 480) {
-                                    var t = parseInt(this.publicVar * o.def * .4 + .2 * this.def), n = parseInt(.08 * o.att);
-                                    return i.role.hp -= t, cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= n, "【龙啸天使用「反震」！你受到" + t + "点伤害，攻击-" + n + "！】"
-                                } return ""
-                            }, winEvent: function () { return i.money += 5, "“大哥！以后我就跟你混了！”【获得0.5元】" }, lostEvent: function () {
-                                return i.money -= parseInt(.1 * i.money), "“你永远都学不乖？”【你损失10%金钱！】"
+                                c.role.hp -= e;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= t;
+                                return "【龙傲天使用「龙啸」！你受到" + e + "点伤害，防御-" + t + "！】";
                             }
-                        }, 2005:
-                        {
-                            name: "排球少女", lv: 85, hp: 2850, maxHp: 2850, att: 0, def: 250, publicVar: 0, escapeRate: 50, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 99, 2, 3], [6, 27, 1, 2], [6, 26, 1, 2]], des: "“我一定会进省队的！”「特注：随天数成长型对手」", skill: function () {
-                                var e = i.day; if (e < 120) {
+                            return "";
+                        },
+                        defSkillfunction: function () {
+                            if (100 * Math.random() < 25) {
+                                this.publicVar += 1;
+                                if (480 == this.def) {
+                                    this.def += 480;
+                                    this.att -= 480;
+                                    return "【龙啸天启动「防御姿态」，防御+480，攻击-480，气势+1！】";
+                                }
+                                this.def += 480;
+                                this.att -= 680;
+                                return "【龙啸天启动「战斗姿态」，防御-480，攻击+480，气势+1！】";
+                            }
+                            if (this.def > 480) {
+                                var e = parseInt(this.publicVar * o.def * .4 + .2 * this.def), t = parseInt(.08 * o.att);
+                                c.role.hp -= e;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= t;
+                                return "【龙啸天使用「反震」！你受到" + e + "点伤害，攻击-" + t + "！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            c.money += 5;
+                            return "“大哥！以后我就跟你混了！”【获得0.5元】";
+                        },
+                        lostEvent: function () {
+                            c.money -= parseInt(.1 * c.money);
+                            return "“你永远都学不乖？”【你损失10%金钱！】";
+                        }
+                    },
+                    2005: {
+                        name: "排球少女",
+                        lv: 85,
+                        hp: 2850,
+                        maxHp: 2850,
+                        att: 0,
+                        def: 250,
+                        publicVar: 0,
+                        escapeRate: 50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 99, 2, 3], [6, 27, 1, 2], [6, 26, 1, 2]],
+                        des: "“我一定会进省队的！”「特注：随天数成长型对手」",
+                        skill: function () {
+                            var e = c.day;
+                            if (e < 120) {
                                     var t = cc.find("Event/scr_fight").getComponent("scr_fight").correct[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t);
-                                    return i.role.hp -= n, "【少女使用「晴空霹雳.一段！」，你受到" + n + "点伤害】"
-                                } if (e < 150) {
-                                    var a = 2 * (i.day - 90);
+                                c.role.hp -= n;
+                                return "【少女使用「晴空霹雳.一段！」，你受到" + n + "点伤害】";
+                            }
+                            if (e < 150) {
+                                var a = 2 * (c.day - 90);
                                     cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= a;
-                                    var t = cc.find("Event/scr_fight").getComponent("scr_fight").correct[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t);
-                                    return i.role.hp -= n, "【少女使用「晴空霹雳.二段！」，你受到" + n + "点伤害，防御减少" + a + "！】"
-                                } var a = parseInt(.1 * o.maxHp); cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= a; var c = parseInt(.1 * o.maxHp), t = cc.find("Event/scr_fight").getComponent("scr_fight").correct[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t); return i.role.hp -= n, this.hp += a, "【少女使用「晴空霹雳.三段！」，你受到" + n + "点伤害，防御减少" + a + "，少女恢复" + c + "点生命！】"
-                            }, defSkill: function () {
-                                var e = 100 * Math.random(), t = i.day - 90; if (t < 40) return e < t ? (cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999, "【少女使用「幻影旋风.一段！」】") : ""; if (t < 65) {
+                                t = cc.find("Event/scr_fight").getComponent("scr_fight").correct[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t);
+                                c.role.hp -= n;
+                                return "【少女使用「晴空霹雳.二段！」，你受到" + n + "点伤害，防御减少" + a + "！】";
+                            }
+                            a = parseInt(.1 * o.maxHp);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= a;
+                            var i = parseInt(.1 * o.maxHp);
+                            t = cc.find("Event/scr_fight").getComponent("scr_fight").correct[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t);
+                            c.role.hp -= n;
+                            this.hp += a;
+                            return "【少女使用「晴空霹雳.三段！」，你受到" + n + "点伤害，防御减少" + a + "，少女恢复" + i + "点生命！】";
+                        },
+                        defSkill: function () {
+                            var e = 100 * Math.random(), t = c.day - 90;
+                            if (t < 40) {
+                                if (e < t) {
+                                    cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999;
+                                    return "【少女使用「幻影旋风.一段！」】";
+                                }
+                                return "";
+                            }
+                            if (t < 65) {
                                     if (e < t) {
                                         var n = parseInt(.3 * o.def);
-                                        return this.def += n, cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999, "【少女使用「幻影旋风.二段！」，少女增加" + n + "点防御！】"
+                                    this.def += n;
+                                    cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999;
+                                    return "【少女使用「幻影旋风.二段！」，少女增加" + n + "点防御！】";
+                                }
+                                return "";
                                     }
-                                    return ""
-                                } if (e < t) {
-                                    var n = parseInt(.3 * o.def), a = parseInt(.7 * o.att);
-                                    return this.def += n, i.role.hp -= a, cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999, "【少女使用「幻影旋风.三段！」，少女增加" + n + "点防御！你受到" + a + "点反弹伤害！】"
-                                } return ""
-                            }, winEvent: function () { return "“我一定会更强的！”" }, lostEvent: void 0
-                        }, 3001:
-                            { name: "吸血蝙蝠", lv: 120, hp: 12e3, maxHp: 12e3, att: 360, def: 140, publicVar: 0, escapeRate: 20, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 16, 1, 2], [100, 16, 1, 2]], des: "“乌~拉！”", skill: function () { var t = Math.max(parseInt(.5 * this.att), 0); return e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 3002:
-                            { name: "彩色蜘蛛", lv: 150, hp: 15e3, maxHp: 15e3, att: 450, def: 175, publicVar: 0, escapeRate: 10, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 16, 1, 2], [100, 16, 1, 2]], des: "", skill: function () { var e = 100 * Math.random(); return e < 30 ? (this.escapeRate -= 10, cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.25 * o.att), "【" + this.name + "使用「束缚」，你攻击降低25%，逃跑率降低10%！】") : "【" + this.name + "使用「束缚」，但是被你躲开啦！】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 3003:
-                            { name: "黑头剑蛇", lv: 190, hp: 19999, maxHp: 19999, att: 599, def: 221, publicVar: 0, escapeRate: 0, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 16, 1, 2], [100, 16, 1, 2]], des: "", skill: function () { var t = parseInt(.2 * this.att), n = parseInt(.1 * o.def); this.publicVar += 1; var a = t * this.publicVar; return e("scr_data").role.hp -= a, cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= n, "【毒酸：每回合损失" + a + "点生命，" + n + "点防御！】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 3004:
-                        {
-                            name: "变异的巨型猫", lv: 240, hp: 24865, maxHp: 24865, att: 740, def: 270, publicVar: 0, escapeRate: -10, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 16, 1, 2], [100, 16, 1, 2]], des: "", skill: function () {
-                                var e = 100 * Math.random(); if (e < 30) {
-                                    var t = parseInt(.2 * i.role.hp);
-                                    return i.role.hp -= t, "【巨猫使用「疯狂撕咬」你损失" + t + "点生命！】"
-                                } return ""
-                            }, defSkill: function () { var e = 100 * Math.random(); return e < 30 ? (cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999, "【" + this.name + "躲避你的攻击！】") : "" }, winEvent: void 0, lostEvent: void 0
-                        }, 3005:
-                        {
-                            name: "变异的流浪狗", lv: 300, hp: 3e4, maxHp: 3e4, att: 900, def: 350, publicVar: 0, escapeRate: -20, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 16, 1, 2], [100, 16, 1, 2]], des: "", skill: function () {
-                                var t = e("scr_data"), n = 100 * Math.random(); this.publicVar += 1; var a = 10 * this.publicVar + 20; if (n < a) {
-                                    var c = 2 * (this.att - o.def);
-                                    return t.role.hp -= c, "【" + this.name + "使用「疯狂暴击」，你损失" + c + "点生命！】"
-                                } return ""
-                            }, defSkill: function () { return this.att += parseInt(.1 * this.att), this.def -= parseInt(.1 * this.def), "【流浪狗狂躁，攻击提高10%，防御降低10%！】" }, winEvent: void 0, lostEvent: void 0
-                        }, 3006:
-                            { name: "变异的巨蜥", lv: 375, hp: 36e3, maxHp: 36e3, att: 1150, def: 434, publicVar: 0, escapeRate: -30, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 16, 1, 2], [100, 16, 1, 2]], des: "", skill: function () { return cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.08 * o.def), cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.08 * o.def), "【巨蜥使用「粘液」，你降低8%攻击，8%防御！】" }, defSkill: function () { var e = parseInt(.06 * this.maxHp); return this.hp += e, "【巨蜥使用自愈，恢复" + e + "点生命！】" }, winEvent: void 0, lostEvent: void 0 }, 3007:
-                        {
-                            name: "被割掉舌头的人", lv: 475, hp: 45e3, maxHp: 45e3, att: 1400, def: 599, publicVar: 0, escapeRate: -40, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 16, 1, 2], [100, 16, 1, 2]], des: "“啊~呜~呜~”", skill: function () {
-                                var e = 100 * Math.random(); if (e < 50) {
-                                    var t = this.att;
-                                    return i.role.hp += t, "【无舌人对你使用「治疗」，你恢复" + t + "点生命】"
-                                } this.publicVar += 3; var n = 3 * this.att - o.def; return i.role.hp -= n, "【无舌人对你使用「撕咬」，你损失" + n + "点生命，并附加3层毒素伤害！】"
-                            }, defSkill: function () {
+                            if (e < t) {
+                                n = parseInt(.3 * o.def);
+                                var a = parseInt(.7 * o.att);
+                                this.def += n;
+                                c.role.hp -= a;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999;
+                                return "【少女使用「幻影旋风.三段！」，少女增加" + n + "点防御！你受到" + a + "点反弹伤害！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            return "“我一定会更强的！”";
+                        },
+                        lostEvent: void 0
+                    },
+                    3001: {
+                        name: "吸血蝙蝠",
+                        lv: 120,
+                        hp: 12e3,
+                        maxHp: 12e3,
+                        att: 360,
+                        def: 140,
+                        publicVar: 0,
+                        escapeRate: 20,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                        des: "“乌~拉！”",
+                        skill: function () {
+                            var t = Math.max(parseInt(.5 * this.att), 0);
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    3002: {
+                        name: "彩色蜘蛛",
+                        lv: 150,
+                        hp: 15e3,
+                        maxHp: 15e3,
+                        att: 450,
+                        def: 175,
+                        publicVar: 0,
+                        escapeRate: 10,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                        des: "",
+                        skill: function () {
+                            if (100 * Math.random() < 30) {
+                                this.escapeRate -= 10;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.25 * o.att);
+                                return "【" + this.name + "使用「束缚」，你攻击降低25%，逃跑率降低10%！】";
+                            }
+                            return "【" + this.name + "使用「束缚」，但是被你躲开啦！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    3003: {
+                        name: "黑头剑蛇",
+                        lv: 190,
+                        hp: 19999,
+                        maxHp: 19999,
+                        att: 599,
+                        def: 221,
+                        publicVar: 0,
+                        escapeRate: 0,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                        des: "",
+                        skill: function () {
+                            var t = parseInt(.2 * this.att), n = parseInt(.1 * o.def);
+                            this.publicVar += 1;
+                            var a = t * this.publicVar;
+                            e("scr_data").role.hp -= a;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= n;
+                            return "【毒酸：每回合损失" + a + "点生命，" + n + "点防御！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    3004: {
+                        name: "变异的巨型猫",
+                        lv: 240,
+                        hp: 24865,
+                        maxHp: 24865,
+                        att: 740,
+                        def: 270,
+                        publicVar: 0,
+                        escapeRate: -10,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                        des: "",
+                        skill: function () {
+                            if (100 * Math.random() < 30) {
+                                var e = parseInt(.2 * c.role.hp);
+                                c.role.hp -= e;
+                                return "【巨猫使用「疯狂撕咬」你损失" + e + "点生命！】";
+                            }
+                            return "";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < 30) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999;
+                                return "【" + this.name + "躲避你的攻击！】";
+                            }
+                            return "";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    3005: {
+                        name: "变异的流浪狗",
+                        lv: 300,
+                        hp: 3e4,
+                        maxHp: 3e4,
+                        att: 900,
+                        def: 350,
+                        publicVar: 0,
+                        escapeRate: -20,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                        des: "",
+                        skill: function () {
+                            var t = e("scr_data"), n = 100 * Math.random();
+                            this.publicVar += 1;
+                            if (n < 10 * this.publicVar + 20) {
+                                var a = 2 * (this.att - o.def);
+                                t.role.hp -= a;
+                                return "【" + this.name + "使用「疯狂暴击」，你损失" + a + "点生命！】";
+                            }
+                            return "";
+                        },
+                        defSkill: function () {
+                            this.att += parseInt(.1 * this.att);
+                            this.def -= parseInt(.1 * this.def);
+                            return "【流浪狗狂躁，攻击提高10%，防御降低10%！】";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    3006: {
+                        name: "变异的巨蜥",
+                        lv: 375,
+                        hp: 36e3,
+                        maxHp: 36e3,
+                        att: 1150,
+                        def: 434,
+                        publicVar: 0,
+                        escapeRate: -30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                        des: "",
+                        skill: function () {
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.08 * o.def);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.08 * o.def);
+                            return "【巨蜥使用「粘液」，你降低8%攻击，8%防御！】";
+                        },
+                        defSkill: function () {
+                            var e = parseInt(.06 * this.maxHp);
+                            this.hp += e;
+                            return "【巨蜥使用自愈，恢复" + e + "点生命！】";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    3007: {
+                        name: "被割掉舌头的人",
+                        lv: 475,
+                        hp: 45e3,
+                        maxHp: 45e3,
+                        att: 1400,
+                        def: 599,
+                        publicVar: 0,
+                        escapeRate: -40,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                        des: "“啊~呜~呜~”",
+                        skill: function () {
+                            if (100 * Math.random() < 50) {
+                                var e = this.att;
+                                c.role.hp += e;
+                                return "【无舌人对你使用「治疗」，你恢复" + e + "点生命】";
+                            }
+                            this.publicVar += 3;
+                            var t = 3 * this.att - o.def;
+                            c.role.hp -= t;
+                            return "【无舌人对你使用「撕咬」，你损失" + t + "点生命，并附加3层毒素伤害！】";
+                        },
+                        defSkill: function () {
                                 if (this.publicVar > 0) {
                                     var t = e("scr_data"), n = parseInt(.1 * this.att);
                                     this.publicVar += 1;
                                     var a = n * this.publicVar;
-                                    return t.role.hp -= a, "【毒素：每回合损失" + a + "点生命】"
-                                } return ""
-                            }, winEvent: void 0, lostEvent: void 0
-                        }, 3008:
-                        {
-                            name: "看守的士兵", lv: 600, hp: 6e4, maxHp: 6e4, att: 1800, def: 699, publicVar: 0, escapeRate: -50, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 16, 1, 2], [100, 16, 1, 2]], des: "“这里不准进入！”", skill: function () {
-                                if (this.publicVar += 1, this.publicVar % 4 == 0) {
+                                t.role.hp -= a;
+                                return "【毒素：每回合损失" + a + "点生命】";
+                            }
+                            return "";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    3008: {
+                        name: "看守的士兵",
+                        lv: 600,
+                        hp: 6e4,
+                        maxHp: 6e4,
+                        att: 1800,
+                        def: 699,
+                        publicVar: 0,
+                        escapeRate: -50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                        des: "“这里不准进入！”",
+                        skill: function () {
+                            this.publicVar += 1;
+                            if (this.publicVar % 4 == 0) {
                                     var e = 5 * this.att;
-                                    return i.role.hp -= e, "【" + this.name + "向你发射了一颗子弹！击中！你损失" + e + "点生命！】"
-                                } return "【“警告！赶紧离开~不然就开枪了~”】"
-                            }, defSkill: function () { var e = 100 * Math.random(); return e < 30 ? (cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999, "【" + this.name + "使用「防爆盾」！】") : "" }, winEvent: void 0, lostEvent: void 0
-                        }, 3009:
-                        {
-                            name: "军官", lv: 800, hp: 75e3, maxHp: 75e3, att: 2499, def: 999, publicVar: 0, escapeRate: -60, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 16, 1, 2], [100, 16, 1, 2]], des: "“你怕是没见过会用刀的人！”", skill: function () {
+                                c.role.hp -= e;
+                                return "【" + this.name + "向你发射了一颗子弹！击中！你损失" + e + "点生命！】";
+                            }
+                            return "【“警告！赶紧离开~不然就开枪了~”】";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < 30) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999;
+                                return "【" + this.name + "使用「防爆盾」！】";
+                            }
+                            return "";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    3009: {
+                        name: "军官",
+                        lv: 800,
+                        hp: 75e3,
+                        maxHp: 75e3,
+                        att: 2499,
+                        def: 999,
+                        publicVar: 0,
+                        escapeRate: -60,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                        des: "“你怕是没见过会用刀的人！”",
+                        skill: function () {
                                 if (4 == this.publicVar) {
                                     var e = this.att * (1 + this.publicVar);
-                                    return i.role.hp -= e, "【" + this.name + "使用「终结.斩杀！」，你受到" + e + "点生命！】"
-                                } this.publicVar += 1; var t = this.att, n = parseInt(.1 * this.att * this.publicVar); return i.role.hp -= t + n, cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def), cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att), "【" + this.name + "使用「剔骨小刀！」你受到" + t + "点伤害，附加" + n + "流血，攻防降低5%！】"
-                            }, defSkill: function () { return this.att += parseInt(.05 * this.att), "【" + this.name + "使用「集中」，" + this.name + "攻击强化！】" }, winEvent: void 0, lostEvent: void 0
-                        }, 3010:
-                            { name: "科学家", lv: 1e3, hp: 99999, maxHp: 99999, att: 2999, def: 1199, publicVar: 0, escapeRate: -70, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 16, 1, 2], [100, 16, 1, 2]], des: "“入侵者，既然你来到这里，就不太可能出去了~”", skill: function () { this.publicVar += 1; var e = parseInt(this.att * (1 + this.publicVar / 10)); return i.role.hp -= e, this.hp += e, "【" + this.name + "喷出「靶向喷雾」你受到" + e + "点伤害。" + this.name + "恢复" + e + "点生命，并收集1点能量！】" }, defSkill: function () { if (this.publicVar % 4 == 0) return this.def = 899, "【" + this.name + "「无敌屏障」被击破！】"; if (this.publicVar % 2 == 0) return this.def = 99999, "【" + this.name + "启动「无敌屏障」！】"; var e = parseInt(o.att * (.2 + this.publicVar / 10)); return i.role.hp -= e, "【" + this.name + "开启「反射屏障」你受到" + e + "点伤害！】" }, winEvent: void 0, lostEvent: void 0 }, 100:
-                            { name: "女贼(呆萌)", lv: 1, hp: 60, maxHp: 60, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 0, achieve: 0, getAtt: 1, drop: [], des: "把钱交出来<(｀^′)>", skill: function () { var t = e("scr_data"); return t.money > 0 ? (t.money -= 1, this.publicVar += 1, "【你被偷走0.1元(笑)】") : "【“哼！不跟你玩了！”】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"), n = Math.min(10, this.publicVar + 3); return t.money += n, "【你从女贼身上抢到" + (n / 10).toFixed(1) + "元】" }, lostEvent: void 0 }, 101:
-                        {
-                            name: "胡渣壮汉（精英）", lv: 12, hp: 485, maxHp: 485, att: 30, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 2, getAtt: 2, drop: [[100, 1, 2, 2], [100, 7, 1, 2], [100, 12, 1, 2], [100, 20, 1, 2]], des: "“给老子滚远点~！”", skill: function () { return this.att += 7, "【壮汉暴跳如雷，攻击强化！】" }, defSkill: function () { var t = e("scr_public"), n = t.role.att() - t.role.def(), a = 100 * Math.random(); return a < 35 ? (e("scr_data").role.hp -= n, "【壮汉使用「反震」，你损失" + n + "点生命！】") : "" }, winEvent: function () { return e("scr_data").choice[0] = 0, "【“你给老子等着！”】" }, lostEvent: function () {
-                                var t = e("scr_data");
-                                return t.itemNum2[0] -= t.itemNum2[0], t.itemNum2[7] -= t.itemNum2[7], "【你损失全部的熟肉和香烟！】【“别让老子再看到你，听见没！”】"
+                                c.role.hp -= e;
+                                return "【" + this.name + "使用「终结.斩杀！」，你受到" + e + "点生命！】";
                             }
-                        }, 102:
-                        {
-                            name: "西装男(精英)", lv: 10, hp: 410, maxHp: 410, att: 30, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 1, getAtt: 1, drop: [[100, 1, 4, 2], [50, 25, 1, 2]], des: "“小兄弟，过来一下”", skill: function () {
-                                if (this.publicVar += 1, this.publicVar % 3 == 0) {
-                                    var e = 99;
-                                    return this.hp += e, this.att += 5, "【" + this.name + "使用「治疗」，恢复" + e + "点生命，攻击提高5点！】"
-                                } return ""
-                            }, defSkill: void 0, winEvent: function () { return e("scr_data").choice[0] = 1, "【" + this.name + "逃走了！】" }, lostEvent: function () {
+                            this.publicVar += 1;
+                            var t = this.att, n = parseInt(.1 * this.att * this.publicVar);
+                            c.role.hp -= t + n;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att);
+                            return "【" + this.name + "使用「剔骨小刀！」你受到" + t + "点伤害，附加" + n + "流血，攻防降低5%！】";
+                        },
+                        defSkill: function () {
+                            this.att += parseInt(.05 * this.att);
+                            return "【" + this.name + "使用「集中」，" + this.name + "攻击强化！】";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    3010: {
+                        name: "科学家",
+                        lv: 1e3,
+                        hp: 99999,
+                        maxHp: 99999,
+                        att: 2999,
+                        def: 1199,
+                        publicVar: 0,
+                        escapeRate: -70,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                        des: "“入侵者，既然你来到这里，就不太可能出去了~”",
+                        skill: function () {
+                            this.publicVar += 1;
+                            var e = parseInt(this.att * (1 + this.publicVar / 10));
+                            c.role.hp -= e;
+                            this.hp += e;
+                            return "【" + this.name + "喷出「靶向喷雾」你受到" + e + "点伤害。" + this.name + "恢复" + e + "点生命，并收集1点能量！】";
+                        },
+                        defSkill: function () {
+                            if (this.publicVar % 4 == 0) {
+                                this.def = 899;
+                                return "【" + this.name + "「无敌屏障」被击破！】";
+                            }
+                            if (this.publicVar % 2 == 0) {
+                                this.def = 99999;
+                                return "【" + this.name + "启动「无敌屏障」！】";
+                            }
+                            var e = parseInt(o.att * (.2 + this.publicVar / 10));
+                            c.role.hp -= e;
+                            return "【" + this.name + "开启「反射屏障」你受到" + e + "点伤害！】";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    100: {
+                        name: "女贼(呆萌)",
+                        lv: 1,
+                        hp: 60,
+                        maxHp: 60,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 0,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [],
+                        des: "把钱交出来<(｀^′)>",
+                        skill: function () {
+                            var t = e("scr_data");
+                            if (t.money > 0) {
+                                t.money -= 1;
+                                this.publicVar += 1;
+                                return "【你被偷走0.1元(笑)】";
+                            }
+                            return "【“哼！不跟你玩了！”】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data"), n = Math.min(10, this.publicVar + 3);
+                            t.money += n;
+                            return "【你从女贼身上抢到" + (n / 10).toFixed(1) + "元】";
+                        },
+                        lostEvent: void 0
+                    },
+                    101: {
+                        name: "胡渣壮汉（精英）",
+                        lv: 12,
+                        hp: 485,
+                        maxHp: 485,
+                        att: 30,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 2,
+                        getAtt: 2,
+                        drop: [[100, 1, 2, 2], [100, 7, 1, 2], [100, 12, 1, 2], [100, 20, 1, 2]],
+                        des: "“给老子滚远点~！”",
+                        skill: function () {
+                            this.att += 7;
+                            return "【壮汉暴跳如雷，攻击强化！】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_public"), n = t.role.att() - t.role.def();
+                            if (100 * Math.random() < 35) {
+                                e("scr_data").role.hp -= n;
+                                return "【壮汉使用「反震」，你损失" + n + "点生命！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            e("scr_data").choice[0] = 0;
+                            return "【“你给老子等着！”】";
+                        },
+                        lostEvent: function () {
+                                var t = e("scr_data");
+                            t.itemNum2[0] -= t.itemNum2[0];
+                            t.itemNum2[7] -= t.itemNum2[7];
+                            return "【你损失全部的熟肉和香烟！】【“别让老子再看到你，听见没！”】";
+                            }
+                    },
+                    102: {
+                        name: "西装男(精英)",
+                        lv: 10,
+                        hp: 410,
+                        maxHp: 410,
+                        att: 30,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 1, 4, 2], [50, 25, 1, 2]],
+                        des: "“小兄弟，过来一下”",
+                        skill: function () {
+                            this.publicVar += 1;
+                            if (this.publicVar % 3 == 0) {
+                                this.hp += 99;
+                                this.att += 5;
+                                return "【" + this.name + "使用「治疗」，恢复99点生命，攻击提高5点！】";
+                            }
+                            return "";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").choice[0] = 1;
+                            return "【" + this.name + "逃走了！】";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = t.money;
-                                return t.money -= n, "【你损失全部的钱！】"
+                            t.money -= n;
+                            return "【你损失全部的钱！】";
                             }
-                        }, 103:
-                        {
-                            name: "刀疤男（BOSS）", lv: 23, hp: 855, maxHp: 855, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 3, getAtt: 3, drop: [[100, 11, 1, 2]], des: "“x你x！”", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + 20, 0)), a = parseInt(.3 * n); return this.hp += a, t.role.hp -= n, "【刀疤男使用「嗜血狂魔」，你受到" + n + "点伤害,刀疤男恢复" + a + "点生命】" }, defSkill: function () { var e = 100 * Math.random(); return e < 15 ? (cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 9999, "【刀疤男使用「格挡」！】") : "" }, winEvent: function () { var t = e("scr_data"); return t.choice[0] = 1, t.publicVar[5] = 1, "【" + this.name + "被人救走了！】" }, lostEvent: function () {
+                    },
+                    103: {
+                        name: "刀疤男（BOSS）",
+                        lv: 23,
+                        hp: 855,
+                        maxHp: 855,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 3,
+                        getAtt: 3,
+                        drop: [[100, 11, 1, 2]],
+                        des: "“x你x！”",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + 20, 0)), a = parseInt(.3 * n);
+                            this.hp += a;
+                            t.role.hp -= n;
+                            return "【刀疤男使用「嗜血狂魔」，你受到" + n + "点伤害,刀疤男恢复" + a + "点生命】";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < 15) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 9999;
+                                return "【刀疤男使用「格挡」！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.choice[0] = 1;
+                            t.publicVar[5] = 1;
+                            return "【" + this.name + "被人救走了！】";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data");
-                                return t.energy = 0, t.choice[0] = 2, "【你受重伤！损失全部的精力】"
+                            t.energy = 0;
+                            t.choice[0] = 2;
+                            return "【你受重伤！损失全部的精力】";
                             }
-                        }, 104:
-                            { name: "看守者", lv: 15, hp: 540, maxHp: 540, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 11, 1, 1]], des: "“我叫你滚啦！——”", skill: function () { var t = Math.max(40 - o.def, 0); return this.hp -= 50, e("scr_data").role.hp -= t, "【看守者使用「拼命」，对你造成" + t + "点伤害，看守者损失50点生命】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.choice[3] = 2, "【你已拥有白色粉末*" + t.itemNum[11] + "】" }, lostEvent: void 0 }, 105:
-                        {
-                            name: "追杀者", lv: 35, hp: 1498, maxHp: 1498, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 0, getAtt: 1, drop: [[100, 11, 2, 1]], des: "“我不跟你多BB哈~杀手得有个B样！”", skill: function () {
-                                var t = e("scr_data"), n = 100 * Math.random(); if (this.publicVar += 1, this.publicVar <= 20) {
+                    },
+                    104: {
+                        name: "看守者",
+                        lv: 15,
+                        hp: 540,
+                        maxHp: 540,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 11, 1, 1]],
+                        des: "“我叫你滚啦！——”",
+                        skill: function () {
+                            var t = Math.max(40 - o.def, 0);
+                            this.hp -= 50;
+                            e("scr_data").role.hp -= t;
+                            return "【看守者使用「拼命」，对你造成" + t + "点伤害，看守者损失50点生命】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.choice[3] = 2;
+                            return "【你已拥有白色粉末*" + t.itemNum[11] + "】";
+                        },
+                        lostEvent: void 0
+                    },
+                    105: {
+                        name: "追杀者",
+                        lv: 35,
+                        hp: 1498,
+                        maxHp: 1498,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 11, 2, 1]],
+                        des: "“我不跟你多BB哈~杀手得有个B样！”",
+                        skill: function () {
+                            var t = e("scr_data"), n = 100 * Math.random();
+                            this.publicVar += 1;
+                            if (this.publicVar <= 20) {
                                     if (n < 85) return "【追杀者拿起铁锹，向你发射了一颗子弹！但是未命中】";
                                     var a = 699 - o.def;
-                                    return t.role.hp -= a, "【追杀者拿起铁锹，向你发射了一颗子弹！击中！你损失" + a + "点生命！】"
-                                } return "【追杀者拿起铁锹，但是发现没子弹啦！】"
-                            }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return "【你已拥有白色粉末*" + t.itemNum[11] + "】" }, lostEvent: function () {
+                                t.role.hp -= a;
+                                return "【追杀者拿起铁锹，向你发射了一颗子弹！击中！你损失" + a + "点生命！】";
+                            }
+                            return "【追杀者拿起铁锹，但是发现没子弹啦！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            return "【你已拥有白色粉末*" + e("scr_data").itemNum[11] + "】";
+                        },
+                        lostEvent: function () {
+                            e("scr_data").itemNum[11] = 0;
+                            return "，你失去所有【白色粉末】";
+                        }
+                    },
+                    106: {
+                        name: "劫匪（精英）",
+                        lv: 40,
+                        hp: 1370,
+                        maxHp: 1370,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 2,
+                        getAtt: 1,
+                        drop: [[100, 99, 6, 3], [50, 23, 1, 2]],
+                        des: "“别挡老子路！”",
+                        skill: function () {
+                            var t = Math.max(100 - o.def, 0);
+                            this.publicVar += 1;
+                            var n = t * this.publicVar;
+                            e("scr_data").role.hp -= n;
+                            return "【劫匪使用「放血」，每回合损失" + n + "点生命（" + this.publicVar + "层）】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            return "“大爷饶命啊！m(_ _)m”";
+                        },
+                        lostEvent: function () {
+                            return "“叫NM多管闲事！”";
+                        }
+                    },
+                    107: {
+                        name: "不干净的流浪汉（精英）",
+                        lv: 50,
+                        hp: 1700,
+                        maxHp: 1700,
+                        att: 243,
+                        def: 50,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 25, 1, 2], [100, 24, 1, 2], [50, 27, 1, 2]],
+                        des: "“我长啥样，心里会没个B数？”",
+                        skill: void 0,
+                        defSkill: function () {
+                            var t = e("scr_public"), n = t.role.att() - t.role.def();
+                            if (100 * Math.random() < 40) {
+                                e("scr_data").role.hp -= n;
+                                return "【流浪汉使用「反震」，你损失" + n + "点生命！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            return "“你给老子等着！老子还有来的”";
+                        },
+                        lostEvent: function () {
+                            return "“老子脸上写着王八蛋？”";
+                        }
+                    },
+                    108: {
+                        name: "通缉犯（BOSS）",
+                        lv: 60,
+                        hp: 2199,
+                        maxHp: 2199,
+                        att: 0,
+                        def: 20,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 999,
+                        achieve: 5,
+                        getAtt: 5,
+                        drop: [[100, 11, 2, 1], [100, 8, 1, 2], [100, 27, 2, 2], [100, 17, 1, 2]],
+                        des: "“cnm！别坏老子好事！”",
+                        skill: function () {
+                            var t = e("scr_data"), n = e("scr_data2");
+                            this.publicVar += 1;
+                            var a = 30 * this.publicVar, i = Math.max(parseInt(180 + 10 * this.publicVar - o.def - 40 * n.gameData[0]), 0);
+                            t.role.hp -= i + a;
+                            var c = parseInt(.05 * this.hp);
+                            this.hp -= c;
+                            return "【" + this.name + "使用「拼命3」，你损失" + i + "点生命，每回合损失" + a + "点生命（流血），杀人犯损失" + c + "点生命】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data"), n = this.def;
+                            this.def += 20;
+                            t.role.hp -= n;
+                            return "【杀人犯使用「霸气护体2」，增加20点防御，你受到" + n + "点伤害】";
+                        },
+                        winEvent: function () {
                                 var t = e("scr_data");
-                                return t.itemNum[11] = 0, "，你失去所有【白色粉末】"
+                            t.distance += 1;
+                            t.publicVar[3] = 1;
+                            return "";
+                        },
+                        lostEvent: function () {
+                            var t = e("scr_data"), n = e("scr_data2");
+                            t.ifFollow[0] = 0;
+                            t.plotId = Math.min(2 + n.gameData[0], 4);
+                            e("scr_public").save();
+                            cc.director.loadScene("plot");
+                            return "";
                             }
-                        }, 106:
-                        {
-                            name: "劫匪（精英）", lv: 40, hp: 1370, maxHp: 1370, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 2, achieve: 2, getAtt: 1, drop: [[100, 99, 6, 3], [50, 23, 1, 2]], des: "“别挡老子路！”", skill: function () { var t = Math.max(100 - o.def, 0); this.publicVar += 1; var n = t * this.publicVar; return e("scr_data").role.hp -= n, "【劫匪使用「放血」，每回合损失" + n + "点生命（" + this.publicVar + "层）】" }, defSkill: void 0, winEvent: function () { return "“大爷饶命啊！m(_ _)m”" }, lostEvent: function () {
-                                return "“叫NM多管闲事！”"
+                    },
+                    109: {
+                        name: "城中村大佬（精英）",
+                        lv: 70,
+                        hp: 2460,
+                        maxHp: 2460,
+                        att: 0,
+                        def: 141,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“你是个sb？”",
+                        skill: function () {
+                            var e = parseInt(.15 * (this.maxHp - this.hp)), t = 317 + o.def;
+                            c.role.hp -= t;
+                            return "【dalao使用「穿透」，你损失" + t + "点生命，小兰使用「崇拜」，dalao恢复" + e + "点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            c.publicVar2[15] += 1;
+                            if (0 == c.publicVar2[27]) {
+                                c.publicVar2[27] = 1;
+                                return "你从大佬身上找到一本书，获得《坎贝尔骨科手术学》书籍（请去看书界面使用）！";
                             }
-                        }, 107:
-                        {
-                            name: "不干净的流浪汉（精英）", lv: 50, hp: 1700, maxHp: 1700, att: 243, def: 50, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 1, getAtt: 1, drop: [[100, 25, 1, 2], [100, 24, 1, 2], [50, 27, 1, 2]], des: "“我长啥样，心里会没个B数？”", skill: void 0, defSkill: function () { var t = e("scr_public"), n = t.role.att() - t.role.def(), a = 100 * Math.random(); return a < 40 ? (e("scr_data").role.hp -= n, "【流浪汉使用「反震」，你损失" + n + "点生命！】") : "" }, winEvent: function () { return "“你给老子等着！老子还有来的”" }, lostEvent: function () {
-                                return "“老子脸上写着王八蛋？”"
+                            return "";
+                        },
+                        lostEvent: function () {
+                            c.money = 0;
+                            return "你损失全部的金钱！！！";
                             }
-                        }, 108:
-                        {
-                            name: "通缉犯（BOSS）", lv: 60, hp: 2199, maxHp: 2199, att: 0, def: 20, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 999, achieve: 5, getAtt: 5, drop: [[100, 11, 2, 1], [100, 8, 1, 2], [100, 27, 2, 2], [100, 17, 1, 2]], des: "“cnm！别坏老子好事！”", skill: function () { var t = e("scr_data"), n = e("scr_data2"); this.publicVar += 1; var a = 30 * this.publicVar, c = Math.max(parseInt(180 + 10 * this.publicVar - o.def - 40 * n.gameData[0]), 0); t.role.hp -= c + a; var i = parseInt(.05 * this.hp); return this.hp -= i, "【" + this.name + "使用「拼命3」，你损失" + c + "点生命，每回合损失" + a + "点生命（流血），杀人犯损失" + i + "点生命】" }, defSkill: function () { var t = e("scr_data"), n = this.def; return this.def += 20, t.role.hp -= n, "【杀人犯使用「霸气护体2」，增加20点防御，你受到" + n + "点伤害】" }, winEvent: function () { var t = e("scr_data"); return t.distance += 1, t.publicVar[3] = 1, "" }, lostEvent: function () {
-                                var t = e("scr_data"), n = e("scr_data2");
-                                return t.ifFollow[0] = 0, t.plotId = Math.min(2 + n.gameData[0], 4), e("scr_public").save(), cc.director.loadScene("plot"), ""
+                    },
+                    110: {
+                        name: "城市治安管理408分队",
+                        lv: 199,
+                        hp: 6222,
+                        maxHp: 6222,
+                        att: 405,
+                        def: 200,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[60, 7, 1, 2], [60, 7, 1, 2], [60, 7, 1, 2]],
+                        des: "“不许睡觉，听到没！”",
+                        skill: void 0,
+                        defSkill: void 0,
+                        winEvent: function () {
+                            if (0 == c.publicVar[8]) {
+                                c.ifFollow[1] = 0;
+                                c.publicVar[7] -= 700;
+                                c.friendSkill[1] = 0;
+                                c.friendSkill[3] = 0;
+                                c.friendSkill[4] = 0;
+                                c.friendSkill[5] = 0;
+                                c.friendSkill[6] = 0;
+                                c.friendSkill[8] = 0;
+                                i.init();
                             }
-                        }, 109:
-                        {
-                            name: "城中村大佬（精英）", lv: 70, hp: 2460, maxHp: 2460, att: 0, def: 141, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 1, getAtt: 1, drop: [], des: "“你是个sb？”", skill: function () { var e = parseInt(.15 * (this.maxHp - this.hp)), t = 317 + o.def; return i.role.hp -= t, "【dalao使用「穿透」，你损失" + t + "点生命，小兰使用「崇拜」，dalao恢复" + e + "点生命！】" }, defSkill: void 0, winEvent: function () { return i.publicVar2[15] += 1, 0 == i.publicVar2[27] ? (i.publicVar2[27] = 1, "你从大佬身上找到一本书，获得《坎贝尔骨科手术学》书籍（请去看书界面使用）！") : "" }, lostEvent: function () {
-                                return i.money = 0, "你损失全部的金钱！！！"
+                            return "“可以，你们两个给我等好喽！”";
+                        },
+                        lostEvent: function () {
+                            if (0 == c.publicVar[8]) {
+                                c.ifFollow[1] = 0;
+                                c.publicVar[7] -= 700;
+                                c.friendSkill[1] = 0;
+                                c.friendSkill[3] = 0;
+                                c.friendSkill[4] = 0;
+                                c.friendSkill[5] = 0;
+                                c.friendSkill[6] = 0;
+                                c.friendSkill[8] = 0;
                             }
-                        }, 110:
-                        {
-                            name: "城市治安管理408分队", lv: 199, hp: 6222, maxHp: 6222, att: 405, def: 200, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 2, achieve: 1, getAtt: 1, drop: [[60, 7, 1, 2], [60, 7, 1, 2], [60, 7, 1, 2]], des: "“不许睡觉，听到没！”", skill: void 0, defSkill: void 0, winEvent: function () { return 0 == i.publicVar[8] && (i.ifFollow[1] = 0, i.publicVar[7] -= 700, i.friendSkill[1] = 0, i.friendSkill[3] = 0, i.friendSkill[4] = 0, i.friendSkill[5] = 0, i.friendSkill[6] = 0, i.friendSkill[8] = 0, c.init()), "“可以，你们两个给我等好喽！”" }, lostEvent: function () {
-                                return 0 == i.publicVar[8] && (i.ifFollow[1] = 0, i.publicVar[7] -= 700, i.friendSkill[1] = 0, i.friendSkill[3] = 0, i.friendSkill[4] = 0, i.friendSkill[5] = 0, i.friendSkill[6] = 0, i.friendSkill[8] = 0), i.money -= parseInt(.5 * i.money), c.init(), "你损失一半的金钱！"
+                            c.money -= parseInt(.5 * c.money);
+                            i.init();
+                            return "你损失一半的金钱！";
                             }
-                        }, 111:
-                        {
-                            name: "城中村大佬（精英）", lv: 70, hp: 2460, maxHp: 2460, att: 0, def: 121, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 1, getAtt: 1, drop: [], des: "“你是个sb？”", skill: function () { var e = 317 + o.def; return i.role.hp -= e, "【大佬使用「穿透」，你损失" + e + "点生命！】" }, defSkill: function () { var e = parseInt(.15 * (o.maxHp - i.role.hp) + 50); return i.role.hp += e, "【小兰对你使用「协助」，你恢复" + e + "点生命！】" }, winEvent: function () { return i.publicVar2[15] += 1, 0 == i.publicVar2[27] ? (i.publicVar2[27] = 1, "你从大佬身上找到一本书，获得《坎贝尔骨科手术学》书籍（请去看书界面使用）！") : "" }, lostEvent: function () {
-                                return "“老子打自己的女人，要你管？”"
+                    },
+                    111: {
+                        name: "城中村大佬（精英）",
+                        lv: 70,
+                        hp: 2460,
+                        maxHp: 2460,
+                        att: 0,
+                        def: 121,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“你是个sb？”",
+                        skill: function () {
+                            var e = 317 + o.def;
+                            c.role.hp -= e;
+                            return "【大佬使用「穿透」，你损失" + e + "点生命！】";
+                        },
+                        defSkill: function () {
+                            var e = parseInt(.15 * (o.maxHp - c.role.hp) + 50);
+                            c.role.hp += e;
+                            return "【小兰对你使用「协助」，你恢复" + e + "点生命！】";
+                        },
+                        winEvent: function () {
+                            c.publicVar2[15] += 1;
+                            if (0 == c.publicVar2[27]) {
+                                c.publicVar2[27] = 1;
+                                return "你从大佬身上找到一本书，获得《坎贝尔骨科手术学》书籍（请去看书界面使用）！";
                             }
-                        }, 112:
-                        {
-                            name: "皮衣男（小BOSS）", lv: 199, hp: 19999, maxHp: 19999, att: 0, def: 499, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 1, getAtt: 1, drop: [], des: "“你和她啥关系？”", skill: function () {
-                                var e = parseInt(699 - .5 * o.def - cc.find("Event/scr_fight").getComponent("scr_fight").correct[1]); if (4 == this.publicVar) {
+                            return "";
+                        },
+                        lostEvent: function () {
+                            return "“老子打自己的女人，要你管？”";
+                            }
+                    },
+                    112: {
+                        name: "皮衣男（小BOSS）",
+                        lv: 199,
+                        hp: 19999,
+                        maxHp: 19999,
+                        att: 0,
+                        def: 499,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“你和她啥关系？”",
+                        skill: function () {
+                            var e = parseInt(699 - .5 * o.def - cc.find("Event/scr_fight").getComponent("scr_fight").correct[1]);
+                            if (4 == this.publicVar) {
                                     var t = 3 * e;
-                                    return i.role.hp -= t, "【" + this.name + "使用「终结.剔骨」，你受到" + t + "点生命！】"
-                                } cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def), cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att), this.publicVar += 1; var n = parseInt(49 * this.publicVar); return i.role.hp -= e + n, "【" + this.name + "使用「放血」你受到" + e + "点伤害，附加" + n + "流血，攻防降低5%！】"
-                            }, defSkill: function () { var t = e("scr_public"), n = parseInt(.6 * (t.role.att() - t.role.def())), a = 100 * Math.random(); return a < 35 ? (e("scr_data").role.hp -= n, "【皮衣男使用「反震」，你损失" + n + "点生命！】") : "" }, winEvent: function () { return 0 == i.publicVar2[25] ? (i.publicVar2[25] = 1, "你从大佬身上找到一本书，获得《儿童手工DIY》书籍（请去看书界面使用）！") : "" }, lostEvent: function () {
-                                return "“老子打自己的女人，要你管？”"
+                                c.role.hp -= t;
+                                return "【" + this.name + "使用「终结.剔骨」，你受到" + t + "点生命！】";
                             }
-                        }, 113:
-                        {
-                            name: "皮衣男（小BOSS）", lv: 199, hp: 19999, maxHp: 19999, att: 0, def: 499, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 1, getAtt: 1, drop: [], des: "“你和她啥关系？”", skill: function () {
-                                var e = parseInt(499 - .3 * o.def - .5 * cc.find("Event/scr_fight").getComponent("scr_fight").correct[1]); if (4 == this.publicVar) {
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att);
+                            this.publicVar += 1;
+                            var n = parseInt(49 * this.publicVar);
+                            c.role.hp -= e + n;
+                            return "【" + this.name + "使用「放血」你受到" + e + "点伤害，附加" + n + "流血，攻防降低5%！】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_public"), n = parseInt(.6 * (t.role.att() - t.role.def()));
+                            if (100 * Math.random() < 35) {
+                                e("scr_data").role.hp -= n;
+                                return "【皮衣男使用「反震」，你损失" + n + "点生命！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            if (0 == c.publicVar2[25]) {
+                                c.publicVar2[25] = 1;
+                                return "你从大佬身上找到一本书，获得《儿童手工DIY》书籍（请去看书界面使用）！";
+                            }
+                            return "";
+                        },
+                        lostEvent: function () {
+                            return "“老子打自己的女人，要你管？”";
+                        }
+                    },
+                    113: {
+                        name: "皮衣男（小BOSS）",
+                        lv: 199,
+                        hp: 19999,
+                        maxHp: 19999,
+                        att: 0,
+                        def: 499,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“你和她啥关系？”",
+                        skill: function () {
+                            var e = parseInt(499 - .3 * o.def - .5 * cc.find("Event/scr_fight").getComponent("scr_fight").correct[1]);
+                            if (4 == this.publicVar) {
                                     var t = 3 * e;
-                                    return i.role.hp -= t, "【" + this.name + "使用「终结.剔骨」，你受到" + t + "点生命！】"
-                                } cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def), cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att), this.publicVar += 1; var n = parseInt(39 * this.publicVar); return i.role.hp -= e + n, "【" + this.name + "使用「放血」你受到" + e + "点伤害，附加" + n + "流血，攻防降低5%！】"
-                            }, defSkill: function () { var t = e("scr_public"), n = t.role.att() - t.role.def(), a = 100 * Math.random(); return a < 35 ? (e("scr_data").role.hp -= n, "【皮衣男使用「反震」，你损失" + n + "点生命！】") : "" }, winEvent: function () { return 0 == i.publicVar2[25] ? (i.publicVar2[25] = 1, "你从大佬身上找到一本书，获得《儿童手工DIY》书籍（请去看书界面使用）！") : "" }, lostEvent: void 0
-                        }, 201:
-                            { name: "眼镜王蛇（精英）", lv: 15, hp: 545, maxHp: 545, att: 1, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 3, 2, 1], [100, 23, 1, 2]], des: "呼哧~呼哧~", skill: function () { var t = Math.max(60 - o.def, 0); this.publicVar += 1; var n = t * this.publicVar; return e("scr_data").role.hp -= n, "【中毒：每回合损失" + n + "点生命（" + this.publicVar + "层）】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.choice[6] += 1, "" }, lostEvent: void 0 }, 202:
-                            { name: "逃犯（精英）", lv: 25, hp: 850, maxHp: 850, att: 80, def: 20, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 1, 2, 2], [100, 17, 1, 2]], des: "", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.2 * this.hp - o.def, 0)); return t.role.hp -= n, "【" + this.name + "使用「咆哮」，你受到" + n + "点伤害】" }, defSkillfunction: function () { var t = e("scr_public"), n = t.role.att() - t.role.def(), a = 100 * Math.random(); return a < 30 ? (e("scr_data").role.hp -= n, "【" + this.name + "使用「反震」，你损失" + n + "点生命！】") : "" }, winEvent: function () { var t = e("scr_data"); return t.choice[6] += 1, "" }, lostEvent: void 0 }, 203:
-                            { name: "机械人（被害妄想症）", lv: 45, hp: 1500, maxHp: 1500, att: 0, def: 60, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 17, 1, 2], [100, 99, 6, 3], [100, 17, 1, 2]], des: "“我必需得这么走路，别人才不会害我”", skill: function () { var t = e("scr_data"), n = 100 * Math.random(); if (n < 70) return "【机械人使用「电钻！」，但是戳歪了！】"; var a = 699 - o.def; return t.role.hp -= a, "【机械人使用「电钻！」，戳中！你损失" + a + "点生命】" }, defSkill: function () { return cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 40, "【机械人使用「神奇舞蹈」，太逗啦！你降低40点攻击】" }, winEvent: function () { var t = e("scr_data"); return t.choice[6] += 1, "" }, lostEvent: void 0 }, 204:
-                        {
-                            name: "女剑士（中二病他姐）", lv: 60, hp: 2100, maxHp: 2100, att: 310, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 27, 1, 2], [100, 99, 8, 3]], des: "“我在找一个小男孩”", skill: function () { var e = 100 * Math.random(); return e < 50 ? (cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 20, "【女剑士使用「弱点打击」，你降低20点防御】") : (cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 40, "【女剑士使用「弱点打击」，你降低40点攻击】") }, defSkill: function () {
-                                var t = 100 * Math.random(), n = Math.min(20 + 5 * this.publicVar, 40); if (t < n) {
-                                    var a = parseInt(.5 * o.att);
-                                    return e("scr_data").role.hp -= a, cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999, "【" + this.name + "使用「格挡」「反弹」，你减少" + a + "点生命！】"
-                                } return ""
-                            }, winEvent: function () { var t = e("scr_data"); return t.choice[6] += 1, 0 == t.skillLv[18] ? (t.skillLv[18] = 1, "【激活特性「攻击强化2」】") : "" }, lostEvent: void 0
-                        }, 205:
-                        {
-                            name: "天下第一乖（么么啾）", lv: 80, hp: 2680, maxHp: 2680, att: 0, def: 80, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 21, 1, 2], [100, 26, 2, 2]], des: "“m(_ _)m主银饶命啊！我是你的女仆(*?ω-q)? ”", skill: function () {
+                                c.role.hp -= t;
+                                return "【" + this.name + "使用「终结.剔骨」，你受到" + t + "点生命！】";
+                            }
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att);
+                            this.publicVar += 1;
+                            var n = parseInt(39 * this.publicVar);
+                            c.role.hp -= e + n;
+                            return "【" + this.name + "使用「放血」你受到" + e + "点伤害，附加" + n + "流血，攻防降低5%！】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_public"), n = t.role.att() - t.role.def();
+                            if (100 * Math.random() < 35) {
+                                e("scr_data").role.hp -= n;
+                                return "【皮衣男使用「反震」，你损失" + n + "点生命！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            if (0 == c.publicVar2[25]) {
+                                c.publicVar2[25] = 1;
+                                return "你从大佬身上找到一本书，获得《儿童手工DIY》书籍（请去看书界面使用）！";
+                            }
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    201: {
+                        name: "眼镜王蛇（精英）",
+                        lv: 15,
+                        hp: 545,
+                        maxHp: 545,
+                        att: 1,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 3, 2, 1], [100, 23, 1, 2]],
+                        des: "呼哧~呼哧~",
+                        skill: function () {
+                            var t = Math.max(60 - o.def, 0);
+                            this.publicVar += 1;
+                            var n = t * this.publicVar;
+                            e("scr_data").role.hp -= n;
+                            return "【中毒：每回合损失" + n + "点生命（" + this.publicVar + "层）】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    202: {
+                        name: "逃犯（精英）",
+                        lv: 25,
+                        hp: 850,
+                        maxHp: 850,
+                        att: 80,
+                        def: 20,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 1, 2, 2], [100, 17, 1, 2]],
+                        des: "",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.2 * this.hp - o.def, 0));
+                            t.role.hp -= n;
+                            return "【" + this.name + "使用「咆哮」，你受到" + n + "点伤害】";
+                        },
+                        defSkillfunction: function () {
+                            var t = e("scr_public"), n = t.role.att() - t.role.def();
+                            if (100 * Math.random() < 30) {
+                                e("scr_data").role.hp -= n;
+                                return "【" + this.name + "使用「反震」，你损失" + n + "点生命！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            e("scr_data").choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    203: {
+                        name: "机械人（被害妄想症）",
+                        lv: 45,
+                        hp: 1500,
+                        maxHp: 1500,
+                        att: 0,
+                        def: 60,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 17, 1, 2], [100, 99, 6, 3], [100, 17, 1, 2]],
+                        des: "“我必需得这么走路，别人才不会害我”",
+                        skill: function () {
+                            var t = e("scr_data");
+                            if (100 * Math.random() < 70) return "【机械人使用「电钻！」，但是戳歪了！】";
+                            var n = 699 - o.def;
+                            t.role.hp -= n;
+                            return "【机械人使用「电钻！」，戳中！你损失" + n + "点生命】";
+                        },
+                        defSkill: function () {
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 40;
+                            return "【机械人使用「神奇舞蹈」，太逗啦！你降低40点攻击】";
+                        },
+                        winEvent: function () {
+                            e("scr_data").choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    204: {
+                        name: "女剑士（中二病他姐）",
+                        lv: 60,
+                        hp: 2100,
+                        maxHp: 2100,
+                        att: 310,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 27, 1, 2], [100, 99, 8, 3]],
+                        des: "“我在找一个小男孩”",
+                        skill: function () {
+                            if (100 * Math.random() < 50) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 20;
+                                return "【女剑士使用「弱点打击」，你降低20点防御】";
+                            }
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 40;
+                            return "【女剑士使用「弱点打击」，你降低40点攻击】";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < Math.min(20 + 5 * this.publicVar, 40)) {
+                                var t = parseInt(.5 * o.att);
+                                e("scr_data").role.hp -= t;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999;
+                                return "【" + this.name + "使用「格挡」「反弹」，你减少" + t + "点生命！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.choice[6] += 1;
+                            if (0 == t.skillLv[18]) {
+                                t.skillLv[18] = 1;
+                                return "【激活特性「攻击强化2」】";
+                            }
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    205: {
+                        name: "天下第一乖（么么啾）",
+                        lv: 80,
+                        hp: 2680,
+                        maxHp: 2680,
+                        att: 0,
+                        def: 80,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 21, 1, 2], [100, 26, 2, 2]],
+                        des: "“m(_ _)m主银饶命啊！我是你的女仆(*?ω-q)? ”",
+                        skill: function () {
                                 var t = e("scr_data"), n = 100 * Math.random();
                                 if (n < 30) {
-                                    var a = 233;
-                                    return t.role.hp += a, "【么么啾给在给你捏脚，你恢复" + a + "点生命！】"
+                                t.role.hp += 233;
+                                return "【么么啾给在给你捏脚，你恢复233点生命！】";
+                            }
+                            if (n >= 30 && n < 70) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 99;
+                                return "【么么啾袭击了你的胸部，你降低130点防御】";
                                 }
-                                if (n >= 30 && n < 70) return cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 99, "【么么啾袭击了你的胸部，你降低130点防御】";
                                 if (n >= 70) {
-                                    var c = parseInt(3 * (660 - o.def));
-                                    return t.role.hp -= c, "【么么啾使用「大铁锤」——绝后一击！你损失" + c + "点生命！】"
+                                var a = parseInt(3 * (660 - o.def));
+                                t.role.hp -= a;
+                                return "【么么啾使用「大铁锤」——绝后一击！你损失" + a + "点生命！】";
+                            }
+                        },
+                        defSkillfunction: function () {
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 40;
+                            return "【么么啾使用「萌你一脸」，你降低40点攻击！】";
+                        },
+                        winEvent: function () {
+                            e("scr_data").choice[6] += 1;
+                            return "“呜呜呜，主银你不要我吗\n(?﹏?)”";
+                        },
+                        lostEvent: void 0
+                    },
+                    206: {
+                        name: "红狼",
+                        lv: 120,
+                        hp: 12e3,
+                        maxHp: 12e3,
+                        att: 360,
+                        def: 140,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 9, 3, 1], [100, 23, 2, 2]],
+                        des: "“喵？”「晓风提示：从此怪开始，后续怪血量激增，但是攻防下调~」",
+                        skill: function () {
+                            var t = e("scr_data"), n = 100 * Math.random();
+                            this.publicVar += 1;
+                            if (n < Math.min(20 + 4 * this.publicVar, 50)) {
+                                var a = parseInt(1.5 * this.att - o.def);
+                                t.role.hp -= a;
+                                return "【" + this.name + "使用「暴击」，你损失" + a + "点生命！】";
                                 }
-                            }, defSkillfunction: function () { return cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 40, "【么么啾使用「萌你一脸」，你降低40点攻击！】" }, winEvent: function () { var t = e("scr_data"); return t.choice[6] += 1, "“呜呜呜，主银你不要我吗\n(?﹏?)”" }, lostEvent: void 0
-                        }, 206:
-                        {
-                            name: "红狼"
-                            , lv: 120, hp: 12e3, maxHp: 12e3, att: 360, def: 140, publicVar: 0, escapeRate:
-                                -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop:
-                                [[100, 9, 3, 1], [100, 23, 2, 2]], des: "“喵？”「晓风提示：从此怪开始，后续怪血量激增，但是攻防下调~」"
-                            , skill:
-                                function () {
-                                    var t = e("scr_data"), n = 100 * Math.random(); this.publicVar += 1; var a = Math.min(20 + 4 * this.publicVar, 50); if (n < a) {
-                                        var c = parseInt(1.5 * this.att - o.def);
-                                        return t.role.hp -= c, "【" + this.name + "使用「暴击」，你损失" + c + "点生命！】"
-                                    } return ""
-                                }, defSkill:
-                                function () {
-                                    var e = 100 * Math.random(), t = Math.min(20 + 4 * this.publicVar, 50);
-                                    return e < t ? (cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999, "【" + this.name + "躲避了你的攻击！】") : ""
-                                }, winEvent:
-                                function () { return i.choice[6] += 1, "" }, lostEvent:
-                                void 0
-                        }, 207:
-                            { name: "8号拳师", lv: 155, hp: 15155, maxHp: 15155, att: 470, def: 180, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 26, 2, 2], [100, 20, 2, 2]], des: "“已经好多年没人来过这里啦~”", skill: function () { this.publicVa += 1; var e = this.att, t = parseInt(.1 * this.att * this.publicVar); return i.role.hp -= e + t, cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def), "【" + this.name + "使用「碎骨爆裂拳！」你受到" + e + "点伤害，附加" + t + "流血，防御降低5%！】" }, defSkill: function () { return this.att += parseInt(.05 * this.att), "【" + this.name + "使用「集中」，" + this.name + "攻击强化！】" }, winEvent: function () { return i.choice[6] += 1, "" }, lostEvent: void 0 }, 209:
-                        {
-                            name: "双枪老太婆", lv: 245, hp: 24120, maxHp: 24120, att: 0, def: 280, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 14, 6, 2], [100, 22, 2, 2]], des: "“其实我最擅长的不是枪~”", skill: function () {
-                                var e = 100 * Math.random(); if (e < 50) {
-                                    var t = parseInt(.25 * i.role.hp);
-                                    return i.role.hp -= t, "【" + this.name + "使用「P18C手枪」！你损失" + t + "点生命(当前生命的25%)！】"
-                                } var t = parseInt(.25 * (o.maxHp - i.role.hp)); return i.role.hp -= t, "【" + this.name + "使用「AKM突击枪」！你损失" + t + "点生命(已损失生命的25%)！】"
-                            }, defSkill: function () { var e = 100 * Math.random(), t = 30 + 10 * this.publicVar; return e < t ? (this.publicVar += 1, cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999, "【" + this.name + "闪避了你的攻击！并且下次闪避概率提升！】") : "" }, winEvent: function () { var t = e("scr_data"); return t.choice[6] += 1, t.randomEvent[3] += 1, 0 == t.skillLv[22] ? (t.skillLv[22] = 1, "【激活特性「攻击强化3」】") : "" }, lostEvent: void 0
-                        }, 210:
-                        {
-                            name: "自爆蛋", lv: 300, hp: 99999, maxHp: 99999, att: 0, def: 350, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 13, 1, 2], [100, 25, 2, 2]], des: "惹不起~惹不起~", skill: function () { return this.def += parseInt(.1 * this.def), "【" + this.name + "就这么静静的看着你~】" }, defSkill: function () {
+                            return "";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < Math.min(20 + 4 * this.publicVar, 50)) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999;
+                                return "【" + this.name + "躲避了你的攻击！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            c.choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    207: {
+                        name: "8号拳师",
+                        lv: 155,
+                        hp: 15155,
+                        maxHp: 15155,
+                        att: 470,
+                        def: 180,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 26, 2, 2], [100, 20, 2, 2]],
+                        des: "“已经好多年没人来过这里啦~”",
+                        skill: function () {
+                            this.publicVa += 1;
+                            var e = this.att, t = parseInt(.1 * this.att * this.publicVar);
+                            c.role.hp -= e + t;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def);
+                            return "【" + this.name + "使用「碎骨爆裂拳！」你受到" + e + "点伤害，附加" + t + "流血，防御降低5%！】";
+                        },
+                        defSkill: function () {
+                            this.att += parseInt(.05 * this.att);
+                            return "【" + this.name + "使用「集中」，" + this.name + "攻击强化！】";
+                        },
+                        winEvent: function () {
+                            c.choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    209: {
+                        name: "双枪老太婆",
+                        lv: 245,
+                        hp: 24120,
+                        maxHp: 24120,
+                        att: 0,
+                        def: 280,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 14, 6, 2], [100, 22, 2, 2]],
+                        des: "“其实我最擅长的不是枪~”",
+                        skill: function () {
+                            if (100 * Math.random() < 50) {
+                                var e = parseInt(.25 * c.role.hp);
+                                c.role.hp -= e;
+                                return "【" + this.name + "使用「P18C手枪」！你损失" + e + "点生命(当前生命的25%)！】";
+                            }
+                            e = parseInt(.25 * (o.maxHp - c.role.hp));
+                            c.role.hp -= e;
+                            return "【" + this.name + "使用「AKM突击枪」！你损失" + e + "点生命(已损失生命的25%)！】";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < 30 + 10 * this.publicVar) {
+                                this.publicVar += 1;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999;
+                                return "【" + this.name + "闪避了你的攻击！并且下次闪避概率提升！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.choice[6] += 1;
+                            t.randomEvent[3] += 1;
+                            if (0 == t.skillLv[22]) {
+                                t.skillLv[22] = 1;
+                                return "【激活特性「攻击强化3」】";
+                            }
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    210: {
+                        name: "自爆蛋",
+                        lv: 300,
+                        hp: 99999,
+                        maxHp: 99999,
+                        att: 0,
+                        def: 350,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 13, 1, 2], [100, 25, 2, 2]],
+                        des: "惹不起~惹不起~",
+                        skill: function () {
+                            this.def += parseInt(.1 * this.def);
+                            return "【" + this.name + "就这么静静的看着你~】";
+                        },
+                        defSkill: function () {
                                 if (this.publicVar < 8) {
                                     var e = parseInt(this.def);
-                                    return i.role.hp -= e, "【" + this.name + "「蛋身一震」！你受到" + e + "点反弹伤害！】"
-                                } return i.role.hp -= 9999999, "【自爆！！！！】"
-                            }, winEvent: function () { return i.choice[6] += 1, "" }, lostEvent: function () {
-                                return "【天啦噜！自爆蛋爆炸啦啊啊啊啊！你被炸飞啦~】"
+                                c.role.hp -= e;
+                                return "【" + this.name + "「蛋身一震」！你受到" + e + "点反弹伤害！】";
                             }
-                        }, 211:
-                        {
-                            name: "机甲少女", lv: 380, hp: 36570, maxHp: 36570, att: 1143, def: 440, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 27, 4, 2], [100, 21, 2, 2]], des: "“(?ω?)hiahiahia”\n「碾压」技能效果：对于防御低于自身的目标造成2倍伤害", skill: function () {
+                            c.role.hp -= 9999999;
+                            return "【自爆！！！！】";
+                        },
+                        winEvent: function () {
+                            c.choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: function () {
+                            return "【天啦噜！自爆蛋爆炸啦啊啊啊啊！你被炸飞啦~】";
+                            }
+                    },
+                    211: {
+                        name: "机甲少女",
+                        lv: 380,
+                        hp: 36570,
+                        maxHp: 36570,
+                        att: 1143,
+                        def: 440,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 27, 4, 2], [100, 21, 2, 2]],
+                        des: "“(?ω?)hiahiahia”\n「碾压」技能效果：对于防御低于自身的目标造成2倍伤害",
+                        skill: function () {
                                 if (o.def < this.def) {
                                     var e = 2 * (this.att - o.def);
-                                    return i.role.hp -= e, "【机甲少女使用「碾压」对你造成" + e + "点伤害】"
-                                } return this.def += parseInt(.3 * this.def), "【机甲少女使用「护甲强化」防御增加30%】"
-                            }, defSkill: function () {
-                                var e = 100 * Math.random(), t = Math.min(20 + 5 * this.publicVar, 100); if (e < t) {
-                                    var n = parseInt(o.att);
-                                    return i.role.hp -= n, "【机甲少女使用「机甲护体」，你受到" + n + "点弹刀伤害！（你攻击的100%）】"
-                                } return this.publicVar += 1, "【机甲少女「机甲护体」触发几率提高！】"
-                            }, winEvent: function () { return i.choice[6] += 1, "" }, lostEvent: void 0
-                        }, 213:
-                        {
-                            name: "炮击少女", lv: 600, hp: 60815, maxHp: 60815, att: 1804, def: 700, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 26, 4, 2], [100, 20, 4, 2]], des: "“要来一炮吗？”", skill: function () {
-                                if (this.publicVar % 3 == 0) return "【" + this.name + "使用「战争践踏！」，你被一脚剁飞啦！】"; if (this.publicVar % 3 == 1) {
+                                c.role.hp -= e;
+                                return "【机甲少女使用「碾压」对你造成" + e + "点伤害】";
+                            }
+                            this.def += parseInt(.3 * this.def);
+                            return "【机甲少女使用「护甲强化」防御增加30%】";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < Math.min(20 + 5 * this.publicVar, 100)) {
+                                var e = parseInt(o.att);
+                                c.role.hp -= e;
+                                return "【机甲少女使用「机甲护体」，你受到" + e + "点弹刀伤害！（你攻击的100%）】";
+                            }
+                            this.publicVar += 1;
+                            return "【机甲少女「机甲护体」触发几率提高！】";
+                        },
+                        winEvent: function () {
+                            c.choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    213: {
+                        name: "炮击少女",
+                        lv: 600,
+                        hp: 60815,
+                        maxHp: 60815,
+                        att: 1804,
+                        def: 700,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 26, 4, 2], [100, 20, 4, 2]],
+                        des: "“要来一炮吗？”",
+                        skill: function () {
+                            if (this.publicVar % 3 == 0) return "【" + this.name + "使用「战争践踏！」，你被一脚剁飞啦！】";
+                            if (this.publicVar % 3 == 1) {
                                     var e = 4 * this.att;
-                                    return i.role.hp -= e, "【" + this.name + "使用「对空一击！」！你损失" + e + "点生命！】"
-                                } return this.publicVar % 3 == 2 ? (this.att += parseInt(.4 * this.att), this.hp += parseInt(.3 * this.maxHp), "【" + this.name + "坐地点了一根烟，吐了一个烟圈，生命恢复30%，攻击提高40%！】") : void (this.publicVar += 1)
-                            }, defSkill: void 0, winEvent: function () { return i.choice[6] += 1, "" }, lostEvent: void 0
-                        }, 214:
-                        {
-                            name: "吾王", lv: 750, hp: 72e3, maxHp: 72e3, att: 2299, def: 999, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 10, 1, 2], [100, 11, 1, 2]], des: "“嗷嗷嗷~吃早饭咯~”\n「不屈的意志！」技能效果:如果对方生命百分比高于自身，则造成3倍无视防御的伤害！并恢复自身10%生命", skill: function () {
-                                var e = i.role.hp / o.maxHp / (this.hp / this.maxHp); if (e > 1) {
-                                    var t = 3 * this.att;
-                                    return i.role.hp -= t, this.hp += parseInt(.1 * this.maxHp), this.publicVar -= 3, "【吾王使用「不屈的意志！」，造成" + t + "点伤害！自身恢复10%生命！吾王怒气减3】"
-                                } var n = 100 * Math.random(), a = Math.min(30 + 5 * this.publicVar, 100); if (n < a) {
-                                    var t = parseInt(1.2 * this.att);
-                                    return i.role.hp -= t, this.publicVar -= 1, "【吾王使用「誓约胜利之剑！暴击！」，造成" + t + "点伤害！吾王怒气减1】"
-                                } var t = this.att - o.def; return i.role.hp -= t, this.hp += parseInt(.1 * this.maxHp), this.publicVar += 1, "【吾王使用「誓约胜利之剑！」，造成" + t + "点伤害，并获得2点怒气（下次暴击率提高！）】"
-                            }, defSkill: function () { var e = 100 * Math.random(), t = Math.min(30 + 5 * this.publicVar, 60); return e < t ? (this.att += parseInt(.05 * this.att), cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999, "【" + this.name + "使用「风王结界」，免疫伤害，攻击增加5%，！】") : (this.publicVar += 2, "【吾王获得2点怒气（下次结界触发几率提高！）】") }, winEvent: function () { return i.choice[6] += 1, "" }, lostEvent: void 0
-                        }, 215:
-                            { name: "晓风", lv: 999, hp: 99999, maxHp: 99999, att: 0, def: 1999, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 999, achieve: 0, getAtt: 1, drop: [[100, 15, 3, 2]], des: "", skill: void 0, defSkill: function () { var e = ["「对于国产游戏，」”", "「我始终坚信，」", "「什么样的环境孕育出什么样的作品。」", "「那些嘲讽国产游戏的人，」", "「本质上是在嘲讽自己————你低估了自己的力量。」”", "「国产游戏的未来，」", "「在你的手中，」", "「而不是开发商或者平台...」", "「一起共勉吧。晓风 2017.10.16」"], t = ""; return "undefined" != typeof e[this.publicVar] && (t = e[this.publicVar]), this.publicVar += 1, this.def -= 200, t }, winEvent: function () { return i.choice[6] += 1, "“再会吧~朋友...”" }, lostEvent: void 0 }, 401:
-                        {
-                            name: "城管1队", lv: 100, hp: 16e3, maxHp: 16e3, att: 199, def: 120, publicVar: 0, escapeRate: -9567, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 50, 3]], des: "", skill: function () { var e = parseInt(this.att - .3 * o.def + this.publicVar); return i.role.hp -= e, "【" + this.name + "使用「连拖带拽」！你损失" + e + "点生命！】" }, defSkill: function () { return this.publicVar += 20, "【" + this.name + "使用「抱大腿」！你降低20点防御】" }, winEvent: function () { return i.orderTimes[4] += 4, c.save(), "【奖励：烟瘾永久降低4%】“不想走是吧？可以的！”" }, lostEvent: function () {
-                                return i.publicVar3[2] = 1, i.ifFollow[0] = 0, i.ifFollow[1] = 0, i.publicVar[13] = 1, c.init(), i.ifFollow[0] > 0 ? "【你被强行赶出城...你与晓月失去了联系。】" : "【你被强行赶出城...】"
+                                c.role.hp -= e;
+                                return "【" + this.name + "使用「对空一击！」！你损失" + e + "点生命！】";
                             }
-                        }, 402:
-                        {
-                            name: "城管2队", lv: 140, hp: 23333, maxHp: 23333, att: 280, def: 160, publicVar: 0, escapeRate: -9567, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[100, 99, 80, 3]], des: "", skill: function () { var e = 100 * Math.random(), t = parseInt(this.att - .3 * o.def), n = 30 + 5 * this.publicVar; return e < n ? (t = 2 * t, i.role.hp -= t, "【" + this.name + "使用「致命一击」，你损失" + t + "点生命！】") : (this.publicVar += 5, i.role.hp -= t, "【" + this.name + "使用「电棍」，你损失" + t + "点生命！】") }, defSkill: function () { var e = 100 * Math.random(); return e < 30 ? (cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999, "【" + this.name + "使用「防爆盾」！】") : "" }, winEvent: function () { return i.money += 100, c.save(), "【奖励：10元钱】“小伙子，虽然你确实有两下子，但是你是不可能干过政府的~”" }, lostEvent: function () {
-                                return i.publicVar3[2] = 1, i.ifFollow[0] = 0, i.ifFollow[1] = 0, i.publicVar[13] = 1, c.init(), i.ifFollow[0] > 0 ? "【你被强行赶出城...你与晓月失去了联系。】" : "【你被强行赶出城...】"
+                            if (this.publicVar % 3 == 2) {
+                                this.att += parseInt(.4 * this.att);
+                                this.hp += parseInt(.3 * this.maxHp);
+                                return "【" + this.name + "坐地点了一根烟，吐了一个烟圈，生命恢复30%，攻击提高40%！】";
                             }
-                        }, 403:
-                        {
-                            name: "城管3队", lv: 200, hp: 33332, maxHp: 33332, att: 400, def: 240, publicVar: 0, escapeRate: -9567, enemyEscapeRate: 0, lostHealth: 3, achieve: 0, getAtt: 1, drop: [[100, 99, 120, 3]], des: "", skill: function () { var e = parseInt(this.att - .3 * o.def); return i.role.hp -= e, this.hp += e, "【" + this.name + "使用「强行验血」，你损失" + e + "点生命，3队恢复" + e + "点生命！】" }, defSkill: function () { return this.att += 10, "【" + this.name + "攻击+10！】" }, winEvent: function () { return i.itemNum2[12] += 10, c.save(), "【奖励：啤酒*10】“报告，你惹了一个惹不起的人！”" }, lostEvent: function () {
-                                return i.publicVar3[2] = 1, i.ifFollow[0] = 0, i.ifFollow[1] = 0, i.publicVar[13] = 1, c.init(), i.ifFollow[0] > 0 ? "【你被强行赶出城...你与晓月失去了联系。】" : "【你被强行赶出城...】"
+                            this.publicVar += 1;
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            c.choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    214: {
+                        name: "吾王",
+                        lv: 750,
+                        hp: 72e3,
+                        maxHp: 72e3,
+                        att: 2299,
+                        def: 999,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 10, 1, 2], [100, 11, 1, 2]],
+                        des: "“嗷嗷嗷~吃早饭咯~”\n「不屈的意志！」技能效果:如果对方生命百分比高于自身，则造成3倍无视防御的伤害！并恢复自身10%生命",
+                        skill: function () {
+                            if (c.role.hp / o.maxHp / (this.hp / this.maxHp) > 1) {
+                                var e = 3 * this.att;
+                                c.role.hp -= e;
+                                this.hp += parseInt(.1 * this.maxHp);
+                                this.publicVar -= 3;
+                                return "【吾王使用「不屈的意志！」，造成" + e + "点伤害！自身恢复10%生命！吾王怒气减3】";
                             }
-                        }, 404:
-                        {
-                            name: "城管4队", lv: 280, hp: 48865, maxHp: 48865, att: 560, def: 330, publicVar: 0, escapeRate: -9567, enemyEscapeRate: 0, lostHealth: 4, achieve: 0, getAtt: 1, drop: [[100, 99, 170, 3]], des: "", skill: function () { var e = parseInt(this.att - .3 * o.def), t = Math.min(20 + 2 * this.publicVar, 60), n = 100 * Math.random(); return n < t ? (e = 5 * e, i.role.hp -= e, "【" + this.name + "使用「枪击」！击中！你损失" + e + "点生命！】") : "【" + this.name + "使用「枪击」，但是未命中！】" }, defSkill: function () { return this.publicVar += 1, this.att += 15, "【" + this.name + "使用集中，攻击+15，且下次枪击命中率提高！】" }, winEvent: function () { return i.itemNum2[14] += 20, c.save(), "【奖励：子弹*20】“老大要来了！”" }, lostEvent: function () {
-                                return i.publicVar3[2] = 1, i.ifFollow[0] = 0, i.ifFollow[1] = 0, i.publicVar[13] = 1, c.init(), i.ifFollow[0] > 0 ? "【你被强行赶出城...你与晓月失去了联系。】" : "【你被强行赶出城...】"
+                            if (100 * Math.random() < Math.min(30 + 5 * this.publicVar, 100)) {
+                                e = parseInt(1.2 * this.att);
+                                c.role.hp -= e;
+                                this.publicVar -= 1;
+                                return "【吾王使用「誓约胜利之剑！暴击！」，造成" + e + "点伤害！吾王怒气减1】";
                             }
-                        }, 405:
-                        {
-                            name: "陈晓（大大）", lv: 380, hp: 65865, maxHp: 65865, att: 762, def: 450, publicVar: 0, escapeRate: -9567, enemyEscapeRate: 0, lostHealth: 4, achieve: 0, getAtt: 1, drop: [[100, 99, 230, 3]], des: "“小伙，看我，帅不帅？”", skill: function () { var e = this.att + o.def, t = parseInt(.015 * (this.maxHp - this.hp)); return i.role.hp -= e, this.hp += t, "【陈晓使用「晓风.霸王拳」，对你造成" + e + "点伤害，自身恢复" + t + "点生命】" }, defSkill: function () {
-                                var t = 100 * Math.random(), n = Math.min(3 * this.publicVar + 20, 60); if (t < n) {
-                                    var a = parseInt(.3 * o.att);
-                                    return e("scr_data").role.hp -= a, cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999, "【" + this.name + "使用「格挡」「反弹」，你减少" + a + "点生命！】"
-                                } return "【陈晓下次格挡概率增加！】"
-                            }, winEvent: function () { return i.itemNum2[15] += 5, i.itemNum2[7] += 3, i.itemNum2[12] += 5, i.orderTimes[4] + 15, c.save(), "【奖励：烟瘾降低15%，烟*3，晓风披肩*5，啤酒*5！】“但愿你能赢过政府，虽然我是政府的狗...”" }, lostEvent: function () {
-                                return i.publicVar3[2] = 1, i.ifFollow[0] = 0, i.ifFollow[1] = 0, i.publicVar[13] = 1, c.init(), i.ifFollow[0] > 0 ? "【你被强行赶出城...你与晓月失去了联系。】" : "【你被强行赶出城...】"
+                            e = this.att - o.def;
+                            c.role.hp -= e;
+                            this.hp += parseInt(.1 * this.maxHp);
+                            this.publicVar += 1;
+                            return "【吾王使用「誓约胜利之剑！」，造成" + e + "点伤害，并获得2点怒气（下次暴击率提高！）】";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < Math.min(30 + 5 * this.publicVar, 60)) {
+                                this.att += parseInt(.05 * this.att);
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999;
+                                return "【" + this.name + "使用「风王结界」，免疫伤害，攻击增加5%，！】";
                             }
-                        }, 406:
-                        {
-                            name: "挖掘机（BOSS）", lv: 999, hp: 299999, maxHp: 299999, att: 0, def: 1299, publicVar: 0, escapeRate: -9567, enemyEscapeRate: -9999, lostHealth: 5, achieve: 0, getAtt: 1, drop: [[100, 12, 1, 1]], des: "“这是专门为你们这些刁民研发的隐藏武器，除了高层，世界上没有人知道，因为知道的都死了！”\n「特点：钢甲巨兽，慢热型对手；高血高防，但前期伤害较低」", skill: function () {
-                                var e = 1e4 + this.enemyEscapeRate; if (this.publicVar += 1, this.publicVar % 7 == 0) {
+                            this.publicVar += 2;
+                            return "【吾王获得2点怒气（下次结界触发几率提高！）】";
+                        },
+                        winEvent: function () {
+                            c.choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    215: {
+                        name: "晓风",
+                        lv: 999,
+                        hp: 99999,
+                        maxHp: 99999,
+                        att: 0,
+                        def: 1999,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 999,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 15, 3, 2]],
+                        des: "",
+                        skill: void 0,
+                        defSkill: function () {
+                            var e = ["「对于国产游戏，」”", "「我始终坚信，」", "「什么样的环境孕育出什么样的作品。」", "「那些嘲讽国产游戏的人，」", "「本质上是在嘲讽自己————你低估了自己的力量。」”", "「国产游戏的未来，」", "「在你的手中，」", "「而不是开发商或者平台...」", "「一起共勉吧。晓风 2017.10.16」"], t = "";
+                            "undefined" != typeof e[this.publicVar] && (t = e[this.publicVar]);
+                            this.publicVar += 1;
+                            this.def -= 200;
+                            return t;
+                        },
+                        winEvent: function () {
+                            c.choice[6] += 1;
+                            return "“再会吧~朋友...”";
+                        },
+                        lostEvent: void 0
+                    },
+                    401: {
+                        name: "城管1队",
+                        lv: 100,
+                        hp: 16e3,
+                        maxHp: 16e3,
+                        att: 199,
+                        def: 120,
+                        publicVar: 0,
+                        escapeRate: -9567,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 50, 3]],
+                        des: "",
+                        skill: function () {
+                            var e = parseInt(this.att - .3 * o.def + this.publicVar);
+                            c.role.hp -= e;
+                            return "【" + this.name + "使用「连拖带拽」！你损失" + e + "点生命！】";
+                        },
+                        defSkill: function () {
+                            this.publicVar += 20;
+                            return "【" + this.name + "使用「抱大腿」！你降低20点防御】";
+                        },
+                        winEvent: function () {
+                            c.orderTimes[4] += 4;
+                            i.save();
+                            return "【奖励：烟瘾永久降低4%】“不想走是吧？可以的！”";
+                        },
+                        lostEvent: function () {
+                            c.publicVar3[2] = 1;
+                            c.ifFollow[0] = 0;
+                            c.ifFollow[1] = 0;
+                            c.publicVar[13] = 1;
+                            i.init();
+                            return c.ifFollow[0] > 0 ? "【你被强行赶出城...你与晓月失去了联系。】" : "【你被强行赶出城...】";
+                        }
+                    },
+                    402: {
+                        name: "城管2队",
+                        lv: 140,
+                        hp: 23333,
+                        maxHp: 23333,
+                        att: 280,
+                        def: 160,
+                        publicVar: 0,
+                        escapeRate: -9567,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 80, 3]],
+                        des: "",
+                        skill: function () {
+                            var e = 100 * Math.random(), t = parseInt(this.att - .3 * o.def);
+                            if (e < 30 + 5 * this.publicVar) {
+                                t *= 2;
+                                c.role.hp -= t;
+                                return "【" + this.name + "使用「致命一击」，你损失" + t + "点生命！】";
+                            }
+                            this.publicVar += 5;
+                            c.role.hp -= t;
+                            return "【" + this.name + "使用「电棍」，你损失" + t + "点生命！】";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < 30) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999;
+                                return "【" + this.name + "使用「防爆盾」！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            c.money += 100;
+                            i.save();
+                            return "【奖励：10元钱】“小伙子，虽然你确实有两下子，但是你是不可能干过政府的~”";
+                        },
+                        lostEvent: function () {
+                            c.publicVar3[2] = 1;
+                            c.ifFollow[0] = 0;
+                            c.ifFollow[1] = 0;
+                            c.publicVar[13] = 1;
+                            i.init();
+                            return c.ifFollow[0] > 0 ? "【你被强行赶出城...你与晓月失去了联系。】" : "【你被强行赶出城...】";
+                        }
+                    },
+                    403: {
+                        name: "城管3队",
+                        lv: 200,
+                        hp: 33332,
+                        maxHp: 33332,
+                        att: 400,
+                        def: 240,
+                        publicVar: 0,
+                        escapeRate: -9567,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 120, 3]],
+                        des: "",
+                        skill: function () {
+                            var e = parseInt(this.att - .3 * o.def);
+                            c.role.hp -= e;
+                            this.hp += e;
+                            return "【" + this.name + "使用「强行验血」，你损失" + e + "点生命，3队恢复" + e + "点生命！】";
+                        },
+                        defSkill: function () {
+                            this.att += 10;
+                            return "【" + this.name + "攻击+10！】";
+                        },
+                        winEvent: function () {
+                            c.itemNum2[12] += 10;
+                            i.save();
+                            return "【奖励：啤酒*10】“报告，你惹了一个惹不起的人！”";
+                        },
+                        lostEvent: function () {
+                            c.publicVar3[2] = 1;
+                            c.ifFollow[0] = 0;
+                            c.ifFollow[1] = 0;
+                            c.publicVar[13] = 1;
+                            i.init();
+                            return c.ifFollow[0] > 0 ? "【你被强行赶出城...你与晓月失去了联系。】" : "【你被强行赶出城...】";
+                            }
+                    },
+                    404: {
+                        name: "城管4队",
+                        lv: 280,
+                        hp: 48865,
+                        maxHp: 48865,
+                        att: 560,
+                        def: 330,
+                        publicVar: 0,
+                        escapeRate: -9567,
+                        enemyEscapeRate: 0,
+                        lostHealth: 4,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 170, 3]],
+                        des: "",
+                        skill: function () {
+                            var e = parseInt(this.att - .3 * o.def), t = Math.min(20 + 2 * this.publicVar, 60);
+                            if (100 * Math.random() < t) {
+                                e *= 5;
+                                c.role.hp -= e;
+                                return "【" + this.name + "使用「枪击」！击中！你损失" + e + "点生命！】";
+                            }
+                            return "【" + this.name + "使用「枪击」，但是未命中！】";
+                        },
+                        defSkill: function () {
+                            this.publicVar += 1;
+                            this.att += 15;
+                            return "【" + this.name + "使用集中，攻击+15，且下次枪击命中率提高！】";
+                        },
+                        winEvent: function () {
+                            c.itemNum2[14] += 20;
+                            i.save();
+                            return "【奖励：子弹*20】“老大要来了！”";
+                        },
+                        lostEvent: function () {
+                            c.publicVar3[2] = 1;
+                            c.ifFollow[0] = 0;
+                            c.ifFollow[1] = 0;
+                            c.publicVar[13] = 1;
+                            i.init();
+                            return c.ifFollow[0] > 0 ? "【你被强行赶出城...你与晓月失去了联系。】" : "【你被强行赶出城...】";
+                            }
+                    },
+                    405: {
+                        name: "陈晓（大大）",
+                        lv: 380,
+                        hp: 65865,
+                        maxHp: 65865,
+                        att: 762,
+                        def: 450,
+                        publicVar: 0,
+                        escapeRate: -9567,
+                        enemyEscapeRate: 0,
+                        lostHealth: 4,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 230, 3]],
+                        des: "“小伙，看我，帅不帅？”",
+                        skill: function () {
+                            var e = this.att + o.def, t = parseInt(.015 * (this.maxHp - this.hp));
+                            c.role.hp -= e;
+                            this.hp += t;
+                            return "【陈晓使用「晓风.霸王拳」，对你造成" + e + "点伤害，自身恢复" + t + "点生命】";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < Math.min(3 * this.publicVar + 20, 60)) {
+                                var t = parseInt(.3 * o.att);
+                                e("scr_data").role.hp -= t;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999;
+                                return "【" + this.name + "使用「格挡」「反弹」，你减少" + t + "点生命！】";
+                            }
+                            return "【陈晓下次格挡概率增加！】";
+                        },
+                        winEvent: function () {
+                            c.itemNum2[15] += 5;
+                            c.itemNum2[7] += 3;
+                            c.itemNum2[12] += 5;
+                            c.orderTimes[4];
+                            i.save();
+                            return "【奖励：烟瘾降低15%，烟*3，晓风披肩*5，啤酒*5！】“但愿你能赢过政府，虽然我是政府的狗...”";
+                        },
+                        lostEvent: function () {
+                            c.publicVar3[2] = 1;
+                            c.ifFollow[0] = 0;
+                            c.ifFollow[1] = 0;
+                            c.publicVar[13] = 1;
+                            i.init();
+                            return c.ifFollow[0] > 0 ? "【你被强行赶出城...你与晓月失去了联系。】" : "【你被强行赶出城...】";
+                            }
+                    },
+                    406: {
+                        name: "挖掘机（BOSS）",
+                        lv: 999,
+                        hp: 299999,
+                        maxHp: 299999,
+                        att: 0,
+                        def: 1299,
+                        publicVar: 0,
+                        escapeRate: -9567,
+                        enemyEscapeRate: -9999,
+                        lostHealth: 5,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 12, 1, 1]],
+                        des: "“这是专门为你们这些刁民研发的隐藏武器，除了高层，世界上没有人知道，因为知道的都死了！”\n「特点：钢甲巨兽，慢热型对手；高血高防，但前期伤害较低」",
+                        skill: function () {
+                            var e = 1e4 + this.enemyEscapeRate;
+                            this.publicVar += 1;
+                            if (this.publicVar % 7 == 0) {
                                     var t = Math.max(parseInt(.04 * this.def * e + 999 - o.def), 1);
-                                    return i.role.hp -= t, this.hp += t, this.enemyEscapeRate += 1, "【挖掘机使用「加农炮！」你受到" + t + "点伤害！挖掘机充能+1，恢复" + t + "点生命！（回复量与挖掘机充能量/主角防御有关）】"
-                                } if (this.publicVar % 4 == 0) return this.enemyEscapeRate += 4, "【挖掘机使用「机甲进化」，充能+4！】"; var n = Math.max(parseInt(.01 * this.def * e + 499 - .5 * o.def), 0); return i.role.hp -= n, "【挖掘机「喷油！灼烧」你受到" + n + "点灼烧伤害（伤害与挖掘机充能量/主角防御有关）！】"
-                            }, defSkill: function () {
-                                this.publicVar < 1 && (this.publicVar += 1); var t = 1e4 + this.enemyEscapeRate; if (this.publicVar % 11 == 0) {
+                                c.role.hp -= t;
+                                this.hp += t;
+                                this.enemyEscapeRate += 1;
+                                return "【挖掘机使用「加农炮！」你受到" + t + "点伤害！挖掘机充能+1，恢复" + t + "点生命！（回复量与挖掘机充能量/主角防御有关）】";
+                            }
+                            if (this.publicVar % 4 == 0) {
+                                this.enemyEscapeRate += 4;
+                                return "【挖掘机使用「机甲进化」，充能+4！】";
+                            }
+                            var n = Math.max(parseInt(.01 * this.def * e + 499 - .5 * o.def), 0);
+                            c.role.hp -= n;
+                            return "【挖掘机「喷油！灼烧」你受到" + n + "点灼烧伤害（伤害与挖掘机充能量/主角防御有关）！】";
+                        },
+                        defSkill: function () {
+                            this.publicVar < 1 && (this.publicVar += 1);
+                            var t = 1e4 + this.enemyEscapeRate;
+                            if (this.publicVar % 11 == 0) {
                                     var n = parseInt(.06 * (this.maxHp - this.hp));
-                                    return this.hp += n, "【挖掘机启动紧急修复！恢复已损失生命的6%（" + n + "点）】"
-                                } if (this.publicVar % 5 == 0) {
+                                this.hp += n;
+                                return "【挖掘机启动紧急修复！恢复已损失生命的6%（" + n + "点）】";
+                            }
+                            if (this.publicVar % 5 == 0) {
                                     var a = parseInt(.2 * o.att + .2 * this.def);
-                                    return e("scr_data").role.hp -= a, cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999, "【挖掘机使用「荆棘钢甲」！你受到" + a + "点伤害！】"
-                                } if (this.publicVar % 3 == 0) {
-                                    var c = parseInt(.06 * this.def);
-                                    return this.def += c, "【挖掘机启动「防御系统」！防御增加6%（" + c + "点）】"
-                                } var i = 100 * Math.random(), r = Math.min(30 + 2 * t, 60); if (i < r) return this.enemyEscapeRate += 1, cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999, "【挖掘机使用「电离屏障」，免疫伤害，充能+1！（触发几率与充能有关）】"; var s = 2 * t + 20; return this.def += s, "【挖掘机启动「警戒系统」，防御+" + s + "（增加量与挖掘机当前充能量有关）！】"
-                            }, winEvent: function () { return "【你已战胜最终BOSS，游戏即将结束，可以看看还有啥没做完的~】" }, lostEvent: function () {
-                                return i.publicVar3[2] = 1, i.ifFollow[0] = 0, i.ifFollow[1] = 0, i.publicVar[13] = 1, c.init(), i.ifFollow[0] > 0 ? "【你被驱逐出城。你与晓月失去了联系。】" : "【你桥底的窝被挖掘机铲平...你被赶出城区...】"
+                                e("scr_data").role.hp -= a;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 99999;
+                                return "【挖掘机使用「荆棘钢甲」！你受到" + a + "点伤害！】";
                             }
-                        }, 501:
-                        {
-                            name: "晓月家大狼狗", lv: 80, hp: 2685, maxHp: 2685, att: 0, def: 187, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [], des: "emmmmmm", skill: function () {
-                                if (this.publicVar += 1, this.publicVar <= 5) {
-                                    var e = 99;
-                                    return i.role.hp += e, "【狗狗使用「添~滋溜~滋溜~」，你恢复99点生命！】"
-                                } return this.enemyEscapeRate += 100, "【狗狗有些伤心，准备要离开了！】"
-                            }, defSkill: void 0, winEvent: function () { return i.chioce2[7] += 1, i.itemNum2[0] += 3, "【狗狗点了点头，开心的离开了。狗狗的祝福：获得「熟肉」*3！】" }, lostEvent: void 0
-                        }, 502:
-                            { name: "晓月后援1群", lv: 100, hp: 3345, maxHp: 3345, att: 0, def: 234, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [], des: "“加入我们，才能偷看喔~”", skill: function () { return this.publicVar += 1, this.publicVar <= 4 ? (cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] += 30, "【后援队使用「加油！」，你增加30点攻击！】") : (this.enemyEscapeRate += 100, "【后援队有些失望，准备要离开了！】") }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.chioce2[7] += 1, t.itemNum2[22] += 1, "【“好吧，你确实配得上我老婆，加油吧~”。粉丝的祝福：获得「女装」*1！】" }, lostEvent: void 0 }, 503:
-                        {
-                            name: "晓月管家", lv: 130, hp: 4335, maxHp: 4335, att: 0, def: 300, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [], des: "“不好意思，这里没大米哈~”", skill: function () { return this.publicVar += 1, this.publicVar <= 3 ? (i.money += 1, "【管家给了你1毛钱~】") : (i.role.hp -= 99999, "【“还不走？”】") }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.money -= this.publicVar, t.chioce2[7] += 1, t.money += 20, "【“现在年轻人脸皮都这么厚嘛！”。你把钱还给了管家。管家的祝福：获得2元！】" }, lostEvent: function () {
-                                return i.money -= 3, "【“做人不要太贪！滚出去！”。你被轰出院子，失去3毛钱！】"
+                            if (this.publicVar % 3 == 0) {
+                                var i = parseInt(.06 * this.def);
+                                this.def += i;
+                                return "【挖掘机启动「防御系统」！防御增加6%（" + i + "点）】";
                             }
-                        }, 504:
-                            { name: "晓月哥", lv: 170, hp: 5650, maxHp: 5650, att: 0, def: 500, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [], des: "“想抢走我妹妹？先从我身上踏过去！”", skill: function () { var e = 100 * Math.random(), t = 999; return e < 40 ? (this.hp -= t, "【" + this.name + "使用「信心打击」，反弹，" + this.name + "受到" + t + "点伤害！】") : e < 60 ? (this.hp += 2 * t, "【" + this.name + "感觉有点口干，喝了一口水，恢复" + 2 * t + "点生命！】") : (t = parseInt(t - o.def), i.role.hp -= t, "【" + this.name + "使用「信心打击」，你受到" + t + "点伤害！】") }, defSkill: void 0, winEvent: function () { var e = Math.min(parseInt(.05 * i.choice[5] + 5), 55); return i.role.def += e, i.chioce2[7] += 1, "【“你走吧，我想静静~”。哥哥的祝福：防御永久增加" + e + "（与晓月好感有关）！】" }, lostEvent: void 0 }, 505:
-                        {
-                            name: "晓月妈", lv: 220, hp: 7300, maxHp: 7300, att: 0, def: 510, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [], des: "“做啥工作？工资多少？有没有买房？”", skill: void 0, defSkill: function () { var e = parseInt(.3 * i.money); return this.att += 1, this.att <= 3 ? (this.publicVar += e, i.money -= e, "【你给了晓月妈" + (e / 10).toFixed(1) + "元！】") : this.publicVar < 20 ? (i.role.hp -= 999999, "【“哈哈哈哈哈”】") : (this.hp -= 999999, "【“哈哈哈哈哈”】") }, winEvent: function () { var e = Math.min(parseInt(.5 * i.choice[5] + 50), 550); return i.role.maxHp += e, i.chioce2[7] += 1, "【“好像还有点钱嗷~”。母上大人的祝福：生命永久增加" + e + "（与晓月好感有关）！】" }, lostEvent: function () {
-                                return "【“穷成这样~我敢把女儿交给你？”。你被赶出屋来！】"
+                            if (100 * Math.random() < Math.min(30 + 2 * t, 60)) {
+                                this.enemyEscapeRate += 1;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999;
+                                return "【挖掘机使用「电离屏障」，免疫伤害，充能+1！（触发几率与充能有关）】";
                             }
-                        }, 506:
-                        {
-                            name: "晓月爸", lv: 300, hp: 9999, maxHp: 9999, att: 1200, def: 500, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [], des: "“你要是能打败我，我就让你带走晓月”", skill: function () {
+                            var c = 2 * t + 20;
+                            this.def += c;
+                            return "【挖掘机启动「警戒系统」，防御+" + c + "（增加量与挖掘机当前充能量有关）！】";
+                        },
+                        winEvent: function () {
+                            return "【你已战胜最终BOSS，游戏即将结束，可以看看还有啥没做完的~】";
+                        },
+                        lostEvent: function () {
+                            c.publicVar3[2] = 1;
+                            c.ifFollow[0] = 0;
+                            c.ifFollow[1] = 0;
+                            c.publicVar[13] = 1;
+                            i.init();
+                            return c.ifFollow[0] > 0 ? "【你被驱逐出城。你与晓月失去了联系。】" : "【你桥底的窝被挖掘机铲平...你被赶出城区...】";
+                        }
+                    },
+                    501: {
+                        name: "晓月家大狼狗",
+                        lv: 80,
+                        hp: 2685,
+                        maxHp: 2685,
+                        att: 0,
+                        def: 187,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [],
+                        des: "emmmmmm",
+                        skill: function () {
+                            this.publicVar += 1;
+                            if (this.publicVar <= 5) {
+                                c.role.hp += 99;
+                                return "【狗狗使用「添~滋溜~滋溜~」，你恢复99点生命！】";
+                            }
+                            this.enemyEscapeRate += 100;
+                            return "【狗狗有些伤心，准备要离开了！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            c.chioce2[7] += 1;
+                            c.itemNum2[0] += 3;
+                            return "【狗狗点了点头，开心的离开了。狗狗的祝福：获得「熟肉」*3！】";
+                        },
+                        lostEvent: void 0
+                    },
+                    502: {
+                        name: "晓月后援1群",
+                        lv: 100,
+                        hp: 3345,
+                        maxHp: 3345,
+                        att: 0,
+                        def: 234,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“加入我们，才能偷看喔~”",
+                        skill: function () {
+                            this.publicVar += 1;
+                            if (this.publicVar <= 4) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] += 30;
+                                return "【后援队使用「加油！」，你增加30点攻击！】";
+                            }
+                            this.enemyEscapeRate += 100;
+                            return "【后援队有些失望，准备要离开了！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.chioce2[7] += 1;
+                            t.itemNum2[22] += 1;
+                            return "【“好吧，你确实配得上我老婆，加油吧~”。粉丝的祝福：获得「女装」*1！】";
+                        },
+                        lostEvent: void 0
+                    },
+                    503: {
+                        name: "晓月管家",
+                        lv: 130,
+                        hp: 4335,
+                        maxHp: 4335,
+                        att: 0,
+                        def: 300,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“不好意思，这里没大米哈~”",
+                        skill: function () {
+                            this.publicVar += 1;
+                            if (this.publicVar <= 3) {
+                                c.money += 1;
+                                return "【管家给了你1毛钱~】";
+                            }
+                            c.role.hp -= 99999;
+                            return "【“还不走？”】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.money -= this.publicVar;
+                            t.chioce2[7] += 1;
+                            t.money += 20;
+                            return "【“现在年轻人脸皮都这么厚嘛！”。你把钱还给了管家。管家的祝福：获得2元！】";
+                        },
+                        lostEvent: function () {
+                            c.money -= 3;
+                            return "【“做人不要太贪！滚出去！”。你被轰出院子，失去3毛钱！】";
+                        }
+                    },
+                    504: {
+                        name: "晓月哥",
+                        lv: 170,
+                        hp: 5650,
+                        maxHp: 5650,
+                        att: 0,
+                        def: 500,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“想抢走我妹妹？先从我身上踏过去！”",
+                        skill: function () {
+                            var e = 100 * Math.random(), t = 999;
+                            if (e < 40) {
+                                this.hp -= t;
+                                return "【" + this.name + "使用「信心打击」，反弹，" + this.name + "受到" + t + "点伤害！】";
+                            }
+                            if (e < 60) {
+                                this.hp += 2 * t;
+                                return "【" + this.name + "感觉有点口干，喝了一口水，恢复" + 2 * t + "点生命！】";
+                            }
+                            t = parseInt(t - o.def);
+                            c.role.hp -= t;
+                            return "【" + this.name + "使用「信心打击」，你受到" + t + "点伤害！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var e = Math.min(parseInt(.05 * c.choice[5] + 5), 55);
+                            c.role.def += e;
+                            c.chioce2[7] += 1;
+                            return "【“你走吧，我想静静~”。哥哥的祝福：防御永久增加" + e + "（与晓月好感有关）！】";
+                        },
+                        lostEvent: void 0
+                    },
+                    505: {
+                        name: "晓月妈",
+                        lv: 220,
+                        hp: 7300,
+                        maxHp: 7300,
+                        att: 0,
+                        def: 510,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“做啥工作？工资多少？有没有买房？”",
+                        skill: void 0,
+                        defSkill: function () {
+                            var e = parseInt(.3 * c.money);
+                            this.att += 1;
+                            if (this.att <= 3) {
+                                this.publicVar += e;
+                                c.money -= e;
+                                return "【你给了晓月妈" + (e / 10).toFixed(1) + "元！】";
+                            }
+                            if (this.publicVar < 20) {
+                                c.role.hp -= 999999;
+                                return "【“哈哈哈哈哈”】";
+                            }
+                            this.hp -= 999999;
+                            return "【“哈哈哈哈哈”】";
+                        },
+                        winEvent: function () {
+                            var e = Math.min(parseInt(.5 * c.choice[5] + 50), 550);
+                            c.role.maxHp += e;
+                            c.chioce2[7] += 1;
+                            return "【“好像还有点钱嗷~”。母上大人的祝福：生命永久增加" + e + "（与晓月好感有关）！】";
+                        },
+                        lostEvent: function () {
+                            return "【“穷成这样~我敢把女儿交给你？”。你被赶出屋来！】";
+                            }
+                    },
+                    506: {
+                        name: "晓月爸",
+                        lv: 300,
+                        hp: 9999,
+                        maxHp: 9999,
+                        att: 1200,
+                        def: 500,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“你要是能打败我，我就让你带走晓月”",
+                        skill: function () {
                                 if (4 == this.publicVar) {
                                     var e = this.att * (1 + this.publicVar);
-                                    return "【" + this.name + "使用「空手道.锁喉！」，你受到" + e + "点生命！】"
-                                } this.publicVar += 1; var t = parseInt(.5 * this.att); return i.role.hp -= t, cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.1 * o.def), "【" + this.name + "使用「空手道.穿心！」你受到" + t + "点伤害，防御降低10%！】"
-                            }, defSkill: function () { return this.att += parseInt(.05 * this.att), "【" + this.name + "使用「空手道.蓄气！」，" + this.name + "攻击强化！】" }, winEvent: function () { var e = Math.min(parseInt(.1 * i.choice[5] + 10), 110); return i.role.att += e, i.chioce2[7] += 1, "【父亲大人的祝福：攻击永久增加" + e + "（与晓月好感有关）！】" }, lostEvent: void 0
-                        }, 600:
-                            { name: "毛贼", lv: 10, hp: 380, maxHp: 380, att: 0, def: 0, publicVar: 0, escapeRate: 50, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 1, 1, 1], [100, 4, 1, 1]], des: "嗡嗡-嗡！", skill: function () { var t = Math.max(20 - o.def, 0); return e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！】" }, defSkill: void 0, winEvent: function () { return i.publicVar[10] += 1, "" }, lostEvent: void 0 }, 601:
-                            { name: "精分患者", lv: 20, hp: 710, maxHp: 710, att: 0, def: 0, publicVar: 0, escapeRate: 40, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 1, 2, 1], [100, 4, 2, 1]], des: "%$#%$#%#^&^", skill: function () { var t = Math.max(60 - o.def, 0); return this.att += 10, e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！" + this.name + "攻击+10】" }, defSkill: void 0, winEvent: function () { return i.publicVar[10] += 1, "" }, lostEvent: void 0 }, 602:
-                            { name: "盯谁谁怀孕大妈", lv: 35, hp: 1200, maxHp: 1200, att: 0, def: 0, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 1, 3, 1], [100, 4, 3, 1]], des: "嗡--------！", skill: function () { var t = Math.max(120 + 20 * this.publicVar - o.def, 0); return e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！" + this.name + "吸血能力强化！】" }, defSkill: void 0, winEvent: function () { return i.publicVar[10] += 1, "" }, lostEvent: void 0 }, 603:
-                            { name: "阿龙", lv: 50, hp: 1665, maxHp: 1665, att: 0, def: 0, publicVar: 0, escapeRate: 25, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 1, 4, 1], [100, 4, 4, 1]], des: "", skill: function () { var t = Math.max(200 - o.def, 0); return this.def += 30, e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！" + this.name + "防御+30】" }, defSkill: void 0, winEvent: function () { return i.publicVar[10] += 1, "" }, lostEvent: void 0 }, 700:
-                            { name: "蚊小满", lv: 10, hp: 380, maxHp: 380, att: 0, def: 0, publicVar: 0, escapeRate: 50, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 1, 1, 1], [100, 4, 1, 1]], des: "嗡嗡-嗡！", skill: function () { var t = Math.max(20 - o.def, 0); return e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.kills[0] += 1, t.randomEvent[4] += 1, "【你已消灭" + t.kills[0] + "只蚊子】" }, lostEvent: void 0 }, 701:
-                            { name: "大毛蚊", lv: 20, hp: 710, maxHp: 710, att: 0, def: 0, publicVar: 0, escapeRate: 40, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 1, 2, 1], [100, 4, 2, 1]], des: "%$#%$#%#^&^", skill: function () { var t = Math.max(60 - o.def, 0); return this.att += 10, e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！" + this.name + "攻击+10】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.kills[0] += 1, t.randomEvent[4] += 1, "【你已消灭" + t.kills[0] + "只蚊子】" }, lostEvent: void 0 }, 702:
-                            { name: "密斯特蚊", lv: 35, hp: 1200, maxHp: 1200, att: 0, def: 0, publicVar: 0, escapeRate: 35, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 1, 3, 1], [100, 4, 3, 1]], des: "嗡--------！", skill: function () { var t = Math.max(120 + 20 * this.publicVar - o.def, 0); return e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！" + this.name + "吸血能力强化！】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.kills[0] += 1, t.randomEvent[4] += 1, "【你已消灭" + t.kills[0] + "只蚊子】" }, lostEvent: void 0 }, 703:
-                            { name: "阿蚊", lv: 50, hp: 1665, maxHp: 1665, att: 0, def: 0, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 1, 4, 1], [100, 4, 4, 1]], des: "", skill: function () { var t = Math.max(200 - o.def, 0); return this.def += 30, e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！" + this.name + "防御+30】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.kills[0] += 1, t.randomEvent[4] += 1, "【你已消灭" + t.kills[0] + "只蚊子】" }, lostEvent: void 0 }, 704:
-                            { name: "徐蚊强", lv: 70, hp: 2465, maxHp: 2465, att: 0, def: 0, publicVar: 0, escapeRate: 25, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 1, 5, 1], [100, 4, 5, 1]], des: "", skill: function () { var t = parseInt(Math.max((320 - o.def) * (2 - this.hp / this.maxHp), 0)); return e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.kills[0] += 1, t.randomEvent[4] += 1, "【你已消灭" + t.kills[0] + "只蚊子】" }, lostEvent: void 0 }, 705:
-                            { name: "女王", lv: 90, hp: 3333, maxHp: 3333, att: 0, def: 0, publicVar: 0, escapeRate: 20, enemyEscapeRate: 0, lostHealth: 1, achieve: 2, getAtt: 1, drop: [[100, 1, 10, 1], [100, 4, 10, 1], [100, 26, 1, 2]], des: "血红的肚子，如同宝石般纯净无暇！", skill: function () { var t = Math.max(520 - o.def, 0); return e("scr_data").role.hp -= t, this.hp += t, "【你被吸取" + t + "点生命！】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.kills[0] += 1, "【你已消灭" + t.kills[0] + "只蚊子】" }, lostEvent: void 0 }, 706:
-                            { name: "蚊.媛", lv: 29, hp: 599, maxHp: 599, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 0, achieve: 0, getAtt: 1, drop: [[1, 12, 1, 1]], des: "%&#@*#%*%##%！", skill: function () { var t = e("scr_data"), n = 200; return t.role.hp += n, this.hp -= n, e("scr_public").ifMaxHp(), this.name + "在给你输送营养！你增加" + n + "点生命" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.kills[0] += 1, "【" + this.name + "变成了一具干尸！你已消灭" + t.kills[0] + "只蚊子】" }, lostEvent: void 0 }, 800:
-                            { name: "女贼(小学生)", lv: 7, hp: 210, maxHp: 210, att: 0, def: 0, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 0, achieve: 0, getAtt: 1, drop: [], des: "..嘻嘻..(≥▽≤)y", skill: function () { var t = e("scr_data"); return this.enemyEscapeRate += 20, t.money > 0 ? (t.money -= 1, this.publicVar += 1, "【你被偷走0.1元，女贼想要溜(￣﹏￣)】") : "【“穷成这B样也敢出来？”】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"), n = this.publicVar + 5; return t.money += n, t.randomEvent[3] += 1, "【获得" + (n / 10).toFixed(1) + "元！】【“呜呜呜，我告诉我姐去”】" }, lostEvent: void 0 }, 801:
-                        {
-                            name: "女贼她姐", lv: 16, hp: 575, maxHp: 575, att: 0, def: 0, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 4, 3]], des: "( ' – ' )你就那个怪蜀黍？", skill: function () { var t = 15, n = Math.max(20 - o.def + t * this.publicVar, 0), a = e("scr_data"); return this.publicVar += 1, a.role.hp -= n, cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= t, "【" + this.name + "使用「泰山压顶（130kg）」，你受到" + n + "点伤害！你感觉喘呼吸困难！防御降低" + t + "点！】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.randomEvent[3] += 1, "" }, lostEvent: function () {
+                                return "【" + this.name + "使用「空手道.锁喉！」，你受到" + e + "点生命！】";
+                            }
+                            this.publicVar += 1;
+                            var t = parseInt(.5 * this.att);
+                            c.role.hp -= t;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.1 * o.def);
+                            return "【" + this.name + "使用「空手道.穿心！」你受到" + t + "点伤害，防御降低10%！】";
+                        },
+                        defSkill: function () {
+                            this.att += parseInt(.05 * this.att);
+                            return "【" + this.name + "使用「空手道.蓄气！」，" + this.name + "攻击强化！】";
+                        },
+                        winEvent: function () {
+                            var e = Math.min(parseInt(.1 * c.choice[5] + 10), 110);
+                            c.role.att += e;
+                            c.chioce2[7] += 1;
+                            return "【父亲大人的祝福：攻击永久增加" + e + "（与晓月好感有关）！】";
+                        },
+                        lostEvent: void 0
+                    },
+                    600: {
+                        name: "毛贼",
+                        lv: 10,
+                        hp: 380,
+                        maxHp: 380,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 1, 1, 1], [100, 4, 1, 1]],
+                        des: "嗡嗡-嗡！",
+                        skill: function () {
+                            var t = Math.max(20 - o.def, 0);
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            c.publicVar[10] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    601: {
+                        name: "精分患者",
+                        lv: 20,
+                        hp: 710,
+                        maxHp: 710,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 40,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 1, 2, 1], [100, 4, 2, 1]],
+                        des: "%$#%$#%#^&^",
+                        skill: function () {
+                            var t = Math.max(60 - o.def, 0);
+                            this.att += 10;
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！" + this.name + "攻击+10】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            c.publicVar[10] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    602: {
+                        name: "盯谁谁怀孕大妈",
+                        lv: 35,
+                        hp: 1200,
+                        maxHp: 1200,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 1, 3, 1], [100, 4, 3, 1]],
+                        des: "嗡--------！",
+                        skill: function () {
+                            var t = Math.max(120 + 20 * this.publicVar - o.def, 0);
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！" + this.name + "吸血能力强化！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            c.publicVar[10] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    603: {
+                        name: "阿龙",
+                        lv: 50,
+                        hp: 1665,
+                        maxHp: 1665,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 25,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 1, 4, 1], [100, 4, 4, 1]],
+                        des: "",
+                        skill: function () {
+                            var t = Math.max(200 - o.def, 0);
+                            this.def += 30;
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！" + this.name + "防御+30】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            c.publicVar[10] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    700: {
+                        name: "蚊小满",
+                        lv: 10,
+                        hp: 380,
+                        maxHp: 380,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 1, 1, 1], [100, 4, 1, 1]],
+                        des: "嗡嗡-嗡！",
+                        skill: function () {
+                            var t = Math.max(20 - o.def, 0);
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.kills[0] += 1;
+                            t.randomEvent[4] += 1;
+                            return "【你已消灭" + t.kills[0] + "只蚊子】";
+                        },
+                        lostEvent: void 0
+                    },
+                    701: {
+                        name: "大毛蚊",
+                        lv: 20,
+                        hp: 710,
+                        maxHp: 710,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 40,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 1, 2, 1], [100, 4, 2, 1]],
+                        des: "%$#%$#%#^&^",
+                        skill: function () {
+                            var t = Math.max(60 - o.def, 0);
+                            this.att += 10;
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！" + this.name + "攻击+10】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.kills[0] += 1;
+                            t.randomEvent[4] += 1;
+                            return "【你已消灭" + t.kills[0] + "只蚊子】";
+                        },
+                        lostEvent: void 0
+                    },
+                    702: {
+                        name: "密斯特蚊",
+                        lv: 35,
+                        hp: 1200,
+                        maxHp: 1200,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 35,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 1, 3, 1], [100, 4, 3, 1]],
+                        des: "嗡--------！",
+                        skill: function () {
+                            var t = Math.max(120 + 20 * this.publicVar - o.def, 0);
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！" + this.name + "吸血能力强化！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.kills[0] += 1;
+                            t.randomEvent[4] += 1;
+                            return "【你已消灭" + t.kills[0] + "只蚊子】";
+                        },
+                        lostEvent: void 0
+                    },
+                    703: {
+                        name: "阿蚊",
+                        lv: 50,
+                        hp: 1665,
+                        maxHp: 1665,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 1, 4, 1], [100, 4, 4, 1]],
+                        des: "",
+                        skill: function () {
+                            var t = Math.max(200 - o.def, 0);
+                            this.def += 30;
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！" + this.name + "防御+30】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.kills[0] += 1;
+                            t.randomEvent[4] += 1;
+                            return "【你已消灭" + t.kills[0] + "只蚊子】";
+                        },
+                        lostEvent: void 0
+                    },
+                    704: {
+                        name: "徐蚊强",
+                        lv: 70,
+                        hp: 2465,
+                        maxHp: 2465,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 25,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 1, 5, 1], [100, 4, 5, 1]],
+                        des: "",
+                        skill: function () {
+                            var t = parseInt(Math.max((320 - o.def) * (2 - this.hp / this.maxHp), 0));
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.kills[0] += 1;
+                            t.randomEvent[4] += 1;
+                            return "【你已消灭" + t.kills[0] + "只蚊子】";
+                        },
+                        lostEvent: void 0
+                    },
+                    705: {
+                        name: "女王",
+                        lv: 90,
+                        hp: 3333,
+                        maxHp: 3333,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 20,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 2,
+                        getAtt: 1,
+                        drop: [[100, 1, 10, 1], [100, 4, 10, 1], [100, 26, 1, 2]],
+                        des: "血红的肚子，如同宝石般纯净无暇！",
+                        skill: function () {
+                            var t = Math.max(520 - o.def, 0);
+                            e("scr_data").role.hp -= t;
+                            this.hp += t;
+                            return "【你被吸取" + t + "点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.kills[0] += 1;
+                            return "【你已消灭" + t.kills[0] + "只蚊子】";
+                        },
+                        lostEvent: void 0
+                    },
+                    706: {
+                        name: "蚊.媛",
+                        lv: 29,
+                        hp: 599,
+                        maxHp: 599,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 0,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[1, 12, 1, 1]],
+                        des: "%&#@*#%*%##%！",
+                        skill: function () {
+                            e("scr_data").role.hp += 200;
+                            this.hp -= 200;
+                            e("scr_public").ifMaxHp();
+                            return this.name + "在给你输送营养！你增加200点生命";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.kills[0] += 1;
+                            return "【" + this.name + "变成了一具干尸！你已消灭" + t.kills[0] + "只蚊子】";
+                        },
+                        lostEvent: void 0
+                    },
+                    800: {
+                        name: "女贼(小学生)",
+                        lv: 7,
+                        hp: 210,
+                        maxHp: 210,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 0,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [],
+                        des: "..嘻嘻..(≥▽≤)y",
+                        skill: function () {
+                            var t = e("scr_data");
+                            this.enemyEscapeRate += 20;
+                            if (t.money > 0) {
+                                t.money -= 1;
+                                this.publicVar += 1;
+                                return "【你被偷走0.1元，女贼想要溜(￣﹏￣)】";
+                            }
+                            return "【“穷成这B样也敢出来？”】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data"), n = this.publicVar + 5;
+                            t.money += n;
+                            t.randomEvent[3] += 1;
+                            return "【获得" + (n / 10).toFixed(1) + "元！】【“呜呜呜，我告诉我姐去”】";
+                        },
+                        lostEvent: void 0
+                    },
+                    801: {
+                        name: "女贼她姐",
+                        lv: 16,
+                        hp: 575,
+                        maxHp: 575,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 4, 3]],
+                        des: "( ' – ' )你就那个怪蜀黍？",
+                        skill: function () {
+                            var t = Math.max(20 - o.def + 15 * this.publicVar, 0), n = e("scr_data");
+                            this.publicVar += 1;
+                            n.role.hp -= t;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 15;
+                            return "【" + this.name + "使用「泰山压顶（130kg）」，你受到" + t + "点伤害！你感觉喘呼吸困难！防御降低15点！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").randomEvent[3] += 1;
+                            return "";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.2 * t.money, 0));
-                                return t.money -= n, "【你损失20%的钱！】"
+                            t.money -= n;
+                            return "【你损失20%的钱！】";
                             }
-                        }, 802:
-                        {
-                            name: "女贼她小姨", lv: 20, hp: 700, maxHp: 700, att: 80, def: 0, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 6, 3]], des: "来嘛！过来玩会儿~", skill: function () { cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 25; var t = e("scr_data"), n = Math.max(30 - o.def, 5); this.publicVar += 1; var a = this.publicVar * n; return t.money -= this.publicVar, t.role.hp -= a, t.money < 0 && (t.money = 0), "【" + this.name + "用身体在你身上蹭了蹭，你攻击减少25，生命减少" + a + "，金钱减少" + (this.publicVar / 10).toFixed(1) + "元】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.money += Math.min(this.publicVar, 10), t.randomEvent[3] += 1, "【你抢回被偷的钱！】" }, lostEvent: function () {
+                    },
+                    802: {
+                        name: "女贼她小姨",
+                        lv: 20,
+                        hp: 700,
+                        maxHp: 700,
+                        att: 80,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 6, 3]],
+                        des: "来嘛！过来玩会儿~",
+                        skill: function () {
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 25;
+                            var t = e("scr_data"), n = Math.max(30 - o.def, 5);
+                            this.publicVar += 1;
+                            var a = this.publicVar * n;
+                            t.money -= this.publicVar;
+                            t.role.hp -= a;
+                            t.money < 0 && (t.money = 0);
+                            return "【" + this.name + "用身体在你身上蹭了蹭，你攻击减少25，生命减少" + a + "，金钱减少" + (this.publicVar / 10).toFixed(1) + "元】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.money += Math.min(this.publicVar, 10);
+                            t.randomEvent[3] += 1;
+                            return "【你抢回被偷的钱！】";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.15 * t.money, 0));
-                                return t.money -= n, "【你损失15%的钱！】"
+                            t.money -= n;
+                            return "【你损失15%的钱！】";
                             }
-                        }, 803:
-                            (n = {
-                                name: "女贼她妈", lv: 35, hp: 1200, maxHp: 1200, att: 150, def: 36, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 8, 3]], des: "快把钱交出来！", skill: function () {
+                    },
+                    803: (n = {
+                        name: "女贼她妈",
+                        lv: 35,
+                        hp: 1200,
+                        maxHp: 1200,
+                        att: 150,
+                        def: 36,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 8, 3]],
+                        des: "快把钱交出来！",
+                        skill: function () {
                                     var e = parseInt(.03 * o.maxHp);
-                                    return cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 30, "【" + this.name + "使用色诱，你的攻击降低30点，生命减少" + e + "】"
-                                }, defSkill: void 0, winEvent: void 0
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 30;
+                            return "【" + this.name + "使用色诱，你的攻击降低30点，生命减少" + e + "】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0
                             }, a(n, "winEvent", function () {
-                                var t = e("scr_data");
-                                return t.randomEvent[3] += 1, ""
+                        e("scr_data").randomEvent[3] += 1;
+                        return "";
                             }), a(n, "lostEvent", function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.1 * t.money, 0));
-                                return t.money -= n, "【你损失10%的钱！】"
-                            }), n), 804:
-                        {
-                            name: "女贼她奶奶", lv: 45, hp: 1500, maxHp: 1500, att: 0, def: 30, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 10, 3]], des: "打劫(〃'▽'〃)！", skill: function () { var t = 80; this.publicVar += 1; var n = t * this.publicVar; return e("scr_data").role.hp -= n, "【放血：每回合损失" + n + "点生命（" + this.publicVar + "层）】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.randomEvent[3] += 1, "" }, lostEvent: function () {
+                        t.money -= n;
+                        return "【你损失10%的钱！】";
+                    }), n),
+                    804: {
+                        name: "女贼她奶奶",
+                        lv: 45,
+                        hp: 1500,
+                        maxHp: 1500,
+                        att: 0,
+                        def: 30,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 10, 3]],
+                        des: "打劫(〃'▽'〃)！",
+                        skill: function () {
+                            this.publicVar += 1;
+                            var t = 80 * this.publicVar;
+                            e("scr_data").role.hp -= t;
+                            return "【放血：每回合损失" + t + "点生命（" + this.publicVar + "层）】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").randomEvent[3] += 1;
+                            return "";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.1 * t.money, 0));
-                                return t.money -= n, "【你损失10%的钱！】"
+                            t.money -= n;
+                            return "【你损失10%的钱！】";
                             }
-                        }, 805:
-                        {
-                            name: "女贼集团总裁（精英）", lv: 60, hp: 1999, maxHp: 1999, att: 310, def: 50, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 2, drop: [[100, 99, 12, 3]], des: "快把钱交出来！", skill: function () { var t = 100; this.publicVar += 1; var n = t * this.publicVar; return e("scr_data").role.hp -= n, "【流血：每回合损失" + n + "点生命（" + this.publicVar + "层）】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.randomEvent[3] += 1, "" }, lostEvent: function () {
+                    },
+                    805: {
+                        name: "女贼集团总裁（精英）",
+                        lv: 60,
+                        hp: 1999,
+                        maxHp: 1999,
+                        att: 310,
+                        def: 50,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 2,
+                        drop: [[100, 99, 12, 3]],
+                        des: "快把钱交出来！",
+                        skill: function () {
+                            this.publicVar += 1;
+                            var t = 100 * this.publicVar;
+                            e("scr_data").role.hp -= t;
+                            return "【流血：每回合损失" + t + "点生命（" + this.publicVar + "层）】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").randomEvent[3] += 1;
+                            return "";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.15 * t.money, 0));
-                                return t.money -= n, "【你损失15%的钱！】"
+                            t.money -= n;
+                            return "【你损失15%的钱！】";
                             }
-                        }, 806:
-                        {
-                            name: "贼女王（精英）", lv: 80, hp: 2700, maxHp: 2700, att: 0, def: 60, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 1, achieve: 2, getAtt: 3, drop: [[100, 99, 15, 3], [100, 99, 15, 3], [100, 27, 1, 2]], des: "嘿嘿(o﹃o?)，咱们来玩cosplay吧~", skill: function () {
-                                var t = 100, n = e("scr_data"); if (this.publicVar += 1, this.publicVar % 3 == 0) {
-                                    var a = 400 + 100 * this.publicVar - o.def, c = 20 * this.publicVar;
-                                    return n.role.hp -= a, cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= c, "【女王使用「黑色高跟鞋」，你损失" + a + "点生命，并降低" + c + "点攻击】"
-                                } return n.role.hp += 2 * t, "【女王使用「皮鞭」，你恢复" + 2 * t + "点生命，降低" + t + "点防御】"
-                            }, defSkill: function () { var e = 200; return this.hp += e, "【女王有点小兴奋，恢复" + e + "点生命】" }, winEvent: function () { return i.randomEvent[3] += 1, "" }, lostEvent: function () {
+                    },
+                    806: {
+                        name: "贼女王（精英）",
+                        lv: 80,
+                        hp: 2700,
+                        maxHp: 2700,
+                        att: 0,
+                        def: 60,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 2,
+                        getAtt: 3,
+                        drop: [[100, 99, 15, 3], [100, 99, 15, 3], [100, 27, 1, 2]],
+                        des: "嘿嘿(o﹃o?)，咱们来玩cosplay吧~",
+                        skill: function () {
+                            var t = e("scr_data");
+                            this.publicVar += 1;
+                            if (this.publicVar % 3 == 0) {
+                                var n = 400 + 100 * this.publicVar - o.def, a = 20 * this.publicVar;
+                                t.role.hp -= n;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= a;
+                                return "【女王使用「黑色高跟鞋」，你损失" + n + "点生命，并降低" + a + "点攻击】";
+                            }
+                            t.role.hp += 200;
+                            return "【女王使用「皮鞭」，你恢复200点生命，降低100点防御】";
+                        },
+                        defSkill: function () {
+                            this.hp += 200;
+                            return "【女王有点小兴奋，恢复200点生命】";
+                        },
+                        winEvent: function () {
+                            c.randomEvent[3] += 1;
+                            return "";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.15 * t.money, 0));
-                                return t.money -= n, "【你损失15%的钱！】"
+                            t.money -= n;
+                            return "【你损失15%的钱！】";
                             }
-                        }, 807:
-                        {
-                            name: "吸毒男（BOSS）", lv: 120, hp: 3999, maxHp: 3999, att: 760, def: 120, publicVar: 0, escapeRate: 20, enemyEscapeRate: 0, lostHealth: 2, achieve: 3, getAtt: 3, drop: [[100, 11, 2, 1]], des: "“没错，她就是为了我才当贼女王的...我是个废物..”", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + .01 * this.hp, 0)), a = parseInt(.3 * n); return this.hp += a, t.role.hp -= n, "【毒男使用「嗜血狂魔」，你受到" + n + "点伤害,毒男恢复" + a + "点生命】" }, defSkill: function () { var t = e("scr_data"), n = 200; this.publicVar += 1; var a = n * this.publicVar; return t.role.hp -= a, "【中毒：每回合损失" + a + "点生命】" }, winEvent: function () { return i.randomEvent[3] += 1, "“也许，死是一种解脱吧...再见了...我的女王...”" }, lostEvent: function () {
+                    },
+                    807: {
+                        name: "吸毒男（BOSS）",
+                        lv: 120,
+                        hp: 3999,
+                        maxHp: 3999,
+                        att: 760,
+                        def: 120,
+                        publicVar: 0,
+                        escapeRate: 20,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 3,
+                        getAtt: 3,
+                        drop: [[100, 11, 2, 1]],
+                        des: "“没错，她就是为了我才当贼女王的...我是个废物..”",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + .01 * this.hp, 0)), a = parseInt(.3 * n);
+                            this.hp += a;
+                            t.role.hp -= n;
+                            return "【毒男使用「嗜血狂魔」，你受到" + n + "点伤害,毒男恢复" + a + "点生命】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data");
+                            this.publicVar += 1;
+                            var n = 200 * this.publicVar;
+                            t.role.hp -= n;
+                            return "【中毒：每回合损失" + n + "点生命】";
+                        },
+                        winEvent: function () {
+                            c.randomEvent[3] += 1;
+                            return "“也许，死是一种解脱吧...再见了...我的女王...”";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.2 * t.money, 0));
-                                return t.money -= n, "【你损失20%的钱！】"
+                            t.money -= n;
+                            return "【你损失20%的钱！】";
                             }
-                        }, 808:
-                        {
-                            name: "吸毒男2阶（BOSS）", lv: 180, hp: 5980, maxHp: 5980, att: 1087, def: 418, publicVar: 0, escapeRate: 10, enemyEscapeRate: 0, lostHealth: 2, achieve: 3, getAtt: 3, drop: [[100, 11, 2, 1]], des: "“我是不会死的，我一定要为她报仇！”", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + .01 * this.hp, 0)), a = parseInt(.3 * n); return this.hp += a, t.role.hp -= n, "【毒男使用「嗜血狂魔」，你受到" + n + "点伤害,毒男恢复" + a + "点生命】" }, defSkill: function () { var t = e("scr_data"), n = parseInt(.2 * this.att); this.publicVar += 1; var a = n * this.publicVar; return t.role.hp -= a, "【中毒：每回合损失" + a + "点生命】" }, winEvent: function () { return i.randomEvent[3] += 1, "“...不甘心...啊...”" }, lostEvent: function () {
+                    },
+                    808: {
+                        name: "吸毒男2阶（BOSS）",
+                        lv: 180,
+                        hp: 5980,
+                        maxHp: 5980,
+                        att: 1087,
+                        def: 418,
+                        publicVar: 0,
+                        escapeRate: 10,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 3,
+                        getAtt: 3,
+                        drop: [[100, 11, 2, 1]],
+                        des: "“我是不会死的，我一定要为她报仇！”",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + .01 * this.hp, 0)), a = parseInt(.3 * n);
+                            this.hp += a;
+                            t.role.hp -= n;
+                            return "【毒男使用「嗜血狂魔」，你受到" + n + "点伤害,毒男恢复" + a + "点生命】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data"), n = parseInt(.2 * this.att);
+                            this.publicVar += 1;
+                            var a = n * this.publicVar;
+                            t.role.hp -= a;
+                            return "【中毒：每回合损失" + a + "点生命】";
+                        },
+                        winEvent: function () {
+                            c.randomEvent[3] += 1;
+                            return "“...不甘心...啊...”";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.2 * t.money, 0));
-                                return t.money -= n, "【你损失20%的钱！】"
+                            t.money -= n;
+                            return "【你损失20%的钱！】";
                             }
-                        }, 809:
-                        {
-                            name: "吸毒男3阶（BOSS）", lv: 300, hp: 9999, maxHp: 9999, att: 1800, def: 700, publicVar: 0, escapeRate: 0, enemyEscapeRate: 0, lostHealth: 2, achieve: 3, getAtt: 3, drop: [[100, 11, 2, 1]], des: "“就算没手，我还有脚！”", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + .01 * this.hp, 0)), a = parseInt(.3 * n); return this.hp += a, t.role.hp -= n, "【毒男使用「嗜血狂魔」，你受到" + n + "点伤害,毒男恢复" + a + "点生命】" }, defSkill: function () { var t = e("scr_data"), n = parseInt(.2 * this.att); this.publicVar += 1; var a = n * this.publicVar; return t.role.hp -= a, "【中毒：每回合损失" + a + "点生命】" }, winEvent: function () { return i.randomEvent[3] += 1, "“啊！我的脚！”" }, lostEvent: function () {
+                    },
+                    809: {
+                        name: "吸毒男3阶（BOSS）",
+                        lv: 300,
+                        hp: 9999,
+                        maxHp: 9999,
+                        att: 1800,
+                        def: 700,
+                        publicVar: 0,
+                        escapeRate: 0,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 3,
+                        getAtt: 3,
+                        drop: [[100, 11, 2, 1]],
+                        des: "“就算没手，我还有脚！”",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + .01 * this.hp, 0)), a = parseInt(.3 * n);
+                            this.hp += a;
+                            t.role.hp -= n;
+                            return "【毒男使用「嗜血狂魔」，你受到" + n + "点伤害,毒男恢复" + a + "点生命】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data"), n = parseInt(.2 * this.att);
+                            this.publicVar += 1;
+                            var a = n * this.publicVar;
+                            t.role.hp -= a;
+                            return "【中毒：每回合损失" + a + "点生命】";
+                        },
+                        winEvent: function () {
+                            c.randomEvent[3] += 1;
+                            return "“啊！我的脚！”";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.2 * t.money, 0));
-                                return t.money -= n, "【你损失20%的钱！】"
+                            t.money -= n;
+                            return "【你损失20%的钱！】";
                             }
-                        }, 881:
-                        {
-                            name: "吸毒男4阶（BOSS）", lv: 500, hp: 16520, maxHp: 16520, att: 3e3, def: 1200, publicVar: 0, escapeRate: -10, enemyEscapeRate: 0, lostHealth: 2, achieve: 3, getAtt: 3, drop: [[100, 11, 2, 1]], des: "“就算没手没脚，我还有嘴！”", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + .01 * this.hp, 0)), a = parseInt(.3 * n); return this.hp += a, t.role.hp -= n, "【毒男使用「嗜血狂魔」，你受到" + n + "点伤害,毒男恢复" + a + "点生命】" }, defSkill: function () { var t = e("scr_data"), n = parseInt(.2 * this.att); this.publicVar += 1; var a = n * this.publicVar; return t.role.hp -= a, "【中毒：每回合损失" + a + "点生命】" }, winEvent: function () { return i.randomEvent[3] += 1, "..e..e.e..e..a..a" }, lostEvent: function () {
+                    },
+                    881: {
+                        name: "吸毒男4阶（BOSS）",
+                        lv: 500,
+                        hp: 16520,
+                        maxHp: 16520,
+                        att: 3e3,
+                        def: 1200,
+                        publicVar: 0,
+                        escapeRate: -10,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 3,
+                        getAtt: 3,
+                        drop: [[100, 11, 2, 1]],
+                        des: "“就算没手没脚，我还有嘴！”",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + .01 * this.hp, 0)), a = parseInt(.3 * n);
+                            this.hp += a;
+                            t.role.hp -= n;
+                            return "【毒男使用「嗜血狂魔」，你受到" + n + "点伤害,毒男恢复" + a + "点生命】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data"), n = parseInt(.2 * this.att);
+                            this.publicVar += 1;
+                            var a = n * this.publicVar;
+                            t.role.hp -= a;
+                            return "【中毒：每回合损失" + a + "点生命】";
+                        },
+                        winEvent: function () {
+                            c.randomEvent[3] += 1;
+                            return "..e..e.e..e..a..a";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.2 * t.money, 0));
-                                return t.money -= n, "【你损失20%的钱！】"
+                            t.money -= n;
+                            return "【你损失20%的钱！】";
                             }
-                        }, 882:
-                        {
-                            name: "吸毒男5阶（BOSS）", lv: 999, hp: 32995, maxHp: 32995, att: 6e3, def: 2400, publicVar: 0, escapeRate: -20, enemyEscapeRate: 0, lostHealth: 2, achieve: 3, getAtt: 3, drop: [[100, 11, 2, 1]], des: "哧溜~哧溜~毒男拖着半截身子爬了过来~", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + .01 * this.hp, 0)), a = parseInt(.3 * n); return this.hp += a, t.role.hp -= n, "【毒男使用「嗜血狂魔」，你受到" + n + "点伤害,毒男恢复" + a + "点生命】" }, defSkill: function () { var t = e("scr_data"), n = parseInt(.2 * this.att); this.publicVar += 1; var a = n * this.publicVar; return t.role.hp -= a, "【中毒：每回合损失" + a + "点生命】" }, winEvent: function () { return "毒男化成一缕青烟，飘散在蓝天白云中..." }, lostEvent: function () {
+                    },
+                    882: {
+                        name: "吸毒男5阶（BOSS）",
+                        lv: 999,
+                        hp: 32995,
+                        maxHp: 32995,
+                        att: 6e3,
+                        def: 2400,
+                        publicVar: 0,
+                        escapeRate: -20,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 3,
+                        getAtt: 3,
+                        drop: [[100, 11, 2, 1]],
+                        des: "哧溜~哧溜~毒男拖着半截身子爬了过来~",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.25 * (this.maxHp - this.hp) - o.def + .01 * this.hp, 0)), a = parseInt(.3 * n);
+                            this.hp += a;
+                            t.role.hp -= n;
+                            return "【毒男使用「嗜血狂魔」，你受到" + n + "点伤害,毒男恢复" + a + "点生命】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data"), n = parseInt(.2 * this.att);
+                            this.publicVar += 1;
+                            var a = n * this.publicVar;
+                            t.role.hp -= a;
+                            return "【中毒：每回合损失" + a + "点生命】";
+                        },
+                        winEvent: function () {
+                            return "毒男化成一缕青烟，飘散在蓝天白云中...";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.2 * t.money, 0));
-                                return t.money -= n, "【你损失20%的钱！】"
+                            t.money -= n;
+                            return "【你损失20%的钱！】";
+                        }
+                    },
+                    810: {
+                        name: "流浪汉(懒)",
+                        lv: 5,
+                        hp: 215,
+                        maxHp: 215,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 0,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 1, 3]],
+                        des: "“求求你放过我吧，我两天没吃饭啦~(ㄒoㄒ)”",
+                        skill: function () {
+                            var t = e("scr_data");
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 10;
+                            this.enemyEscapeRate += 15;
+                            if (t.money >= 1) {
+                                t.money -= 1;
+                                this.publicVar += 1;
+                                return "【" + this.name + "使用「求饶」，你的攻击下降10点，并给了对方0.1元】";
                             }
-                        }, 810:
-                            { name: "流浪汉(懒)", lv: 5, hp: 215, maxHp: 215, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 0, achieve: 0, getAtt: 1, drop: [[100, 99, 1, 3]], des: "“求求你放过我吧，我两天没吃饭啦~(ㄒoㄒ)”", skill: function () { var t = e("scr_data"); return cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 10, this.enemyEscapeRate += 15, t.money >= 1 ? (t.money -= 1, this.publicVar += 1, "【" + this.name + "使用「求饶」，你的攻击下降10点，并给了对方0.1元】") : (this.escapeRate += 100, "【流浪汉发现你根本没钱，打算要溜了！】") }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.money += this.publicVar, t.randomEvent[10] += 1, "【你拿回" + (this.publicVar / 10).toFixed(1) + "元】【“你们全是没同情心的坏人！”】" }, lostEvent: void 0 }, 811:
-                        {
-                            name: "流浪汉(宅)", lv: 12, hp: 445, maxHp: 445, att: 0, def: 9999, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 2, 3]], des: "“没看见我在玩手机吗！”", skill: function () { var t = 100 * Math.random(); return t < 50 ? (this.hp -= 99, "【" + this.name + "使用「嘴遁」，但是被你反弹，" + this.name + "受到99点伤害！】") : (e("scr_data").role.hp -= 99, "【" + this.name + "使用「嘴遁」，你受到99点伤害！】") }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.randomEvent[10] += 1, "【“老子特么就服你！”】" }, lostEvent: function () {
+                            this.escapeRate += 100;
+                            return "【流浪汉发现你根本没钱，打算要溜了！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.money += this.publicVar;
+                            t.randomEvent[10] += 1;
+                            return "【你拿回" + (this.publicVar / 10).toFixed(1) + "元】【“你们全是没同情心的坏人！”】";
+                        },
+                        lostEvent: void 0
+                    },
+                    811: {
+                        name: "流浪汉(宅)",
+                        lv: 12,
+                        hp: 445,
+                        maxHp: 445,
+                        att: 0,
+                        def: 9999,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 2, 3]],
+                        des: "“没看见我在玩手机吗！”",
+                        skill: function () {
+                            if (100 * Math.random() < 50) {
+                                this.hp -= 99;
+                                return "【" + this.name + "使用「嘴遁」，但是被你反弹，" + this.name + "受到99点伤害！】";
+                            }
+                            e("scr_data").role.hp -= 99;
+                            return "【" + this.name + "使用「嘴遁」，你受到99点伤害！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").randomEvent[10] += 1;
+                            return "【“老子特么就服你！”】";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.1 * t.money, 0));
-                                return t.money -= n, "【你损失10%的钱！】"
+                            t.money -= n;
+                            return "【你损失10%的钱！】";
                             }
-                        }, 812:
-                        {
-                            name: "流浪汉(女)", lv: 20, hp: 775, maxHp: 775, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 0, getAtt: 1, drop: [[100, 22, 1, 2]], des: "“我真的没偷你的钱！不信你搜啊！”", skill: function () { var t = 100 * Math.random(), n = 20 * this.publicVar; return this.publicVar += 1, t < n ? (e("scr_data").role.hp -= 9999, "【你被吃瓜群众围殴，损失9999点生命！】") : "【" + this.name + "在大声呼救！】" }, defSkill: function () {
-                                var t = 100 * Math.random(), n = e("scr_public"), a = e("scr_data"); if (t <= 40) {
-                                    var c = 50 - o.def;
-                                    return a.role.hp -= c, "【你从" + this.name + "身上搜到发霉的男式内衣，你损失" + c + "点生命！】"
-                                } return t > 40 && t <= 60 ? (a.money += 1, "【你从" + this.name + "身上搜到0.1元！】") : t > 60 ? (this.hp -= n.role.att(), "【你碰到一个奇怪的东西...】") : void 0
-                            }, winEvent: function () { var t = e("scr_data"); return t.randomEvent[10] += 1, "【“(?_?)有人耍流氓哇”】" }, lostEvent: function () {
-                                return "【你被吃瓜群众围殴，损失9999点生命！】"
+                    },
+                    812: {
+                        name: "流浪汉(女)",
+                        lv: 20,
+                        hp: 775,
+                        maxHp: 775,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 22, 1, 2]],
+                        des: "“我真的没偷你的钱！不信你搜啊！”",
+                        skill: function () {
+                            var t = 100 * Math.random(), n = 20 * this.publicVar;
+                            this.publicVar += 1;
+                            if (t < n) {
+                                e("scr_data").role.hp -= 9999;
+                                return "【你被吃瓜群众围殴，损失9999点生命！】";
                             }
-                        }, 813:
-                        {
-                            name: "流浪汉(暴)", lv: 32, hp: 1150, maxHp: 1150, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 5, 3]], des: "快把钱交出来，就饶你一命！", skill: function () { var t = Math.random(), n = Math.max(parseInt(400 * t - o.def), 0); return e("scr_data").role.hp -= n, "【" + this.name + "使用「疯狂」，你受到" + n + "点伤害】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.randomEvent[10] += 1, "【你抢回被偷的钱！】" }, lostEvent: function () {
+                            return "【" + this.name + "在大声呼救！】";
+                        },
+                        defSkill: function () {
+                            var t = 100 * Math.random(), n = e("scr_public"), a = e("scr_data");
+                            if (t <= 40) {
+                                var i = 50 - o.def;
+                                a.role.hp -= i;
+                                return "【你从" + this.name + "身上搜到发霉的男式内衣，你损失" + i + "点生命！】";
+                            }
+                            if (t > 40 && t <= 60) {
+                                a.money += 1;
+                                return "【你从" + this.name + "身上搜到0.1元！】";
+                            }
+                            if (t > 60) {
+                                this.hp -= n.role.att();
+                                return "【你碰到一个奇怪的东西...】";
+                            }
+                        },
+                        winEvent: function () {
+                            e("scr_data").randomEvent[10] += 1;
+                            return "【“(?_?)有人耍流氓哇”】";
+                        },
+                        lostEvent: function () {
+                            return "【你被吃瓜群众围殴，损失9999点生命！】";
+                            }
+                    },
+                    813: {
+                        name: "流浪汉(暴)",
+                        lv: 32,
+                        hp: 1150,
+                        maxHp: 1150,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 5, 3]],
+                        des: "快把钱交出来，就饶你一命！",
+                        skill: function () {
+                            var t = Math.random(), n = Math.max(parseInt(400 * t - o.def), 0);
+                            e("scr_data").role.hp -= n;
+                            return "【" + this.name + "使用「疯狂」，你受到" + n + "点伤害】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").randomEvent[10] += 1;
+                            return "【你抢回被偷的钱！】";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.2 * t.money, 0));
-                                return t.money -= n, "【你损失20%的钱！】"
+                            t.money -= n;
+                            return "【你损失20%的钱！】";
                             }
-                        }, 814:
-                            { name: "流浪汉(失业)", lv: 46, hp: 1670, maxHp: 1670, att: 0, def: 99999, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 3, drop: [[100, 0, 6, 1]], des: "求求你给我找一份工作吧！(?﹏?)~哇！哇~哇——！", skill: function () { var t = (233 - o.def) * (this.publicVar + 1), n = 233 * (this.publicVar + 1), a = e("scr_data"); return a.role.hp -= t, this.hp -= n, this.publicVar += 1, "【你和流浪一起抱头痛哭，你损失" + t + "点生命，流浪汉损失" + n + "点生命】" }, defSkill: function () { var t = (e("scr_data"), 66 * this.publicVar); return this.hp += t, "【你在安慰流浪汉，流浪汉恢复了" + t + "点生命】" }, winEvent: function () { var t = e("scr_data"); return t.randomEvent[10] += 1, "" }, lostEvent: void 0 }, 815:
-                        {
-                            name: "流浪汉(赌)", lv: 66, hp: 2300, maxHp: 2300, att: 0, def: 60, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 9, 3]], des: "如果你赢啦我给你1毛钱，输啦我剁你一根手指，如何？", skill: function () {
-                                var t = e("scr_data"), n = 100 * Math.random(), a = 20 + 20 * this.publicVar; if (n < a) {
-                                    var c = 3 * (353 - o.def);
-                                    return t.role.hp -= c, "【你输啦，损失" + c + "点生命】"
-                                } return this.publicVar += 1, t.money += 1, "【你赢啦，获得0.1元！】"
-                            }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.randomEvent[10] += 1, "" }, lostEvent: function () {
+                    },
+                    814: {
+                        name: "流浪汉(失业)",
+                        lv: 46,
+                        hp: 1670,
+                        maxHp: 1670,
+                        att: 0,
+                        def: 99999,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 3,
+                        drop: [[100, 0, 6, 1]],
+                        des: "求求你给我找一份工作吧！(?﹏?)~哇！哇~哇——！",
+                        skill: function () {
+                            var t = (233 - o.def) * (this.publicVar + 1), n = 233 * (this.publicVar + 1);
+                            e("scr_data").role.hp -= t;
+                            this.hp -= n;
+                            this.publicVar += 1;
+                            return "【你和流浪一起抱头痛哭，你损失" + t + "点生命，流浪汉损失" + n + "点生命】";
+                        },
+                        defSkill: function () {
+                            e("scr_data");
+                            var t = 66 * this.publicVar;
+                            this.hp += t;
+                            return "【你在安慰流浪汉，流浪汉恢复了" + t + "点生命】";
+                        },
+                        winEvent: function () {
+                            e("scr_data").randomEvent[10] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    815: {
+                        name: "流浪汉(赌)",
+                        lv: 66,
+                        hp: 2300,
+                        maxHp: 2300,
+                        att: 0,
+                        def: 60,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 9, 3]],
+                        des: "如果你赢啦我给你1毛钱，输啦我剁你一根手指，如何？",
+                        skill: function () {
+                            var t = e("scr_data");
+                            if (100 * Math.random() < 20 + 20 * this.publicVar) {
+                                var n = 3 * (353 - o.def);
+                                t.role.hp -= n;
+                                return "【你输啦，损失" + n + "点生命】";
+                            }
+                            this.publicVar += 1;
+                            t.money += 1;
+                            return "【你赢啦，获得0.1元！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").randomEvent[10] += 1;
+                            return "";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.25 * t.money + this.publicVar, 0));
-                                return t.money -= n, "【你损失全部赢得钱，和自己25%的钱！】"
+                            t.money -= n;
+                            return "【你损失全部赢得钱，和自己25%的钱！】";
                             }
-                        }, 816:
-                        {
-                            name: "流浪汉(毒)", lv: 92, hp: 3080, maxHp: 3080, att: 0, def: 92, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 2, getAtt: 2, drop: [[100, 11, 2, 1]], des: "！", skill: function () { var t = e("scr_data"), n = 560 - o.def, a = 60; this.publicVar += 1; var c = a * this.publicVar; return t.role.hp -= n + c, "【流浪汉使用「撕咬」，你受到" + n + "点伤害，每回合损失" + c + "点生命（" + this.publicVar + "层）】" }, defSkill: function () { var t = e("scr_data"), n = 60; this.publicVar += 1; var a = n * this.publicVar; return t.role.hp -= a, "【中毒：每回合损失" + a + "点生命（" + this.publicVar + "层）】" }, winEvent: function () { var t = e("scr_data"); return t.randomEvent[10] += 1, "" }, lostEvent: function () {
+                    },
+                    816: {
+                        name: "流浪汉(毒)",
+                        lv: 92,
+                        hp: 3080,
+                        maxHp: 3080,
+                        att: 0,
+                        def: 92,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 2,
+                        getAtt: 2,
+                        drop: [[100, 11, 2, 1]],
+                        des: "！",
+                        skill: function () {
+                            var t = e("scr_data"), n = 560 - o.def;
+                            this.publicVar += 1;
+                            var a = 60 * this.publicVar;
+                            t.role.hp -= n + a;
+                            return "【流浪汉使用「撕咬」，你受到" + n + "点伤害，每回合损失" + a + "点生命（" + this.publicVar + "层）】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data");
+                            this.publicVar += 1;
+                            var n = 60 * this.publicVar;
+                            t.role.hp -= n;
+                            return "【中毒：每回合损失" + n + "点生命（" + this.publicVar + "层）】";
+                        },
+                        winEvent: function () {
+                            e("scr_data").randomEvent[10] += 1;
+                            return "";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.3 * t.money, 0));
-                                return t.money -= n, "【你损失30%的钱！】"
+                            t.money -= n;
+                            return "【你损失30%的钱！】";
                             }
-                        }, 900:
-                        {
-                            name: "电锯男", lv: 35, hp: 1200, maxHp: 1200, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 0, achieve: 2, getAtt: 2, drop: [[100, 4, 1, 2]], des: "“站好喽~别动啊~”", skill: function () { var t = e("scr_data"); return t.role.hp -= 9999, "【电锯男使用「电锯！」，你损失9999点生命！】" }, defSkill: void 0, winEvent: void 0, lostEvent: function () {
+                    },
+                    900: {
+                        name: "电锯男",
+                        lv: 35,
+                        hp: 1200,
+                        maxHp: 1200,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 0,
+                        achieve: 2,
+                        getAtt: 2,
+                        drop: [[100, 4, 1, 2]],
+                        des: "“站好喽~别动啊~”",
+                        skill: function () {
+                            e("scr_data").role.hp -= 9999;
+                            return "【电锯男使用「电锯！」，你损失9999点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = 2 * t.randomEvent[13] + 2;
-                                return t.money += n, t.randomEvent[13] = 0, "【“哎呀~舒服了~舒服了”。你获得" + (n / 10).toFixed(1) + "元】"
+                            t.money += n;
+                            t.randomEvent[13] = 0;
+                            return "【“哎呀~舒服了~舒服了”。你获得" + (n / 10).toFixed(1) + "元】";
+                        }
+                    },
+                    901: {
+                        name: "受伤的火狐",
+                        lv: 20,
+                        hp: 200,
+                        maxHp: 1e3,
+                        att: 10,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 0,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 9, 1, 1]],
+                        des: "火狐周身散发着火红的光芒！",
+                        skill: function () {
+                            this.hp += 60;
+                            return "【火狐正在自愈！恢复自身60点生命】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    902: {
+                        name: "再生虫",
+                        lv: 1,
+                        hp: 5,
+                        maxHp: 5,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 100,
+                        enemyEscapeRate: 0,
+                        lostHealth: 20,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 9, 1, 1]],
+                        des: "散发着彩色光芒的蝴蝶",
+                        skill: function () {
+                            var t = e("scr_data"), n = e("scr_public"), a = t.kills[1];
+                            if (0 == a) {
+                                t.role.hp += 200;
+                                t.role.hp > n.role.maxHp() && (t.role.hp = n.role.maxHp());
+                                return "【" + this.name + "在给你治疗！你回复200点生命】";
                             }
-                        }, 901:
-                            { name: "受伤的火狐", lv: 20, hp: 200, maxHp: 1e3, att: 10, def: 0, publicVar: 0, escapeRate: 0, enemyEscapeRate: 0, lostHealth: 3, achieve: 0, getAtt: 1, drop: [[100, 9, 1, 1]], des: "火狐周身散发着火红的光芒！", skill: function () { var e = 60; return this.hp += e, "【火狐正在自愈！恢复自身" + e + "点生命】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 902:
-                        {
-                            name: "再生虫"
-                            , lv: 1, hp: 5, maxHp: 5, att: 0, def: 0, publicVar: 0, escapeRate: 100, enemyEscapeRate: 0, lostHealth: 20, achieve: 0, getAtt: 1, drop:
-                                [[100, 9, 1, 1]], des: "散发着彩色光芒的蝴蝶"
-                            , skill:
-                                function () {
-                                    var t = e("scr_data"), n = e("scr_public"), a = t.kills[1]; if (0 == a) {
-                                        var c = 200;
-                                        return t.role.hp += c, t.role.hp > n.role.maxHp() && (t.role.hp = n.role.maxHp()), "【" + this.name + "在给你治疗！你回复" + c + "点生命】"
-                                    } this.publicVar += 2; var i = 200 * a * this.publicVar; return t.role.hp -= i, "【剧毒：每回合损失" + i + "点生命】"
-                                }, defSkill:
-                                void 0, winEvent:
-                                function () {
+                            this.publicVar += 2;
+                            var i = 200 * a * this.publicVar;
+                            t.role.hp -= i;
+                            return "【剧毒：每回合损失" + i + "点生命】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
                                     var t = e("scr_data");
                                     t.kills[1] += 1;
-                                    var n = t.kills[1];
-                                    if (1 == n) return "「我知道，这是我无法逃脱的宿命。但是啊，愚蠢的人类，你将为此付出代价！」";
-                                }, lostEvent:
-                                void 0
-                        }, 903:
-                        {
-                            name: "恶狗", lv: 6, hp: 250, maxHp: 250, att: 15, def: 0, publicVar: 0, escapeRate: 35, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 3, 2, 1]], des: "“%&cnm#@*”", skill: function () {
-                                var t = e("scr_data"), n = 100 * Math.random(); this.publicVar += 1; var a = 20 * this.publicVar; if (n < a) {
-                                    var c = 2 * this.att;
-                                    return t.role.hp -= c, "【" + this.name + "使用「疯咬」，你损失" + c + "点生命！】"
-                                } return ""
-                            }, defSkill: void 0, winEvent: void 0, lostEvent: void 0
-                        }, 904:
-                            { name: "孩子她妈", lv: 8, hp: 315, maxHp: 315, att: 10, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[30, 7, 1, 2], [50, 12, 1, 2]], des: "“N——M——B——！”", skill: function () { var t = e("scr_data"), n = 100 * Math.random(); if (n < 50) return "【" + this.name + "使用「红色高跟鞋」，但是被你躲开啦！】"; var a = 4 * this.att - o.def; return t.role.hp -= a, "【" + this.name + "使用「红色高跟鞋」，正中靶心，你损失" + a + "点生命！】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 907:
-                        {
-                            name: "勒索二人组", lv: 20, hp: 710, maxHp: 710, att: 85, def: 10, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 99, 5, 3]], des: "来人呀！！！抓小偷啦！————", skill: void 0, defSkill: void 0, winEvent: void 0, lostEvent: function () {
-                                var t = e("scr_data"), n = parseInt(Math.max(.5 * t.money, 0));
-                                return t.money -= n, "【你损失一半的钱！】"
+                            if (1 == t.kills[1]) return "「我知道，这是我无法逃脱的宿命。但是啊，愚蠢的人类，你将为此付出代价！」";
+                        },
+                        lostEvent: void 0
+                    },
+                    903: {
+                        name: "恶狗",
+                        lv: 6,
+                        hp: 250,
+                        maxHp: 250,
+                        att: 15,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 35,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 3, 2, 1]],
+                        des: "“%&cnm#@*”",
+                        skill: function () {
+                            var t = e("scr_data"), n = 100 * Math.random();
+                            this.publicVar += 1;
+                            if (n < 20 * this.publicVar) {
+                                var a = 2 * this.att;
+                                t.role.hp -= a;
+                                return "【" + this.name + "使用「疯咬」，你损失" + a + "点生命！】";
                             }
-                        }, 908:
-                            { name: "银环蛇（精英）", lv: 6, hp: 210, maxHp: 210, att: 1, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 1, getAtt: 2, drop: [[100, 3, 3, 1]], des: "~嘶~嘶！~", skill: function () { var t = Math.max(7 - o.def, 0); this.publicVar += 1; var n = t * this.publicVar; return e("scr_data").role.hp -= n, "【中毒：每回合损失" + n + "点生命（" + this.publicVar + "层）】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 909:
-                            { name: "醉汉（精英）", lv: 15, hp: 545, maxHp: 545, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 2, drop: [[100, 20, 1, 2]], des: "“不还酒，就别想走！”", skill: function () { var t = Math.max(120 - o.def, 0); return this.hp -= 99, e("scr_data").role.hp -= t, "【醉汉使用「拼命」，你损失" + t + "点生命，醉汉损失99点生命！】" }, defSkill: void 0, winEvent: void 0, lostEvent: void 0 }, 910:
-                            { name: "大肚男（幕后操手）", lv: 200, hp: 6645, maxHp: 6645, att: 1200, def: 450, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 2, achieve: 1, getAtt: 2, drop: [[100, 99, 60, 3]], des: "“滚开！敢打老子女人的注意？”", skill: void 0, defSkill: void 0, winEvent: function () { return e("scr_data").chioce2[6] += 1, "" }, lostEvent: void 0 }, 911:
-                            { name: "大肚男（幕后操手）", lv: 200, hp: 6645, maxHp: 6645, att: 1200, def: 450, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 2, achieve: 1, getAtt: 2, drop: [[100, 99, 60, 3]], des: "“滚开！敢打老子女人的注意？”", skill: void 0, defSkill: void 0, winEvent: function () { return e("scr_data").chioce2[6] += 1, "" }, lostEvent: void 0 }, 996:
-                        {
-                            name: "蒙面人", lv: 99, hp: 99999, maxHp: 99999, att: 0, def: 9999, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 0, 4, 1], [10, 4, 1, 2]], des: "“想知道我是谁？那是不可能的！”", skill: function () { var t = e("scr_data"), n = 2 * Math.random() + 1, a = parseInt(o.maxHp * n); return t.role.hp -= a, "【蒙面人使用「闷棍Max」，你损失" + a + "点生命！】" }, defSkill: void 0, winEvent: void 0, lostEvent: function () {
+                            return "";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    904: {
+                        name: "孩子她妈",
+                        lv: 8,
+                        hp: 315,
+                        maxHp: 315,
+                        att: 10,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[30, 7, 1, 2], [50, 12, 1, 2]],
+                        des: "“N——M——B——！”",
+                        skill: function () {
+                            var t = e("scr_data");
+                            if (100 * Math.random() < 50) return "【" + this.name + "使用「红色高跟鞋」，但是被你躲开啦！】";
+                            var n = 4 * this.att - o.def;
+                            t.role.hp -= n;
+                            return "【" + this.name + "使用「红色高跟鞋」，正中靶心，你损失" + n + "点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    907: {
+                        name: "勒索二人组",
+                        lv: 20,
+                        hp: 710,
+                        maxHp: 710,
+                        att: 85,
+                        def: 10,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 99, 5, 3]],
+                        des: "来人呀！！！抓小偷啦！————",
+                        skill: void 0,
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: function () {
+                                var t = e("scr_data"), n = parseInt(Math.max(.5 * t.money, 0));
+                            t.money -= n;
+                            return "【你损失一半的钱！】";
+                            }
+                    },
+                    908: {
+                        name: "银环蛇（精英）",
+                        lv: 6,
+                        hp: 210,
+                        maxHp: 210,
+                        att: 1,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 1,
+                        getAtt: 2,
+                        drop: [[100, 3, 3, 1]],
+                        des: "~嘶~嘶！~",
+                        skill: function () {
+                            var t = Math.max(7 - o.def, 0);
+                            this.publicVar += 1;
+                            var n = t * this.publicVar;
+                            e("scr_data").role.hp -= n;
+                            return "【中毒：每回合损失" + n + "点生命（" + this.publicVar + "层）】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    909: {
+                        name: "醉汉（精英）",
+                        lv: 15,
+                        hp: 545,
+                        maxHp: 545,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 2,
+                        drop: [[100, 20, 1, 2]],
+                        des: "“不还酒，就别想走！”",
+                        skill: function () {
+                            var t = Math.max(120 - o.def, 0);
+                            this.hp -= 99;
+                            e("scr_data").role.hp -= t;
+                            return "【醉汉使用「拼命」，你损失" + t + "点生命，醉汉损失99点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    910: {
+                        name: "大肚男（幕后操手）",
+                        lv: 200,
+                        hp: 6645,
+                        maxHp: 6645,
+                        att: 1200,
+                        def: 450,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 1,
+                        getAtt: 2,
+                        drop: [[100, 99, 60, 3]],
+                        des: "“滚开！敢打老子女人的注意？”",
+                        skill: void 0,
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").chioce2[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    911: {
+                        name: "大肚男（幕后操手）",
+                        lv: 200,
+                        hp: 6645,
+                        maxHp: 6645,
+                        att: 1200,
+                        def: 450,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 1,
+                        getAtt: 2,
+                        drop: [[100, 99, 60, 3]],
+                        des: "“滚开！敢打老子女人的注意？”",
+                        skill: void 0,
+                        defSkill: void 0,
+                        winEvent: function () {
+                            e("scr_data").chioce2[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    996: {
+                        name: "蒙面人",
+                        lv: 99,
+                        hp: 99999,
+                        maxHp: 99999,
+                        att: 0,
+                        def: 9999,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 0, 4, 1], [10, 4, 1, 2]],
+                        des: "“想知道我是谁？那是不可能的！”",
+                        skill: function () {
+                            var t = e("scr_data"), n = 2 * Math.random() + 1, a = parseInt(o.maxHp * n);
+                            t.role.hp -= a;
+                            return "【蒙面人使用「闷棍Max」，你损失" + a + "点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = e("scr_public");
-                                return t.ifFollow[0] = 0, t.distance = 300, t.button[0] = !1, t.button[1] = !0, t.button[2] = !0, n.ifNotify = !0, n.save(), n.init(), "【你被蒙面人打晕，趴光衣服被丢在了省城门口！】"
+                            t.ifFollow[0] = 0;
+                            t.distance = 300;
+                            t.button[0] = !1;
+                            t.button[1] = !0;
+                            t.button[2] = !0;
+                            n.ifNotify = !0;
+                            n.save();
+                            n.init();
+                            return "【你被蒙面人打晕，趴光衣服被丢在了省城门口！】";
                             }
-                        }, 997:
-                        {
-                            name: "蒙面人", lv: 99, hp: 9999, maxHp: 9999, att: 0, def: 9999, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 0, 4, 1], [10, 4, 1, 2]], des: "“想知道我是谁？那是不可能的！”", skill: function () { var t = e("scr_data"), n = 2 * Math.random() + 1, a = parseInt(o.maxHp * n); return t.role.hp -= a, "【蒙面人使用「闷棍Max」，你损失" + a + "点生命！】" }, defSkill: void 0, winEvent: void 0, lostEvent: function () {
+                    },
+                    997: {
+                        name: "蒙面人",
+                        lv: 99,
+                        hp: 9999,
+                        maxHp: 9999,
+                        att: 0,
+                        def: 9999,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 0, 4, 1], [10, 4, 1, 2]],
+                        des: "“想知道我是谁？那是不可能的！”",
+                        skill: function () {
+                            var t = e("scr_data"), n = 2 * Math.random() + 1, a = parseInt(o.maxHp * n);
+                            t.role.hp -= a;
+                            return "【蒙面人使用「闷棍Max」，你损失" + a + "点生命！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: void 0,
+                        lostEvent: function () {
+                            e("scr_data").distance = 99;
+                            return "【你被蒙面人打晕，食物全丢，趴光衣服被丢在了县城门口！】";
+                        }
+                    },
+                    998: {
+                        name: "游戏作者",
+                        lv: 999,
+                        hp: 9999,
+                        maxHp: 9999,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 999,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“哈哈哈哈哈哈！你是想抵抗神的旨意么？”",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(.3 * o.maxHp);
+                            t.role.hp -= n;
+                            e("scr_effect").attackEfect1();
+                            return "【啊哈哈哈你的游戏数据正在被作者删除啊哈哈哈游戏已损坏游戏已损坏】";
+                        },
+                        defSkill: function () {
+                            return "【啊哈哈哈你的游戏数据正游戏已损坏啊哈哈哈你的游戏数据正】";
+                        },
+                        winEvent: function () {
                                 var t = e("scr_data");
-                                return t.distance = 99, "【你被蒙面人打晕，食物全丢，趴光衣服被丢在了县城门口！】"
+                            t.itemNum[12] += 1;
+                            return "获得【MMP】*1【眼泪】*1（用于解锁隐藏剧情，你已拥有" + t.itemNum[12] + "）";
+                        },
+                        lostEvent: function () {
+                            var t = e("scr_data2");
+                            JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.sys.localStorage.removeItem("userData");
+                            t.initMoney = 50;
+                            t.gameData[0] = 0;
+                            e("scr_public").save2();
+                            cc.director.loadScene("start");
+                            return "你的存档已被作者清除，游戏即将自动关闭";
+                        }
+                    },
+                    999: {
+                        name: "游戏GM",
+                        lv: 999,
+                        hp: 999999,
+                        maxHp: 999999,
+                        att: 9999,
+                        def: 9999,
+                        publicVar: 0,
+                        escapeRate: 0,
+                        enemyEscapeRate: 0,
+                        lostHealth: 0,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 0, 4, 1], [10, 4, 1, 2]],
+                        des: "“你好，你已经被我盯上了哟~”",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(.2 * o.maxHp);
+                            t.role.hp -= n;
+                            return "【“叫你丫的刷！啊！还刷不刷？！”】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data"), n = parseInt(.2 * o.hp);
+                            t.role.hp -= n;
+                            return "【“你丫还敢还手？你还敢还手！”】";
+                        },
+                        winEvent: void 0,
+                        lostEvent: function () {
+                            e("scr_data").health = -9999;
+                            return "";
+                        }
+                    },
+                    100001: {
+                        name: "草带男孩（中二病）",
+                        lv: 1,
+                        hp: 30,
+                        maxHp: 30,
+                        att: 1,
+                        def: 1,
+                        publicVar: 0,
+                        escapeRate: 30,
+                        enemyEscapeRate: 0,
+                        lostHealth: 0,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[10, 26, 1, 2]],
+                        des: "“我是要成为第一剑豪的男人！”",
+                        skill: function () {
+                            var t = e("scr_data"), n = 10 * t.kills[2];
+                            if (100 * Math.random() < n) {
+                                var a = 2 * this.att - o.def, i = this.def;
+                                t.role.hp -= a;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= i;
+                                return "【男孩使用「啊拖勒啊可痛！」，你受到" + a + "点伤害，并降低" + i + "点防御！】";
                             }
-                        }, 998:
-                        {
-                            name: "游戏作者", lv: 999, hp: 9999, maxHp: 9999, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 999, achieve: 0, getAtt: 1, drop: [], des: "“哈哈哈哈哈哈！你是想抵抗神的旨意么？”", skill: function () { var t = e("scr_data"), n = parseInt(.3 * o.maxHp); return t.role.hp -= n, e("scr_effect").attackEfect1(), "【啊哈哈哈你的游戏数据正在被作者删除啊哈哈哈游戏已损坏游戏已损坏】" }, defSkill: function () { return "【啊哈哈哈你的游戏数据正游戏已损坏啊哈哈哈你的游戏数据正】" }, winEvent: function () { var t = e("scr_data"); return t.itemNum[12] += 1, "获得【MMP】*1【眼泪】*1（用于解锁隐藏剧情，你已拥有" + t.itemNum[12] + "）" }, lostEvent: function () {
-                                var t = e("scr_data2");
-                                return JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.sys.localStorage.removeItem("userData"), t.initMoney = 50, t.gameData[0] = 0, e("scr_public").save2(), cc.director.loadScene("start"), "你的存档已被作者清除，游戏即将自动关闭"
+                            return "";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data");
+                            if (100 * Math.random() < Math.min(5 * t.kills[2], 75)) {
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 9999;
+                                return "【男孩使用「侯塞给！」】";
                             }
-                        }, 999:
-                        {
-                            name: "游戏GM", lv: 999, hp: 999999, maxHp: 999999, att: 9999, def: 9999, publicVar: 0, escapeRate: 0, enemyEscapeRate: 0, lostHealth: 0, achieve: 0, getAtt: 1, drop: [[100, 0, 4, 1], [10, 4, 1, 2]], des: "“你好，你已经被我盯上了哟~”", skill: function () { var t = e("scr_data"), n = parseInt(.2 * o.maxHp); return t.role.hp -= n, "【“叫你丫的刷！啊！还刷不刷？！”】" }, defSkill: function () { var t = e("scr_data"), n = parseInt(.2 * o.hp); return t.role.hp -= n, "【“你丫还敢还手？你还敢还手！”】" }, winEvent: void 0, lostEvent: function () {
+                            return "";
+                        },
+                        winEvent: function () {
+                            var t = e("scr_data"), n = t.kills[2], a = "【“我是不会认输的！\n(▼ヘ▼#)”】";
+                            t.specialEnemy[100001].lv += 3;
+                            t.specialEnemy[100001].att += 15;
+                            t.specialEnemy[100001].hp += 80;
+                            t.specialEnemy[100001].maxHp += 80;
+                            t.specialEnemy[100001].def += 6;
+                            t.kills[2] += 1;
+                            if (2 == n) {
+                                t.itemNum[0] += 2;
+                                a = "【男孩留下2个「果子」！然后逃走了！】你获得「果子」*2";
+                            }
+                            if (6 == n) {
+                                t.itemNum2[1] += 3;
+                                a = "【男孩留下3个「伤药」！然后逃走了！】你获得「伤药」*3";
+                            }
+                            if (12 == n) {
+                                t.itemNum2[20] += 1;
+                                a = "【男孩留下一块「板砖」！然后逃走了！】你获得「板砖」*1";
+                            }
+                            if (20 == n) {
+                                t.itemNum2[18] += 1;
+                                a = "【男孩留下一个「装避鞋」！然后逃走了！】你获得「装避鞋」*1";
+                            }
+                            return a;
+                        },
+                        lostEvent: function () {
+                            e("scr_data").publicVar2[7] += 1;
+                            return "【︿(￣︶￣)︿】";
+                            }
+                    },
+                    100002: {
+                        name: "泰坦巨蟒（特殊）",
+                        lv: 25,
+                        hp: 875,
+                        maxHp: 875,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 80,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 3,
+                        getAtt: 3,
+                        drop: [[100, 3, 3, 1]],
+                        des: "特注：战斗结束后巨蟒不会回满血！！！",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.07 * this.hp - o.def, 0));
+                            t.role.hp -= n;
+                            return "【" + this.name + "使用「缠绕」，你受到" + n + "点伤害】";
+                        },
+                        defSkill: function () {
+                            e("scr_data").specialEnemy[100002].hp = this.hp;
+                            return "";
+                        },
+                        winEvent: void 0,
+                        lostEvent: void 0
+                    },
+                    200001: {
+                        name: "女流氓",
+                        lv: 8,
+                        hp: 315,
+                        maxHp: 315,
+                        att: 20,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 40,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[20, 7, 1, 2], [10, 21, 1, 2], [100, 1, 1, 2]],
+                        des: "“小帅哥，要不要跟姐姐玩玩呀”",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(this.att), a = parseInt(.1 * this.att), i = parseInt(.2 * this.att);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= a;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= i;
+                            t.role.hp -= n;
+                            return "【" + this.name + "使用「壁咚」，你受到" + n + "点伤害，攻击下降" + i + "点，防御下降" + a + "点！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
                                 var t = e("scr_data");
-                                return t.health = -9999, ""
+                            t.specialEnemy[200001].lv += 20;
+                            t.specialEnemy[200001].att += 80;
+                            t.specialEnemy[200001].hp += 520;
+                            t.specialEnemy[200001].maxHp += 520;
+                            t.specialEnemy[200001].def += 40;
+                            t.orderTimes[7] = 0;
+                            return "【姐姐有点小兴奋了呢\n(*/ω＼*)】";
+                        },
+                        lostEvent: function () {
+                            e("scr_data").orderTimes[7] += 2;
+                            return "【“￣へ￣！非要逼姐姐？”】";
                             }
-                        }, 100001:
-                        {
-                            name: "草带男孩（中二病）", lv: 1, hp: 30, maxHp: 30, att: 1, def: 1, publicVar: 0, escapeRate: 30, enemyEscapeRate: 0, lostHealth: 0, achieve: 0, getAtt: 1, drop: [[10, 26, 1, 2]], des: "“我是要成为第一剑豪的男人！”", skill: function () {
-                                var t = e("scr_data"), n = 10 * t.kills[2], a = 100 * Math.random(); if (a < n) {
-                                    var c = 2 * this.att - o.def, i = this.def;
-                                    return t.role.hp -= c, cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= i, "【男孩使用「啊拖勒啊可痛！」，你受到" + c + "点伤害，并降低" + i + "点防御！】"
-                                } return ""
-                            }, defSkill: function () { var t = e("scr_data"), n = 100 * Math.random(), a = Math.min(5 * t.kills[2], 75); return n < a ? (cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 9999, "【男孩使用「侯塞给！」】") : "" }, winEvent: function () { var t = e("scr_data"), n = t.kills[2], a = "【“我是不会认输的！\n(▼ヘ▼#)”】"; return t.specialEnemy[100001].lv += 3, t.specialEnemy[100001].att += 15, t.specialEnemy[100001].hp += 80, t.specialEnemy[100001].maxHp += 80, t.specialEnemy[100001].def += 6, t.kills[2] += 1, 2 == n && (t.itemNum[0] += 2, a = "【男孩留下2个「果子」！然后逃走了！】你获得「果子」*2"), 6 == n && (t.itemNum2[1] += 3, a = "【男孩留下3个「伤药」！然后逃走了！】你获得「伤药」*3"), 12 == n && (t.itemNum2[20] += 1, a = "【男孩留下一块「板砖」！然后逃走了！】你获得「板砖」*1"), 20 == n && (t.itemNum2[18] += 1, a = "【男孩留下一个「装避鞋」！然后逃走了！】你获得「装避鞋」*1"), a }, lostEvent: function () {
-                                return e("scr_data").publicVar2[7] += 1, "【︿(￣︶￣)︿】"
+                    },
+                    300001: {
+                        name: "火狐." + e("scr_data").kills[1] + "转（稀有）",
+                        lv: 35,
+                        hp: 510,
+                        maxHp: 510,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 100,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 9, 1, 1]],
+                        des: "发现一只全身散发红色光芒的狐狸！",
+                        skill: function () {
+                            var t = e("scr_data"), n = 10 * t.kills[1] + 40;
+                            if (100 * Math.random() < n) {
+                                var a = parseInt(.12 * t.role.hp + 5 + 10 * t.kills[1]);
+                                t.role.hp -= a;
+                                this.hp += a;
+                                return "【火狐使用「灵魂摄取」，你损失12%的当前生命值（" + a + "），火狐恢复" + a + "点生命！】";
                             }
-                        }, 100002:
-                            { name: "泰坦巨蟒（特殊）", lv: 25, hp: 875, maxHp: 875, att: 0, def: 0, publicVar: 0, escapeRate: 80, enemyEscapeRate: 0, lostHealth: 1, achieve: 3, getAtt: 3, drop: [[100, 3, 3, 1]], des: "特注：战斗结束后巨蟒不会回满血！！！", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.07 * this.hp - o.def, 0)); return t.role.hp -= n, "【" + this.name + "使用「缠绕」，你受到" + n + "点伤害】" }, defSkill: function () { var t = e("scr_data"); return t.specialEnemy[100002].hp = this.hp, "" }, winEvent: void 0, lostEvent: void 0 }, 200001:
-                        {
-                            name: "女流氓", lv: 8, hp: 315, maxHp: 315, att: 20, def: 0, publicVar: 0, escapeRate: 40, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[20, 7, 1, 2], [10, 21, 1, 2], [100, 1, 1, 2]], des: "“小帅哥，要不要跟姐姐玩玩呀”", skill: function () { var t = e("scr_data"), n = parseInt(this.att), a = parseInt(.1 * this.att), c = parseInt(.2 * this.att); return cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= a, cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= c, t.role.hp -= n, "【" + this.name + "使用「壁咚」，你受到" + n + "点伤害，攻击下降" + c + "点，防御下降" + a + "点！】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.specialEnemy[200001].lv += 20, t.specialEnemy[200001].att += 80, t.specialEnemy[200001].hp += 520, t.specialEnemy[200001].maxHp += 520, t.specialEnemy[200001].def += 40, t.orderTimes[7] = 0, "【姐姐有点小兴奋了呢\n(*/ω＼*)】" }, lostEvent: function () {
+                            return "";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data");
+                            if (100 * Math.random() < 10 * t.kills[1] + 40) {
+                                var n = parseInt(.12 * (this.maxHp - this.hp) + 5 + 10 * t.kills[1]);
+                                this.hp += n;
+                                t.role.hp -= n;
+                                return "【火狐使用「红灵护体」，恢复自身12%已损失的生命！(" + n + "点)，并对你造成" + n + "点伤害！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.kills[1];
+                            t.specialEnemy[300001].lv += 5;
+                            t.specialEnemy[300001].att += 35;
+                            t.specialEnemy[300001].hp += 210;
+                            t.specialEnemy[300001].maxHp += 210;
+                            t.specialEnemy[300001].def += 10;
+                            t.kills[1] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    300002: {
+                        name: "山岭巨人（稀有）",
+                        lv: 45,
+                        hp: 2275,
+                        maxHp: 2275,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 50,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 8, 1, 1]],
+                        des: "特注：战斗结束后巨人不会回满血！！！",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.1 * this.hp - o.def + this.def, 0));
+                            t.role.hp -= n;
+                            return "【" + this.name + "使用「咆哮」，你受到" + n + "点伤害】";
+                        },
+                        defSkill: function () {
+                            var t = e("scr_data");
+                            t.specialEnemy[300002].hp = this.hp;
+                            this.def += 10;
+                            t.role.hp -= this.def;
+                            return "【巨人使用「石化皮肤」「强化反甲」，防御+10，你损失" + this.def + "点生命】";
+                        },
+                        winEvent: function () {
                                 var t = e("scr_data");
-                                return t.orderTimes[7] += 2, "【“￣へ￣！非要逼姐姐？”】"
+                            t.kills[3] += 1;
+                            t.specialEnemy[300002].lv += 5;
+                            t.specialEnemy[300002].def += 15;
+                            t.specialEnemy[300002].maxHp += 400;
+                            t.specialEnemy[300002].hp = this.hp;
+                            i.save();
+                            if (0 == t.skillLv[16] && this.lv >= 55) {
+                                t.skillLv[16] = 1;
+                                return "【激活特性「防御强化2」】";
                             }
-                        }, 300001:
-                        {
-                            name: "火狐." + e("scr_data").kills[1] + "转（稀有）", lv: 35, hp: 510, maxHp: 510, att: 0, def: 0, publicVar: 0, escapeRate: 100, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 9, 1, 1]], des: "发现一只全身散发红色光芒的狐狸！", skill: function () {
-                                var t = e("scr_data"), n = 10 * t.kills[1] + 40, a = 100 * Math.random(); if (a < n) {
-                                    var c = parseInt(.12 * t.role.hp + 5 + 10 * t.kills[1]);
-                                    return t.role.hp -= c, this.hp += c, "【火狐使用「灵魂摄取」，你损失12%的当前生命值（" + c + "），火狐恢复" + c + "点生命！】"
-                                } return ""
-                            }, defSkill: function () {
-                                var t = e("scr_data"), n = 100 * Math.random(), a = 10 * t.kills[1] + 40; if (n < a) {
-                                    var c = parseInt(.12 * (this.maxHp - this.hp) + 5 + 10 * t.kills[1]);
-                                    return this.hp += c, t.role.hp -= c, "【火狐使用「红灵护体」，恢复自身12%已损失的生命！(" + c + "点)，并对你造成" + c + "点伤害！】"
-                                } return ""
-                            }, winEvent: function () { var t = e("scr_data"); t.kills[1]; return t.specialEnemy[300001].lv += 5, t.specialEnemy[300001].att += 35, t.specialEnemy[300001].hp += 210, t.specialEnemy[300001].maxHp += 210, t.specialEnemy[300001].def += 10, t.kills[1] += 1, "" }, lostEvent: void 0
-                        }, 300002:
-                            { name: "山岭巨人（稀有）", lv: 45, hp: 2275, maxHp: 2275, att: 0, def: 0, publicVar: 0, escapeRate: 50, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 8, 1, 1]], des: "特注：战斗结束后巨人不会回满血！！！", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.1 * this.hp - o.def + this.def, 0)); return t.role.hp -= n, "【" + this.name + "使用「咆哮」，你受到" + n + "点伤害】" }, defSkill: function () { var t = e("scr_data"); return t.specialEnemy[300002].hp = this.hp, this.def += 10, t.role.hp -= this.def, "【巨人使用「石化皮肤」「强化反甲」，防御+10，你损失" + this.def + "点生命】" }, winEvent: function () { var t = e("scr_data"); return t.kills[3] += 1, t.specialEnemy[300002].lv += 5, t.specialEnemy[300002].def += 15, t.specialEnemy[300002].maxHp += 400, t.specialEnemy[300002].hp = this.hp, c.save(), 0 == t.skillLv[16] && this.lv >= 55 ? (t.skillLv[16] = 1, "【激活特性「防御强化2」】") : "" }, lostEvent: void 0 }, 300003:
-                            { name: "深渊巨蟒", lv: 35, hp: 875, maxHp: 875, att: 0, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 3, drop: [[100, 3, 3, 1], [100, 26, 1, 2]], des: "特注：战斗结束后巨蟒不会回满血！！！", skill: function () { var t = e("scr_data"), n = parseInt(Math.max(.07 * this.hp - o.def, 0)); return t.role.hp -= n, "【" + this.name + "使用「缠绕」，你受到" + n + "点伤害】" }, defSkill: function () { var t = e("scr_data"); return t.specialEnemy[300003].hp = this.hp, "" }, winEvent: function () { var t = e("scr_data"); return t.choice[6] += 1, "" }, lostEvent: void 0 }, 400001:
-                        {
-                            name: "走私团伙" + parseInt(899 * Math.random() + 100) + "队", lv: 100, hp: 3345, maxHp: 3345, att: 0, def: 234, publicVar: 0, escapeRate: 40, enemyEscapeRate: 0, lostHealth: 2, achieve: 0, getAtt: 1, drop: [[30, 11, 1, 1]], des: "“你知不知道好奇能让人疯掉？”", skill: function () {
-                                var t = e("scr_data"), n = 100 * Math.random(), a = this.lv / 5; if (this.publicVar += 1, this.publicVar <= 10) {
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    300003: {
+                        name: "深渊巨蟒",
+                        lv: 35,
+                        hp: 875,
+                        maxHp: 875,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 3,
+                        drop: [[100, 3, 3, 1], [100, 26, 1, 2]],
+                        des: "特注：战斗结束后巨蟒不会回满血！！！",
+                        skill: function () {
+                            var t = e("scr_data"), n = parseInt(Math.max(.07 * this.hp - o.def, 0));
+                            t.role.hp -= n;
+                            return "【" + this.name + "使用「缠绕」，你受到" + n + "点伤害】";
+                        },
+                        defSkill: function () {
+                            e("scr_data").specialEnemy[300003].hp = this.hp;
+                            return "";
+                        },
+                        winEvent: function () {
+                            e("scr_data").choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    400001: {
+                        name: "走私团伙" + parseInt(899 * Math.random() + 100) + "队",
+                        lv: 100,
+                        hp: 3345,
+                        maxHp: 3345,
+                        att: 0,
+                        def: 234,
+                        publicVar: 0,
+                        escapeRate: 40,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[30, 11, 1, 1]],
+                        des: "“你知不知道好奇能让人疯掉？”",
+                        skill: function () {
+                            var t = e("scr_data"), n = 100 * Math.random(), a = this.lv / 5;
+                            this.publicVar += 1;
+                            if (this.publicVar <= 10) {
                                     if (n < a) {
-                                        var c = 9 * this.lv - o.def;
-                                        return t.role.hp -= c, "【走私团伙，向你发射了一颗子弹！击中！你损失" + c + "点生命！】"
+                                    var i = 9 * this.lv - o.def;
+                                    t.role.hp -= i;
+                                    return "【走私团伙，向你发射了一颗子弹！击中！你损失" + i + "点生命！】";
+                                }
+                                return "【走私团伙，向你发射了一颗子弹！但是未命中】";
                                     }
-                                    return "【走私团伙，向你发射了一颗子弹！但是未命中】"
-                                } return "【走私团伙没子弹啦！】"
-                            }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.specialEnemy[400001].lv += 20, t.specialEnemy[400001].hp += 500, t.specialEnemy[400001].maxHp += 500, t.specialEnemy[400001].def += 40, "【“你给老子等着！”】" }, lostEvent: void 0
-                        }, 400002:
-                            { name: "古树", lv: 199, hp: 19999, maxHp: 19999, att: 0, def: 20, publicVar: 0, escapeRate: 100, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 0, 10, 1], [100, 1, 10, 1]], des: "......", skill: void 0, defSkill: function () { var t = e("scr_data"); return t.specialEnemy[400002].hp = this.hp, this.def += 20, t.role.hp -= this.def, "【反弹！你损失" + this.def + "点生命】" }, winEvent: function () { var t = e("scr_data"); return t.specialEnemy[400002].lv += 100, t.specialEnemy[400002].def += 20, t.specialEnemy[400002].maxHp += 1e4, t.specialEnemy[400002].hp = this.hp, c.save(), "" }, lostEvent: void 0 }, 400003:
-                        {
-                            name: "杀.破.狼", lv: 60, hp: 2025, maxHp: 2025, att: 310, def: 121, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 3, 2, 1], [20, 9, 1, 1]], des: "“嗷嗷嗷~”", skill: function () {
-                                var t = e("scr_data"), n = 100 * Math.random(); this.publicVar += 1; var a = 20 * this.publicVar; if (n < a) {
-                                    var c = 2 * this.att - o.def;
-                                    return t.role.hp -= c, "【" + this.name + "使用「暴击」，你损失" + c + "点生命！】"
-                                } return ""
-                            }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.specialEnemy[400003].lv += 20, t.specialEnemy[400003].att += 150, t.specialEnemy[400003].hp += 620, t.specialEnemy[400003].maxHp += 620, t.specialEnemy[400003].def += 50, this.lv >= 160 && 0 == t.skillLv[20] ? (t.skillLv[20] = 1, "【激活特性「防御强化3」！】") : "" }, lostEvent: void 0
-                        }, 900001:
-                        {
-                            name: "壮汉（精英）", lv: 15, hp: 575, maxHp: 575, att: 60, def: 0, publicVar: 0, escapeRate: 10, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 1, 2, 2], [30, 23, 1, 2]], des: "“老子的钱，你也敢捡？”", skill: function () { return this.att += parseInt(.1 * this.att), "【壮汉使用「狂暴」，壮汉攻击增加】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.specialEnemy[900001].lv += 30, t.specialEnemy[900001].att += 180, t.specialEnemy[900001].hp += 1e3, t.specialEnemy[900001].maxHp += 1e3, t.specialEnemy[900001].def += 60, "" }, lostEvent: function () {
+                            return "【走私团伙没子弹啦！】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.specialEnemy[400001].lv += 20;
+                            t.specialEnemy[400001].hp += 500;
+                            t.specialEnemy[400001].maxHp += 500;
+                            t.specialEnemy[400001].def += 40;
+                            return "【“你给老子等着！”】";
+                        },
+                        lostEvent: void 0
+                    },
+                    400002: {
+                        name: "古树",
+                        lv: 199,
+                        hp: 19999,
+                        maxHp: 19999,
+                        att: 0,
+                        def: 20,
+                        publicVar: 0,
+                        escapeRate: 100,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 0, 10, 1], [100, 1, 10, 1]],
+                        des: "......",
+                        skill: void 0,
+                        defSkill: function () {
+                            var t = e("scr_data");
+                            t.specialEnemy[400002].hp = this.hp;
+                            this.def += 20;
+                            t.role.hp -= this.def;
+                            return "【反弹！你损失" + this.def + "点生命】";
+                        },
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.specialEnemy[400002].lv += 100;
+                            t.specialEnemy[400002].def += 20;
+                            t.specialEnemy[400002].maxHp += 1e4;
+                            t.specialEnemy[400002].hp = this.hp;
+                            i.save();
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    400003: {
+                        name: "杀.破.狼",
+                        lv: 60,
+                        hp: 2025,
+                        maxHp: 2025,
+                        att: 310,
+                        def: 121,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 3, 2, 1], [20, 9, 1, 1]],
+                        des: "“嗷嗷嗷~”",
+                        skill: function () {
+                            var t = e("scr_data"), n = 100 * Math.random();
+                            this.publicVar += 1;
+                            if (n < 20 * this.publicVar) {
+                                var a = 2 * this.att - o.def;
+                                t.role.hp -= a;
+                                return "【" + this.name + "使用「暴击」，你损失" + a + "点生命！】";
+                            }
+                            return "";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.specialEnemy[400003].lv += 20;
+                            t.specialEnemy[400003].att += 150;
+                            t.specialEnemy[400003].hp += 620;
+                            t.specialEnemy[400003].maxHp += 620;
+                            t.specialEnemy[400003].def += 50;
+                            if (this.lv >= 160 && 0 == t.skillLv[20]) {
+                                t.skillLv[20] = 1;
+                                return "【激活特性「防御强化3」！】";
+                            }
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    900001: {
+                        name: "壮汉（精英）",
+                        lv: 15,
+                        hp: 575,
+                        maxHp: 575,
+                        att: 60,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 10,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 1, 2, 2], [30, 23, 1, 2]],
+                        des: "“老子的钱，你也敢捡？”",
+                        skill: function () {
+                            this.att += parseInt(.1 * this.att);
+                            return "【壮汉使用「狂暴」，壮汉攻击增加】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.specialEnemy[900001].lv += 30;
+                            t.specialEnemy[900001].att += 180;
+                            t.specialEnemy[900001].hp += 1e3;
+                            t.specialEnemy[900001].maxHp += 1e3;
+                            t.specialEnemy[900001].def += 60;
+                            return "";
+                        },
+                        lostEvent: function () {
                                 var t = e("scr_data"), n = parseInt(Math.max(.5 * t.money, 0));
-                                return t.money -= n, "【你损失一半的钱！】"
+                            t.money -= n;
+                            return "【你损失一半的钱！】";
+                        }
+                    },
+                    900002: {
+                        name: "女(流浪)汉子",
+                        lv: 20,
+                        hp: 998,
+                        maxHp: 998,
+                        att: 50,
+                        def: 36,
+                        publicVar: 0,
+                        escapeRate: 10,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 0, 2, 1], [30, 22, 1, 2]],
+                        des: "“(╬￣皿￣)=○这是我先看到的”",
+                        skill: function () {
+                            var e = parseInt(.3 * this.def), t = parseInt(.1 * this.hp);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= e;
+                            this.hp += t;
+                            return "【女汉子使用「王之怒视」，你降低" + e + "点防御，女汉子很开心，恢复了" + t + "点生命】";
+                        },
+                        defSkill: void 0,
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.specialEnemy[900002].lv += 40;
+                            t.specialEnemy[900002].att += 120;
+                            t.specialEnemy[900002].hp += 1400;
+                            t.specialEnemy[900002].maxHp += 1400;
+                            t.specialEnemy[900002].def += 90;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    900003: {
+                        name: "陈晓（大大）",
+                        lv: 500,
+                        hp: 16500,
+                        maxHp: 16500,
+                        att: 1500,
+                        def: 1150,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 14, 6, 2], [100, 7, 1, 2]],
+                        des: "“小伙，过来抽根烟？”",
+                        skill: function () {
+                            var e = this.att + o.def, t = parseInt(.2 * (this.maxHp - this.hp));
+                            c.role.hp -= e;
+                            this.hp += t;
+                            return "【陈晓使用「晓风.霸王拳」，对你造成" + e + "点伤害，自身恢复" + t + "点生命】";
+                        },
+                        defSkill: function () {
+                            if (100 * Math.random() < Math.min(this.lv / 50 + 20, 80)) {
+                                var t = parseInt(.5 * o.att);
+                                e("scr_data").role.hp -= t;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999;
+                                return "【" + this.name + "使用「格挡」「反弹」，你减少" + t + "点生命！】";
                             }
-                        }, 900002:
-                            { name: "女(流浪)汉子", lv: 20, hp: 998, maxHp: 998, att: 50, def: 36, publicVar: 0, escapeRate: 10, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 0, 2, 1], [30, 22, 1, 2]], des: "“(╬￣皿￣)=○这是我先看到的”", skill: function () { var e = parseInt(.3 * this.def), t = parseInt(.1 * this.hp); return cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= e, this.hp += t, "【女汉子使用「王之怒视」，你降低" + e + "点防御，女汉子很开心，恢复了" + t + "点生命】" }, defSkill: void 0, winEvent: function () { var t = e("scr_data"); return t.specialEnemy[900002].lv += 40, t.specialEnemy[900002].att += 120, t.specialEnemy[900002].hp += 1400, t.specialEnemy[900002].maxHp += 1400, t.specialEnemy[900002].def += 90, "" }, lostEvent: void 0 }, 900003:
-                        {
-                            name: "陈晓（大大）", lv: 500, hp: 16500, maxHp: 16500, att: 1500, def: 1150, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 14, 6, 2], [100, 7, 1, 2]], des: "“小伙，过来抽根烟？”", skill: function () { var e = this.att + o.def, t = parseInt(.2 * (this.maxHp - this.hp)); return i.role.hp -= e, this.hp += t, "【陈晓使用「晓风.霸王拳」，对你造成" + e + "点伤害，自身恢复" + t + "点生命】" }, defSkill: function () {
-                                var t = 100 * Math.random(), n = Math.min(this.lv / 50 + 20, 80); if (t < n) {
-                                    var a = parseInt(.5 * o.att);
-                                    return e("scr_data").role.hp -= a, cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999, "【" + this.name + "使用「格挡」「反弹」，你减少" + a + "点生命！】"
-                                } return ""
-                            }, winEvent: function () { var t = e("scr_data"); return t.specialEnemy[900003].lv += 500, t.specialEnemy[900003].att += 1500, t.specialEnemy[900003].hp += 16e3, t.specialEnemy[900003].maxHp += 16e3, t.specialEnemy[900003].def += 1150, "" }, lostEvent: function () {
+                            return "";
+                        },
+                        winEvent: function () {
                                 var t = e("scr_data");
-                                return t.itemNum2[19] -= 1, "【枪被抢走一把！你损失「枪」*1！】"
+                            t.specialEnemy[900003].lv += 500;
+                            t.specialEnemy[900003].att += 1500;
+                            t.specialEnemy[900003].hp += 16e3;
+                            t.specialEnemy[900003].maxHp += 16e3;
+                            t.specialEnemy[900003].def += 1150;
+                            return "";
+                        },
+                        lostEvent: function () {
+                            e("scr_data").itemNum2[19] -= 1;
+                            return "【枪被抢走一把！你损失「枪」*1！】";
                             }
-                        }, 900004:
-                        {
-                            name: "？？？？", lv: 1, hp: 999999, maxHp: 999999, att: 300, def: 0, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 3, achieve: 1, getAtt: 1, drop: [], des: "", skill: function () {
-                                if (this.att < 2 * o.att && (this.att += 20, this.lv += 1, i.specialEnemy[900004].att = this.att), i.specialEnemy[900004].hp = this.hp, this.lv > 30) {
+                    },
+                    900004: {
+                        name: "？？？？",
+                        lv: 1,
+                        hp: 999999,
+                        maxHp: 999999,
+                        att: 300,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 3,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [],
+                        des: "",
+                        skill: function () {
+                            if (this.att < 2 * o.att) {
+                                this.att += 20;
+                                this.lv += 1;
+                                c.specialEnemy[900004].att = this.att;
+                            }
+                            c.specialEnemy[900004].hp = this.hp;
+                            if (this.lv > 30) {
                                     var e = 2 * Math.max(this.att - o.def, 0);
-                                    return i.role.hp -= e, "【？使用「学习.暴击」你受到" + e + "点伤害！】"
-                                } if (this.lv > 100) {
-                                    var e = 2 * this.att;
-                                    return i.role.hp -= e, "【？使用「学习.破防」你受到" + e + "点伤害！】"
-                                } if (this.lv > 200) {
-                                    var e = 2 * this.att, t = parseInt(.2 * e);
-                                    return this.hp += t, i.role.hp -= e, "【？使用「学习.吸血」你受到" + e + "点伤害，？恢复" + t + "点生命！】"
-                                } if (this.lv > 500) {
-                                    this.publicVar += 1;
-                                    var e = 2 * this.att, t = parseInt(.2 * e), n = parseInt(.2 * this.att * this.publicVar);
-                                    return this.hp += t, i.role.hp -= e + n, cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def), "【？使用「进化.毒暴」你受到" + e + "点伤害，附加" + n + "点毒性伤害，防御降低5%。？恢复" + t + "点生命！】"
-                                } return ""
-                            }, defSkill: function () {
-                                if (this.def < 2 * o.def && (this.def += 10, this.lv += 1, i.specialEnemy[900004].def = this.def, i.specialEnemy[900004].lv = this.lv), i.specialEnemy[900004].hp = this.hp, this.lv > 150) {
+                                c.role.hp -= e;
+                                return "【？使用「学习.暴击」你受到" + e + "点伤害！】";
+                            }
+                            if (this.lv > 100) {
+                                e = 2 * this.att;
+                                c.role.hp -= e;
+                                return "【？使用「学习.破防」你受到" + e + "点伤害！】";
+                            }
+                            if (this.lv > 200) {
+                                e = 2 * this.att;
+                                var t = parseInt(.2 * e);
+                                this.hp += t;
+                                c.role.hp -= e;
+                                return "【？使用「学习.吸血」你受到" + e + "点伤害，？恢复" + t + "点生命！】";
+                            }
+                            if (this.lv > 500) {
+                                this.publicVar += 1;
+                                e = 2 * this.att, t = parseInt(.2 * e);
+                                var n = parseInt(.2 * this.att * this.publicVar);
+                                this.hp += t;
+                                c.role.hp -= e + n;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def);
+                                return "【？使用「进化.毒暴」你受到" + e + "点伤害，附加" + n + "点毒性伤害，防御降低5%。？恢复" + t + "点生命！】";
+                            }
+                            return "";
+                        },
+                        defSkill: function () {
+                            if (this.def < 2 * o.def) {
+                                this.def += 10;
+                                this.lv += 1;
+                                c.specialEnemy[900004].def = this.def;
+                                c.specialEnemy[900004].lv = this.lv;
+                            }
+                            c.specialEnemy[900004].hp = this.hp;
+                            if (this.lv > 150) {
                                     var e = parseInt(.5 * this.def);
-                                    return i.role.hp -= e, "【？使用「学习.反弹」你受到" + e + "点伤害！】"
-                                } if (this.lv > 700) {
-                                    var e = 2 * this.att;
-                                    return i.role.hp -= e, cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= parseInt(.4 * o.att), "【？使用「进化.离子护甲」，格挡40%伤害，你受到" + e + "点反弹伤害！】"
-                                } return ""
-                            }, winEvent: function () { var t = e("scr_data"); return t.specialEnemy[900004].lv += 999, t.specialEnemy[900004].maxHp += 999999, t.specialEnemy[900004].hp = this.hp, c.save(), "“如果我不存在...整个世界将会陷入混乱...”" }, lostEvent: void 0
-                        }, 900005:
-                        {
-                            name: "晓风基因计划", lv: 500, hp: 599999, maxHp: 599999, att: 0, def: 0, publicVar: 0, escapeRate: 100, enemyEscapeRate: 0, lostHealth: 1, achieve: 1, getAtt: 1, drop: [[100, 17, 4, 2]], des: "「晓风：由于基因计划属于研发失败的产品，有些功能并不完善，目前还不具备自动修复能力；但是在这个世界的某处，还沉睡着一个来自同一胚胎、即将完工的伟大作品！」", skill: function () {
-                                if (this.att < 1500 && (this.att += 4, this.lv += 1, i.specialEnemy[900005].att = this.att), i.specialEnemy[900005].hp = this.hp, this.lv > 580) {
+                                c.role.hp -= e;
+                                return "【？使用「学习.反弹」你受到" + e + "点伤害！】";
+                            }
+                            if (this.lv > 700) {
+                                e = 2 * this.att;
+                                c.role.hp -= e;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= parseInt(.4 * o.att);
+                                return "【？使用「进化.离子护甲」，格挡40%伤害，你受到" + e + "点反弹伤害！】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            var t = e("scr_data");
+                            t.specialEnemy[900004].lv += 999;
+                            t.specialEnemy[900004].maxHp += 999999;
+                            t.specialEnemy[900004].hp = this.hp;
+                            i.save();
+                            return "“如果我不存在...整个世界将会陷入混乱...”";
+                        },
+                        lostEvent: void 0
+                    },
+                    900005: {
+                        name: "晓风基因计划",
+                        lv: 500,
+                        hp: 599999,
+                        maxHp: 599999,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 100,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [[100, 17, 4, 2]],
+                        des: "「晓风：由于基因计划属于研发失败的产品，有些功能并不完善，目前还不具备自动修复能力；但是在这个世界的某处，还沉睡着一个来自同一胚胎、即将完工的伟大作品！」",
+                        skill: function () {
+                            if (this.att < 1500) {
+                                this.att += 4;
+                                this.lv += 1;
+                                c.specialEnemy[900005].att = this.att;
+                            }
+                            c.specialEnemy[900005].hp = this.hp;
+                            if (this.lv > 580) {
                                     this.publicVar += 1;
                                     var e = this.att, t = parseInt(.05 * this.att * this.publicVar);
-                                    return i.role.hp -= e + t, "【基因计划使用「进化.感染」你受到" + e + "点伤害，附加" + t + "点生化伤害！】"
-                                } return ""
-                            }, defSkill: function () {
-                                if (this.def < 600 && (this.def += 2, this.lv += 1, i.specialEnemy[900005].def = this.def, i.specialEnemy[900005].lv = this.lv), i.specialEnemy[900005].hp = this.hp, this.lv > 530) {
+                                c.role.hp -= e + t;
+                                return "【基因计划使用「进化.感染」你受到" + e + "点伤害，附加" + t + "点生化伤害！】";
+                            }
+                            return "";
+                        },
+                        defSkill: function () {
+                            if (this.def < 600) {
+                                this.def += 2;
+                                this.lv += 1;
+                                c.specialEnemy[900005].def = this.def;
+                                c.specialEnemy[900005].lv = this.lv;
+                            }
+                            c.specialEnemy[900005].hp = this.hp;
+                            if (this.lv > 530) {
                                     var e = Math.max(this.def - 28, 0);
-                                    return i.role.hp -= e, "【基因计划使用「模仿.反弹」你受到" + e + "点伤害！】"
-                                } return "【基因计划静静的看着你...】"
-                            }, winEvent: function () { return i.choice[6] += 1, "" }, lostEvent: void 0
-                        }, 900006:
-                            { name: "一块黑色的石头", lv: 200, hp: 299999, maxHp: 299999, att: 0, def: 0, publicVar: 0, escapeRate: 100, enemyEscapeRate: 0, lostHealth: 1, achieve: 0, getAtt: 1, drop: [[100, 8, 6, 1]], des: "「特注：这真的是块石头！」", skill: function () { return i.specialEnemy[900006].hp = this.hp, "" }, defSkill: function () { this.def < 300 && (this.def += 1, i.specialEnemy[900006].def = this.def), i.specialEnemy[900006].hp = this.hp; var e = 2 * this.def; return i.role.hp -= e, "【你受到" + e + "点反弹伤害！】" }, winEvent: function () { return i.choice[6] += 1, "" }, lostEvent: void 0 }, 900007:
-                        {
-                            name: "暴走的流浪汉", lv: 40, hp: 3900, maxHp: 3900, att: 90, def: 50, publicVar: 0, escapeRate: -9999, enemyEscapeRate: 0, lostHealth: 2, achieve: 1, getAtt: 1, drop: [], des: "“？NM~敢抢老子东西？”", skill: function () {
+                                c.role.hp -= e;
+                                return "【基因计划使用「模仿.反弹」你受到" + e + "点伤害！】";
+                            }
+                            return "【基因计划静静的看着你...】";
+                        },
+                        winEvent: function () {
+                            c.choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    900006: {
+                        name: "一块黑色的石头",
+                        lv: 200,
+                        hp: 299999,
+                        maxHp: 299999,
+                        att: 0,
+                        def: 0,
+                        publicVar: 0,
+                        escapeRate: 100,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 0,
+                        getAtt: 1,
+                        drop: [[100, 8, 6, 1]],
+                        des: "「特注：这真的是块石头！」",
+                        skill: function () {
+                            c.specialEnemy[900006].hp = this.hp;
+                            return "";
+                        },
+                        defSkill: function () {
+                            if (this.def < 300) {
+                                this.def += 1;
+                                c.specialEnemy[900006].def = this.def;
+                            }
+                            c.specialEnemy[900006].hp = this.hp;
+                            var e = 2 * this.def;
+                            c.role.hp -= e;
+                            return "【你受到" + e + "点反弹伤害！】";
+                        },
+                        winEvent: function () {
+                            c.choice[6] += 1;
+                            return "";
+                        },
+                        lostEvent: void 0
+                    },
+                    900007: {
+                        name: "暴走的流浪汉",
+                        lv: 40,
+                        hp: 3900,
+                        maxHp: 3900,
+                        att: 90,
+                        def: 50,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 2,
+                        achieve: 1,
+                        getAtt: 1,
+                        drop: [],
+                        des: "“？NM~敢抢老子东西？”",
+                        skill: function () {
                                 if (4 == this.publicVar) {
                                     var e = this.att * (1 + this.publicVar);
-                                    return i.role.hp -= e, "【" + this.name + "使用「叫尼玛抢！还敢不敢抢？」，你损失" + e + "点生命！】"
-                                } this.publicVar += 1; var t = this.att, n = parseInt(.1 * this.att * this.publicVar); return i.role.hp -= t + n, cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att), "【" + this.name + "使用「连推带踹！」你受到" + t + "点伤害，附加" + n + "流血，攻击降低5%！】"
-                            }, defSkill: function () { return this.att += parseInt(.05 * this.att), "【" + this.name + "使用「暴跳如雷」，流浪汉攻击强化！】" }, winEvent: function () { var t = e("scr_data"); t.specialEnemy[900007].lv += 20, t.specialEnemy[900007].att += 63, t.specialEnemy[900007].hp += 2e3, t.specialEnemy[900007].maxHp += 2e3, t.specialEnemy[900007].def += 23; var n = cc.find("Event/scr_mainUIEvent").getComponent("scr_mainUIEvent").randomItemNum || 3; return t.itemNum[2] += n, "【获得「易拉罐」*" + n + "！】" }, lostEvent: function () {
+                                c.role.hp -= e;
+                                return "【" + this.name + "使用「叫尼玛抢！还敢不敢抢？」，你损失" + e + "点生命！】";
+                            }
+                            this.publicVar += 1;
+                            var t = this.att, n = parseInt(.1 * this.att * this.publicVar);
+                            c.role.hp -= t + n;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att);
+                            return "【" + this.name + "使用「连推带踹！」你受到" + t + "点伤害，附加" + n + "流血，攻击降低5%！】";
+                        },
+                        defSkill: function () {
+                            this.att += parseInt(.05 * this.att);
+                            return "【" + this.name + "使用「暴跳如雷」，流浪汉攻击强化！】";
+                        },
+                        winEvent: function () {
                                 var t = e("scr_data");
-                                return t.money -= parseInt(.3 * t.money), "【你被抢走30%的金钱！】"
+                            t.specialEnemy[900007].lv += 20;
+                            t.specialEnemy[900007].att += 63;
+                            t.specialEnemy[900007].hp += 2e3;
+                            t.specialEnemy[900007].maxHp += 2e3;
+                            t.specialEnemy[900007].def += 23;
+                            var n = cc.find("Event/scr_mainUIEvent").getComponent("scr_mainUIEvent").randomItemNum || 3;
+                            t.itemNum[2] += n;
+                            return "【获得「易拉罐」*" + n + "！】";
+                        },
+                        lostEvent: function () {
+                            var t = e("scr_data");
+                            t.money -= parseInt(.3 * t.money);
+                            return "【你被抢走30%的金钱！】";
                             }
                         }
                     };
-                    t.exports = r
+                t.exports = r;
                 }
-            }), cc._RFpop()
-        }, { scr_data: "scr_data", scr_data2: "scr_data2", scr_effect: "scr_effect", scr_public: "scr_public" }], scr_eventData: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {
+        scr_data: "scr_data",
+        scr_data2: "scr_data2",
+        scr_effect: "scr_effect",
+        scr_public: "scr_public"
+    }],
+    scr_eventData: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "2944e+wEixMS7sVFHLOkrHX", "scr_eventData"), cc.Class({ "extends": cc.Component, properties: {}, onLoad: function () { } }), cc._RFpop()
-        }, {}], scr_eventDetermine: [function (e, t, n) {
+        cc._RF.push(t, "2944e+wEixMS7sVFHLOkrHX", "scr_eventData");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            onLoad: function () { }
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_eventDetermine: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "9e235Y/Ke9BkbMuLhAsJW6/", "scr_eventDetermine"), cc.Class({
-                "extends": cc.Component, properties: {}, callBack: function () {
-                    cc.director.loadScene("main")
-                }, onLoad: function () {
-                    this.node.on("touchstart", this.callBack, this)
+        cc._RF.push(t, "9e235Y/Ke9BkbMuLhAsJW6/", "scr_eventDetermine");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            callBack: function () {
+                cc.director.loadScene("main");
+            },
+            onLoad: function () {
+                this.node.on("touchstart", this.callBack, this);
                 }
-            }), cc._RFpop()
-        }, {}], scr_event: [function (e, t, n) {
+        });
+        cc._RF.pop();
+    }, {}],
+    scr_event: [function (e, t, n) {
             "use strict";
-            cc._RFpush(t, "00b3c6RjfdHPbEfl8GaNNla", "scr_event"), cc.Class({
-                "extends": cc.Component, properties: {}, creatText: function (e, t, n) {
+        cc._RF.push(t, "00b3c6RjfdHPbEfl8GaNNla", "scr_event");
+        cc.Class({
+            extends: cc.Component,
+            properties: {},
+            creatText: function (e, t, n) {
                     var a = new cc.Node(t);
                     a.addComponent(cc.Label);
-                    a.parent = e, a.setPosition(0, 0), a.opacity = 0, a.runAction(cc.fadeIn(2)), a.color = new cc.Color(255, 255, 255), a.getComponent(cc.Label).overflow = 3, a.getComponent(cc.Label).horizontalAlign = 1, a.setContentSize(600, 300), a.getComponent(cc.Label).string = n, a.getComponent(cc.Label).lineHeight = 60, a.getComponent(cc.Label).fontSize = 40
-                }, event: function a() {
-                    function t(t) {
-                        cc.find("Canvas/Determine");
-                        e("scr_public").save(), cc.find("Canvas/Choice").active = !1, cc.find("Canvas/EventText").active = !1, cc.find("Canvas/Notify2").active = !1, e("scr_effect").playText("Canvas/Notify", t, 80), n.scheduleOnce(function () {
-                            cc.find("Canvas/Determine").active = !0, cc.find("Canvas/Determine").runAction(cc.fadeIn(2))
-                        }, 2)
+                a.parent = e;
+                a.setPosition(0, 0);
+                a.opacity = 0;
+                a.runAction(cc.fadeIn(2));
+                a.color = new cc.Color(255, 255, 255);
+                a.getComponent(cc.Label).overflow = 3;
+                a.getComponent(cc.Label).horizontalAlign = 1;
+                a.setContentSize(600, 300);
+                a.getComponent(cc.Label).string = n;
+                a.getComponent(cc.Label).lineHeight = 60;
+                a.getComponent(cc.Label).fontSize = 40;
+            },
+            event: function () {
+                var t = this, n = e("scr_data"), a = e("scr_data2"), i = e("scr_public"), c = e("scr_effect"), o = {
+                    1: {
+                        text: ["来到破旧的小区，", "一位热情的小姐姐将我带到一个房间，\n寒暄一番后，她认真的介绍道，", "“我们的工作内容是向附近居民推广净水器。\n公司要统一着装，\n入职前需交1块钱的服装费，\n交完费明天就可上班，\n日薪2元加提成，你看咋样？”", "我没钱", "交1块钱"],
+                        BGM: "",
+                        require: [n.distance, 0],
+                        choice1: function () {
+                            n.enemyId = 102;
+                            r("“来人啦，看看他身上到底有没有钱！”");
+                        },
+                        choice2: function () {
+                            if (n.money >= 10) {
+                                n.choice[1] = 2;
+                                n.money -= 10;
+                                r("“很好，明天过来上班吧”");
+                            } else c.playText("Canvas/notify2", "钱不够！", 60);
                     }
-                    var n = this, c = e("scr_data"), i = e("scr_data2"), o = e("scr_public"), r = e("scr_effect"), a = {
-                        1:
-                        {
-                            text: ["来到破旧的小区，", "一位热情的小姐姐将我带到一个房间，\n寒暄一番后，她认真的介绍道，", "“我们的工作内容是向附近居民推广净水器。\n公司要统一着装，\n入职前需交1块钱的服装费，\n交完费明天就可上班，\n日薪2元加提成，你看咋样？”", "我没钱", "交1块钱"], BGM: "", require: [c.distance, 0], choice1: function () { c.enemyId = 102, t("“来人啦，看看他身上到底有没有钱！”") }, choice2: function () {
-                                c.money >= 10 ? (c.choice[1] = 2, c.money -= 10, t("“很好，明天过来上班吧”")) : r.playText("Canvas/notify2", "钱不够！", 60)
+                    },
+                    2: {
+                        text: ["“很好，", "今后少侠只需将蚊子尸体封在这八卦炉中，”", "说完怪人掏出一个罐头瓶，", "“在下会定期前来收尸，", "每只一毛。", "在此拜谢！！”", "", "…(⊙_⊙;)…"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () { },
+                        choice2: function () {
+                            var e = n.kills[0], t = (e / 10).toFixed(1);
+                            n.money += e;
+                            n.kills[0] = 0;
+                            r("“你本次一共消灭" + e + "只蚊子，\n这是" + t + "元，请务必收下！日后自会再见！告辞！”，\n怪人飞一般的逃跑了...\n【你获得" + t + "元】");
+                        }
+                    },
+                    3: {
+                        text: ["我敲了敲门，没反应", "又敲了敲，门开了，是一位白发老爷爷", "我解释来意，老人似乎听不太清，但是执意让我进屋，", "家里散乱的堆放着各种垃圾袋，", "弥漫着一股尿臭味。", "雨停了，屋里非常的安静，老人一直呆坐着，他已经记不起来自己孩子的名字。", "【临走时，你选择...】", "帮忙打扫下卫生（消耗全部精力）", "帮忙打扫也无济于事，自然而然吧"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            n.energy = 0;
+                            n.choice[2] = 2;
+                            n.randomEvent[1] += 1;
+                            r("你帮忙打扫了房间，离开时老爷爷也没有说声谢谢...获得「好人卡」*1");
+                        },
+                        choice2: function () {
+                            r("雨停了，你离开了，静谧的天空上升起一道彩霞，屋内传来电视广告的声音...");
+                        }
+                    },
+                    4: {
+                        text: ["   妇女用颤抖的手、赶紧点了一根烟，开始讲述她的故事，也不管你是否想听。", "   她46岁，无子女，中学时就学会了抽烟。因为长得漂亮，嫁了一位有钱人。", "   后来丈夫因肺癌去世，而自己无任何工作技能，生活直转急下，每份工作都是做几天，要么被辞退，要么嫌累。", "中间谈过几次恋爱，因性格不合，最后都以分手告终。", "现在房子也卖了，住在一个5平米的出租屋中，已经两天没吃饭了...", "", "......"],
+                        BGM: "BGM3",
+                        require: [],
+                        choice1: function () { },
+                        choice2: function () {
+                            r("“我现在一身疾病，也没人要，就等着去见我的老公呢”，临走时，她淡淡的说道。\n【皮衣等级+1！】");
+                        }
+                    },
+                    5: {
+                        text: ["洞底的一幕让我有些惊讶，", "一位老太太正帮一位中年男抓虱子，", "中年男正是——灭蚊堂九堂主！", "堂主立马认出了你，像孩子一样手舞足蹈起来。", "老奶奶执意要留你吃饭，", "她讲起了堂主的往事。", "", "继续"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () { },
+                        choice2: function () {
+                            t.eventId = 6;
+                            t.ifTriggerEvent();
+                        }
+                    },
+                    6: {
+                        text: ["“堂主是附近镇上一位小老板，", "一天，他载着3岁儿子外出钓鱼，", "天气炎热，车窗未关", "...五小时后，他才想起车内的孩子，", "等他赶到时，孩子全身发烫，气息微弱，全身是包", "最后孩子感染乙脑死亡", "妻子离他而去，人也变得疯疯癫癫", "现在几乎完全失去了自理能力...”", "临走时，你选择", "把身上所有钱留给堂主", "算了，听天由命吧"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            var e = n.kills[0], t = n.money, a = 5 * e + t;
+                            n.kills[0] = 0;
+                            n.money = 0;
+                            n.role.maxHp += a;
+                            n.choice[7] += 1;
+                            r("【祝福】你的最大生命值提高" + a + "点\n（提高量与捐钱数和灭蚊数有关，你已击杀" + e + "只蚊子，捐出" + (t / 10).toFixed(1) + "元）");
+                        },
+                        choice2: function () {
+                            r("你走出山洞，已是早晨，蔚蓝的天空中漂浮着朵朵白云");
+                        }
+                    },
+                    7: {
+                        text: ["跟随着小姐姐，在蛛网般的城中村、拐弯无数次，", "我来到一个简陋的出租屋。", "突然一个男人破门而入，大骂，“敢碰老子的女人！啊！”", "", "逃走..."],
+                        BGM: "",
+                        require: [n.distance, 0],
+                        choice1: function () { },
+                        choice2: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 109;
+                            i.save();
+                            cc.director.loadScene("main");
+                        }
+                    },
+                    8: {
+                        text: ["中年大叔老家在西北的一个乡村，曾经当过兵，做过工人。早年与妻子离异后，女儿跟着前妻。", "92年独自南下打工，身体不好，也没什么技能，找工作处处碰壁，只能做点零活，赚的一点苦力钱全部用来买彩票和酒了…", "最终无处落脚，没钱、也没脸回家，流落至此…", "", "..."],
+                        BGM: "",
+                        require: [],
+                        choice1: function () { },
+                        choice2: function () {
+                            n.energy += 60;
+                            n.hunger = i.maxHunger();
+                            n.role.hp = i.role.maxHp();
+                            r("精力+60，饥饿全恢复，生命全恢复！");
+                        }
+                    },
+                    9: {
+                        text: ["晓月迫不及待的把我拉到墙角，眉飞色舞的讲述回家后的经历。", "比如离家后父母如何找翻天，她回家后如何没有受到一句批评，现在家人是如何把她当女皇养着...", "临走时晓月让你选一个礼物，你选择...", "晓月的贴身衣物", "食物和钱"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            n.itemNum2[27] += 1;
+                            n.itemNum2[22] += 1;
+                            n.itemNum2[21] += 1;
+                            r("获得【女装】*1，【小裤裤】*1，【晓月手链】*1");
+                        },
+                        choice2: function () {
+                            n.money += 40;
+                            n.itemNum[0] += 20;
+                            r("获得4元钱！【果子】*20");
+                        }
+                    },
+                    10: {
+                        text: ["“那你这唱歌的钱够还吗？”\n“还行吧，现在一天可以赚三四块，多的时候十几块。现在只想把我妈治好，还钱的事我还没想好...”", "“想过做点别的吗？”，我问。\n“呵~上学时光顾着打架，买上一个三本大学，现在大二，不过休学了\n，啥也不会，只能端盘子、做服务员，但是那点钱根本不够...”", "“你不是会吉他么，可以去教小孩呀！”\n“这只是以前自己瞎玩的，也是个半吊子，那够教学生呀~”", "", "..."],
+                        BGM: "",
+                        require: [],
+                        choice1: function () { },
+                        choice2: function () {
+                            t.eventId = 11;
+                            t.ifTriggerEvent();
+                        }
+                    },
+                    11: {
+                        text: ["“不过我有一个主意，一直都想和你说来着”，碧瑶突然有点兴奋的说道。", "“啥点子？”", "“我发现你的生存能力很强，像魔术师一样，会无中生有！我想咱们可以结合一下，你收集一些稀奇的东西，我负责卖出去！怎么样？”", "", "哇~太棒了！你真的聪明~"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () { },
+                        choice2: function () {
+                            t.eventId = 12;
+                            t.ifTriggerEvent();
                             }
-                        }, 2:
-                        {
-                            text: ["“很好，", "今后少侠只需将蚊子尸体封在这八卦炉中，”", "说完怪人掏出一个罐头瓶，", "“在下会定期前来收尸，", "每只一毛。", "在此拜谢！！”", "", "…(⊙_⊙;)…"], BGM: "", require: [], choice1: function () { }, choice2: function () {
-                                var e = c.kills[0], n = (e / 10).toFixed(1);
-                                c.money += e, c.kills[0] = 0;
-                                var a = "“你本次一共消灭" + e + "只蚊子，\n这是" + n + "元，请务必收下！日后自会再见！告辞！”，\n怪人飞一般的逃跑了...\n【你获得" + n + "元】";
-                                t(a)
+                    },
+                    12: {
+                        text: ["提示：从现在开始你可以进入山洞副本，每天收集的特殊道具，系统会自动出售（出售金额可在每日的结算界面查看）", "最后，你需要选择分成比例。\n（举例：假设今天卖出10块，选择7成就意味着你可以拿到7块，碧瑶拿3块；选择3成，则反过来）\n（作者：不要问我为啥不能五五开。我不会去设置这种容易选择的保守选项！）", "我最辛苦，应该我拿大头（拿7成）", "我应该帮帮她，我拿小头吧（拿3成）"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            n.publicVar2[21] = 7;
+                            i.save();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            n.publicVar2[21] = 3;
+                            i.save();
+                            cc.director.loadScene("main");
                             }
-                        }, 3:
-                        {
-                            text: ["我敲了敲门，没反应", "又敲了敲，门开了，是一位白发老爷爷", "我解释来意，老人似乎听不太清，但是执意让我进屋，", "家里散乱的堆放着各种垃圾袋，", "弥漫着一股尿臭味。", "雨停了，屋里非常的安静，老人一直呆坐着，他已经记不起来自己孩子的名字。", "【临走时，你选择...】", "帮忙打扫下卫生（消耗全部精力）", "帮忙打扫也无济于事，自然而然吧"], BGM: "", require: [], choice1: function () { c.energy = 0, c.choice[2] = 2, c.randomEvent[1] += 1, t("你帮忙打扫了房间，离开时老爷爷也没有说声谢谢...获得「好人卡」*1") }, choice2: function () {
-                                t("雨停了，你离开了，静谧的天空上升起一道彩霞，屋内传来电视广告的声音...")
+                    },
+                    13: {
+                        text: ["碧瑶急忙向我跑过来，脸色苍白的说道，", "“我得回家了，我的东西就你拿去用吧，我也带不走。\nemmmm....我也不知道该说啥。总之，加油吧，一起！”", "\n说完碧瑶就匆匆跑开了，坐上民警的巡逻车，消失温暖的阳光中...", "", "确定"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () { },
+                        choice2: function () {
+                            var e = Math.max(parseInt(n.publicVar[7] / 50), 1), t = Math.min(Math.max(parseInt(n.publicVar[7] / 100), 1), 6);
+                            n.money += 4 * e;
+                            n.money += 10 * e;
+                            n.itemNum2[26] += t;
+                            n.itemNum2[27] += t;
+                            if (n.publicVar[7] >= 600) {
+                                n.itemNum2[10] += 1;
+                                n.itemNum2[11] += 1;
+                                r("你获得【金钱】*" + (10 * e / 10).toFixed(1) + ",【果子】*" + 4 * e + "，【黑刀】*1，【红夹克】*1，【幸运石】*" + t + "，【晓月手链】*" + t + "！\n【说明：奖励与碧瑶最终的好感有关】");
+                            } else if (n.publicVar[7] >= 400) {
+                                n.itemNum2[10] += 1;
+                                n.itemNum2[9] += 1;
+                                r("你获得【金钱】*" + (10 * e / 10).toFixed(1) + ",【果子】*" + 4 * e + "，【黑刀】*1，【皮衣】*1，【幸运石】*" + t + "，【晓月手链】*" + t + "！\n【说明：奖励与碧瑶最终的好感有关】");
+                            } else {
+                                n.itemNum2[8] += 1;
+                                n.itemNum2[9] += 1;
+                                r("你获得【金钱】*" + (10 * e / 10).toFixed(1) + ",【果子】*" + 4 * e + "，【匕首】*1，【皮衣】*1，【幸运石】*" + t + "，【晓月手链】*" + t + "！\n【说明：奖励与碧瑶最终的好感有关】");
                             }
-                        }, 4:
-                        {
-                            text: ["   妇女用颤抖的手、赶紧点了一根烟，开始讲述她的故事，也不管你是否想听。", "   她46岁，无子女，中学时就学会了抽烟。因为长得漂亮，嫁了一位有钱人。", "   后来丈夫因肺癌去世，而自己无任何工作技能，生活直转急下，每份工作都是做几天，要么被辞退，要么嫌累。", "中间谈过几次恋爱，因性格不合，最后都以分手告终。", "现在房子也卖了，住在一个5平米的出租屋中，已经两天没吃饭了...", "", "......"], BGM: "BGM3", require: [], choice1: function () { }, choice2: function () {
-                                t("“我现在一身疾病，也没人要，就等着去见我的老公呢”，临走时，她淡淡的说道。\n【皮衣等级+1！】")
                             }
-                        }, 5:
-                        {
-                            text: ["洞底的一幕让我有些惊讶，", "一位老太太正帮一位中年男抓虱子，", "中年男正是——灭蚊堂九堂主！", "堂主立马认出了你，像孩子一样手舞足蹈起来。", "老奶奶执意要留你吃饭，", "她讲起了堂主的往事。", "", "继续"], BGM: "", require: [], choice1: function () { }, choice2: function () {
-                                n.eventId = 6, n.ifTriggerEvent()
+                    },
+                    1003: {
+                        text: ["早上，我正在睡觉，", "突然被铁罐滚落的声音惊醒，", "是否要出帐篷看看？", "是", "否"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            n.enemyId = 100;
+                            i.save();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 6:
-                        {
-                            text: ["“堂主是附近镇上一位小老板，", "一天，他载着3岁儿子外出钓鱼，", "天气炎热，车窗未关", "...五小时后，他才想起车内的孩子，", "等他赶到时，孩子全身发烫，气息微弱，全身是包", "最后孩子感染乙脑死亡", "妻子离他而去，人也变得疯疯癫癫", "现在几乎完全失去了自理能力...”", "临走时，你选择", "把身上所有钱留给堂主", "算了，听天由命吧"], BGM: "", require: [], choice1: function () { var e = c.kills[0], n = c.money, a = 5 * e + n; c.kills[0] = 0, c.money = 0, c.role.maxHp += a, c.choice[7] += 1, t("【祝福】你的最大生命值提高" + a + "点\n（提高量与捐钱数和灭蚊数有关，你已击杀" + e + "只蚊子，捐出" + (n / 10).toFixed(1) + "元）") }, choice2: function () {
-                                t("你走出山洞，已是早晨，蔚蓝的天空中漂浮着朵朵白云")
+                    },
+                    1007: {
+                        text: ["遭到不明物体袭击！！！", "是否迎战?", "是", "否"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            n.enemyId = 908;
+                            i.save();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 7:
-                        {
-                            text: ["跟随着小姐姐，在蛛网般的城中村、拐弯无数次，", "我来到一个简陋的出租屋。", "突然一个男人破门而入，大骂，“敢碰老子的女人！啊！”", "", "逃走..."], BGM: "", require: [c.distance, 0], choice1: function () { }, choice2: function () {
-                                c.role.hp = o.role.maxHp(), c.enemyId = 109, o.save(), cc.director.loadScene("main")
+                    },
+                    2002: {
+                        text: ["一大早，我正在睡觉，", "突然被几个流浪汉踢醒，", "其中一个满脸胡渣的大汉，骂道，", "“老子注意你半天了，他娘的在这里睡觉，给谁打招呼了？”", "不理他", "赶紧递根烟"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            if (0 == e("scr_data2").gameData[4]) {
+                                n.role.hp = i.role.maxHp();
+                                n.enemyId = 101;
+                                i.save();
+                                cc.director.loadScene("main");
+                            } else {
+                                n.money += 20;
+                                r("“开玩笑的嘛，来，拿着买点吃的，早点回去吧孩子~”。获得2元~");
                             }
-                        }, 8:
-                        {
-                            text: ["中年大叔老家在西北的一个乡村，曾经当过兵，做过工人。早年与妻子离异后，女儿跟着前妻。", "92年独自南下打工，身体不好，也没什么技能，找工作处处碰壁，只能做点零活，赚的一点苦力钱全部用来买彩票和酒了…", "最终无处落脚，没钱、也没脸回家，流落至此…", "", "..."], BGM: "", require: [], choice1: function () { }, choice2: function () {
-                                c.energy += 60, c.hunger = o.maxHunger(), c.role.hp = o.role.maxHp(), t("精力+60，饥饿全恢复，生命全恢复！")
+                        },
+                        choice2: function () {
+                            if (0 == e("scr_data2").gameData[4]) if (n.itemNum2[7] >= 1) {
+                                n.itemNum2[7] -= 1;
+                                r("胡渣大汉接过烟，说道，\n“还算有点聪明气。不过，你最好给我滚远点，要不大家都没饭吃，明白没？”");
+                            } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "你身上没有烟..."; else {
+                                n.itemNum2[7] += 1;
+                                n.itemNum2[12] += 2;
+                                r("“开玩笑的嘛，来，抽根烟压压惊~”。获得【香烟】*1，【啤酒】*2");
                             }
-                        }, 9:
-                        {
-                            text: ["晓月迫不及待的把我拉到墙角，眉飞色舞的讲述回家后的经历。", "比如离家后父母如何找翻天，她回家后如何没有受到一句批评，现在家人是如何把她当女皇养着...", "临走时晓月让你选一个礼物，你选择...", "晓月的贴身衣物", "食物和钱"], BGM: "", require: [], choice1: function () { c.itemNum2[27] += 1, c.itemNum2[22] += 1, c.itemNum2[21] += 1, t("获得【女装】*1，【小裤裤】*1，【晓月手链】*1") }, choice2: function () {
-                                c.money += 40, c.itemNum[0] += 20, t("获得4元钱！【果子】*20")
                             }
-                        }, 10:
-                        {
-                            text: ["“那你这唱歌的钱够还吗？”\n“还行吧，现在一天可以赚三四块，多的时候十几块。现在只想把我妈治好，还钱的事我还没想好...”", "“想过做点别的吗？”，我问。\n“呵~上学时光顾着打架，买上一个三本大学，现在大二，不过休学了\n，啥也不会，只能端盘子、做服务员，但是那点钱根本不够...”", "“你不是会吉他么，可以去教小孩呀！”\n“这只是以前自己瞎玩的，也是个半吊子，那够教学生呀~”", "", "..."], BGM: "", require: [], choice1: function () { }, choice2: function () {
-                                n.eventId = 11, n.ifTriggerEvent()
+                    },
+                    2004: {
+                        text: ["早上，一位小男孩，", "远远看了我好久；", "我浑身不自在，刚想起身，", "小男孩在地上放了个东西，一溜烟跑了。", "我走近一看，是半根棒棒糖！", "", "(≥﹏ ≤)"],
+                        BGM: "BGM1",
+                        require: [],
+                        choice1: function () {
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            n.hunger = i.maxHunger();
+                            n.energy += i.maxEnergy();
+                            n.role.hp = i.role.maxHp();
+                            r("感觉自己元气满满哒！\n（状态全恢复+爆满！）");
                             }
-                        }, 11:
-                        {
-                            text: ["“不过我有一个主意，一直都想和你说来着”，碧瑶突然有点兴奋的说道。", "“啥点子？”", "“我发现你的生存能力很强，像魔术师一样，会无中生有！我想咱们可以结合一下，你收集一些稀奇的东西，我负责卖出去！怎么样？”", "", "哇~太棒了！你真的聪明~"], BGM: "", require: [], choice1: function () { }, choice2: function () {
-                                n.eventId = 12, n.ifTriggerEvent()
+                    },
+                    2006: {
+                        text: ["电线杆一张纸条上写道，", "“急招大量临时工：日薪2元！年龄不限！学历不限！无需身份证！工资日结。\n地址：杨湖小区5楼603”，", "你要去看看吗？", "去", "不去"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            t.eventId = 1;
+                            t.ifTriggerEvent();
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 12:
-                        {
-                            text: ["提示：从现在开始你可以进入山洞副本，每天收集的特殊道具，系统会自动出售（出售金额可在每日的结算界面查看）", "最后，你需要选择分成比例。\n（举例：假设今天卖出10块，选择7成就意味着你可以拿到7块，碧瑶拿3块；选择3成，则反过来）\n（作者：不要问我为啥不能五五开。我不会去设置这种容易选择的保守选项！）", "我最辛苦，应该我拿大头（拿7成）", "我应该帮帮她，我拿小头吧（拿3成）"], BGM: "", require: [], choice1: function () { c.publicVar2[21] = 7, o.save(), cc.director.loadScene("main") }, choice2: function () {
-                                c.publicVar2[21] = 3, o.save(), cc.director.loadScene("main")
+                    },
+                    2009: {
+                        text: ["“少侠请留步”", "一个奇装异服，蓬头垢面的人走过来说道，", "“在下灭蚊堂九堂主，", "立志杀尽天下蚊子,", "近日，在下跟踪多日，", "少侠武功了得，所到之处，蚊尸遍野，", "在下实在佩服，", "不知是否愿帮我完成一个心愿?”", "", "蛤?"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () { },
+                        choice2: function () {
+                            t.eventId = 2;
+                            t.ifTriggerEvent();
                             }
-                        }, 13:
-                        {
-                            text: ["碧瑶急忙向我跑过来，脸色苍白的说道，", "“我得回家了，我的东西就你拿去用吧，我也带不走。\nemmmm....我也不知道该说啥。总之，加油吧，一起！”", "\n说完碧瑶就匆匆跑开了，坐上民警的巡逻车，消失温暖的阳光中...", "", "确定"], BGM: "", require: [], choice1: function () { }, choice2: function () {
-                                var e = Math.max(parseInt(c.publicVar[7] / 50), 1), n = Math.min(Math.max(parseInt(c.publicVar[7] / 100), 1), 6);
-                                c.money += 4 * e, c.money += 10 * e, c.itemNum2[26] += n, c.itemNum2[27] += n, c.publicVar[7] >= 600 ? (c.itemNum2[10] += 1, c.itemNum2[11] += 1, t("你获得【金钱】*" + (10 * e / 10).toFixed(1) + ",【果子】*" + 4 * e + "，【黑刀】*1，【红夹克】*1，【幸运石】*" + n + "，【晓月手链】*" + n + "！\n【说明：奖励与碧瑶最终的好感有关】")) : c.publicVar[7] >= 400 ? (c.itemNum2[10] += 1, c.itemNum2[9] += 1, t("你获得【金钱】*" + (10 * e / 10).toFixed(1) + ",【果子】*" + 4 * e + "，【黑刀】*1，【皮衣】*1，【幸运石】*" + n + "，【晓月手链】*" + n + "！\n【说明：奖励与碧瑶最终的好感有关】")) : (c.itemNum2[8] += 1, c.itemNum2[9] += 1, t("你获得【金钱】*" + (10 * e / 10).toFixed(1) + ",【果子】*" + 4 * e + "，【匕首】*1，【皮衣】*1，【幸运石】*" + n + "，【晓月手链】*" + n + "！\n【说明：奖励与碧瑶最终的好感有关】"))
+                    },
+                    2011: {
+                        text: ["一个醉汉说你偷了他的啤酒，非要你还酒，", "给不给?", "不给", "给（需啤酒*1）"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 909;
+                            i.save();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            if (n.itemNum2[12] >= 1) {
+                                n.itemNum2[12] -= 1;
+                                r("“我就说是你偷的嘛！还不承认？你这种小孩就喜欢偷东西。”");
+                            } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "你身上没啤酒...";
                             }
-                        }, 1003:
-                        {
-                            text: ["早上，我正在睡觉，", "突然被铁罐滚落的声音惊醒，", "是否要出帐篷看看？", "是", "否"], BGM: "", require: [], choice1: function () { c.enemyId = 100, o.save(), cc.director.loadScene("main") }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    2014: {
+                        text: ["一位浑身散发着异味的中年妇女走过来，说道，", "“小帅哥，麻烦你个事儿，”", "说完她拿出一件旧皮衣。", "“这本来是留着过冬的衣服，还是新的，你看能不能换你几根烟抽抽？”", "换（需香烟*1）", "不换"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            if (n.itemNum2[7] >= 1) {
+                                n.itemNum2[7] -= 1;
+                                n.itemNum2[9] += 1;
+                                t.eventId = 4;
+                                cc.audioEngine.stopAll();
+                                cc.audioEngine.play("res/raw-assets/Audio/BGM3.ogg", !1, 1);
+                                t.ifTriggerEvent();
+                            } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "你身上没有那么多烟...";
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 1007:
-                        {
-                            text: ["遭到不明物体袭击！！！", "是否迎战?", "是", "否"], BGM: "", require: [], choice1: function () { c.enemyId = 908, o.save(), cc.director.loadScene("main") }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    2016: {
+                        text: ["流浪汉之间的竞争变得日益激烈，", "很多流浪汉不得不早晨4点、蹲守在各种小饭店和垃圾点...", "这一天，你总算领先了一个长期蹲守据点的老奶奶，几分钟", "你选择", "开左边的垃圾箱", "开右边的垃圾箱"],
+                        BGM: "",
+                        require: [],
+                        choice1: function () {
+                            n.itemNum2[27] += 1;
+                            n.itemNum2[24] += 1;
+                            r("获得【晓月手链】*1，【滑稽裤】*1");
+                        },
+                        choice2: function () {
+                            n.itemNum[0] += 4;
+                            n.itemNum[1] += 4;
+                            n.itemNum[4] += 3;
+                            n.itemNum2[1] += 3;
+                            n.money += 8;
+                            r("获得【木材】*4【亚麻】*4【果子】*3【伤药】*3【金钱】*0.8");
                             }
-                        }, 2002:
-                        {
-                            text: ["一大早，我正在睡觉，", "突然被几个流浪汉踢醒，", "其中一个满脸胡渣的大汉，骂道，", "“老子注意你半天了，他娘的在这里睡觉，给谁打招呼了？”", "不理他", "赶紧递根烟"], BGM: "", require: [], choice1: function () { 0 == e("scr_data2").gameData[4] ? (c.role.hp = o.role.maxHp(), c.enemyId = 101, o.save(), cc.director.loadScene("main")) : (c.money += 20, t("“开玩笑的嘛，来，拿着买点吃的，早点回去吧孩子~”。获得2元~")) }, choice2: function () {
-                                0 == e("scr_data2").gameData[4] ? c.itemNum2[7] >= 1 ? (c.itemNum2[7] -= 1, t("胡渣大汉接过烟，说道，\n“还算有点聪明气。不过，你最好给我滚远点，要不大家都没饭吃，明白没？”")) : cc.find("Canvas/Notify2").getComponent("cc.Label").string = "你身上没有烟..." : (c.itemNum2[7] += 1, c.itemNum2[12] += 2, t("“开玩笑的嘛，来，抽根烟压压惊~”。获得【香烟】*1，【啤酒】*2"))
+                    },
+                    2017: {
+                        text: ["“你tm还没走？”", "“不知道这是老子的地？”", "", "我在等你！"],
+                        BGM: "",
+                        require: [n.choice[0], 1],
+                        require2: [a.gameData[4], 0],
+                        choice1: function () { },
+                        choice2: function () {
+                            n.enemyId = 101;
+                            n.role.hp = i.role.maxHp();
+                            i.save();
+                            cc.director.loadScene("main");
                             }
-                        }, 2004:
-                        {
-                            text: ["早上，一位小男孩，", "远远看了我好久；", "我浑身不自在，刚想起身，", "小男孩在地上放了个东西，一溜烟跑了。", "我走近一看，是半根棒棒糖！", "", "(≥﹏ ≤)"], BGM: "BGM1", require: [], choice1: function () { cc.director.loadScene("main") }, choice2: function () {
-                                c.hunger = o.maxHunger(), c.energy += o.maxEnergy(), c.role.hp = o.role.maxHp(), t("感觉自己元气满满哒！\n（状态全恢复+爆满！）")
+                    },
+                    2019: {
+                        text: ["我正在林荫道下小憩，", "一位小女孩好奇的看着我，似乎想要过来，", "年轻的妈妈慌忙拉住她，然后从钱包抽出2元钱，丢在我的身上，说道，", "“有手有脚的，怎么不去找个活干？”", "把钱收起来，离开", "把钱还给她"],
+                        BGM: "BGM1",
+                        require: [],
+                        choice1: function () {
+                            n.money += 20;
+                            r("好吧...\n我就是个乞丐\n【获得2元钱！】");
+                        },
+                        choice2: function () {
+                            r("是啊，有手有脚，怎么就活不下去呢？为啥？");
                             }
-                        }, 2006:
-                        {
-                            text: ["电线杆一张纸条上写道，", "“急招大量临时工：日薪2元！年龄不限！学历不限！无需身份证！工资日结。\n地址：杨湖小区5楼603”，", "你要去看看吗？", "去", "不去"], BGM: "", require: [], choice1: function () { n.eventId = 1, n.ifTriggerEvent() }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    2020: {
+                        text: ["“CNM！", "给老子起来！”", "我的感觉头部受到猛烈一击，鲜血流了下来。", "一个满身肥膘的大汉，凶狠的蹬着我，他的身后是前几天的那几个流浪汉，", "“敢在老子地盘上撒野的就是你小子？”", "是", "不是"],
+                        BGM: "BGM1",
+                        require: [],
+                        choice1: function () {
+                            if (0 == a.gameData[4]) {
+                                n.skillLv[4] = 0;
+                                n.enemyId = 103;
+                                n.role.hp = i.role.maxHp();
+                                i.save();
+                                cc.director.loadScene("main");
+                            } else {
+                                n.itemNum2[11] += 1;
+                                r("“哈哈哈哈哈~果然是条硬汉！小伙子有前途。拿上老子的战袍，征服宇宙吧！”。获得【红夹克】*1");
                             }
-                        }, 2009:
-                        {
-                            text: ["“少侠请留步”", "一个奇装异服，蓬头垢面的人走过来说道，", "“在下灭蚊堂九堂主，", "立志杀尽天下蚊子,", "近日，在下跟踪多日，", "少侠武功了得，所到之处，蚊尸遍野，", "在下实在佩服，", "不知是否愿帮我完成一个心愿?”", "", "蛤?"], BGM: "", require: [], choice1: function () { }, choice2: function () {
-                                n.eventId = 2, n.ifTriggerEvent()
+                        },
+                        choice2: function () {
+                            if (0 == a.gameData[4]) {
+                                n.enemyId = 103;
+                                n.role.hp = i.role.maxHp();
+                                i.save();
+                                cc.director.loadScene("main");
+                            } else {
+                                n.itemNum2[11] += 1;
+                                r("“哈哈哈哈哈~果然是条硬汉！小伙子有前途。拿上老子的战袍，征服宇宙吧！”。获得【红夹克】*1");
                             }
-                        }, 2011:
-                        {
-                            text: ["一个醉汉说你偷了他的啤酒，非要你还酒，", "给不给?", "不给", "给（需啤酒*1）"], BGM: "", require: [], choice1: function () { c.role.hp = o.role.maxHp(), c.enemyId = 909, o.save(), cc.director.loadScene("main") }, choice2: function () {
-                                c.itemNum2[12] >= 1 ? (c.itemNum2[12] -= 1, t("“我就说是你偷的嘛！还不承认？你这种小孩就喜欢偷东西。”")) : cc.find("Canvas/Notify2").getComponent("cc.Label").string = "你身上没啤酒..."
                             }
-                        }, 2014:
-                        {
-                            text: ["一位浑身散发着异味的中年妇女走过来，说道，", "“小帅哥，麻烦你个事儿，”", "说完她拿出一件旧皮衣。", "“这本来是留着过冬的衣服，还是新的，你看能不能换你几根烟抽抽？”", "换（需香烟*1）", "不换"], BGM: "", require: [], choice1: function () { c.itemNum2[7] >= 1 ? (c.itemNum2[7] -= 1, c.itemNum2[9] += 1, n.eventId = 4, cc.audioEngine.stopAll(), cc.audioEngine.play("res/raw-assets/Audio/BGM3.ogg", !1, 1), n.ifTriggerEvent()) : cc.find("Canvas/Notify2").getComponent("cc.Label").string = "你身上没有那么多烟..." }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    3006: {
+                        text: ["早上，山里下起了暴雨，", "帐篷里全部湿透，我慌忙逃窜，寻找避雨的地方，", "突然发现山脚有间民房", "【你要进去避雨吗？】", "去", "不去"],
+                        require: [n.distance, 0],
+                        choice1: function () {
+                            t.eventId = 3;
+                            t.ifTriggerEvent();
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 2016:
-                        {
-                            text: ["流浪汉之间的竞争变得日益激烈，", "很多流浪汉不得不早晨4点、蹲守在各种小饭店和垃圾点...", "这一天，你总算领先了一个长期蹲守据点的老奶奶，几分钟", "你选择", "开左边的垃圾箱", "开右边的垃圾箱"], BGM: "", require: [], choice1: function () { c.itemNum2[27] += 1, c.itemNum2[24] += 1, t("获得【晓月手链】*1，【滑稽裤】*1") }, choice2: function () {
-                                c.itemNum[0] += 4, c.itemNum[1] += 4, c.itemNum[4] += 3, c.itemNum2[1] += 3, c.money += 8, t("获得【木材】*4【亚麻】*4【果子】*3【伤药】*3【金钱】*0.8")
+                    },
+                    3007: {
+                        text: ["来到一个小村庄，", "门口两个抽烟的年轻人，挡住去路，", "不让通行。", "硬闯", "绕道而行"],
+                        require: [n.distance, 0],
+                        choice1: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 104;
+                            i.save();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 2017:
-                        {
-                            text: ["“你tm还没走？”", "“不知道这是老子的地？”", "", "我在等你！"], BGM: "", require: [c.choice[0], 1], require2: [i.gameData[4], 0], choice1: function () { }, choice2: function () {
-                                c.enemyId = 101, c.role.hp = o.role.maxHp(), o.save(), cc.director.loadScene("main")
+                    },
+                    3008: {
+                        text: ["我正在路边小解，", "突然，一辆黑色轿车疾驰而来，", "我本能一跃，滚落沟底，", "正在此时，车上下来两个拿着铁锹的农民！", "", "刚正面！"],
+                        require: [n.choice[3], 2],
+                        choice1: function () { },
+                        choice2: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 105;
+                            i.save();
+                            cc.director.loadScene("main");
                             }
-                        }, 2019:
-                        {
-                            text: ["我正在林荫道下小憩，", "一位小女孩好奇的看着我，似乎想要过来，", "年轻的妈妈慌忙拉住她，然后从钱包抽出2元钱，丢在我的身上，说道，", "“有手有脚的，怎么不去找个活干？”", "把钱收起来，离开", "把钱还给她"], BGM: "BGM1", require: [], choice1: function () { c.money += 20, t("好吧...\n我就是个乞丐\n【获得2元钱！】") }, choice2: function () {
-                                t("是啊，有手有脚，怎么就活不下去呢？为啥？")
+                    },
+                    3010: {
+                        text: ["早上我被一阵阵大哭声和大笑声吵醒，", "我钻出帐篷一看————", "路边，一个叉腿坐地、短发、身着中学校服的妹子，喝着啤酒，一会大笑，一会大哭...", "过去问问", "算了，还是不要生事的好"],
+                        require: [],
+                        choice1: function () {
+                            0 == a.gameData[4] ? n.choice[5] += 1 : n.choice[5] += 66;
+                            r("女孩（晓月，游戏伙伴之一）瞟了你一眼，并没有理你....");
+                        },
+                        choice2: function () {
+                            n.role.hp -= 1;
+                            r("女孩（晓月，游戏伙伴之一）向你扔了块石头，\n<(｀^′)>\n你损失1点生命");
                             }
-                        }, 2020:
-                        {
-                            text: ["“CNM！", "给老子起来！”", "我的感觉头部受到猛烈一击，鲜血流了下来。", "一个满身肥膘的大汉，凶狠的蹬着我，他的身后是前几天的那几个流浪汉，", "“敢在老子地盘上撒野的就是你小子？”", "是", "不是"], BGM: "BGM1", require: [], choice1: function () { 0 == i.gameData[4] ? (c.skillLv[4] = 0, c.enemyId = 103, c.role.hp = o.role.maxHp(), o.save(), cc.director.loadScene("main")) : (c.itemNum2[11] += 1, t("“哈哈哈哈哈~果然是条硬汉！小伙子有前途。拿上老子的战袍，征服宇宙吧！”。获得【红夹克】*1")) }, choice2: function () {
-                                0 == i.gameData[4] ? (c.enemyId = 103, c.role.hp = o.role.maxHp(), o.save(), cc.director.loadScene("main")) : (c.itemNum2[11] += 1, t("“哈哈哈哈哈~果然是条硬汉！小伙子有前途。拿上老子的战袍，征服宇宙吧！”。获得【红夹克】*1"))
+                    },
+                    3011: {
+                        text: ["晚上，我正在帐篷里睡觉", "一个柔软的身体钻了进来，", "“(；′д｀)ゞ~老哥你好~", "有没有啥吃的a~，", "我两天没吃过东西啦\n(?_?)”", "有哇", "流氓——呀————！"],
+                        require: [n.choice[5], 1],
+                        choice1: function () {
+                            n.choice[5] += 3;
+                            n.itemNum[0] = 0;
+                            n.itemNum2[0] = 0;
+                            n.itemNum2[12] -= parseInt(.5 * n.itemNum2[12]);
+                            n.ifFollow[0] = 1;
+                            r("...“哈哈哈哈哈哈哈哈哈——嗝————谢谢老哥！\n(*≧▽≦)ツ┻━┻！\n哈哈哈，那就麻烦老哥带我回省城啦！”\n【你损失所有的果子/熟肉和一半的啤酒！！！晓月跟随！】");
+                        },
+                        choice2: function () {
+                            r("你一脚把女孩（晓月）踹出了帐篷...");
                             }
-                        }, 3006:
-                        {
-                            text: ["早上，山里下起了暴雨，", "帐篷里全部湿透，我慌忙逃窜，寻找避雨的地方，", "突然发现山脚有间民房", "【你要进去避雨吗？】", "去", "不去"], require: [c.distance, 0], choice1: function () { n.eventId = 3, n.ifTriggerEvent() }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    3013: {
+                        text: ["“嘿~老哥，做早饭咧~(｀?ω?′)", "我做饭可厉害啦(*￣︶￣)，", "让我试试呗( ? ?ω?? )?~", "让她试", "不让她试"],
+                        require: [n.ifFollow[0], 1],
+                        choice1: function () {
+                            if (n.choice[5] < 35) {
+                                n.role.hp = 1;
+                                n.choice[5] += 3;
+                                r("...你喝了一大盆「黯然销魂十杂大补汤」\n【生命全损失，晓月好感+4】");
+                            } else {
+                                n.itemNum2[0] += 1;
+                                r("获得【熟肉】*1");
                             }
-                        }, 3007:
-                        {
-                            text: ["来到一个小村庄，", "门口两个抽烟的年轻人，挡住去路，", "不让通行。", "硬闯", "绕道而行"], require: [c.distance, 0], choice1: function () { c.role.hp = o.role.maxHp(), c.enemyId = 104, o.save(), cc.director.loadScene("main") }, choice2: function () {
-                                cc.director.loadScene("main")
+                        },
+                        choice2: function () {
+                            n.choice[5] -= 3;
+                            r("哼！￣へ￣\n【晓月好感-4】");
                             }
-                        }, 3008:
-                        {
-                            text: ["我正在路边小解，", "突然，一辆黑色轿车疾驰而来，", "我本能一跃，滚落沟底，", "正在此时，车上下来两个拿着铁锹的农民！", "", "刚正面！"], require: [c.choice[3], 2], choice1: function () { }, choice2: function () {
-                                c.role.hp = o.role.maxHp(), c.enemyId = 105, o.save(), cc.director.loadScene("main")
+                    },
+                    3015: {
+                        text: ["发现一个山洞，", "洞里有两条路，", "一条似乎有点亮光，", "一条布满青苔，黑不见底", "你走哪条？", "有亮光的", "幽黑的"],
+                        require: [],
+                        choice1: function () {
+                            t.eventId = 5;
+                            t.ifTriggerEvent();
+                        },
+                        choice2: function () {
+                            n.itemNum2[18] += 1;
+                            r("你找了一个【装避鞋】！拿了赶紧溜了~");
                             }
-                        }, 3010:
-                        {
-                            text: ["早上我被一阵阵大哭声和大笑声吵醒，", "我钻出帐篷一看————", "路边，一个叉腿坐地、短发、身着中学校服的妹子，喝着啤酒，一会大笑，一会大哭...", "过去问问", "算了，还是不要生事的好"], require: [], choice1: function () { 0 == i.gameData[4] ? c.choice[5] += 1 : c.choice[5] += 66, t("女孩（晓月，游戏伙伴之一）瞟了你一眼，并没有理你....") }, choice2: function () {
-                                c.role.hp -= 1, t("女孩（晓月，游戏伙伴之一）向你扔了块石头，\n<(｀^′)>\n你损失1点生命")
+                    },
+                    3016: {
+                        text: ["“老哥(?﹏?)，", "刚才打雷啦，听见没，太吓人啦(′???)σ，", "emmm..那个..我..能睡你旁边吗？\n(︶.?︶?)”", "可以哇", "不行！"],
+                        require: [n.ifFollow[0], 1],
+                        choice1: function () {
+                            n.energy = 0;
+                            n.choice[5] += 10;
+                            r("由于晓月晚上说梦话（偷笑）、蹬人，你一晚没睡！\n【精力0恢复！晓月好感+10】");
+                        },
+                        choice2: function () {
+                            n.choice[5] -= 4;
+                            r("￣へ￣\n【晓月好感-4】");
                             }
-                        }, 3011:
-                        {
-                            text: ["晚上，我正在帐篷里睡觉", "一个柔软的身体钻了进来，", "“(；′д｀)ゞ~老哥你好~", "有没有啥吃的a~，", "我两天没吃过东西啦\n(?_?)”", "有哇", "流氓——呀————！"], require: [c.choice[5], 1], choice1: function () { c.choice[5] += 3, c.itemNum[0] = 0, c.itemNum2[0] = 0, c.itemNum2[12] -= parseInt(.5 * c.itemNum2[12]), c.ifFollow[0] = 1, t("...“哈哈哈哈哈哈哈哈哈——嗝————谢谢老哥！\n(*≧▽≦)ツ┻━┻！\n哈哈哈，那就麻烦老哥带我回省城啦！”\n【你损失所有的果子/熟肉和一半的啤酒！！！晓月跟随！】") }, choice2: function () {
-                                t("你一脚把女孩（晓月）踹出了帐篷...")
+                    },
+                    3017: {
+                        text: ["有人喊抓贼，", "是否帮忙？", "是", "算了吧"],
+                        require: [],
+                        choice1: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 106;
+                            i.save();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 3013:
-                        {
-                            text: ["“嘿~老哥，做早饭咧~(｀?ω?′)", "我做饭可厉害啦(*￣︶￣)，", "让我试试呗( ? ?ω?? )?~", "让她试", "不让她试"], require: [c.ifFollow[0], 1], choice1: function () { c.choice[5] < 35 ? (c.role.hp = 1, c.choice[5] += 3, t("...你喝了一大盆「黯然销魂十杂大补汤」\n【生命全损失，晓月好感+4】")) : (c.itemNum2[0] += 1, t("获得【熟肉】*1")) }, choice2: function () {
-                                c.choice[5] -= 3, t("哼！￣へ￣\n【晓月好感-4】")
+                    },
+                    3022: {
+                        text: ["一个驻地大半年的地质勘察队、执意要请你去基地吃口饭。", "【你去吗？】", "去", "不去"],
+                        require: [],
+                        choice1: function () {
+                            n.hunger = i.maxHunger();
+                            n.itemNum[0] += 3;
+                            n.itemNum2[13] += 1;
+                            n.chioce2[0] = 1;
+                            r("地质队，请你吃了一顿饭。一位中年男托你送一个生日礼物给他的女儿。\n【饥饿全恢复！获得「果子」*3！获得委托礼物「┑(=^ω^=)┑」*1】");
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 3015:
-                        {
-                            text: ["发现一个山洞，", "洞里有两条路，", "一条似乎有点亮光，", "一条布满青苔，黑不见底", "你走哪条？", "有亮光的", "幽黑的"], require: [], choice1: function () { n.eventId = 5, n.ifTriggerEvent() }, choice2: function () {
-                                c.itemNum2[18] += 1, t("你找了一个【装避鞋】！拿了赶紧溜了~")
+                    },
+                    3024: {
+                        text: ["你在一个隐蔽的草丛中发现一套水手服，", "似乎是有人故意放在这里的", "你要用它替换掉晓月身上的脏衣服吗？", "换换换！", "想想就行了(o﹃o?)"],
+                        require: [n.ifFollow[0], 1],
+                        choice1: function () {
+                            if (n.choice[5] > 400) {
+                                n.choice[5] += 23;
+                                r("(/ω＼)好害羞...不过只要你喜欢我就穿...\no(*////▽////*)q\n晓月好感+23");
+                            } else {
+                                n.role.hp = 1;
+                                r("动~感~少~女~拳——！\n（╬￣皿￣）=○＃（￣＃）３￣）\n你损失全部生命");
                             }
-                        }, 3016:
-                        {
-                            text: ["“老哥(?﹏?)，", "刚才打雷啦，听见没，太吓人啦(′???)σ，", "emmm..那个..我..能睡你旁边吗？\n(︶.?︶?)”", "可以哇", "不行！"], require: [c.ifFollow[0], 1], choice1: function () { c.energy = 0, c.choice[5] += 10, t("由于晓月晚上说梦话（偷笑）、蹬人，你一晚没睡！\n【精力0恢复！晓月好感+10】") }, choice2: function () {
-                                c.choice[5] -= 4, t("￣へ￣\n【晓月好感-4】")
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 3017:
-                        {
-                            text: ["有人喊抓贼，", "是否帮忙？", "是", "算了吧"], require: [], choice1: function () { c.role.hp = o.role.maxHp(), c.enemyId = 106, o.save(), cc.director.loadScene("main") }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    3025: {
+                        text: ["一个可怜的流浪汉要求和你一起做个伴，", "你是否同意？", "同意", "拒绝"],
+                        require: [],
+                        choice1: function () {
+                            n.money = 0;
+                            r("....第二天一大早，流浪汉早就不见踪影。\n【你损失全部金钱！】");
+                        },
+                        choice2: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 107;
+                            i.save();
+                            r("“cnm！老子弄死你！”");
                             }
-                        }, 3022:
-                        {
-                            text: ["一个驻地大半年的地质勘察队、执意要请你去基地吃口饭。", "【你去吗？】", "去", "不去"], require: [], choice1: function () { c.hunger = o.maxHunger(), c.itemNum[0] += 3, c.itemNum2[13] += 1, c.chioce2[0] = 1, t("地质队，请你吃了一顿饭。一位中年男托你送一个生日礼物给他的女儿。\n【饥饿全恢复！获得「果子」*3！获得委托礼物「┑(=^ω^=)┑」*1】") }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    3032: {
+                        text: ["“哥...那啥...e....\n?(????ω????)?", "到了省城后，你要不来我家玩吧”", "好呀", "算了，你父母肯定不会同意的"],
+                        require: [n.ifFollow[0], 1],
+                        choice1: function () {
+                            r("“耶————！\n(’?’)シ┳━┳掀桌（开心）\n。。。。\n┬—┬ノ('-'ノ)摆好摆好”");
+                        },
+                        choice2: function () {
+                            r("晓月似乎很伤心...");
                             }
-                        }, 3024:
-                        {
-                            text: ["你在一个隐蔽的草丛中发现一套水手服，", "似乎是有人故意放在这里的", "你要用它替换掉晓月身上的脏衣服吗？", "换换换！", "想想就行了(o﹃o?)"], require: [c.ifFollow[0], 1], choice1: function () { c.choice[5] > 400 ? (c.choice[5] += 23, t("(/ω＼)好害羞...不过只要你喜欢我就穿...\no(*////▽////*)q\n晓月好感+23")) : (c.role.hp = 1, t("动~感~少~女~拳——！\n（╬￣皿￣）=○＃（￣＃）３￣）\n你损失全部生命")) }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    4003: {
+                        text: ["中年大叔对于新伙伴似乎很感兴趣，几次想过来搭话。", "最后终于憋不住，", "“兄弟，我琢磨了好几天，发现了一个天大的秘密！”", "他似乎很激动，", "“能不能借我一块钱，这次稳中大奖！跑不了！中了奖咱们一人一半！怎么样？”", "借", "不借"],
+                        require: [],
+                        choice1: function () {
+                            if (n.money >= 10) {
+                                n.publicVar2[14] = 1;
+                                r("中年大叔抢过钱，一溜烟，不见了...");
+                            } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "你兜里有几个钱，心里没点数？";
+                        },
+                        choice2: function () {
+                            r("“哎~难受哇~看着钱，就没了...”");
                             }
-                        }, 3025:
-                        {
-                            text: ["一个可怜的流浪汉要求和你一起做个伴，", "你是否同意？", "同意", "拒绝"], require: [], choice1: function () { c.money = 0, t("....第二天一大早，流浪汉早就不见踪影。\n【你损失全部金钱！】") }, choice2: function () {
-                                c.role.hp = o.role.maxHp(), c.enemyId = 107, o.save(), t("“cnm！老子弄死你！”")
+                    },
+                    4006: {
+                        text: ["我正在在街上捡垃圾，突然一个20上下，穿着短裙、高跟鞋的小姐姐，拉住我的衣服小声说，", "“小帅哥，要不要来玩会儿，只要5毛哟~”", "不去！", "好呀(°_°) "],
+                        require: [],
+                        choice1: function () {
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            n.publicVar2[15] += 1;
+                            t.eventId = 7;
+                            t.ifTriggerEvent();
                             }
-                        }, 3032:
-                        {
-                            text: ["“哥...那啥...e....\n?(????ω????)?", "到了省城后，你要不来我家玩吧”", "好呀", "算了，你父母肯定不会同意的"], require: [c.ifFollow[0], 1], choice1: function () { t("“耶————！\n(’?’)シ┳━┳掀桌（开心）\n。。。。\n┬—┬ノ('-'ノ)摆好摆好”") }, choice2: function () {
-                                t("晓月似乎很伤心...")
+                    },
+                    4007: {
+                        text: ["中年大叔不知道哪里弄了点回锅肉和啤酒，", "非要叫你过去吃两口，", "当然去呀！", "算了，不想和他有什么瓜葛"],
+                        require: [n.publicVar2[14], 1],
+                        choice1: function () {
+                            t.eventId = 8;
+                            t.ifTriggerEvent();
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 4003:
-                        {
-                            text: ["中年大叔对于新伙伴似乎很感兴趣，几次想过来搭话。", "最后终于憋不住，", "“兄弟，我琢磨了好几天，发现了一个天大的秘密！”", "他似乎很激动，", "“能不能借我一块钱，这次稳中大奖！跑不了！中了奖咱们一人一半！怎么样？”", "借", "不借"], require: [], choice1: function () { c.money >= 10 ? (c.publicVar2[14] = 1, t("中年大叔抢过钱，一溜烟，不见了...")) : cc.find("Canvas/Notify2").getComponent("cc.Label").string = "你兜里有几个钱，心里没点数？" }, choice2: function () {
-                                t("“哎~难受哇~看着钱，就没了...”")
+                    },
+                    4008: {
+                        text: ["这天，桥底下搬来一个吉他女孩（陈碧瑶），", "单马尾、白体恤、牛仔裤，怎么看都不像是流浪汉。", "她似乎有些腼腆，面对中年大叔的质问，只是莞尔一笑", "不行，太特么奇怪了，我也得去问个究竟", "暗中观察一段时间再说"],
+                        action: function () {
+                            var t = e("scr_data");
+                            0 == e("scr_data2").gameData[4] && (t.publicVar[7] = -49);
+                            t.publicVar2[17] = 1;
+                            i.save();
+                        },
+                        require: [],
+                        choice1: function () {
+                            n.publicVar[7] -= 10;
+                            r("碧瑶好感-10！");
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 4006:
-                        {
-                            text: ["我正在在街上捡垃圾，突然一个20上下，穿着短裙、高跟鞋的小姐姐，拉住我的衣服小声说，", "“小帅哥，要不要来玩会儿，只要5毛哟~”", "不去！", "好呀(°_°) "], require: [], choice1: function () { cc.director.loadScene("main") }, choice2: function () {
-                                c.publicVar2[15] += 1, n.eventId = 7, n.ifTriggerEvent()
+                    },
+                    4012: {
+                        text: ["三个身穿制服的胖子来到桥下，", "一脚踢开脚边的水壶，大声叫到，", "“不许在这里搭帐篷，听到没！”", "正面刚", "赶紧递烟（需烟*3，金钱*3）"],
+                        require: [],
+                        choice1: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 110;
+                            if (0 == n.publicVar[8]) {
+                                n.ifFollow[1] = 1;
+                                n.publicVar[7] += 700;
+                                n.friendSkill[1] = 1;
+                                n.friendSkill[3] = 1;
+                                n.friendSkill[4] = 1;
+                                n.friendSkill[5] = 1;
+                                n.friendSkill[6] = 1;
+                                n.friendSkill[8] = 1;
+                                r("碧瑶加入战斗！");
+                            } else {
+                                i.save();
+                                cc.director.loadScene("main");
                             }
-                        }, 4007:
-                        {
-                            text: ["中年大叔不知道哪里弄了点回锅肉和啤酒，", "非要叫你过去吃两口，", "当然去呀！", "算了，不想和他有什么瓜葛"], require: [c.publicVar2[14], 1], choice1: function () { n.eventId = 8, n.ifTriggerEvent() }, choice2: function () {
-                                cc.director.loadScene("main")
+                        },
+                        choice2: function () {
+                            if (n.itemNum2[7] >= 3 && n.money >= 30) {
+                                n.itemNum2[7] -= 3;
+                                n.money -= 30;
+                                r("“一个星期内，给我搬走，听见没！”");
+                            } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "尴尬，烟不够...";
                             }
-                        }, 4008:
-                        {
-                            text:
-                                ["这天，桥底下搬来一个吉他女孩（陈碧瑶），", "单马尾、白体恤、牛仔裤，怎么看都不像是流浪汉。", "她似乎有些腼腆，面对中年大叔的质问，只是莞尔一笑", "不行，太特么奇怪了，我也得去问个究竟", "暗中观察一段时间再说"], action:
-                                function () { var t = e("scr_data"), n = e("scr_data2"); 0 == n.gameData[4] && (t.publicVar[7] = -49), t.publicVar2[17] = 1, o.save() }, require:
-                                [], choice1:
-                                function () { c.publicVar[7] -= 10, t("碧瑶好感-10！") }, choice2:
-                                function () {
+                    },
+                    4014: {
+                        text: ["经过几天的寻找，", "总算找到地质队长描述的小区，", "是否要将委托礼物（┑(=^ω^=)┑）归还呢？", "归还", "自己留着"],
+                        require: [n.chioce2[0], 1],
+                        choice1: function () {
+                            n.itemNum2[13] -= 1;
+                            n.chioce2[0] = 2;
+                            r("队长的女儿，中学生模样，扎着双马尾，非常可爱。不过她似乎对礼物没啥兴趣，扔到一边，就进屋去了...\n年轻的妈妈邀我进去，我担心弄脏了地板，慌忙推辞...走出小区，恍若隔世...");
+                        },
+                        choice2: function () {
                                     cc.director.loadScene("main");
                                 }
-                        }, 4012:
-                        {
-                            text: ["三个身穿制服的胖子来到桥下，", "一脚踢开脚边的水壶，大声叫到，", "“不许在这里搭帐篷，听到没！”", "正面刚", "赶紧递烟（需烟*3，金钱*3）"], require: [], choice1: function () { c.role.hp = o.role.maxHp(), c.enemyId = 110, 0 == c.publicVar[8] ? (c.ifFollow[1] = 1, c.publicVar[7] += 700, c.friendSkill[1] = 1, c.friendSkill[3] = 1, c.friendSkill[4] = 1, c.friendSkill[5] = 1, c.friendSkill[6] = 1, c.friendSkill[8] = 1, t("碧瑶加入战斗！")) : (o.save(), cc.director.loadScene("main")) }, choice2: function () {
-                                c.itemNum2[7] >= 3 && c.money >= 30 ? (c.itemNum2[7] -= 3, c.money -= 30, t("“一个星期内，给我搬走，听见没！”")) : cc.find("Canvas/Notify2").getComponent("cc.Label").string = "尴尬，烟不够..."
+                    },
+                    4015: {
+                        text: ["八月盛夏，林荫路上，我意外的遇到了碧瑶，", "她带着鸭舌帽，似乎不想被人认出；一把吉他，落寞地独唱着。", "虽然围观的人很多，但是打赏的几乎没有，", "“这么漂亮还出来乞讨？是在炒作？！”，有人摸着下巴，大声「嘀咕」", "打赏自己一半的钱", "算啦，这是她自己的事"],
+                        require: [],
+                        choice1: function () {
+                            if (n.money > 0) {
+                                var e = parseInt(.5 * n.money + 1), t = parseInt(.5 * e + 4), a = (e / 10).toFixed(1);
+                                n.money -= e;
+                                n.publicVar[7] += t;
+                                r("碧瑶看了你一眼，低下头继续唱着歌...\n【你本次给出" + a + "元，碧瑶存款+" + a + "元，好感+" + t + "】");
+                            } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "你身上一分钱也没有！";
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 4014:
-                        {
-                            text: ["经过几天的寻找，", "总算找到地质队长描述的小区，", "是否要将委托礼物（┑(=^ω^=)┑）归还呢？", "归还", "自己留着"], require: [c.chioce2[0], 1], choice1: function () { c.itemNum2[13] -= 1, c.chioce2[0] = 2, t("队长的女儿，中学生模样，扎着双马尾，非常可爱。不过她似乎对礼物没啥兴趣，扔到一边，就进屋去了...\n年轻的妈妈邀我进去，我担心弄脏了地板，慌忙推辞...走出小区，恍若隔世...") }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    4017: {
+                        text: ["“(?ω?)hiahiahia！", "老哥，可算找到你啦！", "就差这里的垃圾箱没找啦！(╥╯^╰╥)", "上次忘了说了，给，这是我家地址，记得过来玩哈(^_?)☆”", "", "(#?Д?)"],
+                        action: function () {
+                            n.publicVar[9] = 1;
+                            i.save();
+                        },
+                        require: [n.publicVar[3], 1],
+                        choice1: function () { },
+                        choice2: function () {
+                            t.eventId = 9;
+                            t.ifTriggerEvent();
                             }
-                        }, 4015:
-                        {
-                            text: ["八月盛夏，林荫路上，我意外的遇到了碧瑶，", "她带着鸭舌帽，似乎不想被人认出；一把吉他，落寞地独唱着。", "虽然围观的人很多，但是da赏的几乎没有，", "“这么漂亮还出来乞讨？是在炒作？！”，有人摸着下巴，大声「嘀咕」", "da赏自己一半的钱", "算啦，这是她自己的事"], require: [], choice1: function () {
-                                if (c.money > 0) {
-                                    var e = parseInt(.5 * c.money + 1), n = parseInt(.5 * e + 4), a = (e / 10).toFixed(1);
-                                    c.money -= e, c.publicVar[7] += n, t("碧瑶看了你一眼，低下头继续唱着歌...\n【你本次给出" + a + "元，碧瑶存款+" + a + "元，好感+" + n + "】")
-                                } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "你身上一分钱也没有！"
-                            }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    4018: {
+                        text: ["这天，我在街上游荡，", "意外的碰到了晓月！", "她全是干干净净，依旧留在短发", "我感觉脸颊发烫，刚想找个地方避开，但是还是被发现，", "“hi~老哥~好久不见呀”", "“对不起，我...”", "“啊~~你走了之后，那个大叔就放开了我，还把我送回了家，什么事也没发生┐(′?｀)┌。我先上学去了，拜拜~”", "", "....."],
+                        require: [n.choice[5], 1],
+                        require2: [n.publicVar[3], 0],
+                        choice1: function () { },
+                        choice2: function () {
+                            r("那个奇怪的大叔是谁？是她爸爸的恶作剧？");
                             }
-                        }, 4017:
-                        {
-                            text: ["“(?ω?)hiahiahia！", "老哥，可算找到你啦！", "就差这里的垃圾箱没找啦！(╥╯^╰╥)", "上次忘了说了，给，这是我家地址，记得过来玩哈(^_?)☆”", "", "(#?Д?)"], action: function () { c.publicVar[9] = 1, o.save() }, require: [c.publicVar[3], 1], choice1: function () { }, choice2: function () {
-                                n.eventId = 9, n.ifTriggerEvent()
+                    },
+                    4019: {
+                        text: ["这天，我在街上游荡，", "意外的碰到了那天的短发女孩（晓月）。", "她全是干干净净，简直像是换了一个人！", "是否过去打招呼？", "是", "算了，这么漂亮的妹子怎可能喜欢我"],
+                        require: [],
+                        require2: [n.choice[5], 0],
+                        choice1: function () {
+                            n.publicVar[9] = 2;
+                            r("“喔~是你呀~我认得你！要是有啥困难，可以来找我喔︿(￣︶￣)︿”，女孩的热情，让我鼻子一酸，这是我第一次有这种感受...");
+                        },
+                        choice2: function () {
+                            r("注孤生————作者留言");
                             }
-                        }, 4018:
-                        {
-                            text: ["这天，我在街上游荡，", "意外的碰到了晓月！", "她全是干干净净，依旧留在短发", "我感觉脸颊发烫，刚想找个地方避开，但是还是被发现，", "“hi~老哥~好久不见呀”", "“对不起，我...”", "“啊~~你走了之后，那个大叔就放开了我，还把我送回了家，什么事也没发生┐(′?｀)┌。我先上学去了，拜拜~”", "", "....."], require: [c.choice[5], 1], require2: [c.publicVar[3], 0], choice1: function () { }, choice2: function () {
-                                t("那个奇怪的大叔是谁？是她爸爸的恶作剧？")
+                    },
+                    4021: {
+                        text: ["街上有个男人在对一个女人拳打脚踢，", "我仔细一看，这个女人正是刚来省城时，叫我去玩玩的小姐姐！", "你是否帮她？", "帮忙", "算了，这是她自找的"],
+                        require: [],
+                        choice1: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.publicVar2[15] += 1;
+                            n.enemyId = 111;
+                            i.save();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 4019:
-                        {
-                            text: ["这天，我在街上游荡，", "意外的碰到了那天的短发女孩（晓月）。", "她全是干干净净，简直像是换了一个人！", "是否过去打招呼？", "是", "算了，这么漂亮的妹子怎可能喜欢我"], require: [], require2: [c.choice[5], 0], choice1: function () { c.publicVar[9] = 2, t("“喔~是你呀~我认得你！要是有啥困难，可以来找我喔︿(￣︶￣)︿”，女孩的热情，让我鼻子一酸，这是我第一次有这种感受...") }, choice2: function () {
-                                t("注孤生————作者留言")
+                    },
+                    4030: {
+                        text: ["一辆白色面包车开到桥下，", "中年大叔兴奋的跑过来喊道，“快快快，天上掉馅饼啦，一瓶血，2块钱！我体检不过关，不然我全捐喽！”", "献血！（生命上限-70，钱+2元）", "不献！"],
+                        action: function () {
+                            cc.find("Canvas/Choice/label").getComponent("cc.Label").string = "【申明】此处为游戏效果，不等于真实情况，千万别误解";
+                        },
+                        require: [],
+                        choice1: function () {
+                            n.role.maxHp -= 70;
+                            n.money += 20;
+                            i.save();
+                            r("生命上限-70，获得2元。");
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 4021:
-                        {
-                            text: ["街上有个男人在对一个女人拳打脚踢，", "我仔细一看，这个女人正是刚来省城时，叫我去玩玩的小姐姐！", "你是否帮她？", "帮忙", "算了，这是她自找的"], require: [], choice1: function () { c.role.hp = o.role.maxHp(), c.publicVar2[15] += 1, c.enemyId = 111, o.save(), cc.director.loadScene("main") }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    4032: {
+                        text: ["一帮凶恶的男人将碧瑶团团围住，其中一个皮衣男叫到，", "“念你死去爹的面子，老子一再忍让。给你10天时间，再不还钱，你就给我做小姐去！”", "朦胧夜色下，看不清碧瑶脸上的表情，不过，她一个字也没说。", "帮忙解围（BOSS级对手）", "切莫冲动，以免搞砸，先观察几天再说"],
+                        require: [],
+                        choice1: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 112;
+                            i.save();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            var e = parseInt(.3 * n.publicVar2[18]), t = (e / 10).toFixed(1);
+                            n.publicVar2[18] -= e;
+                            r("皮衣男把碧瑶背包翻了一个遍。【碧瑶存款减少" + t + "元！碧瑶存款还剩下" + (n.publicVar2[18] / 10).toFixed(1) + "】");
                             }
-                        }, 4030:
-                        {
-                            text: ["一辆白色面包车开到桥下，", "中年大叔兴奋的跑过来喊道，“快快快，天上掉馅饼啦，一瓶血，2块钱！我体检不过关，不然我全捐喽！”", "献血！（生命上限-70，钱+2元）", "不献！"], action: function () { cc.find("Canvas/Choice/label").getComponent("cc.Label").string = "【申明】此处为游戏效果，不等于真实情况，千万别误解" }, require: [], choice1: function () { c.role.maxHp -= 70, c.money += 20, o.save(), t("生命上限-70，获得2元。") }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    4033: {
+                        text: ["我在城中村边晃荡，", "一个女人突然冲过来，把一包东西塞到怀里，然后头也不回的跑开了。", "看背影和服装，应该正是小兰", "", "打开包裹"],
+                        require: [n.publicVar2[15], 2],
+                        choice1: function () { },
+                        choice2: function () {
+                            n.itemNum[0] += 10;
+                            n.itemNum2[23] += 1;
+                            n.itemNum2[25] += 1;
+                            r("获得【果子】*10，【创口贴】*1，【护身符】*1");
                             }
-                        }, 4032:
-                        {
-                            text: ["一帮凶恶的男人将碧瑶团团围住，其中一个皮衣男叫到，", "“念你死去爹的面子，老子一再忍让。给你10天时间，再不还钱，你就给我做小姐去！”", "朦胧夜色下，看不清碧瑶脸上的表情，不过，她一个字也没说。", "帮忙解围（BOSS级对手）", "切莫冲动，以免搞砸，先观察几天再说"], require: [], choice1: function () { c.role.hp = o.role.maxHp(), c.enemyId = 112, o.save(), cc.director.loadScene("main") }, choice2: function () {
-                                var e = parseInt(.3 * c.publicVar2[18]), n = (e / 10).toFixed(1);
-                                c.publicVar2[18] -= e, t("皮衣男把碧瑶背包翻了一个遍。【碧瑶存款减少" + n + "元！碧瑶存款还剩下" + (c.publicVar2[18] / 10).toFixed(1) + "】")
+                    },
+                    4034: {
+                        text: ["碧瑶极为节俭，她每天晚上回来前，都会去附近一个面包店，购买当天卖剩的、折扣面包。", "这天，看着她背着吉他远远过来了，我决定和她开个玩笑，我冲到面包店里，指着她经常购买的面包，喊道，", "“老板！这种面包我全要了！”（需2元）", "“哎呀，手抽筋了！不好意哈——哈~哈~哈”"],
+                        require: [],
+                        choice1: function () {
+                            if (n.money >= 20) {
+                                n.money -= 20;
+                                n.publicVar[7] += 20;
+                                n.hunger += parseInt(2 * i.maxHunger());
+                                r("买完面包，我在门口慢悠悠吃着。不一会儿碧瑶过来了，她看了看我，我吃惊的看着她，塞了一大口面包，她立马转头看别的去了。不一会儿，碧瑶就从店里出来了，涨红了脸问道，“e...，能不能卖我几个面包”，“哦？这个呀？可以呀，一起回去吃吧，嘿嘿~”。【饥饿值爆满，碧瑶好感+20】");
+                            } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "店长：“没钱装啥逼，蛤?”";
+                        },
+                        choice2: function () {
+                            r("你被赶了出来...");
                             }
-                        }, 4033:
-                        {
-                            text: ["我在城中村边晃荡，", "一个女人突然冲过来，把一包东西塞到怀里，然后头也不回的跑开了。", "看背影和服装，应该正是小兰", "", "打开包裹"], require: [c.publicVar2[15], 2], choice1: function () { }, choice2: function () {
-                                c.itemNum[0] += 10, c.itemNum2[23] += 1, c.itemNum2[25] += 1, t("获得【果子】*10，【创口贴】*1，【护身符】*1")
+                    },
+                    4040: {
+                        text: ["中年大叔拿着之前民警给的几块钱，买了一些啤酒、卤肉，喊你过去吃两口。", "去还是不去呢？", "", "去", "不去"],
+                        require: [],
+                        choice1: function () {
+                            n.publicVar2[16] = parseInt(99 * Math.random() + 1);
+                            n.hunger = i.maxHunger();
+                            r("吃完饭，中年大叔兴高采烈的抽出两张彩票，给了你一张。获得【彩票】（明晚开奖）！饥饿全恢复！");
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 4034:
-                        {
-                            text: ["碧瑶极为节俭，她每天晚上回来前，都会去附近一个面包店，购买当天卖剩的、折扣面包。", "这天，看着她背着吉他远远过来了，我决定和她开个玩笑，我冲到面包店里，指着她经常购买的面包，喊道，", "“老板！这种面包我全要了！”（需2元）", "“哎呀，手抽筋了！不好意哈——哈~哈~哈”"], require: [], choice1: function () { c.money >= 20 ? (c.money -= 20, c.publicVar[7] += 20, c.hunger += parseInt(2 * o.maxHunger()), t("买完面包，我在门口慢悠悠吃着。不一会儿碧瑶过来了，她看了看我，我吃惊的看着她，塞了一大口面包，她立马转头看别的去了。不一会儿，碧瑶就从店里出来了，涨红了脸问道，“e...，能不能卖我几个面包”，“哦？这个呀？可以呀，一起回去吃吧，嘿嘿~”。【饥饿值爆满，碧瑶好感+20】")) : cc.find("Canvas/Notify2").getComponent("cc.Label").string = "店长：“没钱装啥逼，蛤?”" }, choice2: function () {
-                                t("你被赶了出来...")
+                    },
+                    4041: {
+                        text: ["中年大叔拿着报纸、挺着圆鼓鼓的肚子，气喘吁吁回来桥下。", "俩人激动得不行！", "", "开奖啦！好紧张！"],
+                        require: [n.publicVar2[16], 1],
+                        choice1: function () { },
+                        choice2: function () {
+                            if (n.publicVar2[16] < 90) {
+                                n.energy = 10 * parseInt(.05 * n.energy);
+                                r("...\n......\n.........\n没有中奖\n你气得一晚上没睡好\n精力恢复减半...");
+                            } else {
+                                n.money += 10;
+                                n.energy = 10 * parseInt(.05 * n.energy);
+                                r("...\n......\n.........\n恭喜中得1元大奖！\n你兴奋得一晚上没睡好\n精力恢复减半...获得1元...");
                             }
-                        }, 4040:
-                        {
-                            text: ["中年大叔拿着之前民警给的几块钱，买了一些啤酒、卤肉，喊你过去吃两口。", "去还是不去呢？", "", "去", "不去"], require: [], choice1: function () { c.publicVar2[16] = parseInt(99 * Math.random() + 1), c.hunger = o.maxHunger(), t("吃完饭，中年大叔兴高采烈的抽出两张彩票，给了你一张。获得【彩票】（明晚开奖）！饥饿全恢复！") }, choice2: function () {
-                                cc.director.loadScene("main")
+                            n.publicVar2[16] = 0;
                             }
-                        }, 4041:
-                        {
-                            text: ["中年大叔拿着报纸、挺着圆鼓鼓的肚子，气喘吁吁回来桥下。", "俩人激动得不行！", "", "开奖啦！好紧张！"], require: [c.publicVar2[16], 1], choice1: function () { }, choice2: function () {
-                                var e = c.publicVar2[16];
-                                e < 90 ? (c.energy = 10 * parseInt(.05 * c.energy), t("...\n......\n.........\n没有中奖\n你气得一晚上没睡好\n精力恢复减半...")) : (c.money += 10, c.energy = 10 * parseInt(.05 * c.energy), t("...\n......\n.........\n恭喜中得1元大奖！\n你兴奋得一晚上没睡好\n精力恢复减半...获得1元...")), c.publicVar2[16] = 0
+                    },
+                    4042: {
+                        text: ["皮衣男一伙再次来到桥下，围住碧瑶问道：", "“怎么样？赚的钱呢？你不是在卖唱么？”", "“那是给我妈治病的，你的钱我一定会还的。”，碧瑶有点惊恐。", "“这是你自己的事，我不关心。我只是让你还钱！”，皮衣男拉高了嗓门", "【你要怎么办？】", "先稳住皮衣男，把身上所有钱给他（必须大于2元）", "...这种事，我无能为力"],
+                        require: [],
+                        choice1: function () {
+                            if (n.money >= 20) {
+                                var e = n.money, t = parseInt(.5 * e + 5), a = (e / 10).toFixed(1);
+                                n.money -= e;
+                                n.publicVar2[18] += e;
+                                n.publicVar[7] += t;
+                                r("“哦？这么快就找到男朋友啦？虽然不够塞牙缝。不过我也不是那么不通情达理，我就给「你们」多点时间。”，说完皮衣男离开了。\n【你本次给出" + a + "元，碧瑶存款+" + a + "元，好感+" + t + "】");
+                            } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "这点钱恐怕会激怒对方...";
+                        },
+                        choice2: function () {
+                            var e = parseInt(.5 * n.publicVar2[18]), t = (e / 10).toFixed(1);
+                            n.publicVar2[18] -= e;
+                            r("几个跟班上前围住碧瑶，皮衣男从吉他包里搜出" + t + "元，说道，“我也不是那么不通情达理，我先拿一些，回去好交差，下次可没这么便宜了。”【碧瑶存款减少" + t + "元！碧瑶存款还剩下" + (n.publicVar2[18] / 10).toFixed(1) + "】");
                             }
-                        }, 4042:
-                        {
-                            text: ["皮衣男一伙再次来到桥下，围住碧瑶问道：", "“怎么样？赚的钱呢？你不是在卖唱么？”", "“那是给我妈治病的，你的钱我一定会还的。”，碧瑶有点惊恐。", "“这是你自己的事，我不关心。我只是让你还钱！”，皮衣男拉高了嗓门", "【你要怎么办？】", "先稳住皮衣男，把身上所有钱给他（必须大于2元）", "...这种事，我无能为力"], require: [], choice1: function () {
-                                if (c.money >= 20) {
-                                    var e = c.money, n = parseInt(.5 * e + 5), a = (e / 10).toFixed(1);
-                                    c.money -= e, c.publicVar2[18] += e, c.publicVar[7] += n, t("“哦？这么快就找到男朋友啦？虽然不够塞牙缝。不过我也不是那么不通情达理，我就给「你们」多点时间。”，说完皮衣男离开了。\n【你本次给出" + a + "元，碧瑶存款+" + a + "元，好感+" + n + "】")
-                                } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "这点钱恐怕会激怒对方..."
-                            }, choice2: function () {
-                                var e = parseInt(.5 * c.publicVar2[18]), n = (e / 10).toFixed(1);
-                                c.publicVar2[18] -= e, t("几个跟班上前围住碧瑶，皮衣男从吉他包里搜出" + n + "元，说道，“我也不是那么不通情达理，我先拿一些，回去好交差，下次可没这么便宜了。”【碧瑶存款减少" + n + "元！碧瑶存款还剩下" + (c.publicVar2[18] / 10).toFixed(1) + "】")
+                    },
+                    4047: {
+                        text: ["“小哥，请问下哪里比较容易捡到罐子？”，一天胖女人过来问道，她的手在不停的颤抖。", "告诉她", "不理她"],
+                        require: [],
+                        choice1: function () {
+                            n.publicVar2[19] += 50;
+                            r("“捡罐子得早上五点前去，不然会被其他人捡走。小饭店、旅馆、活动场多点，运气好可以捡到零食、盒饭...”\n【你获得易拉罐的概率降低3%！】");
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 4047:
-                        {
-                            text: ["“小哥，请问下哪里比较容易捡到罐子？”，一天胖女人过来问道，她的手在不停的颤抖。", "告诉她", "不理她"], require: [], choice1: function () { c.publicVar2[19] += 50, t("“捡罐子得早上五点前去，不然会被其他人捡走。小饭店、旅馆、活动场多点，运气好可以捡到零食、盒饭...”\n【你获得易拉罐的概率降低3%！】") }, choice2: function () {
-                                cc.director.loadScene("main")
+                    },
+                    4050: {
+                        text: ["由于人们大量捕杀蚊子，蚊子已经濒临灭绝，一些投机商人纷纷囤积蚊子尸体，哄抬物价。", "这不，一个暗中观察我好几天的商人，终于憋不住了，", "“我这里全球最高价，每只三毛！别掖着啦，过几天天气转凉，就不值这个价喽~”", "出售所有蚊子尸体", "不卖！坐等升值！"],
+                        require: [],
+                        choice1: function () {
+                            var e = n.kills[0], t = 3 * e, a = (t / 10).toFixed(1);
+                            n.money += t;
+                            n.kills[0] = 0;
+                            r("你一共出售" + e + "只蚊子，获得" + a + "元！");
+                        },
+                        choice2: function () {
+                            r("“阔以！你就掖着，等发霉吧！”，蚊子商人气愤的走了。");
                             }
-                        }, 4050:
-                        {
-                            text: ["由于人们大量捕杀蚊子，蚊子已经濒临灭绝，一些投机商人纷纷囤积蚊子尸体，哄抬物价。", "这不，一个暗中观察我好几天的商人，终于憋不住了，", "“我这里全球最高价，每只三毛！别掖着啦，过几天天气转凉，就不值这个价喽~”", "出售所有蚊子尸体", "不卖！坐等升值！"], require: [], choice1: function () { var e = c.kills[0], n = 3 * e, a = (n / 10).toFixed(1); c.money += n, c.kills[0] = 0; var i = "你一共出售" + e + "只蚊子，获得" + a + "元！"; t(i) }, choice2: function () {
-                                t("“阔以！你就掖着，等发霉吧！”，蚊子商人气愤的走了。")
+                    },
+                    4054: {
+                        text: ["这天，你发现一个还未「开启」的「宝箱」（垃圾箱）。", "不过，你远远看到老奶奶和胖女人正向这边走来。", "你是否要「开启」宝箱", "凭本事发现的宝箱，为啥要让给别人，开！", "算了，作为对她成功迈出第一步的鼓励，留给她吧！"],
+                        require: [n.publicVar2[19], 1],
+                        choice1: function () {
+                            n.itemNum[2] += 10;
+                            n.itemNum2[27] += 1;
+                            n.itemNum2[21] += 1;
+                            r("获得【易拉罐】*10，【晓月手链】*1，【小裤裤】*1");
+                        },
+                        choice2: function () {
+                            n.publicVar2[19] += 50;
+                            r("不一会儿母女俩就走了过来，妇女牵着塑料袋，老奶奶在垃圾箱中掏了半天，妇女有点不耐烦，“快点呀！好臭！手都快断了！”。老奶奶笑眯眯的安慰道，“再坚持会儿！回去后、你一定可以让老头子大吃一惊的！”。妇女没再说什么了。");
                             }
-                        }, 4054:
-                        {
-                            text: ["这天，你发现一个还未「开启」的「宝箱」（垃圾箱）。", "不过，你远远看到老奶奶和胖女人正向这边走来。", "你是否要「开启」宝箱", "凭本事发现的宝箱，为啥要让给别人，开！", "算了，作为对她成功迈出第一步的鼓励，留给她吧！"], require: [c.publicVar2[19], 1], choice1: function () { c.itemNum[2] += 10, c.itemNum2[27] += 1, c.itemNum2[21] += 1, t("获得【易拉罐】*10，【晓月手链】*1，【小裤裤】*1") }, choice2: function () {
-                                c.publicVar2[19] += 50, t("不一会儿母女俩就走了过来，妇女牵着塑料袋，老奶奶在垃圾箱中掏了半天，妇女有点不耐烦，“快点呀！好臭！手都快断了！”。老奶奶笑眯眯的安慰道，“再坚持会儿！回去后、你一定可以让老头子大吃一惊的！”。妇女没再说什么了。")
+                    },
+                    4056: {
+                        text: ["碧瑶，渐渐卸下了防御，我们的话也慢慢多了起来。", "“你欠那些人多少钱？”，我问道。", "“额，两万多吧...”\n“...怎么会这么多！”，我有点吃惊。\n“我爸公司倒闭，借的六千，翻到现在的两万...”\n“那你爸妈呢？”，这个问题我一直都想问。\n“爸爸自杀了，后来妈妈病倒了，现在寄居在乡下亲戚家...”", "", "......."],
+                        require: [],
+                        choice1: function () { },
+                        choice2: function () {
+                            t.eventId = 10;
+                            t.ifTriggerEvent();
                             }
-                        }, 4056:
-                        {
-                            text: ["碧瑶，渐渐卸下了防御，我们的话也慢慢多了起来。", "“你欠那些人多少钱？”，我问道。", "“额，两万多吧...”\n“...怎么会这么多！”，我有点吃惊。\n“我爸公司倒闭，借的六千，翻到现在的两万...”\n“那你爸妈呢？”，这个问题我一直都想问。\n“爸爸自杀了，后来妈妈病倒了，现在寄居在乡下亲戚家...”", "", "......."], require: [], choice1: function () { }, choice2: function () {
-                                n.eventId = 10, n.ifTriggerEvent()
+                    },
+                    4059: {
+                        text: ["晚上，天气微凉，我买了几个热腾腾的馒头给碧瑶送了过去。", "我背着吉他，一起走在回家的路上。", "宁静的秋夜，皓月如洗，树影婆娑......", "【你是否要尝试牵下碧瑶的手呢？】", "试一试！死了也值！（成功率不固定，根据好感值计算概率！）", "算了吧，我拿什么去谈一场恋爱？别连朋友也没得做！"],
+                        require: [],
+                        choice1: function () {
+                            var e = n.publicVar[7];
+                            if (e < 300) {
+                                var t = parseInt(.1 * (300 - e));
+                                n.publicVar[7] -= t;
+                                r("我缓缓靠近，假装不经意间勾了一下她的手，她本能般的缩回了手，拉开距离。【陈碧瑶戒备增加，好感-" + t + "！】");
+                            } else {
+                                n.publicVar[7] += 40;
+                                r("我缓缓靠近，假装不经意间勾了一下她的手，她轻微的缩了一下手，不过立即就安静下来，我顺势勾起她的指头，捏住她的手，一路都没有说话，但是我感觉我的都快跳出来啦，她的手心温暖而湿润。【陈碧瑶好感+40】");
                             }
-                        }, 4059:
-                        {
-                            text: ["晚上，天气微凉，我买了几个热腾腾的馒头给碧瑶送了过去。", "我背着吉他，一起走在回家的路上。", "宁静的秋夜，皓月如洗，树影婆娑......", "【你是否要尝试牵下碧瑶的手呢？】", "试一试！死了也值！（成功率不固定，根据好感值计算概率！）", "算了吧，我拿什么去谈一场恋爱？别连朋友也没得做！"], require: [], choice1: function () {
-                                var e = c.publicVar[7]; if (e < 300) {
-                                    var n = parseInt(.1 * (300 - e));
-                                    c.publicVar[7] -= n, t("我缓缓靠近，假装不经意间勾了一下她的手，她本能般的缩回了手，拉开距离。【陈碧瑶戒备增加，好感-" + n + "！】")
-                                } else c.publicVar[7] += 40, t("我缓缓靠近，假装不经意间勾了一下她的手，她轻微的缩了一下手，不过立即就安静下来，我顺势勾起她的指头，捏住她的手，一路都没有说话，但是我感觉我的都快跳出来啦，她的手心温暖而湿润。【陈碧瑶好感+40】")
-                            }, choice2: function () {
-                                cc.director.loadScene("main")
+                        },
+                        choice2: function () {
+                            cc.director.loadScene("main");
                             }
-                        }, 146:
-                        {
-                            text: ["我捡完垃圾，回到桥下，皮衣男把碧瑶按到墙上，说道，", "“你别怪我，不就是让他在女儿面前脱光衣服吗，这点承受能力都没有，做个毛的老板！你怕是没见过高级的要债方法哟~”", "战斗！", "给他钱（需10元）~"], action: function () { e("scr_data").enemyId = 113, o.save() }, require: [], choice1: function () { c.role.hp = o.role.maxHp(), c.enemyId = 113, o.save(), cc.director.loadScene("main") }, choice2: function () {
-                                c.money >= 100 ? (c.money -= 100, c.publicVar2[18] += 100, c.publicVar[7] += 60, c.enemyId = 0, t("“哦？不错，小伙子挺懂事的，以后就多麻烦你了啊~”，说完皮衣男离开了。碧瑶好感+60。")) : cc.find("Canvas/Notify2").getComponent("cc.Label").string = "对于胃口增的人，没个十几块，恐怕难以打发"
+                    },
+                    146: {
+                        text: ["我捡完垃圾，回到桥下，皮衣男把碧瑶按到墙上，说道，", "“你别怪我，不就是让他在女儿面前脱光衣服吗，这点承受能力都没有，做个毛的老板！你怕是没见过高级的要债方法哟~”", "战斗！", "给他钱（需10元）~"],
+                        action: function () {
+                            e("scr_data").enemyId = 113;
+                            i.save();
+                        },
+                        require: [],
+                        choice1: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 113;
+                            i.save();
+                            cc.director.loadScene("main");
+                        },
+                        choice2: function () {
+                            if (n.money >= 100) {
+                                n.money -= 100;
+                                n.publicVar2[18] += 100;
+                                n.publicVar[7] += 60;
+                                n.enemyId = 0;
+                                r("“哦？不错，小伙子挺懂事的，以后就多麻烦你了啊~”，说完皮衣男离开了。碧瑶好感+60。");
+                            } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "对于胃口增的人，没个十几块，恐怕难以打发";
                             }
-                        }, 163:
-                        {
-                            text: ["一个妇女和民警来到桥下，见到碧瑶后立马坐倒在地，大哭，", "“瑶儿哇~你妈快不行了~”。碧瑶呆住了。", "妇女往碧瑶身后瞅了瞅，突然停止哭泣，问，“你平时就住这儿？”。\n碧瑶没出声。\n妇女接着大哭道，“我苦命的孩子呀，从小都是住别墅，现在要和这些流浪汉住一起，你到底吃了多少苦头哇~...”", "", "..."], action: function () { e("scr_data").ifFollow[1] = 0, c.publicVar2[17] = 0, o.save() }, require: [], choice1: function () { }, choice2: function () {
-                                n.eventId = 13, n.ifTriggerEvent()
+                    },
+                    163: {
+                        text: ["一个妇女和民警来到桥下，见到碧瑶后立马坐倒在地，大哭，", "“瑶儿哇~你妈快不行了~”。碧瑶呆住了。", "妇女往碧瑶身后瞅了瞅，突然停止哭泣，问，“你平时就住这儿？”。\n碧瑶没出声。\n妇女接着大哭道，“我苦命的孩子呀，从小都是住别墅，现在要和这些流浪汉住一起，你到底吃了多少苦头哇~...”", "", "..."],
+                        action: function () {
+                            e("scr_data").ifFollow[1] = 0;
+                            n.publicVar2[17] = 0;
+                            i.save();
+                        },
+                        require: [],
+                        choice1: function () { },
+                        choice2: function () {
+                            t.eventId = 13;
+                            t.ifTriggerEvent();
                             }
-                        }, 174:
-                        {
-                            text: ["“上头有领导要来，城里不准乱搭帐篷啦，我只是奉命行事，对不住啦，小兄弟，听明白没？”", "几个身着制服的男开着巡逻车来到桥下叫道。", "知道了，我马上搬走（放弃抵抗）", "我就不走！（战斗）"], action: function () { c.enemyId = 401, o.save() }, require: [], require2: [c.publicVar3[2], 0], choice1: function () { c.enemyId = 0, c.publicVar3[2] = 1, n.ifTriggerEvent("你搬离了桥洞...") }, choice2: function () {
-                                c.role.hp = o.role.maxHp(), c.enemyId = 401, o.save(), cc.director.loadScene("main")
+                    },
+                    174: {
+                        text: ["“上头有领导要来，城里不准乱搭帐篷啦，我只是奉命行事，对不住啦，小兄弟，听明白没？”", "几个身着制服的男开着巡逻车来到桥下叫道。", "知道了，我马上搬走（放弃抵抗）", "我就不走！（战斗）"],
+                        action: function () {
+                            n.enemyId = 401;
+                            i.save();
+                        },
+                        require: [],
+                        require2: [n.publicVar3[2], 0],
+                        choice1: function () {
+                            n.enemyId = 0;
+                            n.publicVar3[2] = 1;
+                            t.ifTriggerEvent("你搬离了桥洞...");
+                        },
+                        choice2: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 401;
+                            i.save();
+                            cc.director.loadScene("main");
                             }
-                        }, 175:
-                        {
-                            text: ["“听说你很拽？”，新来了几个制服男...", "我马上搬走（放弃抵抗）", "是的，我就是不走！（战斗）"], action: function () { c.enemyId = 402, o.save() }, require: [], require2: [c.publicVar3[2], 0], choice1: function () { c.enemyId = 0, c.publicVar3[2] = 1, n.ifTriggerEvent("你搬离了桥洞...") }, choice2: function () {
-                                c.role.hp = o.role.maxHp(), c.enemyId = 402, o.save(), cc.director.loadScene("main")
+                    },
+                    175: {
+                        text: ["“听说你很拽？”，新来了几个制服男...", "我马上搬走（放弃抵抗）", "是的，我就是不走！（战斗）"],
+                        action: function () {
+                            n.enemyId = 402;
+                            i.save();
+                        },
+                        require: [],
+                        require2: [n.publicVar3[2], 0],
+                        choice1: function () {
+                            n.enemyId = 0;
+                            n.publicVar3[2] = 1;
+                            t.ifTriggerEvent("你搬离了桥洞...");
+                        },
+                        choice2: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 402;
+                            i.save();
+                            cc.director.loadScene("main");
                             }
-                        }, 176:
-                        {
-                            text: ["“你好，请问下那个钉子户是不是你？”，又来了几个制服男...", "不是的，我刚来，我这就搬走（放弃抵抗）", "是的（战斗）"], action: function () { c.enemyId = 403, o.save() }, require: [], require2: [c.publicVar3[2], 0], choice1: function () { c.enemyId = 0, c.publicVar3[2] = 1, n.ifTriggerEvent("你搬离了桥洞...") }, choice2: function () {
-                                c.role.hp = o.role.maxHp(), c.enemyId = 403, o.save(), cc.director.loadScene("main")
+                    },
+                    176: {
+                        text: ["“你好，请问下那个钉子户是不是你？”，又来了几个制服男...", "不是的，我刚来，我这就搬走（放弃抵抗）", "是的（战斗）"],
+                        action: function () {
+                            n.enemyId = 403;
+                            i.save();
+                        },
+                        require: [],
+                        require2: [n.publicVar3[2], 0],
+                        choice1: function () {
+                            n.enemyId = 0;
+                            n.publicVar3[2] = 1;
+                            t.ifTriggerEvent("你搬离了桥洞...");
+                        },
+                        choice2: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 403;
+                            i.save();
+                            cc.director.loadScene("main");
                             }
-                        }, 177:
-                        {
-                            text: ["“听说你在找屎？”，几个大块头制服男问道...", "没没没！这就走（放弃抵抗）", "是的，你要吗？（战斗）"], action: function () { c.enemyId = 404, o.save() }, require: [], require2: [c.publicVar3[2], 0], choice1: function () { c.enemyId = 0, c.publicVar3[2] = 1, n.ifTriggerEvent("你搬离了桥洞...") }, choice2: function () {
-                                c.role.hp = o.role.maxHp(), c.enemyId = 404, o.save(), cc.director.loadScene("main")
+                    },
+                    177: {
+                        text: ["“听说你在找屎？”，几个大块头制服男问道...", "没没没！这就走（放弃抵抗）", "是的，你要吗？（战斗）"],
+                        action: function () {
+                            n.enemyId = 404;
+                            i.save();
+                        },
+                        require: [],
+                        require2: [n.publicVar3[2], 0],
+                        choice1: function () {
+                            n.enemyId = 0;
+                            n.publicVar3[2] = 1;
+                            t.ifTriggerEvent("你搬离了桥洞...");
+                        },
+                        choice2: function () {
+                            n.role.hp = i.role.maxHp();
+                            n.enemyId = 404;
+                            i.save();
+                            cc.director.loadScene("main");
                             }
                         }, 178:
                         {
