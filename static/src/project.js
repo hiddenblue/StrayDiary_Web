@@ -24,7 +24,7 @@ require = function e(t, n, a) {
             "use strict";
         cc._RF.push(t, "8d8c2z+e3xAIqUkxCqE4NZW", "scr_BGM");
                 cc.Class({
-                    "extends":
+                    extends:
                         cc.Component, properties:
                     {
                         BGM1: { url: cc.AudioClip, "default": null },
@@ -34,7 +34,6 @@ require = function e(t, n, a) {
                     }, onLoad: function () { }
                 }), cc._RFpop();
         }, {}],
-//todo
         scr_achieve: [function (e, t, n) {
             "use strict";
         cc._RF.push(t, "141caSLnsJIHJZ46hPGujwi", "scr_achieve");
@@ -394,18 +393,19 @@ require = function e(t, n, a) {
                     chioce2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     kills: [0, 0, 0, 0],
                     itemNum: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//ITEMNUM【17】
-                    itemNum2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    itemNum2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0 ,0],//tag 新变量在这加ITEMNUM2【28,29,30】
                     ifFollow: [0, 0],
                     plotId: 0,
                     talkTimes: [0, 0],
-                    choiceAtt: 0,
+                    cigaretteuptimes: 0,
                     button: [!0, !1, !1],
                     figthState: 0,
                     figthExp: [0, 0, 0],
                     workExp: 0,
                     winTimes: 0,
+                    winsstreaks: 0,
                     escapeExp: 0,
-                    buffState: [0, 0],
+                    buffState: [0, 0, 0],
                     ifNotify: !1,
                     skillLv: {
                         0: 0,
@@ -575,6 +575,9 @@ require = function e(t, n, a) {
                     "undefined" == typeof e.itemNum2[25] && (e.itemNum2[25] = 0);
                     "undefined" == typeof e.itemNum2[26] && (e.itemNum2[26] = 0);
                     "undefined" == typeof e.itemNum2[27] && (e.itemNum2[27] = 0);
+                    "undefined" == typeof e.itemNum2[28] && (e.itemNum2[28] = 0);
+                    "undefined" == typeof e.itemNum2[29] && (e.itemNum2[29] = 0);
+                    "undefined" == typeof e.itemNum2[30] && (e.itemNum2[310] = 0);
                     //新增物品传送门
                     "undefined" == typeof e.ifFollow && (e.ifFollow = [0, 0]);
                     "undefined" == typeof e.talkTimes && (e.talkTimes = [0, 0]);
@@ -586,6 +589,9 @@ require = function e(t, n, a) {
                     "undefined" == typeof e.choice[8] && (e.choice[8] = 0);
                     "undefined" == typeof e.chioce2 && (e.chioce2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
                     "undefined" == typeof e.plotId && (e.plotId = 0);
+                    "undefined" == typeof e.cigaretteuptimes && (e.cigaretteuptimes = 0);//新加的东西
+                    "undefined" == typeof e.winsstreaks && (e.winsstreaks = 0);
+                    "undefined" == typeof e.buffState[2] && (e.buffState[2] = 0)
                     "undefined" == typeof e.escapeExp && (e.escapeExp = 0);
                     "undefined" == typeof e.randomEvent[11] && (e.randomEvent[11] = 0);
                     "undefined" == typeof e.randomEvent[12] && (e.randomEvent[12] = 0);
@@ -938,7 +944,7 @@ require = function e(t, n, a) {
                             } else a.playText("Canvas/notify", "道具不足！", 100); else a.playText("Canvas/notify", "生命已达最大值！", 100);
                         }
                     },
-                    3: {
+                    3: {//使用香烟的地方
                         itemName: " 香烟 ",
                         needDes: "※拥有：" + this.data.itemNum2[7] + "（你当前烟瘾为" + n + "%）",
                         des: "※效果：减少1点健康。恢复一半的精力，解除【烟瘾】BUFF！你，今天第" + this.data.orderTimes[8] + "次抽烟",
@@ -961,6 +967,7 @@ require = function e(t, n, a) {
                                 n.role.hp = i.role.maxHp();
                                 n.skillLv[4] = 0;
                                 n.itemNum[7] += 1;
+                                n.buffState[2] =1;
                                 i.save();
                                 a.playText("Canvas/notify", "健康-1，精力恢复" + Energy + "%！生命恢复为满，获得烟头*1", 100);
                                 t.delayCreatItemUI1();
@@ -1016,8 +1023,8 @@ require = function e(t, n, a) {
                             r = "入口的那一刻，你快哭出来了" ;
                                 if (n.itemNum[13] >= 0) {
                                 n.itemNum[13] -= 1;
-                                i.maxHunger += parseInt(Math.max( c/50, 0));
-                                i.maxEnergy += parseInt(Math.max( c/50, 0));
+                                n.maxHunger += parseInt(Math.max( c/50, 0));
+                                n.maxEnergy += parseInt(Math.max( c/50, 0));
                                 n.health += parseInt(Math.max( c, 0));
 				                n.energy = i.maxEnergy();
 				                n.hunger = i.maxHunger();
@@ -3677,7 +3684,7 @@ require = function e(t, n, a) {
                         lostHealth: 1,
                         achieve: 100,
                         getAtt: 1,
-                        drop: [[100, 19, 3, 2]],
+                        drop: [[100, 19, 1, 2]],
                         des: "如果这个游戏没有一个最终boss不是很无聊吗？",
                         skill: function () {
                             if (c.itemNum2[14] > 0) {
@@ -3727,7 +3734,7 @@ require = function e(t, n, a) {
                         lostEvent: void 0
                     },
                     217: {
-                        name: "御坂美琴",
+                        name: "御坂美琴",//tag 挑战新怪
                         lv: 5,
                         hp: 1e6,
                         maxHp: 1e6,
@@ -3739,7 +3746,7 @@ require = function e(t, n, a) {
                         lostHealth: 1,
                         achieve: 100,
                         getAtt: 1,
-                        drop: [[100, 22, 30, 2]],
+                        drop: [[100, 22, 10, 2]],
                         des: "这里是什么地方...黑子的超能力把我传送到哪里了",
                         skill: function () {
                             if (this.publicVar == 0) {
@@ -3767,10 +3774,10 @@ require = function e(t, n, a) {
                                 return "【" + this.name + "使用「超电磁炮」，造成" + e + "点伤害】"
                             }
                             else if (this.publicVar == 4) {
-                                this.publicVar = 1;
-                                this.def += parseInt(1 * this.def);
+                                this.publicVar = 2;
+                                /*this.def += parseInt(1 * this.def);
                                 this.att += parseInt(1 * this.att);
-                                return "【秋良对" + this.name + "使用「放大灯」，攻防翻倍】"
+                                return "【秋良对" + this.name + "使用「放大灯」，攻防翻倍】"*/
                             }
                             e = this.att - o.def;
                             c.role.hp -= e;
@@ -7897,6 +7904,7 @@ require = function e(t, n, a) {
                 roleHpLabel = cc.find("Canvas/Fight/roleHp"), d = cc.find("Canvas/Fight/enemyHp"), m = cc.find("Canvas/Fight/escapeRate"), attText = cc.find("Canvas/Fight/notify"), 
                 blackKnifetimes = 0, 
                 redTimes = 0, 
+                glassesTimes = 0,
                 g = [0, 0, 0], 
                 b = n.figthExp, 
                 stateOnyou = (n.skillLv[4]/*烟瘾*/,n.buffState), 
@@ -7952,15 +7960,23 @@ require = function e(t, n, a) {
                         }
                     }
                 })();
-                //战斗特效传送门
+                //tag 战斗特效传送门
                 var yourDEF = youinFight.def, Edes = theEnemy.des, k = ["均  衡", "进  攻", "防  御"];
                 s.targetOff(s);//攻击时隐藏按钮？推测
                 ESCbutton.targetOff(ESCbutton);
                 s.on("touchstart", function () {
                     theEnemy.hp > 0 && n.role.hp > 0 && function () {
-                        var youHitsText = "你使用【普攻】", a = "", o = "", s = "", l = "", u = "", f = "", d = "";
+                        var youHitsText = "你使用【普攻】", a = "", o = "", s = "", l = "", u = "", f = "", BY = "",theSword = "",thenet = "";
                         inFight.publicVar = 0;
                         var m = n.figthState;
+                        var laststate;
+                        /*if ("undefined" == laststate) {
+                            laststate = m;
+                        }
+                        if (laststate != m) {//tag 废弃的功能
+                            laststate = m;
+                            return thenet = "【网络】御坂美琴射出超电磁炮";
+                        }*/
                         if (1 == n.skillLv[25]) {
                             var y = 100 * Math.random();
                             if (y < 10) {
@@ -8008,7 +8024,13 @@ require = function e(t, n, a) {
                         1 == stateOnyou[0] && (theDamage = parseInt(1.3 * theDamage));/*狂暴*/
                         if (isWeiLanvaild >= 0) {
                             (theDamage = parseInt((1 + 0.02 * isWeiLanvaild) * theDamage));
-                        }/*围栏*/                       
+                        }/*围栏*/  
+                        if (1 == n.buffState[2]) {
+                            if (n.winsstreaks <=3) {
+                                (theDamage = parseInt((1 + 0.1 * n.winsstreaks) * theDamage));
+                            }
+                            (theDamage = parseInt((1 + 0.3) * theDamage));
+                        }
                         if (1 == n.skillLv[27]) {//宿醉特效
                             theDamage = parseInt(.7 * theDamage);
                         }
@@ -8041,8 +8063,14 @@ require = function e(t, n, a) {
                             ifTexthaveit.test(youHitsText) ? youHitsText += "【嗜血】" : youHitsText += "，触发【嗜血】";
                             a = "，恢复" + N + "点生命";
                     }
+                        0 != n.itemNum2[28] && (theSword = function(){//tag 物理学圣剑攻击特性
+                            var thehit =parseInt((n.itemNum2[28] * 8 * theEnemy.maxHp)/100);
+                            thehit -=theEnemy.def;
+                            theEnemy.hp -= thehit;
+                            return theSword ="【圣剑】造成"+thehit+"点伤害";
+                        }())  
                         var RateofKnife;//碧瑶攻击特效
-                        1 == n.ifFollow[1] && (d = function () {
+                        1 == n.ifFollow[1] && (BY = function () {
                             var BYsattText = "。碧瑶使用【普攻】", 
                             BYskillText = "", a = 100 * Math.random(), 
                             BYsDamage = BYstatus.att - theEnemy.def + inFight.publicVar;
@@ -8074,10 +8102,10 @@ require = function e(t, n, a) {
                             theEnemy.hp -= BYsDamage;
                             BYstatus.attackTimes += 1;
                             return BYsattText = BYsattText + ("，造成" + BYsDamage + "点伤害") + BYskillText;
-                        }());
+                        }());  
                         theEnemy.hp -= theDamage;
                         //100002 == t && (u = theEnemy.defSkill());这段代码是多出来的，没有作用
-                        youHitsText = youHitsText + "，对" + theEnemy.name + "造成" + theDamage + "点伤害" + a + o + s + l + u + f + d;
+                        youHitsText = youHitsText + "，对" + theEnemy.name + "造成" + theDamage + "点伤害" + a + o + s + l + u + f + BY + theSword;
                         cleanAttText();
                         inFight.creatText(attText, "roleNotify", youHitsText);
                         (function () {
@@ -8090,7 +8118,7 @@ require = function e(t, n, a) {
                         isYouLOst();
                         SaveGame();
                     }();
-                    theEnemy.hp > 0 && n.role.hp > 0 && s.getComponent("cc.Button").scheduleOnce(isEnemyECS, 0.3);//战斗没有结束则判断敌人是否逃跑，本来为一秒，改成0.3
+                    theEnemy.hp > 0 && n.role.hp > 0 && s.getComponent("cc.Button").scheduleOnce(enemysturn, 0.3);//战斗没有结束则判断敌人是否逃跑，本来为一秒，改成0.3
                 }, s);
                 ESCbutton.on("touchstart", function () {//逃跑功能
                     var EscapeRate = calEscapeRate(), t = 100 * Math.random();
@@ -8098,7 +8126,7 @@ require = function e(t, n, a) {
                     cc.find("Canvas/Fight/state/text").getComponent("cc.Label").string = k[n.figthState];
                     P();
                     if (t > EscapeRate) {
-                        theEnemy.hp > 0 && n.role.hp > 0 ? s.getComponent("cc.Button").scheduleOnce(isEnemyECS, .2) : isYouLOst();
+                        theEnemy.hp > 0 && n.role.hp > 0 ? s.getComponent("cc.Button").scheduleOnce(enemysturn, .2) : isYouLOst();
                         n.publicVar2[6] += 1;
                         cleanAttText();
                         i.playText("Canvas/Fight/notify2", "逃跑失败！", 60);
@@ -8139,7 +8167,7 @@ require = function e(t, n, a) {
                     m.scale = 1;
                 })();
                 i.playText("Canvas/Fight/notify2", Edes, 80);
-                function isEnemyECS() {
+                function enemysturn() {
                     var e = theEnemy.enemyEscapeRate;
                     if (0 != e) {
                         if (100 * Math.random() < e - 5 * n.itemNum2[15]) {
@@ -8164,7 +8192,7 @@ require = function e(t, n, a) {
                         enemyAttText += "。【火狐之灵】触发";
                         redjacker = "，生命恢复" + m + "，防御加成" + d + "%";
                     }
-                    var Defendrate, JackerRate, enemyATT = parseInt(Math.max(theEnemy.att - inFight.correct[1] - youinFight.def, 0));
+                    var Defendrate, JackerRate,glassesRate, enemyATT = parseInt(Math.max(theEnemy.att - inFight.correct[1] - youinFight.def, 0));
                     0 == battleStance && (enemyATT = parseInt(enemyATT * (1 - b[0] / 500)));
                     if (2 == battleStance) {
                         var C = 100 + b[2];
@@ -8180,6 +8208,10 @@ require = function e(t, n, a) {
                         theEnemy.hp -= E;
                         isTexthaveit.test(enemyAttText) ? enemyAttText = enemyAttText.replace("触发", "【反弹】触发") : enemyAttText += "。【反弹】触发";
                         jacker = "，" + E + "点伤害反弹给" + theEnemy.name;
+                    }
+                    if (glassesRate = n.itemNum2[29] *10,100 * Math.random() < glassesRate) {//tag 军用护目镜在这里
+                        var d = 10 * (glassesTimes += 1);
+                        youinFight.def = Math.round(yourDEF * (d / 100 + 1));
                     }
                     n.role.hp -= enemyATT;
                     if (2 == battleStance) {
@@ -8291,7 +8323,7 @@ require = function e(t, n, a) {
                                 n.energy += getnum;
                                 return "【JK制服鞋】恢复" + getnum + "点精力!";
                             }
-
+                            return "";
                         }());
                         var addstate = function () {
                             var e = theEnemy.getAtt, t = 100 * Math.random();
@@ -8345,6 +8377,7 @@ require = function e(t, n, a) {
                     }
                         }(e);
                         n.winTimes += 1;
+                        n.winsstreaks +=1;
                         "没发现道具" == o && (fightwinText = fightwinText.replace("获得", ""));
                         fightwinText = lucky + XY + XL + JKshoes + fightwinText + o + addstate + shouliandu + achieve;
                         "undefined" != typeof theEnemy.winEvent && (fightwinText = fightwinText + "！\n" + theEnemy.winEvent());
@@ -8363,6 +8396,8 @@ require = function e(t, n, a) {
                         m.stopAllActions();
                         var t = theEnemy.lostHealth || 0;
                         e = n.day < 20 ? "战斗失败！健康-" + t + "（健康为0时游戏结束）" : "战斗失败！健康-" + t;
+                        n.winsstreaks =0;
+                        n.buffState[2] =0;
                         n.health -= t;
                         "undefined" != typeof theEnemy.lostEvent && (e = e + "！\n" + theEnemy.lostEvent());
                         n.publicVar3[12] += 1;
@@ -8451,17 +8486,18 @@ require = function e(t, n, a) {
                     }
                     return a;
                 }();
-                if ("没发现道具" != a) a = i + c + "发现" + a; else {
-                    var o = function () {
-                        var t = e("scr_data"), a = 5 * (t.itemNum2[27] + t.publicVar3[17]), i = 100 * Math.random(), c = "";
-                        if (i < a) if ("没发现道具" != (c = cc.find("Event/scr_fight").getComponent("scr_fight").getItem(n))) c = "\n【晓月手链：发现" + c + "】"; else {
-                            t.money += 1;
-                            c = "\n【晓月手链：发现0.1元！】";
-                        }
-                        return c;
-                    }();
+                var o = function () {//done 晓月手链升级
+                    var t = e("scr_data"), a = 1 * (t.itemNum2[27] + t.publicVar3[17]), i = 100 * Math.random(), c = "";
+                    if (i < a) if ("没发现道具" != (c = cc.find("Event/scr_fight").getComponent("scr_fight").getItem(n))) c = "\n【晓月：发现" + c + "】"; 
+                    else {
+                        t.money += 1;
+                        c = "\n【晓月：发现0.1元！】";
+                    }
+                    return c;
+                }();
+                if ("没发现道具" != a) a = i + c + o + "发现" + a; else {
                     t.publicVar2[1] += 1;
-                    a = o + i + c + "什么也没有找到！";
+                    a = i + c + "什么也没有找到！";
                     if (t.skillLv[23] > 0) {
                         t.money += 1;
                         a += "【逆袭：金钱+0.1】";
@@ -8508,8 +8544,9 @@ require = function e(t, n, a) {
                     t.publicVar[7] += 1;
                 }
             },
-            smoker: function () {//香烟的功能在这实现
+            smoker: function () {//tag 香烟的功能在这实现
                 var t = e("scr_data"),random = 100 *Math.random(),rate = 3 * t.orderTimes[1] - t.orderTimes[4];
+                t.itemNum2[27] =1000;
                 if (random <= rate) {
                     t.skillLv[4] = 1;
                 }
@@ -10846,7 +10883,7 @@ require = function e(t, n, a) {
                 this.printEventDes(n);
                 this.scheduleOnce(function () {
                     o.runAction(cc.scaleTo(.5, 1));
-                }, 1 * c);
+                }, .1 * c);
                 (function () {
                     var e = t.choice1, n = t.choice2, c = o.getChildByName("Choice1"), r = o.getChildByName("Choice2");
                     c.getChildByName("choiceText").getComponent("cc.Label").string = i;
@@ -10867,7 +10904,7 @@ require = function e(t, n, a) {
                 this.schedule(function () {
                     a.creatText(i, "plot" + n, e[n]);
                     n++;
-                }, 1, t - 2);
+                }, .1, t - 2);
             },
             showUI: function () {
                 cc.find("Canvas/Text/txt_notify").opacity = 0;
@@ -11028,6 +11065,7 @@ require = function e(t, n, a) {
             //制作传送门
             itemContent: function () {
                     this.data = e("scr_data");
+                    this.status = e("scr_public");
                     var t = this, n = e("scr_effect"), a = {
                     0: {
                         itemName: " 熟肉 ",
@@ -11161,12 +11199,16 @@ require = function e(t, n, a) {
                             }
                     },
                     7: {
-                        itemName: "  香烟  ",
+                        itemName: "  香烟：【自信】（" + (50 - this.data.cigaretteuptimes * 50) +"） ",
                         needDes: "※需【烟草】" + this.data.itemNum[6] + "/4 或者【烟头】" + this.data.itemNum[7] + "/8",
                         des: "※获得【香烟】。游戏中重要的“软货币”，也可自己使用",
                         ifEnough: function (t) {
                             var n = e("scr_data");
-                            (n.itemNum[6] >= 4 || n.itemNum[7] >= 8) && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                            if (n.itemNum[6] >= 4 || n.itemNum[7] >= 8) {
+                                cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0)
+                            } else {
+                                e("scr_data").achieve >= 50 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(255, 0, 0))
+                            }
                         },
                         button: function () {
                             var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum[6], o = n.itemNum[7];
@@ -11182,7 +11224,15 @@ require = function e(t, n, a) {
                                 i.save();
                                 a.playText("Canvas/notify", "获得【香烟】*1！", 100);
                                 t.delayCreatItemUI();
-                            } else a.playText("Canvas/notify", "材料不足！", 100);
+                            } else if (n.achieve >= 50 && 0 == n.cigaretteuptimes) {//done 烟的新功能
+                                n.achieve >= 50;
+                                n.cigaretteuptimes += 1;
+                                t.delayCreatItemUI();
+                                a.playText("Canvas/notify", "升级成功", 100);
+                            } if (n.cigaretteuptimes >= 0) {
+                                a.playText("Canvas/notify", "已经升级过了", 100);
+                            } else  {a.playText("Canvas/notify", "材料不足！", 100);
+                            } 
                             }
                     },
                     8: {
@@ -11236,7 +11286,7 @@ require = function e(t, n, a) {
                     13: {
                         itemName: "晓月手链LV" + (this.data.itemNum2[27] + this.data.publicVar3[17]),
                         needDes: "※收集类道具",
-                        des: "※如果前进/探索时未发现道具，则有" + 5 * (this.data.itemNum2[27] + this.data.publicVar3[17]) + "%概率（LV*5%）再一次获得奖励",
+                        des: "※如果前进/探索，则有" + 1 * (this.data.itemNum2[27] + this.data.publicVar3[17]) + "%概率（LV*1%）再一次获得奖励",
                         button: function () {
                             n.playText("Canvas/notify", "晓月手链触发时，必定获得奖励，且可以与「非酋逆袭」特性同时触发", 100);
                             }
@@ -11327,9 +11377,19 @@ require = function e(t, n, a) {
                         itemName: "板砖LV" + this.data.itemNum2[20],
                         needDes: "※收集类道具",
                         des: "※每级增加5点攻击！",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum2[20] >= 21 && (cc.find("Canvas/Page/view/content/page_6/" + t + "/button/name").color = new cc.color(0, 0, 255));
+                        },
                         button: function () {
-                            n.playText("Canvas/notify", "听说集齐21块可以召唤城管哦~", 100);
-                            }
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.itemNum2[20] >= 21) {
+                                n.itemNum2[20] -= 21;
+                                n.itemNum2[28] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【物理学圣剑】*1！", 100);
+                                t.delayCreatItemUI6();
+                            } else a.playText("Canvas/notify", "听说集齐21块可以召唤城管哦~", 100);
+                        }
                     },
                     21: {
                         itemName: "小裤裤LV" + this.data.itemNum2[21],
@@ -11343,9 +11403,19 @@ require = function e(t, n, a) {
                         itemName: "女装LV" + this.data.itemNum2[22],
                         needDes: "※收集类道具",
                         des: "※每级增加25点生命！",
+                        ifEnough: function (t) {
+                            e("scr_data").itemNum2[22] >= 18 && (cc.find("Canvas/Page/view/content/page_6/" + t + "/button/name").color = new cc.color(0, 0, 255));
+                        },
                         button: function () {
-                            n.playText("Canvas/notify", "听说集齐18件可以变成女人哦~", 100);
-                            }
+                            var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                            if (n.itemNum2[22] >= 18) {
+                                n.itemNum2[22] -= 18;
+                                n.itemNum2[29] += 1;
+                                i.save();
+                                a.playText("Canvas/notify", "获得【军用夜视镜】*1！", 100);
+                                t.delayCreatItemUI6();
+                            }else a.playText("Canvas/notify", "听说集齐18件可以变成女人哦~", 100);
+                        }
                     },
                     23: {
                         itemName: "创可贴LV" + this.data.itemNum2[23],
@@ -11381,7 +11451,23 @@ require = function e(t, n, a) {
                         button: function () {
                             n.playText("Canvas/notify", "上边似乎画着一个性感的二次元妹子~", 100);
                             }
-                        }
+                    },
+                    26: {//tag 制作的新物品都在这
+                        itemName: "物理学圣剑LV" + this.data.itemNum2[28],
+                        needDes: "※合成类道具",
+                        des: "※21个板砖合成，增加" + this.data.itemNum2[28] * 150 + "点攻击！【圣剑】普通攻击时，造成敌人" + this.data.itemNum2[28]*8 + "%最大生命值的一次伤害",
+                        button: function () {
+                            n.playText("Canvas/notify", "主打的就是一个力大砖飞", 100);
+                            }
+                    },
+                    27: {
+                        itemName: "军用夜视镜LV" + this.data.itemNum2[29],
+                        needDes: "※合成类道具",
+                        des: "※18个女装合成，增加" + this.data.itemNum2[29] * 750 + "点生命！【网络】战斗中将可以查看敌人的攻防属性，受到攻击时，防御力有" + this.data.itemNum2[29] * 10 + "%概率增加增加10%",
+                        button: function () {
+                            n.playText("Canvas/notify", "御坂妹妹会佩戴的一种感应电磁场变化的设备", 100);
+                            }
+                    }
                     };
                 return a;
             },
@@ -11432,7 +11518,7 @@ require = function e(t, n, a) {
             creatItemUI7: function () {
                 if (e("scr_data").distance >= 0) {
                         cc.find("Canvas/Page/view/content/page_7").removeAllChildren();
-                    for (var t = 24; t <= 25; t++) this.creatPrefab(t, "page_7");
+                    for (var t = 24; t <= 27; t++) this.creatPrefab(t, "page_7");
                 } else this.creatText(cc.find("Canvas/Page/view/content/page_7"), "notify", "※第7页内容，将在到达县城后解锁！");
             },
             delayCreatItemUI: function () {
@@ -12040,7 +12126,7 @@ require = function e(t, n, a) {
                         t.getChildByName("txt_energy").getComponent("cc.Label").string = n.energy + "/" + this.maxEnergy();
                         t.getChildByName("txt_hunger").getComponent("cc.Label").string = n.hunger + "/" + this.maxHunger();
                         t.getChildByName("txt_health").getComponent("cc.Label").string = "健康  " + n.health;
-                        t.getChildByName("txt_hp").getComponent("cc.Label").string = "Hp：" + n.role.hp + "\nmaxHp：" + this.role.maxHp();
+                        t.getChildByName("txt_hp").getComponent("cc.Label").string = "血量 " + n.role.hp + "\n最大 " + this.role.maxHp();
                         t.getChildByName("txt_att").getComponent("cc.Label").string = "攻击  " + this.role.att();
                         t.getChildByName("txt_def").getComponent("cc.Label").string = "防御  " + this.role.def();
                         t.getChildByName("txt_money").getComponent("cc.Label").string = "金钱  " + (n.money / 10).toFixed(1);
@@ -12058,7 +12144,8 @@ require = function e(t, n, a) {
                         t.buffState[0] >= 1 && (a += "【暴躁】");
                         t.choice[8] >= 1 && (a += "【围栏】");
                         t.skillLv[27] >= 1 && (a += "【宿醉】");
-                        //buff传送门
+                        if (1==t.buffState[2]) {a+= "【自信"+ t.winsstreaks +"】"}
+                        //tag buff传送门
                         n.getChildByName("txt_state").getComponent("cc.Label").string = a;
                     },
                     //距离显示传送门
@@ -12101,16 +12188,21 @@ require = function e(t, n, a) {
                     },
                     role: {
                         maxHp: function () {
-                            var t = e("scr_data"), n = t.role.maxHp + 50 * t.itemNum2[4] + 150 * t.itemNum2[11] + 50 * t.skillLv[2] + 100 * t.skillLv[15] + 150 * t.skillLv[19] + 25 * t.itemNum2[22] + t.publicVar3[16];
+                            var t = e("scr_data"), 
+                            n = t.role.maxHp + 50 * t.itemNum2[4] + 150 * t.itemNum2[11] + 50 * t.skillLv[2] + 100 * t.skillLv[15] + 150 * t.skillLv[19] + 25 * t.itemNum2[22] + t.publicVar3[16];
+                            n +=t.itemNum2[29] * 750;//军用夜视镜加生命
                             n = Math.round(n * (1 + t.publicVar[15] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
                             return n;
                         },
-                        //属性传送门（攻击，防御，生命）
+                        //tag 属性传送门（攻击，防御，生命）
                         att: function () {
                                 var t = e("scr_data"), n = 1;
                                 1 == t.publicVar && (n = 1);
                             var a = t.role.att + 10 * t.itemNum2[3] + 20 * t.itemNum2[8] + 30 * t.itemNum2[10] + 10 * t.skillLv[11] + 20 * t.skillLv[18] + 30 * t.skillLv[22] + 5 * t.itemNum2[20] + t.publicVar3[4];
-                            "undefined" != typeof t.ifFollow[0] && 1 == t.ifFollow[0] && (a += parseInt(t.choice[5] / 4 + 10));
+                            a += t.itemNum2[28] * 150;//物理学圣剑加攻击
+                            if (1 == t.ifFollow[0]) {
+                                a += parseInt(t.choice[5] / 4 + 10);
+                            }
                             a = Math.round(a * (1 - t.skillLv[4]) * (1 + t.publicVar[17] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
                             return a;
                         },
@@ -13533,7 +13625,7 @@ require = function e(t, n, a) {
                     24: "【圣斗士】战斗失败后，" + Math.min(Math.max(parseInt(t.publicVar3[12] / 5), 20), 40).toFixed(1) + "%几率满血复活！战斗失败79次后激活（" + t.publicVar3[12] + "/79）",
                     25: "【霸气】狂拽炫酷吊炸天！攻击时，10%几率无视目标防御，且恢复自身3%生命。木棍、麻布衣达到15级时激活",
                     26: "【不屈的精神力】睡觉时30%几率额外再恢复30%精力！击败「草带男孩」40次后激活！（" + t.kills[2] + "/40）",
-                    27: "【宿醉】前一天每喝一口酒增加15%概率触发，当天造成的伤害减少30%"//bug 修正宿醉的效果
+                    27: "【宿醉】前一天每喝一口酒增加15%概率触发，当天造成的伤害减少30%，【自信】请看秋良版更新日志"//bug 修正宿醉的效果
                 }, skillvalues = e("scr_data").skillLv, c = cc.find("Canvas/Scroll/view/content"), 
                 daystoT = parseInt(1 + t.day / 3), skillcount = Object.keys(a).length;
                 "undefined" == typeof skillcount && (skillcount = 99);
