@@ -1114,7 +1114,7 @@ require = function e(t, n, a) {
                 n.getChildByName("des").getComponent("cc.Label").string = a.des;
                 n.getChildByName("button").getChildByName("name").getComponent("cc.Button").scheduleOnce(function () {
                     n.getChildByName("button").getChildByName("name").on("touchstart", i, this);
-                }, .2);
+                }, .02);
                 cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n);
                 "undefined" != typeof a.ifEnough && a.ifEnough(c);
             },
@@ -3790,7 +3790,6 @@ require = function e(t, n, a) {
                             cc.director.loadScene("start");
                             return "你的存档已被作者清除，游戏即将自动关闭";
                         }
-                        
                     },
                     217: {
                         name: "御坂美琴",//tag 挑战新怪
