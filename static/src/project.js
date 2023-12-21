@@ -11144,15 +11144,15 @@ require = function e(t, n, a) {
                     var t = this, n = e("scr_effect"), a = {
                     0: {
                         itemName: " 熟肉 ",
-                        needDes: "※需【生肉】" + this.data.itemNum[3] + "/1【木材】" + Math.max(this.data.itemNum[1] - t.data.itemNum[30],0) + "/1",
+                        needDes: "※需【生肉】" + this.data.itemNum[3] + "/1【木材】" + this.data.itemNum[1] + "/" + Math.max( 1- this.data.itemNum2[30],0),
                         des: "※获得【熟肉】（已拥有" + this.data.itemNum2[0] + "）",
                         ifEnough: function (e) {
                             t.data.itemNum[3] >= 1 && (t.data.itemNum[1] >= 1 || 0 != t.data.itemNum[30]) && (cc.find("Canvas/Page/view/content/page_1/" + e + "/button/name").color = new cc.color(0, 255, 0));
                         },
                         button: function () {
                             var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
-                            if (n.itemNum[3] >= 1 && (n.itemNum[1] >= 1 || 0 != n.itemNum[30])) {
-                                var xq = Math.max(1 - n.itemNum2[30],0)
+                            if (n.itemNum[3] >= 1 && (n.itemNum[1] >= 1 || 0 != n.itemNum2[30])) {
+                                var xq = Math.max(1 - n.itemNum2[30], 0)
                                 n.itemNum[3] -= 1;
                                 n.itemNum[1] -= xq;
                                 n.itemNum2[0] += 1;
