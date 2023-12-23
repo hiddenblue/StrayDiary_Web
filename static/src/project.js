@@ -386,7 +386,7 @@ require = function e(t, n, a) {
                     publicVar: [0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     publicVar2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     publicVar3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    orderTimes: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0],
+                    orderTimes: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0,0,0,0],
                     //加入ordertimes8,9,10,11,12
                     randomEvent: [0, 0, 0, 0, 0, 0, 0, 99, 588, 0, 0, 0, 0, 0],
                     choice: [2, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -435,7 +435,10 @@ require = function e(t, n, a) {
                         24: 0,
                         25: 0,
                         26: 0,
-                        27: 0
+                        27: 0,
+                        28: 0,
+                        29: 0,
+                        30: 0
                     },
                     //特殊敌人传送门
                     specialEnemy: {
@@ -557,37 +560,19 @@ require = function e(t, n, a) {
                     friendSkill: [1, 0, 0, 0, 0, 0, 0, 0, 0]
                 };
                 JSON.parse(cc.sys.localStorage.getItem("userData")) && function (e) {
-                    "undefined" == typeof e.itemNum[10] && (e.itemNum[10] = 0);
-                    "undefined" == typeof e.itemNum[11] && (e.itemNum[11] = 0);
-                    "undefined" == typeof e.itemNum[12] && (e.itemNum[12] = 0);
-                    "undefined" == typeof e.itemNum[13] && (e.itemNum[13] = 0);
-                    "undefined" == typeof e.itemNum[14] && (e.itemNum[14] = 0);
-                    "undefined" == typeof e.itemNum[15] && (e.itemNum[15] = 0);
-                    "undefined" == typeof e.itemNum[16] && (e.itemNum[16] = 0);
                     "undefined" == typeof e.itemNum[17] && (e.itemNum[17] = 0);
-                    "undefined" == typeof e.itemNum2[18] && (e.itemNum2[18] = 0);
-                    "undefined" == typeof e.itemNum2[19] && (e.itemNum2[19] = 0);
-                    "undefined" == typeof e.itemNum2[20] && (e.itemNum2[20] = 0);
-                    "undefined" == typeof e.itemNum2[21] && (e.itemNum2[21] = 0);
-                    "undefined" == typeof e.itemNum2[22] && (e.itemNum2[22] = 0);
-                    "undefined" == typeof e.itemNum2[23] && (e.itemNum2[23] = 0);
-                    "undefined" == typeof e.itemNum2[24] && (e.itemNum2[24] = 0);
-                    "undefined" == typeof e.itemNum2[25] && (e.itemNum2[25] = 0);
-                    "undefined" == typeof e.itemNum2[26] && (e.itemNum2[26] = 0);
-                    "undefined" == typeof e.itemNum2[27] && (e.itemNum2[27] = 0);
-                    "undefined" == typeof e.itemNum2[28] && (e.itemNum2[28] = 0);
-                    "undefined" == typeof e.itemNum2[29] && (e.itemNum2[29] = 0);
-                    "undefined" == typeof e.itemNum2[30] && (e.itemNum2[30] = 0);
-                    "undefined" == typeof e.itemNum2[31] && (e.itemNum2[31] = 0);
-                    "undefined" == typeof e.itemNum2[32] && (e.itemNum2[32] = 0);
-                    "undefined" == typeof e.itemNum2[33] && (e.itemNum2[33] = 0);
-                    "undefined" == typeof e.itemNum2[34] && (e.itemNum2[34] = 0);
-                    "undefined" == typeof e.itemNum2[35] && (e.itemNum2[35] = 0);
+
                     "undefined" == typeof e.itemNum2[36] && (e.itemNum2[36] = 0);
                     //"undefined" == typeof e.itemNum2[37] && (e.itemNum2[37] = 0);
                     "undefined" == typeof e.orderTimes[10] && (e.orderTimes[10] = 0);
                     "undefined" == typeof e.orderTimes[11] && (e.orderTimes[11] = 0);
-                    
+                    "undefined" == typeof e.orderTimes[12] && (e.orderTimes[12] = 0);
+                    "undefined" == typeof e.orderTimes[13] && (e.orderTimes[13] = 0);
+                    "undefined" == typeof e.orderTimes[14] && (e.orderTimes[14] = 0);
+
+                    "undefined" == typeof e.skillLv[28] && (e.skillLv[28] = 0);
+                    "undefined" == typeof e.skillLv[29] && (e.skillLv[29] = 0);
+                    "undefined" == typeof e.skillLv[30] && (e.skillLv[30] = 0);
                     //新增物品传送门
                     "undefined" == typeof e.ifFollow && (e.ifFollow = [0, 0]);
                     "undefined" == typeof e.talkTimes && (e.talkTimes = [0, 0]);
@@ -1034,7 +1019,7 @@ require = function e(t, n, a) {
                         button: function () {
                             var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.choice[5],
                             r = "入口的那一刻，你快哭出来了" ;
-                                if (n.itemNum[13] >= 0) {
+                                if (n.itemNum[13] > 0) {
                                 n.itemNum[13] -= 1;
                                 n.maxHunger += parseInt(Math.max(c/50, 0));
                                 n.maxEnergy += parseInt(Math.max(c/50, 0));
@@ -1054,26 +1039,26 @@ require = function e(t, n, a) {
                     6: {
                         itemName: " 剩饭 ",
                         needDes: "※在餐厅后厨里偷出来的没吃完的饭，你有"+ this.data.itemNum[14] +"个",
-                        des: "※有些上好的菜几乎只吃了几口...更多的是你没见过的菜",
+                        des: "※有些上好的菜几乎只吃了几口...更多的是你没见过的菜，你已经吃了"
+                        + this.data.orderTimes[12] + "次剩饭，你吃的次数越多将越能够分辨饭菜是否能吃",
                         ifEnough: function (t) {
                             e("scr_data").itemNum[14] > 1 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 0, 255));
                         },
                         button: function () {
                             var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum[0], o = i.maxHunger();
                             if (n.hunger < o) if (n.itemNum[14] >= 1) {
-                                var r = "你大吃了一顿，感觉味道还不错，精力恢复50", s = 100 * Math.random();
+                                var r = "你大吃了一顿，感觉味道还不错", s = 100 * Math.random(),rate =Math.max(40 +n.orderTimes[12],75);
                                 n.itemNum[14] -= 1;
-                                n.energy += 50;
-                                n.hunger += 150;
-                                if (s > 70 && s < 90) {
-                                    n.orderTimes[4] += 1;
-                                    r += "，体内的灵能风暴卷走了你对地嗪的渴望，烟瘾-%1";
+                                n.hunger += 100;
+                                n.orderTimes[12] += 1;
+                                if (s <= 40) {
+                                    n.energy += 50;
+                                    r += "，似乎有些挺不错的饭菜，精力恢复50";
                                 }
-                                if (s >= 90) {
-                                    n.energy = i.maxEnergy();
-                                    n.role.hp = i.role.maxHp();
-                                    n.hunger = i.maxHunger();
-                                    r += "，我放眼望去，是艾尔的黄金舰队在为我闪烁（属性全满）";
+                                if (s > rate && s < 80) {
+                                    n.role.hp = 1;
+                                    n.hunger -= 90;
+                                    r = "饭菜似乎变质了，你吃吐了，生命清零";
                                 }
                                 i.save();
                                 a.playText("Canvas/notify", r + "！", 100);
@@ -3687,8 +3672,8 @@ require = function e(t, n, a) {
                     216: {
                         name: "秋良·左轮",
                         lv: 999,
-                        hp: 1e7,
-                        maxHp: 1e7,
+                        hp: 1e6,
+                        maxHp: 1e6,
                         att: 5000,
                         def: 2000,
                         publicVar: 0,
@@ -3770,7 +3755,7 @@ require = function e(t, n, a) {
                                 var e = parseInt(o.att);
                                 this.publicVar = Math.ceil(Math.random()*6);
                                 c.role.hp -= e;
-                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999999;
                                 return "【" + this.name + "使用「枪魂附体」，反弹伤害！】";
                             }
                             return "";
@@ -6112,7 +6097,7 @@ require = function e(t, n, a) {
                         lostHealth: 1,
                         achieve: 0,
                         getAtt: 1,
-                        drop: [[100, 3, 2, 1], [20, 9, 1, 1]],
+                        drop: [[100, 3, 2, 1], [80, 9, 1, 1]],
                         des: "“嗷嗷嗷~”",
                         skill: function () {
                             var t = e("scr_data"), n = 100 * Math.random();
@@ -8083,7 +8068,7 @@ require = function e(t, n, a) {
                         if (isWeiLanvaild >= 0) {
                             (theDamage = parseInt((1 + 0.02 * isWeiLanvaild) * theDamage));
                         }/*围栏*/  
-                        if (1 == n.buffState[2]) {
+                        if (1 == n.buffState[2]) {//自信buff
                             if (n.winsstreaks <=3) {
                                 (theDamage = parseInt((1 + 0.1 * n.winsstreaks) * theDamage));
                             }
@@ -8125,6 +8110,7 @@ require = function e(t, n, a) {
                             var thehit =parseInt((n.itemNum2[28] * 3 * theEnemy.maxHp)/100);
                             thehit= thehit -theEnemy.def + inFight.publicVar;
                             thehit = Math.max(thehit , 0);
+                            thehit = Math.min(thehit , (youinFight.att + inFight.correct[0]) * n.itemNum2[28]);
                             theEnemy.hp -= thehit;
                             return theSword ="【圣剑】造成"+thehit+"点伤害";
                         }())  
@@ -8182,6 +8168,7 @@ require = function e(t, n, a) {
                 ESCbutton.on("touchstart", function () {//逃跑功能
                     var EscapeRate = calEscapeRate(), t = 100 * Math.random();
                     n.skillLv[14] > 0 && (n.figthState = 2);//逃跑时自动进猥琐
+                    n.buffState[2] = 0;//清除自信
                     cc.find("Canvas/Fight/state/text").getComponent("cc.Label").string = k[n.figthState];
                     P();
                     if (t > EscapeRate) {
@@ -8227,6 +8214,7 @@ require = function e(t, n, a) {
                 })();
                 i.playText("Canvas/Fight/notify2", Edes, 80);
                 function enemysturn() {
+                    var temp = n.role.hp;
                     var e = theEnemy.enemyEscapeRate;
                     if (0 != e) {
                         if (100 * Math.random() < e - 5 * n.itemNum2[15]) {
@@ -8281,6 +8269,13 @@ require = function e(t, n, a) {
                     }
                     enemyAttText = enemyAttText + "，你受到" + enemyATT + "点伤害" + jacker + redjacker + state;
                     "undefined" != typeof theEnemy.skill && (enemyAttText = enemyAttText + "！" + theEnemy.skill());//敌人的攻击技能
+                    if (1 == n.skillLv[29]) {//tag 闪避技能！！！
+                        var rate = Math.random() *100;
+                        if (rate < 20) {
+                            n.role.hp = temp;
+                            enemyAttText = enemyAttText +"【闪避】你闪避了攻击！本回合你不受任何伤害";
+                        }
+                    }
                     inFight.creatText(attText, "enemyNotify", enemyAttText);
                     O();
                     (function () {
@@ -10189,7 +10184,7 @@ require = function e(t, n, a) {
                         }
                     },
                     2005: {
-                        text: ["发现一份搬砖（LV.1）的零工，工资0.4元", "是否去试试？", "是（需20饥饿和20精力,成功率" + Math.min(70 + n.workExp, 100) + "%）", "算了"],
+                        text: ["发现一份搬砖（LV.1）的零工，工资0.6元", "是否去试试？", "是（需20饥饿和20精力,成功率" + Math.min(70 + n.workExp, 100) + "%）", "算了"],
                         action: function () {
                             cc.find("Canvas/Event/Choice/label").getComponent("cc.Label").string = "【提示】如果饥饿不足，系统将自动使用食物哦^_^";
                         },
@@ -10199,7 +10194,7 @@ require = function e(t, n, a) {
                             if (n.hunger >= 0) {
                                 if (n.energy >= 20) {//done 县城打工改进
                                     var i = n.workExp, c = 100 * Math.random(), o = 70 + i;
-                                    var slry = parseInt(4 + n.publicVar2[30] / 15);
+                                    var slry = parseInt(6 + n.publicVar2[30] / 15);
                                     n.hunger -= 20;
                                     a.autoEat();
                                     if (c < o) {
@@ -10207,11 +10202,12 @@ require = function e(t, n, a) {
                                     n.money += slry;
                                     n.workExp += 2;
                                     n.energy -=20;
-                                    t.closeUI("应聘成功，消耗精力，面试经验+2，阅历+1！\n获得" + slry.toFixed(1) + "元！");
+                                    t.closeUI("应聘成功，消耗精力，面试经验+2，阅历+1！\n获得" + (slry/10).toFixed(1) + "元！");
                                     } else {
                                     n.publicVar2[9] += 1;
                                     n.workExp += 1;
-                                    t.closeUI("面试经验+1\n【“不好意思，我们可不敢乱用没身份证的小孩，你还是去找找其他工作吧”】");
+                                    n.publicVar2[30] += 1;
+                                    t.closeUI("面试经验+1,阅历+1\n【“不好意思，我们可不敢乱用没身份证的小孩，你还是去找找其他工作吧”】");
                                     }
                                 } else {cc.find("Canvas/Event/Choice/Choice1/choiceText").getComponent("cc.Label").string = "精力不足！";
                             } 
@@ -10222,7 +10218,7 @@ require = function e(t, n, a) {
                         }
                     },
                     2006: {
-                        text: ["发现一份服务生（LV.2）的临时工，工资0.6元", "是否去试试？", "是（需20饥饿，10精力,成功率" + Math.min(20 + n.workExp, 100) + "%）", "算了"],
+                        text: ["发现一份服务生（LV.2）的临时工，工资0.7元", "是否去试试？", "是（需20饥饿，10精力,成功率" + Math.min(20 + n.workExp, 100) + "%）", "算了"],
                         action: function () {
                             cc.find("Canvas/Event/Choice/label").getComponent("cc.Label").string = "【提示】如果饥饿不足，系统将自动使用食物哦^_^";
                         },
@@ -10232,21 +10228,21 @@ require = function e(t, n, a) {
                             if (n.hunger >= 20) {
                                 if (n.energy >= 10) {
                                     var i = n.workExp, c = 100 * Math.random(), o = 20 + i;
-                                    var slry = parseInt(6 + n.publicVar2[30] / 15);
+                                    var slry = parseInt(7 + n.publicVar2[30] / 15);
                                     n.hunger -= 20;
                                     a.autoEat();
                                     if (c < o) {
-                                        n.publicVar2[30] += 2;
-                                        n.money += 6;
+                                        n.publicVar2[30] += 3;
+                                        n.money += slry;
                                         n.workExp += 5;
                                         n.energy -=10;
                                         n.itemNum[14] += 1;
-                                        t.closeUI("应聘成功，消耗精力，面试经验+5,阅历+2！获得" + slry.toFixed(1) + "元！你顺便带走了店里的剩饭，获得【剩饭】*1");
+                                        t.closeUI("应聘成功，消耗精力，面试经验+5,阅历+3！获得" + (slry/10).toFixed(1) + "元！你顺便带走了店里的剩饭，获得【剩饭】*1");
                                     } else {
-                                        n.publicVar2[30] += 1;
+                                        n.publicVar2[30] += 2;
                                         n.publicVar2[9] += 1;
                                         n.workExp += 3;
-                                        t.closeUI("“面试经验+3，阅历+1\n【“你太内向，对别人评价又很敏感；\n我不建议你做这种需要频繁和各种人、打交道的工作，\n你还是找点技术活做做吧。”】");
+                                        t.closeUI("“面试经验+3，阅历+2\n【“你太内向，对别人评价又很敏感；\n我不建议你做这种需要频繁和各种人、打交道的工作，\n你还是找点技术活做做吧。”】");
                                 }
                             } else {cc.find("Canvas/Event/Choice/Choice1/choiceText").getComponent("cc.Label").string = "精力不足！";
                             }
@@ -10560,8 +10556,11 @@ require = function e(t, n, a) {
                     7002: {
                         text: ["“我的梦想是成为天下第一飞刀手，所以能请你帮个忙个么？”，一个年轻小伙真诚的问道。", "可以呀（报酬0.5元，但有风险）", "...我是sb？"],
                         choice1: function () {
-                            var e = 100 * Math.random(), a = Math.min(20 + 5 * n.chioce2[5], 60);
+                            var e = 100 * Math.random(), a = Math.min(20 + 5 * n.chioce2[5], 80);
                             n.chioce2[5] += 1;
+                            if (n.chioce2[5] > 25) {//done 飞刀
+                                n.skillLv[29] = 1;
+                            }
                             if (e < a) {
                                 n.money += 5;
                                 n.escapeExp += 3;
@@ -10596,13 +10595,13 @@ require = function e(t, n, a) {
                     7004: {
                         text: ["路过一片小河环绕的小树林，是弄点吃的还是捡点材料呢？", "弄吃的", "弄材料"],
                         choice1: function () {
-                            var e = parseInt(4 * Math.random() + 1), a = parseInt(3 * Math.random() + 1);
+                            var e = parseInt(4 * Math.random() + 3), a = parseInt(3 * Math.random() + 3);
                             n.itemNum[0] += e;
                             n.itemNum[3] += a;
                             t.closeUI("获得【果子】*" + e + "【生肉】*" + a + "！");
                         },
                         choice2: function () {
-                            var e = parseInt(4 * Math.random() + 1), a = parseInt(4 * Math.random() + 1);
+                            var e = parseInt(4 * Math.random() + 3), a = parseInt(4 * Math.random() + 3);
                             n.itemNum[1] += e;
                             n.itemNum[4] += a;
                             t.closeUI("获得【木材】*" + e + "【亚麻】*" + a + "！");
@@ -11531,7 +11530,7 @@ require = function e(t, n, a) {
                     26: {//tag 制作的新物品都在这
                         itemName: "物理学圣剑LV" + this.data.itemNum2[28],
                         needDes: "※合成类道具",
-                        des: "※21个板砖合成，增加" + this.data.itemNum2[28] * 150 + "点攻击！【圣剑】普通攻击时，造成敌人" + this.data.itemNum2[28] * 3 + "%最大生命值的一次伤害",
+                        des: "※21个板砖合成，增加" + this.data.itemNum2[28] * 150 + "点攻击！【圣剑】普通攻击时，造成敌人" + this.data.itemNum2[28] * 3 + "%最大生命值的一次伤害,但不超过当前攻击力的" + this.data.itemNum2[28] * 100 + "%",
                         button: function () {
                             n.playText("Canvas/notify", "主打的就是一个力大砖飞", 100);
                             }
@@ -12531,9 +12530,10 @@ require = function e(t, n, a) {
                     } else{
                     t.skillLv[27] = 0};
                 })();
-                (function () {//todo
-                    var guozi = 2 * t.orderTimes[10],shurou = 1 * t.orderTimes[11],rate = guozi/shurou,exp = t.publicVar2[26];
-                    if (rate < (850+exp/150-exp) && (500+exp/350-exp)< rate) {
+                (function () {//done 新特性
+                    var guozi = 2 * t.orderTimes[10],shurou = 1 * t.orderTimes[11],rate = guozi/shurou,exp = t.publicVar2[26],
+                    min = ((500+exp) / (350-exp)),max = ((850+exp) / (150-exp));
+                    if (rate < max && min < rate) {
                         t.buffState[3] = 1;
                         i.creatText("some", "【营养均衡】额外恢复20精力");
                     } else{
@@ -13401,9 +13401,7 @@ require = function e(t, n, a) {
                         button1: function () {
                             var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                             if (n.money >= 100) {
-                                if (0 != n.itemNum2[30]) {
-                                    
-
+                                if (0 == n.itemNum2[30]) {
                                 n.money -= 100;
                                 n.itemNum2[30] += 1;
                                 n.shopPoint += 100;
@@ -13671,6 +13669,12 @@ require = function e(t, n, a) {
                     },
                     27: function () {
                         a[27] == 1 ? a[27] = 1 : a[27] = 0;
+                    },
+                    28: function () {
+                        return 0;
+                    },
+                    29: function () {
+                        a[29] == 1 ? a[29] = 1 : a[29] = 0;
                     }
                 };
                 for (var c in i) i[c]();
@@ -13704,37 +13708,46 @@ require = function e(t, n, a) {
                     var t = e("scr_data"), n = (t.figthExp, 3 * t.orderTimes[1] - t.orderTimes[4]);
                 //1 == t.publicVar[1] && (n = t.orderTimes[1] - t.orderTimes[4]);
                     var a = {
-                    0: "【饥饿】当饥饿值低于0时激活。饥饿状态下，前进/探索有几率减少健康值，且睡觉时必定减少健康！（另外：饥饿时系统会自动使用食物，直到用光为止哦^_^）",
-                    1: "【精力强化1】精力上限+10，战斗胜利8次后激活（" + t.winTimes + "/8）。",
-                    2: "【生命强化1】最大生命值+50，吃「果子」30次后激活(" + t.orderTimes[5] + "/30）。",
-                    3: "【恢复1】前进/探索时，生命恢复量提高8点。使用「伤药」15次后激活（" + t.orderTimes[0] + "/15）。",
-                    4: "【烟瘾】攻击/防御减少！每天有" + n + "%概率激活，效果持续1天。（抽烟次数越多激活概率越高，每次增加3%）",
-                    5: "【平衡架势】造成" + (t.figthExp[0] / 5 + 100).toFixed(1) + "%伤害，承受" + (100 - t.figthExp[0] / 5).toFixed(1) + "%伤害。效果随熟练度提升而提升（" + t.figthExp[0] + "/150）。战斗胜利15次(" + t.winTimes + "/15)后开启。",
-                    6: "【捡钱】每天40%概率额外捡到1毛钱，扶老奶奶10次激活！此特性可升级，每扶10次涨1毛哈~(^_−)☆！（" + t.randomEvent[6] + "/10）。",
-                    7: "【精力强化2】精力上限+20，吃「熟肉」30次后激活（" + t.orderTimes[2] + "/30）。",
-                    8: "【防御强化1】防御增加10点，平衡架势熟练度达20后激活（" + t.figthExp[0] + "/20）。",
-                    9: "【拼命架势】可切换到拼命架势。攻击时，造成" + (t.figthExp[1] / 2 + 132).toFixed(1) + "%伤害，每次攻击损失8%最大生命值。效果随熟练度而提升（" + t.figthExp[1] + "/150）。战斗胜利" + t.winTimes + "/20次后激活。注意1：一场战斗中，使用最多的架势将获得1点熟练度",
-                    10: "【自愈1】睡觉时40%几率恢复1点健康值，帐篷达到5级激活。",
-                    11: "【攻击强化1】攻击增加10点，拼命架势熟练度达30激活（" + t.figthExp[1] + "/30）。",
-                    12: "【精力强化3】精力上限+30，吃果子666次后激活，吃草更健康哦（" + t.orderTimes[5] + "/666）。",
-                    13: "【大胃王】饥饿上限+50，吃（" + t.orderTimes[5] + "/200）次「果子」和（" + t.orderTimes[2] + "/60）次「熟肉」后激活。",
-                    14: "【猥琐架势】可切换到猥琐架势。受击时，承受" + (70 - t.figthExp[2] / 6).toFixed(1) + "%的伤害，且恢复" + parseInt(t.figthExp[2] + 10) + "点生命，但造成伤害减也少30%。效果随熟练度而提升（" + t.figthExp[2] + "/150）。战斗胜利" + t.winTimes + "/60次后激活。注意2：逃跑时系统将自动切换为猥琐架势！",
-                    15: "【生命强化2】最大生命值+100，猥琐架势熟练度达40激活（" + t.figthExp[2] + "/40）。",
-                    16: "【防御强化2】防御+20，第三次击败山脉中「山顶巨人」后激活。",
-                    17: "【恢复2】前进/探索时，生命恢复量提高36点，使用「伤药」99次后激活（" + t.orderTimes[0] + "/99）。",
-                    18: "【攻击强化2】攻击+20，击败挑战副本中「女剑士」后激活。",
-                    19: "【生命强化3】最大生命值+150。在省城市中心的晓风料理店食用4次「巨无霸」套餐后激活！（" + t.publicVar3[13] + "/4）",
-                    20: "【防御强化3】防御+30。击败省城郊外的「杀.破.狼」4次后激活！",
-                    21: "【恢复强化】前进/探索时，生命恢复效果翻倍。「驱蚊工具」等级达到10级后激活（" + t.itemNum2[6] + "/10）。你目前前进/探索回恢复量为" + (4 + 8 * t.skillLv[3] + 36 * t.skillLv[17] + 2 * t.itemNum2[23]) * (1 + t.skillLv[21]) + "（激活后此数值将会翻倍，创可贴恢复效果也将翻倍！）。",
-                    22: "【攻击强化3】攻击+30，击败挑战副本中「双枪老太婆」后激活。",
-                    23: "【非酋逆袭】如果前进/探索时没发现道具，则必定获得1毛钱！没发现道具次数达233次后激活（" + t.publicVar2[1] + "/233）。",
-                    24: "【圣斗士】战斗失败后，" + Math.min(Math.max(parseInt(t.publicVar3[12] / 5), 20), 40).toFixed(1) + "%几率满血复活！战斗失败79次后激活（" + t.publicVar3[12] + "/79）",
-                    25: "【霸气】狂拽炫酷吊炸天！攻击时，10%几率无视目标防御，且恢复自身3%生命。木棍、麻布衣达到15级时激活",
-                    26: "【不屈的精神力】睡觉时30%几率额外再恢复30%精力！击败「草带男孩」40次后激活！（" + t.kills[2] + "/40）",
-                    27: "【宿醉】前一天每喝一口酒增加15%概率触发，当天造成的伤害减少30%，【自信】请看秋良版更新日志"//tag 特性的描述文本
-                }, skillvalues = e("scr_data").skillLv, c = cc.find("Canvas/Scroll/view/content"), 
+                    0: "0:【饥饿】当饥饿值低于0时激活。饥饿状态下，前进/探索有几率减少健康值，且睡觉时必定减少健康！（另外：饥饿时系统会自动使用食物，直到用光为止哦^_^）",
+                    1: "1:【精力强化1】精力上限+10，战斗胜利8次后激活（" + t.winTimes + "/8）。",
+                    2: "2:【生命强化1】最大生命值+50，吃「果子」30次后激活(" + t.orderTimes[5] + "/30）。",
+                    3: "3：【恢复1】前进/探索时，生命恢复量提高8点。使用「伤药」15次后激活（" + t.orderTimes[0] + "/15）。",
+                    4: "4:【烟瘾】攻击/防御减少！每天有" + n + "%概率激活，效果持续1天。（抽烟次数越多激活概率越高，每次增加3%）",
+                    5: "5:【平衡架势】造成" + (t.figthExp[0] / 5 + 100).toFixed(1) + "%伤害，承受" + (100 - t.figthExp[0] / 5).toFixed(1) + "%伤害。效果随熟练度提升而提升（" + t.figthExp[0] + "/150）。战斗胜利15次(" + t.winTimes + "/15)后开启。",
+                    6: "6:【捡钱】每天40%概率额外捡到1毛钱，扶老奶奶10次激活！此特性可升级，每扶10次涨1毛哈~(^_−)☆！（" + t.randomEvent[6] + "/10）。",
+                    7: "7:【精力强化2】精力上限+20，吃「熟肉」30次后激活（" + t.orderTimes[2] + "/30）。",
+                    8: "8:【防御强化1】防御增加10点，平衡架势熟练度达20后激活（" + t.figthExp[0] + "/20）。",
+                    9: "9:【拼命架势】可切换到拼命架势。攻击时，造成" + (t.figthExp[1] / 2 + 132).toFixed(1) + "%伤害，每次攻击损失8%最大生命值。效果随熟练度而提升（" + t.figthExp[1] + "/150）。战斗胜利" + t.winTimes + "/20次后激活。注意1：一场战斗中，使用最多的架势将获得1点熟练度",
+                    10: "10:【自愈1】睡觉时40%几率恢复1点健康值，帐篷达到5级激活。",
+                    11: "11:【攻击强化1】攻击增加10点，拼命架势熟练度达30激活（" + t.figthExp[1] + "/30）。",
+                    12: "12:【精力强化3】精力上限+30，吃果子666次后激活，吃草更健康哦（" + t.orderTimes[5] + "/666）。",
+                    13: "13:【大胃王】饥饿上限+50，吃（" + t.orderTimes[5] + "/200）次「果子」和（" + t.orderTimes[2] + "/60）次「熟肉」后激活。",
+                    14: "14:【猥琐架势】可切换到猥琐架势。受击时，承受" + (70 - t.figthExp[2] / 6).toFixed(1) + "%的伤害，且恢复" + parseInt(t.figthExp[2] + 10) + "点生命，但造成伤害减也少30%。效果随熟练度而提升（" + t.figthExp[2] + "/150）。战斗胜利" + t.winTimes + "/60次后激活。注意2：逃跑时系统将自动切换为猥琐架势！",
+                    15: "15:【生命强化2】最大生命值+100，猥琐架势熟练度达40激活（" + t.figthExp[2] + "/40）。",
+                    16: "16:【防御强化2】防御+20，第三次击败山脉中「山顶巨人」后激活。",
+                    17: "17:【恢复2】前进/探索时，生命恢复量提高36点，使用「伤药」99次后激活（" + t.orderTimes[0] + "/99）。",
+                    18: "18:【攻击强化2】攻击+20，击败挑战副本中「女剑士」后激活。",
+                    19: "19:【生命强化3】最大生命值+150。在省城市中心的晓风料理店食用4次「巨无霸」套餐后激活！（" + t.publicVar3[13] + "/4）",
+                    20: "20:【防御强化3】防御+30。击败省城郊外的「杀.破.狼」4次后激活！",
+                    21: "21:【恢复强化】前进/探索时，生命恢复效果翻倍。「驱蚊工具」等级达到10级后激活（" + t.itemNum2[6] + "/10）。你目前前进/探索回恢复量为" + (4 + 8 * t.skillLv[3] + 36 * t.skillLv[17] + 2 * t.itemNum2[23]) * (1 + t.skillLv[21]) + "（激活后此数值将会翻倍，创可贴恢复效果也将翻倍！）。",
+                    22: "22:【攻击强化3】攻击+30，击败挑战副本中「双枪老太婆」后激活。",
+                    23: "23:【非酋逆袭】如果前进/探索时没发现道具，则必定获得1毛钱！没发现道具次数达233次后激活（" + t.publicVar2[1] + "/233）。",
+                    24: "24:【圣斗士】战斗失败后，" + Math.min(Math.max(parseInt(t.publicVar3[12] / 5), 20), 40).toFixed(1) + "%几率满血复活！战斗失败79次后激活（" + t.publicVar3[12] + "/79）",
+                    25: "25:【霸气】狂拽炫酷吊炸天！攻击时，10%几率无视目标防御，且恢复自身3%生命。木棍、麻布衣达到15级时激活",
+                    26: "26:【不屈的精神力】睡觉时30%几率额外再恢复30%精力！击败「草带男孩」40次后激活！（" + t.kills[2] + "/40）",
+                    27: "27:【宿醉】前一天每喝一口酒增加15%概率触发，当天造成的伤害减少30%，【自信】请看秋良版更新日志",
+                    28: "28:【营养均衡】",
+                    29: "29:【闪避】郊外小伙子飞刀技术25开启，由于你经常陪他练习，现在你有20%概率闪避所有伤害（舍弃回血效果，保持血量不变）",
+                    30: "",
+                    //tag 特性的描述文本
+                }, 
+                skillvalues = e("scr_data").skillLv, c = cc.find("Canvas/Scroll/view/content"), 
                 daystoT = parseInt(1 + t.day / 3), skillcount = Object.keys(a).length;
                 "undefined" == typeof skillcount && (skillcount = 99);
+                (function () {// 新特性
+                    var guozi = 2 * t.orderTimes[10],shurou = 1 * t.orderTimes[11],rate = guozi/shurou,exp = t.publicVar2[26],min = ((500+exp) / (350-exp)).toFixed(1),max = ((850+exp) / (150-exp)).toFixed(1);
+                        a[28] = "28:【营养均衡】额外恢复20精力,需要"+rate+"（素食和肉食比）在"+min+"和"+max+"之间";
+                })();
                 for (var keysF in a) {
                     var l = skillcount - keysF - 1;
                     if (l > 999); else {//从下往上显示，如果（比如27）大于天数除以3，（80天）则不显示，改成999   daystoT - 1
