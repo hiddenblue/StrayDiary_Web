@@ -3794,24 +3794,25 @@ require = function e(t, n, a) {
                         skill: function () {
                             if (this.publicVar == 0) {
                                 this.publicVar += 1;
-                                return "【“明明是无能力者却有这等实力...可恶啊”】";
+                                var e = 1 * this.att - o.def;
+                                c.role.hp -= e;
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.25 * o.def);
+                                return "【" + this.name + "使用「铁砂之剑」，造成" + e + "点伤害，你减少25%防御】"
+                                
                             }
                             else if (this.publicVar == 1) {
                                 this.publicVar += 1;
-                                var e = 1 * this.att - o.def;
+                                var e = 2 * this.att - o.def;
                                 c.role.hp -= e;
-                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.5 * o.def);
-                                return "【" + this.name + "使用「铁砂之剑」，造成" + e + "点伤害，你减少50%防御】"
+                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.25 * o.att);
+                                return "【" + this.name + "使用「雷击之枪」，造成" + e + "点伤害，你减少25%攻击】"
                             }
                             else if (this.publicVar == 2) {
                                 this.publicVar += 1;
-                                var e = 2 * this.att - o.def;
-                                c.role.hp -= e;
-                                cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.5 * o.att);
-                                return "【" + this.name + "使用「雷击之枪」，造成" + e + "点伤害，你减少50%攻击】"
+                                return "【御坂美琴掏出了一个硬币】";
                             }
                             else if (this.publicVar == 3) {
-                                this.publicVar += 1;
+                                this.publicVar = 0;
                                 var e = 5 * this.att - o.def;
                                 c.role.hp -= e;
                                 return "【" + this.name + "使用「超电磁炮」，造成" + e + "点伤害】"
@@ -3831,15 +3832,99 @@ require = function e(t, n, a) {
                                 c.itemNum2[14] = 0
                                 this.publicVar += 1;
                                 return "【枪支限制！弹药清零】";}
-                            var e = parseInt(o.att/2);
+                            var e = parseInt(o.att/4);
                             cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= e;                        
-                            return "【" + this.name + "使用「电磁护盾」，受到的伤害减少一半！】";
+                            return "【" + this.name + "使用「电磁护盾」，受到的伤害减少25%！】";
                         },
                         winEvent: function () {
                             c.choice[6] += 1;
                             return "“诶？这个黑洞是！（御坂美琴被黑洞吸走了）”";
                         },
                         lostEvent: void 0
+                    },
+                    218: {
+                        name: "路明非",//tag 挑战新怪
+                        lv: "·S",
+                        hp: 3e6,
+                        maxHp: 3e6,
+                        att: 2000,
+                        def: 400,
+                        publicVar: 0,
+                        escapeRate: -9999,
+                        enemyEscapeRate: 0,
+                        lostHealth: 1,
+                        achieve: 100,
+                        getAtt: 1,
+                        drop: [[100, 10, 2, 2]],
+                        des: "是我害死了绘梨衣...",
+                        skill: function () {
+                            var text = "" + this.name + "使用";
+                            if (this.getAtt == 1) {
+                            if (0 == this.publicVar) {
+                                c.itemNum2[14] = 0;
+                                c.ifFollow[0] =0;
+                                c.ifFollow[1] =0;
+                                this.publicVar += 1;
+                                text += "「Noglue」，你失去所有技能和伙伴,"}
+                            if ((this.hp / this.maxHp) > 0.75) {
+                                this.publicVar += 3;
+                                text += "「The gathing」，技能强化，";
+                            }
+                            else if ((this.hp / this.maxHp)>0.5) {
+                                this.publicVar += 1;
+                                this.maxHp =  parseInt(this.maxHp *0.75);
+                                this.hp = this.maxHp;
+                                text += "「不要死」，失去25%最大生命,回满生命"
+                            }
+                            if ((this.hp / this.maxHp) <0.5 || this.publicVar >10) {
+                                this.getAtt = 2;
+                                if (this.publicVar >10) {
+                                    this.publicVar =10;
+                                }
+                                this.maxHp = 3e6*this.publicVar;
+                                this.att = 2000 *this.publicVar;
+                                this.def = 400 *this.publicVar;
+                                this.hp = this.maxHp;
+                                text += "【something for nothing】融合度"+10*this.publicVar+"%";
+                                this.name ="路鸣泽";
+                                this.lv = "未知";
+                            }
+                        }else if (this.getAtt == 2) {
+                                if (this.publicVar%3 == 0) {
+                                    this.publicVar +=1;
+                                    var e = this.att * 2;
+                                    c.role.hp -= e;
+                                    text += "「审判」，造成"+ e +"点真实伤害";
+                                } else if (this.publicVar%3 == 1) {
+                                    this.publicVar +=1;
+                                    var e = 3 * this.att - o.def;
+                                    text += "「烛龙」，造成"+ e +"点伤害";
+                                } else if (this.publicVar%3 == 2) {
+                                    this.publicVar +=1;
+                                    text += "「江南老贼」，路明非永远找不到老婆";
+                                } else {
+                                    this.publicVar +=1;
+                                }
+                            }
+                            return text;
+                        },
+                        defSkill: function () {
+                            if (this.publicVar == 0) {
+                                return "【如果我早点出手，也许绘梨衣就不会死了】";
+                            }
+                            return "";
+                        },
+                        winEvent: function () {
+                            c.ifFollow[0] =1;
+                            c.ifFollow[1] =1;
+                            c.choice[6] += 1;
+                            return "“啊啊啊啊！”";
+                        },
+                        lostEvent: function () {
+                            c.ifFollow[0] =1;
+                            c.ifFollow[1] =1;
+                            return "“别来烦我！”";
+                        }
                     },
                     //终焉怪物传送门
                     401: {
@@ -9905,8 +9990,9 @@ require = function e(t, n, a) {
                         choice1: function () {
                             if (100 * Math.random() < t.stealRate) {
                                 n.money += t.stealMoney;
-                                n.publicVar[0] += 8;
-                                t.closeUI("偷窃成功！获得" + (t.stealMoney / 10).toFixed(1) + "元。罪恶+8（累计" + n.publicVar[0] + "，高罪恶值会导致失眠）");
+                                
+                                n.publicVar[0] += parseInt(t.stealMoney/2);
+                                t.closeUI("偷窃成功！获得" + (t.stealMoney / 10).toFixed(1) + "元。罪恶"+parseInt(t.stealMoney/2)+"（累计" + n.publicVar[0] + "，高罪恶值会导致失眠）");
                             } else {
                                 n.role.hp = 1;
                                 t.closeUI("偷窃失败！你被吃瓜群众一顿狂殴，损失全部生命！");
@@ -11046,7 +11132,7 @@ require = function e(t, n, a) {
             dekaronButton: function () {
                 var t = e("scr_data"), n = e("scr_public"), a = e("scr_effect");
                 t.energy >= 10 ? function () {
-                    var e = [201, 202, 300003, 203, 204, 205, 206, 207, 900006, 209, 210, 211, 900005, 213, 214, 215, 216 ,217][t.choice[6]];
+                    var e = [201, 202, 300003, 203, 204, 205, 206, 207, 900006, 209, 210, 211, 900005, 213, 214, 215, 216 ,217, 218][t.choice[6]];
                     if ("undefined" == typeof e) a.playText("Canvas/Text/txt_notify", "什么都没有...", 60); else {
                         t.energy -= 10;
                         n.save();
@@ -12677,7 +12763,7 @@ require = function e(t, n, a) {
                     }
                     })();
                     (function () {
-                        var e = 100 * Math.random(), n = t.publicVar[0] / 3;
+                        var e = 100 * Math.random(), n = t.publicVar[0];
                         if (e < n) {
                             t.energy -= parseInt(.5 * t.energy);
                             i.creatText("hunger", "【失眠】精力-50%！");
@@ -13712,7 +13798,7 @@ require = function e(t, n, a) {
                     1: "1:【精力强化1】精力上限+10，战斗胜利8次后激活（" + t.winTimes + "/8）。",
                     2: "2:【生命强化1】最大生命值+50，吃「果子」30次后激活(" + t.orderTimes[5] + "/30）。",
                     3: "3：【恢复1】前进/探索时，生命恢复量提高8点。使用「伤药」15次后激活（" + t.orderTimes[0] + "/15）。",
-                    4: "4:【烟瘾】攻击/防御减少！每天有" + n + "%概率激活，效果持续1天。（抽烟次数越多激活概率越高，每次增加3%）",
+                    4: "4:【烟瘾】攻击/防御减少100%！每天有" + n + "%概率激活，效果持续1天。（抽烟次数越多激活概率越高，每次增加3%）",
                     5: "5:【平衡架势】造成" + (t.figthExp[0] / 5 + 100).toFixed(1) + "%伤害，承受" + (100 - t.figthExp[0] / 5).toFixed(1) + "%伤害。效果随熟练度提升而提升（" + t.figthExp[0] + "/150）。战斗胜利15次(" + t.winTimes + "/15)后开启。",
                     6: "6:【捡钱】每天40%概率额外捡到1毛钱，扶老奶奶10次激活！此特性可升级，每扶10次涨1毛哈~(^_−)☆！（" + t.randomEvent[6] + "/10）。",
                     7: "7:【精力强化2】精力上限+20，吃「熟肉」30次后激活（" + t.orderTimes[2] + "/30）。",
