@@ -438,7 +438,12 @@ require = function e(t, n, a) {
                         27: 0,
                         28: 0,
                         29: 0,
-                        30: 0
+                        30: 0,
+                        31: 0,
+                        32: 0,
+                        33: 0,
+                        34: 0,
+                        35: 0
                     },
                     //特殊敌人传送门
                     specialEnemy: {
@@ -573,119 +578,22 @@ require = function e(t, n, a) {
                     "undefined" == typeof e.skillLv[28] && (e.skillLv[28] = 0);
                     "undefined" == typeof e.skillLv[29] && (e.skillLv[29] = 0);
                     "undefined" == typeof e.skillLv[30] && (e.skillLv[30] = 0);
+                    "undefined" == typeof e.skillLv[31] && (e.skillLv[31] = 0);
+                    "undefined" == typeof e.skillLv[32] && (e.skillLv[32] = 0);
+                    "undefined" == typeof e.skillLv[33] && (e.skillLv[33] = 0);
+                    "undefined" == typeof e.skillLv[34] && (e.skillLv[34] = 0);
+                    "undefined" == typeof e.skillLv[35] && (e.skillLv[35] = 0);
                     //新增物品传送门
-                    "undefined" == typeof e.ifFollow && (e.ifFollow = [0, 0]);
-                    "undefined" == typeof e.talkTimes && (e.talkTimes = [0, 0]);
-                    "undefined" == typeof e.friendSkill1 && (e.friendSkill1 = [1, 0, 0, 0, 0]);
-                    "undefined" == typeof e.friendSkill2 && (e.friendSkill2 = [1, 0, 0, 0, 0]);
-                    "undefined" == typeof e.friendSkill && (e.friendSkill = [1, 0, 0, 0, 0, 0, 0, 0]);
                     "undefined" == typeof e.choice[6] && (e.choice[6] = 0);
                     "undefined" == typeof e.choice[7] && (e.choice[7] = 0);
                     "undefined" == typeof e.choice[8] && (e.choice[8] = 0);
-                    "undefined" == typeof e.chioce2 && (e.chioce2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
                     "undefined" == typeof e.plotId && (e.plotId = 0);
                     "undefined" == typeof e.cigaretteuptimes && (e.cigaretteuptimes = 0);//新加的东西
                     "undefined" == typeof e.winsstreaks && (e.winsstreaks = 0);
                     "undefined" == typeof e.buffState[2] && (e.buffState[2] = 0)
                     "undefined" == typeof e.buffState[3] && (e.buffState[3] = 0)
                     "undefined" == typeof e.escapeExp && (e.escapeExp = 0);
-                    "undefined" == typeof e.randomEvent[11] && (e.randomEvent[11] = 0);
-                    "undefined" == typeof e.randomEvent[12] && (e.randomEvent[12] = 0);
                     "undefined" == typeof e.randomEvent[13] && (e.randomEvent[13] = 0);
-                    "undefined" == typeof e.publicVar && (e.publicVar = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-                    "undefined" == typeof e.publicVar2 && (e.publicVar2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-                    "undefined" == typeof e.publicVar3 && (e.publicVar3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-                    "undefined" == typeof e.specialEnemy[300001] && (e.specialEnemy[300001] = {
-                        lv: 35,
-                        hp: 510,
-                        maxHp: 510,
-                        att: 0,
-                        def: 0
-                    });
-                    "undefined" == typeof e.specialEnemy[300002] && (e.specialEnemy[300002] = {
-                        lv: 45,
-                        hp: 1550,
-                        maxHp: 1550,
-                        att: 0,
-                        def: 0
-                    });
-                    "undefined" == typeof e.specialEnemy[300003] && (e.specialEnemy[300003] = {
-                        lv: 35,
-                        hp: 3270,
-                        maxHp: 3270,
-                        att: 0,
-                        def: 0
-                    });
-                    "undefined" == typeof e.specialEnemy[400001] && (e.specialEnemy[400001] = {
-                        lv: 100,
-                        hp: 3345,
-                        maxHp: 3345,
-                        att: 0,
-                        def: 234
-                    });
-                    "undefined" == typeof e.specialEnemy[400002] && (e.specialEnemy[400002] = {
-                        lv: 199,
-                        hp: 19999,
-                        maxHp: 19999,
-                        att: 0,
-                        def: 20
-                    });
-                    "undefined" == typeof e.specialEnemy[400003] && (e.specialEnemy[400003] = {
-                        lv: 60,
-                        hp: 2050,
-                        maxHp: 2050,
-                        att: 310,
-                        def: 121
-                    });
-                    "undefined" == typeof e.specialEnemy[900001] && (e.specialEnemy[900001] = {
-                        lv: 15,
-                        hp: 575,
-                        maxHp: 575,
-                        att: 59,
-                        def: 16
-                    });
-                    "undefined" == typeof e.specialEnemy[900002] && (e.specialEnemy[900002] = {
-                        lv: 20,
-                        hp: 998,
-                        maxHp: 998,
-                        att: 50,
-                        def: 36
-                    });
-                    "undefined" == typeof e.specialEnemy[900003] && (e.specialEnemy[900003] = {
-                        lv: 500,
-                        hp: 16500,
-                        maxHp: 16500,
-                        att: 1500,
-                        def: 1150
-                    });
-                    "undefined" == typeof e.specialEnemy[900004] && (e.specialEnemy[900004] = {
-                        lv: 1,
-                        hp: 999999,
-                        maxHp: 999999,
-                        att: 999,
-                        def: 0
-                    });
-                    "undefined" == typeof e.specialEnemy[900005] && (e.specialEnemy[900005] = {
-                        lv: 500,
-                        hp: 599999,
-                        maxHp: 599999,
-                        att: 0,
-                        def: 0
-                    });
-                    "undefined" == typeof e.specialEnemy[900006] && (e.specialEnemy[900006] = {
-                        lv: 200,
-                        hp: 299999,
-                        maxHp: 299999,
-                        att: 0,
-                        def: 0
-                    });
-                    "undefined" == typeof e.specialEnemy[900007] && (e.specialEnemy[900007] = {
-                        lv: 40,
-                        hp: 3900,
-                        maxHp: 3900,
-                        att: 90,
-                        def: 50
-                    });
                 }(e = JSON.parse(cc.sys.localStorage.getItem("userData")));
                 t.exports = e;
             }
@@ -3751,9 +3659,9 @@ require = function e(t, n, a) {
                                 return "【你是不是永远都学不乖？】";
                                 ;  
                             }
+                            this.publicVar = Math.ceil(Math.random()*6);
                             if (this.publicVar <= 3) {
                                 var e = parseInt(o.att);
-                                this.publicVar = Math.ceil(Math.random()*6);
                                 c.role.hp -= e;
                                 cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= 999999999;
                                 return "【" + this.name + "使用「枪魂附体」，反弹伤害！】";
@@ -3843,7 +3751,7 @@ require = function e(t, n, a) {
                         lostEvent: void 0
                     },
                     218: {
-                        name: "路明非",//tag 挑战新怪
+                        name: "路明非",
                         lv: "·S",
                         hp: 3e6,
                         maxHp: 3e6,
@@ -8131,6 +8039,18 @@ require = function e(t, n, a) {
                             n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
                             f = "【声援：生命+" + N + "，攻击+" + T + "】";
                     }
+                    if (0 == m && b[0] >= 100) {//tag 破防特效
+                        if (critChance = 2 * n.itemNum2[3] + 1, 100 * Math.random() < critChance || 1 == nextCrit){
+                            nextCrit = 1;
+                            if (RateofKnife = 2 * n.itemNum2[8], 100 * Math.random() < RateofKnife) {
+                                var N = parseInt(.20 * theDamage), ifTexthaveit = new RegExp("触发");
+                                n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
+                                inFight.publicVar = theEnemy.def;
+                                ifTexthaveit.test(youHitsText) ? youHitsText += "【破防】" : youHitsText += "，触发【破防】";
+                                a = "，无视防御以及对方的任何格挡技能！";
+                            }
+                        }
+                    }
                         //造成伤害计算传送门                                                        此部分攻击力用于无视防御
                         var theDamage = parseInt(Math.max(youinFight.att + inFight.correct[0] + inFight.publicVar - theEnemy.def * (1 - 2 * n.itemNum2[15] / 100), 0));
                                                         //自己的攻击力    晓月加的临时攻击力     附带的攻击力，来自特性或者敌人技能  减去敌人的防御力（受披风影响） 最低为0
@@ -8169,7 +8089,7 @@ require = function e(t, n, a) {
                             youHitsText = youHitsText.replace("普攻", "割裂");
                             o = "，割裂加成" + H + "%";
                         }
-                        if (critChance = 2 * n.itemNum2[3] + 1, 100 * Math.random() < critChance || 1 == nextCrit) {
+                        if (1 == nextCrit) {
                             theDamage = parseInt(2 * theDamage);
                             youHitsText += "，触发【暴击】200%";
                             nextCrit = 0;
@@ -8184,13 +8104,15 @@ require = function e(t, n, a) {
                             /暴击/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击/, "爆头"));
                         }
                         //特效传送门
-                        if (RateofKnife = 2 * n.itemNum2[8], 100 * Math.random() < RateofKnife) {
-                            var N = parseInt(.20 * theDamage), ifTexthaveit = new RegExp("触发");
-                            n.role.hp += N;
-                            n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
-                            ifTexthaveit.test(youHitsText) ? youHitsText += "【嗜血】" : youHitsText += "，触发【嗜血】";
-                            a = "，恢复" + N + "点生命";
-                    }
+                        if (!(0 == m && b[0] >= 100)){
+                            if (RateofKnife = 2 * n.itemNum2[8], 100 * Math.random() < RateofKnife) {//嗜血效果
+                                var N = parseInt(.20 * theDamage), ifTexthaveit = new RegExp("触发");
+                                n.role.hp += N;
+                                n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
+                                ifTexthaveit.test(youHitsText) ? youHitsText += "【嗜血】" : youHitsText += "，触发【嗜血】";
+                                a = "，恢复" + N + "点生命";
+                            }
+                        }
                         0 != n.itemNum2[28] && (theSword = function(){//tag 物理学圣剑攻击特性
                             var thehit =parseInt((n.itemNum2[28] * 3 * theEnemy.maxHp)/100);
                             thehit= thehit -theEnemy.def + inFight.publicVar;
@@ -13757,10 +13679,17 @@ require = function e(t, n, a) {
                         a[27] == 1 ? a[27] = 1 : a[27] = 0;
                     },
                     28: function () {
-                        return 0;
+                        var guozi = 2 * t.orderTimes[10],shurou = 1 * t.orderTimes[11],rate = guozi/shurou,exp = t.publicVar2[26],
+                    min = ((500+exp) / (350-exp)),max = ((850+exp) / (150-exp));
+                    if (rate < max && min < rate && rate!=NaN){return 1;}
+                    else return 0;
                     },
                     29: function () {
                         a[29] == 1 ? a[29] = 1 : a[29] = 0;
+                    },
+                    30: function () {
+                        0 == a[30] && t.figthExp[0] >= 100 && (a[30] = 1);
+                        
                     }
                 };
                 for (var c in i) i[c]();
@@ -13824,7 +13753,7 @@ require = function e(t, n, a) {
                     27: "27:【宿醉】前一天每喝一口酒增加15%概率触发，当天造成的伤害减少30%，【自信】请看秋良版更新日志",
                     28: "28:【营养均衡】",
                     29: "29:【闪避】郊外小伙子飞刀技术25开启，由于你经常陪他练习，现在你有20%概率闪避所有伤害（舍弃回血效果，保持血量不变）",
-                    30: "",
+                    30: "30：【破防】战斗中，均衡架势下，如果均衡架势熟练度达到100以上，且本次攻击触发【暴击】，则把【嗜血】替换为破防，无视对方防御和任何格挡技能",
                     //tag 特性的描述文本
                 }, 
                 skillvalues = e("scr_data").skillLv, c = cc.find("Canvas/Scroll/view/content"), 
