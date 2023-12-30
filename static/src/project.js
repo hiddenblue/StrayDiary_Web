@@ -562,7 +562,7 @@ require = function e(t, n, a) {
                     },
                     friendSkill1: [1, 0, 0, 0, 0],
                     friendSkill2: [1, 0, 0, 0, 0],
-                    friendSkill: [1, 0, 0, 0, 0, 0, 0, 0, 0]
+                    friendSkill: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 };
                 JSON.parse(cc.sys.localStorage.getItem("userData")) && function (e) {
                     "undefined" == typeof e.itemNum[17] && (e.itemNum[17] = 0);
@@ -574,7 +574,7 @@ require = function e(t, n, a) {
                     "undefined" == typeof e.orderTimes[12] && (e.orderTimes[12] = 0);
                     "undefined" == typeof e.orderTimes[13] && (e.orderTimes[13] = 0);
                     "undefined" == typeof e.orderTimes[14] && (e.orderTimes[14] = 0);
-
+                    "undefined" == typeof e.friendSkill[9] && (e.friendSkill[9] = 0);
                     "undefined" == typeof e.skillLv[28] && (e.skillLv[28] = 0);
                     "undefined" == typeof e.skillLv[29] && (e.skillLv[29] = 0);
                     "undefined" == typeof e.skillLv[30] && (e.skillLv[30] = 0);
@@ -7936,7 +7936,7 @@ require = function e(t, n, a) {
                 var n = e("scr_data"), a = e("scr_public"), i = e("scr_effect"), 
                 inFight = this, 
                 o = e("scr_enemy")[t], theEnemy = {}, 
-                s = cc.find("Canvas/Fight/fight"), ESCbutton = cc.find("Canvas/Fight/escape"), u = cc.find("Canvas/Fight/state"), p = cc.find("Canvas/Fight/notify2"), 
+                attackButton = cc.find("Canvas/Fight/fight"), ESCbutton = cc.find("Canvas/Fight/escape"), u = cc.find("Canvas/Fight/state"), theescapetext = cc.find("Canvas/Fight/notify2"), 
                 roleHpLabel = cc.find("Canvas/Fight/roleHp"), d = cc.find("Canvas/Fight/enemyHp"), m = cc.find("Canvas/Fight/escapeRate"), attText = cc.find("Canvas/Fight/notify"), 
                 blackKnifetimes = 0, 
                 redTimes = 0, 
@@ -7998,14 +7998,15 @@ require = function e(t, n, a) {
                 })();
                 //tag 战斗特效传送门
                 var yourDEF = youinFight.def, Edes = theEnemy.des, k = ["均  衡", "进  攻", "防  御"];
-                s.targetOff(s);//攻击时隐藏按钮？推测
+                attackButton.targetOff(attackButton);//攻击时隐藏按钮？推测
                 ESCbutton.targetOff(ESCbutton);
-                s.on("touchstart", function () {
+                attackButton.on("touchstart", function () {
                     theEnemy.hp > 0 && n.role.hp > 0 && function () {
                         var youHitsText = "你使用【普攻】", a = "", o = "", s = "", l = "", u = "", f = "", BY = "",theSword = "",thenet = "";
                         inFight.publicVar = 0;
                         var m = n.figthState;
                         var laststate;
+                        var critChance;
                         /*if ("undefined" == laststate) {
                             laststate = m;
                         }
@@ -8039,17 +8040,16 @@ require = function e(t, n, a) {
                             n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
                             f = "【声援：生命+" + N + "，攻击+" + T + "】";
                     }
+                    if (critChance = 2 * n.itemNum2[3] + 1, 100 * Math.random() < critChance || 1 == nextCrit){
+                        nextCrit = 1;}
                     if (0 == m && b[0] >= 100) {//tag 破防特效
-                        if (critChance = 2 * n.itemNum2[3] + 1, 100 * Math.random() < critChance || 1 == nextCrit){
-                            nextCrit = 1;
-                            if (RateofKnife = 2 * n.itemNum2[8], 100 * Math.random() < RateofKnife) {
-                                var N = parseInt(.20 * theDamage), ifTexthaveit = new RegExp("触发");
-                                n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
+                            if (RateofKnife = 2 * n.itemNum2[8], 100 * Math.random() < RateofKnife && 1 ==nextCrit) {
+                                var  ifTexthaveit = new RegExp("触发");
                                 inFight.publicVar = theEnemy.def;
                                 ifTexthaveit.test(youHitsText) ? youHitsText += "【破防】" : youHitsText += "，触发【破防】";
                                 a = "，无视防御以及对方的任何格挡技能！";
                             }
-                        }
+                        
                     }
                         //造成伤害计算传送门                                                        此部分攻击力用于无视防御
                         var theDamage = parseInt(Math.max(youinFight.att + inFight.correct[0] + inFight.publicVar - theEnemy.def * (1 - 2 * n.itemNum2[15] / 100), 0));
@@ -8059,11 +8059,11 @@ require = function e(t, n, a) {
                             g[0] += 1;
                         }
                         if (1 == m) {
-                            var S = parseInt(.08 * youinFight.maxHp);
-                            theDamage = parseInt(theDamage * (1.32 + b[1] / 200));
+                            var S = parseInt(.08 * youinFight.maxHp),damageTimes = (1.32 + b[1] / 200);
+                            theDamage = parseInt(theDamage * damageTimes);
                             n.role.hp -= S;
                             g[1] += 1;
-                            l = "「拼命：你损失" + S + "点生命」";
+                            l = "「拼命：你损失" + S + "点生命(8%最大生命)，造成" + damageTimes * 100+"%伤害」";
                         }
                         if (2 == m) {
                             theDamage = parseInt(.7 * theDamage);
@@ -8075,9 +8075,10 @@ require = function e(t, n, a) {
                         }/*围栏*/  
                         if (1 == n.buffState[2]) {//自信buff
                             if (n.winsstreaks <=3) {
-                                (theDamage = parseInt((1 + 0.1 * n.winsstreaks) * theDamage));
+                                theDamage = parseInt((1 + 0.1 * n.winsstreaks) * theDamage);
+                            }else{
+                                theDamage = parseInt((1 + 0.3) * theDamage);
                             }
-                            (theDamage = parseInt((1 + 0.3) * theDamage));
                         }
                         if (1 == n.skillLv[27]) {//宿醉特效
                             theDamage = parseInt(.7 * theDamage);
@@ -8095,13 +8096,14 @@ require = function e(t, n, a) {
                             nextCrit = 0;
                             A();
                         }
-                        var critChance;
+                        
                         if (n.itemNum2[19] > 0 && n.itemNum2[14] > 0 && n.publicVar[4] > 0) {//判断是否开枪
                             n.itemNum2[14] -= 1;
                             n.publicVar3[14] += 1;
-                            theDamage = parseInt(theDamage * (n.itemNum2[19] + 1));
-                            youHitsText = youHitsText.replace(/普攻|割裂/, "枪击");
-                            /暴击/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击/, "爆头"));
+                            var damageTimes = n.itemNum2[19] + 1;
+                            theDamage = parseInt(theDamage * (damageTimes));
+                            youHitsText = youHitsText.replace(/普攻|割裂/, "枪击"+ damageTimes * 100+"%");
+                            /暴击/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击/, "爆头"+ damageTimes * 200+"%"));
                         }
                         //特效传送门
                         if (!(0 == m && b[0] >= 100)){
@@ -8110,7 +8112,7 @@ require = function e(t, n, a) {
                                 n.role.hp += N;
                                 n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
                                 ifTexthaveit.test(youHitsText) ? youHitsText += "【嗜血】" : youHitsText += "，触发【嗜血】";
-                                a = "，恢复" + N + "点生命";
+                                a = "，恢复" + N + "点生命(出伤的20%)";
                             }
                         }
                         0 != n.itemNum2[28] && (theSword = function(){//tag 物理学圣剑攻击特性
@@ -8139,12 +8141,12 @@ require = function e(t, n, a) {
                                     theEnemy.hp -= o;
                                     theEnemy.def -= s;
                                     BYstatus.bleedNum += 1;
-                                    BYskillText = BYskillText + "，附加" + o + "流血，减少" + s + "点防御";
+                                    BYskillText = BYskillText + "，附加" + o + "流血(25%出伤)，减少" + s + "点防御(25%敌防)";
                                 }
                                 if (n.friendSkill[4] > 0) {
                                     var l = parseInt(.50 * BYsDamage);
                                     n.role.hp += l;
-                                    BYskillText = BYskillText + "。你恢复" + l + "生命";
+                                    BYskillText = BYskillText + "。你恢复" + l + "生命(50%出伤)";
                                 }
                                 if (n.friendSkill[6] > 0) {
                                     nextCrit = 1;
@@ -8162,7 +8164,7 @@ require = function e(t, n, a) {
                         inFight.creatText(attText, "roleNotify", youHitsText);
                         (function () {
                             refreshEnemyStatus();
-                            p.getComponent("cc.Label").string = "";
+                            theescapetext.getComponent("cc.Label").string = "";
                             i.textZoon2("Canvas/Fight/enemyHp");
                         })();
                         P();
@@ -8170,8 +8172,8 @@ require = function e(t, n, a) {
                         isYouLOst();
                         SaveGame();
                     }();
-                    theEnemy.hp > 0 && n.role.hp > 0 && s.getComponent("cc.Button").scheduleOnce(enemysturn, 0.3);//战斗没有结束则判断敌人是否逃跑，本来为一秒，改成0.3
-                }, s);
+                    theEnemy.hp > 0 && n.role.hp > 0 && attackButton.getComponent("cc.Button").scheduleOnce(enemysturn, 0.3);//战斗没有结束则判断敌人是否逃跑，本来为一秒，改成0.3
+                }, attackButton);
                 ESCbutton.on("touchstart", function () {//逃跑功能
                     var EscapeRate = calEscapeRate(), t = 100 * Math.random();
                     n.skillLv[14] > 0 && (n.figthState = 2);//逃跑时自动进猥琐
@@ -8179,7 +8181,7 @@ require = function e(t, n, a) {
                     cc.find("Canvas/Fight/state/text").getComponent("cc.Label").string = k[n.figthState];
                     P();
                     if (t > EscapeRate) {
-                        theEnemy.hp > 0 && n.role.hp > 0 ? s.getComponent("cc.Button").scheduleOnce(enemysturn, .2) : isYouLOst();
+                        theEnemy.hp > 0 && n.role.hp > 0 ? attackButton.getComponent("cc.Button").scheduleOnce(enemysturn, .2) : isYouLOst();
                         n.publicVar2[6] += 1;
                         cleanAttText();
                         i.playText("Canvas/Fight/notify2", "逃跑失败！", 60);
@@ -8272,7 +8274,7 @@ require = function e(t, n, a) {
                         C = parseInt(.15 * youinFight.maxHp);
                         n.role.hp += C;
                         n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
-                        state = "「猥琐：你恢复" + C + "点生命」";
+                        state = "「猥琐：你恢复" + C + "点生命(15%最大生命)」";
                     }
                     enemyAttText = enemyAttText + "，你受到" + enemyATT + "点伤害" + jacker + redjacker + state;
                     "undefined" != typeof theEnemy.skill && (enemyAttText = enemyAttText + "！" + theEnemy.skill());//敌人的攻击技能
@@ -8283,12 +8285,24 @@ require = function e(t, n, a) {
                             enemyAttText = enemyAttText +"【闪避】你闪避了攻击！本回合你不受任何伤害";
                         }
                     }
+                    if (1 == n.ifFollow[1]) {
+                        var Text = "【守护】碧瑶帮你挡下了致命攻击并脱离了战斗";
+                        if (n.role.hp <= 0) {
+                            if (n.friendSkill[9] > 0){
+                                var m = Math.round(.05 * youinFight.maxHp);
+                                n.role.hp = m;
+                                enemyAttText +=Text;
+                                n.publicVar[8] = 0;
+                                n.ifFollow[1] = 0;
+                            }
+                        }
+                    }//tag 碧瑶新技能
                     inFight.creatText(attText, "enemyNotify", enemyAttText);
                     O();
                     (function () {
                         refreshEnemyStatus();
                         A();
-                        p.getComponent("cc.Label").string = "";
+                        theescapetext.getComponent("cc.Label").string = "";
                         i.textZoon2("Canvas/Fight/roleHp");
                         i.textZoon2("Canvas/Fight/escapeRate");
                     })();
@@ -8415,7 +8429,7 @@ require = function e(t, n, a) {
                         }(e), XL = function (e) {
                             {
                                 if (1 == n.publicVar[1]) {
-                                    var t = n.day + 40, a = 100 * Math.random();
+                                    var t = n.day + 20, a = 100 * Math.random();
                                     if (a < t) {
                                         var i = inFight.getItem(e);
                                         return "【修罗：" + i + "】";
@@ -8482,12 +8496,12 @@ require = function e(t, n, a) {
                 function P() {
                     roleHpLabel.scale = 0;
                     m.scale = 0;
-                    s.scale = 0;
+                    attackButton.scale = 0;
                     ESCbutton.scale = 0;
                     u.scale = 0;
                         }
                 function O() {
-                    s.scale = 1;
+                    attackButton.scale = 1;
                     ESCbutton.scale = 1;
                     u.scale = 1;
                     }
@@ -8542,7 +8556,7 @@ require = function e(t, n, a) {
                 }(), c = function () {
                     var t = e("scr_data"), a = "";
                     if (1 == t.publicVar[1]) {
-                        var i = t.day + 40, c = 100 * Math.random();
+                        var i = t.day + 20, c = 100 * Math.random();
                         c < i && (a = "没发现道具" != (a = cc.find("Event/scr_fight").getComponent("scr_fight").getItem(n)) ? "\n【修罗：发现" + a + "】" : "\n【修罗：什么也没有发现！】");
                     }
                     return a;
@@ -9069,15 +9083,16 @@ require = function e(t, n, a) {
             properties: {},
             skillDes: function () {
                 var t = e("scr_data"), 
-                n = ["【并肩】碧瑶会与主角并肩作战（攻击" + parseInt(t.publicVar[7] + 1600) + "，随好感提升）", 
-                "【敏捷】碧瑶每次攻击暴击提高5%！需100好感，碧瑶的暴击效果为250%（此效果没实装）", 
-                "【捐款】每天" + Math.max(parseInt(t.publicVar[7] / 20 + 25), 25) + "%几率获得碧瑶总存款的2%（碧瑶存款为" + (t.publicVar2[18] / 10).toFixed(1) + "元，你能到手的零钱为" + (.02 * t.publicVar2[18] / 10).toFixed(1) + "元），触发几率随好感提升。需200好感", 
+                n = ["【并肩】碧瑶与主角并肩作战，攻击" + parseInt(t.publicVar[7] + 1600) + "", 
+                "【敏捷】碧瑶每次攻击暴击提高5%！需100好感，碧瑶的暴击效果为250%", 
+                "【捐款】每天" + Math.max(parseInt(t.publicVar[7] / 20 + 25), 25) + "%几率获得碧瑶总存款的2%（碧瑶存款为" + (t.publicVar2[18] / 10).toFixed(1) + "元，你能到手的零钱为" + (.02 * t.publicVar2[18] / 10).toFixed(1) + "元）。需200好感", 
                 "【刺杀】碧瑶暴击后，附加给目标一层流血效果，降低目标25%防御。需300好感", 
                 "【保护】碧瑶暴击后，伤害的50%用于治疗主角。需400好感", 
                 "【冷静】碧瑶基础暴击率+75%。基础25%。需500好感", 
                 "【双飞】碧瑶暴击后，主角下次攻击必定触发暴击！需600好感", 
                 "【监督】每天" + Math.max(parseInt(t.publicVar[7] / 20 + 20), 20) + "%几率降低主角1%烟瘾，触发几率随好感提升。需700好感", 
-                "【终结】碧瑶每间隔1次攻击，触发一次「终结」技400%伤害。需800好感"];
+                "【终结】碧瑶每间隔1次攻击，触发一次「终结」技400%伤害。需800好感",
+                "【守护】当你战斗中受到致命伤后，碧瑶会帮你挡下致命一击，然后脱离战场，随后你需要重新招募碧瑶。需聊天100次"];
                 return n;
             },
             showDes: function () {
@@ -9148,12 +9163,13 @@ require = function e(t, n, a) {
             takePill: function () {
                 var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public");
                 if (t.itemNum2[1] > 0) {
-                    t.choice[5] += 2;
-                    t.itemNum2[1] -= 1;
+                    var amount = t.itemNum2[1];
+                    t.choice[5] += 2 * amount;
+                    t.itemNum2[1] -= amount;
                     this.initUI();
                     a.save();
                     cc.find("Canvas/Show").removeAllChildren();
-                    n.playText("Canvas/notify", "“张嘴，吃药~”\n“啊~~~~emmmmm~”\n晓月好感+2", 80);
+                    n.playText("Canvas/notify", "“张嘴，吃药~”\n“啊~~~~emmmmm~”\n晓月好感+" + 2 * amount + "", 80);
                 } else {
                     cc.find("Canvas/Show").removeAllChildren();
                     n.playText("Canvas/notify", "没药啦~！", 80);
@@ -9172,6 +9188,12 @@ require = function e(t, n, a) {
                     t.talkTimes[0] += 1;
                     t.energy -= 10;
                     t.choice[5] += 1;
+                    if (t.talkTimes[0] == 100) {//tag 晓月聊天处
+                        n.itemNum[13] +=1;
+                        i.showText(o, "plot" + c, 
+                        "晓月很开心，于是她打算亲手下厨给你做饭！你获得神秘道具*1"
+                        , 60);
+                    }
                     this.initUI();
                     i.save();
                 } else {
@@ -9286,25 +9308,34 @@ require = function e(t, n, a) {
                 })();
                 (function () {
                     if (t.publicVar[7] > 0 && 0 == t.publicVar[8]) {
-                        t.plotId = 98;
+                        /* t.plotId = 98;
                         a.save();
-                        cc.director.loadScene("plot");
+                        cc.director.loadScene("plot"); */
                     }
                 })();
                 function v() {
                     t.energy >= 10 ? function () {
                         t.publicVar[7];
+                        t.talkTimes[1] +=1;
                         var e = parseInt(t.publicVar2[20] + 2 * t.publicVar[20]), a = 100 * Math.random();
                         if (a < e) {
                             var i = parseInt(7.9 * Math.random()), c = ["liao ♂ 得不错", "“瑶酱~今天也要元气满满喔~”", "“嘿~嘿嘿~”", "“(｡･∀･)ﾉﾞ嗨！~上午好呀！”", "一波调戏", "一波求教", "“早上好呀！”", "“卡哇咿滴斯勒” “？”"];
                             t.publicVar[7] += 1;
                             t.publicVar2[20] += parseInt(3 * Math.random() + 1);
                             n.playText("Canvas/notify", c[i] + "，好感+1\n（当前好感：" + t.publicVar[7] + "）\n（下次成功率为" + t.publicVar2[20] + "%+" + 2 * t.publicVar[20] + "）", 60);
+                            if (t.publicVar[7] > 0 && 0 == t.publicVar[8]) {
+                                t.plotId = 98;
+                                a.save();
+                                cc.director.loadScene("plot");
+                            }
                         } else {
                             var i = parseInt(5.9 * Math.random()), c = ["寒暄", "吹逼", "赞美", "沉默", "鸡汤", "分析"];
                             t.publicVar2[20] -= parseInt(3 * Math.random() + 1);
                             n.playText("Canvas/notify", "一顿" + c[i] + "，好感+0\n（下次聊天成功率" + t.publicVar2[20] + "%+" + 2 * t.publicVar[20] + "%）", 60);
-                    }
+                        }
+                        if (t.talkTimes[1] == 100) {//todo
+                            
+                        }
                         t.energy -= 10;
                         O();
                     }() : n.playText("Canvas/notify", "精力不足！", 60);
@@ -12112,7 +12143,7 @@ require = function e(t, n, a) {
                     }
                     },
                     98: {
-                        text: ["陈碧瑶好感已满足要求，是否邀请碧瑶成为伙伴？（如果碧瑶成为伙伴，其它伙伴将会被顶掉，且无法再邀请其它伙伴；如果你拒绝邀请，以后则不会再有机会邀请碧瑶，请考虑清楚！）", "是", "算了"],
+                        text: ["陈碧瑶好感已满足要求，是否邀请碧瑶成为伙伴？（如果碧瑶成为伙伴，其它伙伴将不会被顶掉，且无无法再邀请其它伙伴；如果你拒绝邀请，以后则不不会再有机会邀请碧瑶，请不考虑清楚！）", "是", "算了"],
                         BGM: "",
                         choice1: function () {
                             t.ifFollow[1] = 1;
@@ -13586,6 +13617,9 @@ require = function e(t, n, a) {
                     },
                     8: function () {
                         0 == a[8] && t.publicVar[7] >= 800 && (a[8] = 1);
+                    },
+                    9: function () {
+                        0 == a[9] && t.talkTimes[1] >= 100 && (a[9] = 1);
                         }
                     };
                 for (var c in i) i[c]();
