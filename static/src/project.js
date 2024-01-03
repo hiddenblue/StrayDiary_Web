@@ -3594,10 +3594,7 @@ require = function e(t, n, a) {
                         des: "如果这个游戏没有一个最终boss不是很无聊吗？\n（催更请录屏战斗过程）",
                         skill: function () {
                             this.publicVar = Math.ceil(Math.random()*6);
-                            if (c.itemNum2[14] > 0) {
-                                c.itemNum2[14] = 0
-                                return "【枪支限制！弹药清零】";
-                            } else if (this.publicVar <= 2) {
+                            if (this.publicVar <= 2) {
                                 return "【秋良正在上子弹】";
                             } else if (this.publicVar == 3) {
                                 var e = 1 * this.att - o.def;
@@ -3736,10 +3733,6 @@ require = function e(t, n, a) {
                             return "【" + this.name + "释放「落雷」，造成" + e + "点伤害】";
                         },
                         defSkill: function () {
-                            if (c.itemNum2[14] > 0) {
-                                c.itemNum2[14] = 0
-                                this.publicVar += 1;
-                                return "【枪支限制！弹药清零】";}
                             var e = parseInt(o.att/4);
                             cc.find("Event/scr_fight").getComponent("scr_fight").publicVar -= e;                        
                             return "【" + this.name + "使用「电磁护盾」，受到的伤害减少25%！】";
@@ -7998,6 +7991,7 @@ require = function e(t, n, a) {
                 })();
                 //tag 战斗特效传送门
                 var yourDEF = youinFight.def, Edes = theEnemy.des, k = ["均  衡", "进  攻", "防  御"];
+                var rateofshanbi;
                 attackButton.targetOff(attackButton);//攻击时隐藏按钮？推测
                 ESCbutton.targetOff(ESCbutton);
                 attackButton.on("touchstart", function () {
@@ -8007,6 +8001,7 @@ require = function e(t, n, a) {
                         var m = n.figthState;
                         var laststate;
                         var critChance;
+                        rateofshanbi = 20;
                         /*if ("undefined" == laststate) {
                             laststate = m;
                         }
@@ -8099,8 +8094,9 @@ require = function e(t, n, a) {
                         
                         if (n.itemNum2[19] > 0 && n.itemNum2[14] > 0 && n.publicVar[4] > 0) {//判断是否开枪
                             n.itemNum2[14] -= 1;
-                            n.publicVar3[14] += 1;
-                            var damageTimes = n.itemNum2[19] + 1;
+                            n.publicVar3[14] += 1;//done
+                            rateofshanbi = 20 + n.itemNum2[19] * 20;
+                            var damageTimes =  1;
                             theDamage = parseInt(theDamage * (damageTimes));
                             youHitsText = youHitsText.replace(/普攻|割裂/, "枪击"+ damageTimes * 100+"%");
                             /暴击/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击/, "爆头"+ damageTimes * 200+"%"));
@@ -8280,7 +8276,7 @@ require = function e(t, n, a) {
                     "undefined" != typeof theEnemy.skill && (enemyAttText = enemyAttText + "！" + theEnemy.skill());//敌人的攻击技能
                     if (1 == n.skillLv[29]) {//tag 闪避技能！！！
                         var rate = Math.random() *100;
-                        if (rate < 20) {
+                        if (rate < rateofshanbi) {
                             n.role.hp = temp;
                             enemyAttText = enemyAttText +"【闪避】你闪避了攻击！本回合你不受任何伤害";
                         }
@@ -9333,7 +9329,7 @@ require = function e(t, n, a) {
                             t.publicVar2[20] -= parseInt(3 * Math.random() + 1);
                             n.playText("Canvas/notify", "一顿" + c[i] + "，好感+0\n（下次聊天成功率" + t.publicVar2[20] + "%+" + 2 * t.publicVar[20] + "%）", 60);
                         }
-                        if (t.talkTimes[1] == 100) {//todo
+                        if (t.talkTimes[1] == 100) {//todo 碧瑶聊天奖励 
                             
                         }
                         t.energy -= 10;
@@ -11482,7 +11478,7 @@ require = function e(t, n, a) {
                     19: {
                         itemName: "枪LV" + this.data.itemNum2[19],
                         needDes: "※白色粉末（拥有" + this.data.itemNum[11] + "）兑换，可能会招来麻烦！",
-                        des: "※造成「枪等级+1」倍伤害，每次消耗1颗子弹（已有" + this.data.itemNum2[14] + "）。点击战斗界面右下角文字可以打开/关闭枪效果！",
+                        des: "※使用枪攻击时，会获得20%*「枪等级+1」的闪避概率，每次消耗1颗子弹（已有" + this.data.itemNum2[14] + "）。点击战斗界面右下角文字可以打开/关闭枪效果！",
                         button: function () {
                             e("scr_data").itemNum2[19] > 0 ? n.playText("Canvas/notify", "点击战斗界面右下角（逃跑率右边）【开/关】才会生效哦~", 100) : n.playText("Canvas/notify", "你还没有枪！", 100);
                             }
@@ -11577,7 +11573,7 @@ require = function e(t, n, a) {
                     27: {
                         itemName: "军用夜视镜LV" + this.data.itemNum2[29],
                         needDes: "※合成类道具",
-                        des: "※18个女装合成，增加" + this.data.itemNum2[29] * 750 + "点生命！【网络】战斗中将可以查看敌人的攻防属性，受到攻击时，防御力有" + this.data.itemNum2[29] * 10 + "%概率增加增加10%",
+                        des: "※18个女装合成，增加" + this.data.itemNum2[29] * 750 + "点生命！【网络】战斗中将可以查看敌人的攻防属性，受到攻击时，防御力有" + this.data.itemNum2[29] * 10 + "%概率增加10%",
                         button: function () {
                             n.playText("Canvas/notify", "御坂妹妹会佩戴的一种感应电磁场变化的设备", 100);
                             }
@@ -12318,29 +12314,34 @@ require = function e(t, n, a) {
                     },
                     role: {
                         maxHp: function () {
-                            var t = e("scr_data"), 
+                            var t = e("scr_data"),smokerate = 3 * t.orderTimes[1] - t.orderTimes[4] 
                             n = t.role.maxHp + 50 * t.itemNum2[4] + 150 * t.itemNum2[11] + 50 * t.skillLv[2] + 100 * t.skillLv[15] + 150 * t.skillLv[19] + 25 * t.itemNum2[22] + t.publicVar3[16];
                             n +=t.itemNum2[29] * 750;//军用夜视镜加生命
+                            n = n*(1 - t.skillLv[4] * smokerate);//烟瘾大改
                             n = Math.round(n * (1 + t.publicVar[15] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
+                            if (n < 0) {
+                                n = 1;
+                            }
                             return n;
                         },
-                        //tag 属性传送门（攻击，防御，生命）
+                        //tag 三维属性传送门
                         att: function () {
-                                var t = e("scr_data"), n = 1;
+                                var t = e("scr_data"), n = 1,smokerate = 3 * t.orderTimes[1] - t.orderTimes[4];
                                 1 == t.publicVar && (n = 1);
                             var a = t.role.att + 10 * t.itemNum2[3] + 20 * t.itemNum2[8] + 30 * t.itemNum2[10] + 10 * t.skillLv[11] + 20 * t.skillLv[18] + 30 * t.skillLv[22] + 5 * t.itemNum2[20] + t.publicVar3[4];
                             a += t.itemNum2[28] * 150;//物理学圣剑加攻击
                             if (1 == t.ifFollow[0]) {
                                 a += parseInt(t.choice[5] / 4 + 10);
                             }
-                            a = Math.round(a * (1 - t.skillLv[4]) * (1 + t.publicVar[17] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
+                            
+                            a = Math.round(a * (1 - t.skillLv[4] * smokerate) * (1 + t.publicVar[17] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
                             return a;
                         },
                         def: function () {
-                            var t = e("scr_data"), n = 1;
+                            var t = e("scr_data"), n = 1 ,smokerate = 3 * t.orderTimes[1] - t.orderTimes[4];
                             1 == t.publicVar && (n = 1);
                             var a = t.role.def + 10 * t.itemNum2[9] + 15 * t.itemNum2[11] + 10 * t.skillLv[8] + 20 * t.skillLv[16] + 30 * t.skillLv[20] + 5 * t.itemNum2[21] + t.publicVar3[10];
-                            a = Math.round(a * (1 - t.skillLv[4]) * (1 + t.publicVar[16] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
+                            a = Math.round(a * (1 - t.skillLv[4] * smokerate) * (1 + t.publicVar[16] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
                             return a;
                         }
                     },
@@ -12891,12 +12892,12 @@ require = function e(t, n, a) {
                     } else n.playText("Canvas/notify", "白色粉末不足！", 60);
                     }
                 function g() {
-                    if (t.money >= 5) {
-                        t.money -= 5;
-                        t.itemNum2[14] += 1;
+                    if (t.itemNum[11] >= 1) {
+                        t.itemNum[11] -= 1;
+                        t.itemNum2[14] += 2;
                         n.playText("Canvas/notify", "获得「子弹」*1", 60);
                         f();
-                    } else n.playText("Canvas/notify", "钱不够！", 60);
+                    } else n.playText("Canvas/notify", "粉末不够！", 60);
                     }
                 function b() {
                     if (t.itemNum2[16] > 0) {
@@ -13754,14 +13755,14 @@ require = function e(t, n, a) {
                 a.getComponent(cc.Label).fontSize = 32;
             },
             onLoad: function () {
-                    var t = e("scr_data"), n = (t.figthExp, 3 * t.orderTimes[1] - t.orderTimes[4]);
+                    var t = e("scr_data"), n = (3 * t.orderTimes[1] - t.orderTimes[4]);
                 //1 == t.publicVar[1] && (n = t.orderTimes[1] - t.orderTimes[4]);
                     var a = {
                     0: "0:【饥饿】当饥饿值低于0时激活。饥饿状态下，前进/探索有几率减少健康值，且睡觉时必定减少健康！（另外：饥饿时系统会自动使用食物，直到用光为止哦^_^）",
                     1: "1:【精力强化1】精力上限+10，战斗胜利8次后激活（" + t.winTimes + "/8）。",
                     2: "2:【生命强化1】最大生命值+50，吃「果子」30次后激活(" + t.orderTimes[5] + "/30）。",
                     3: "3：【恢复1】前进/探索时，生命恢复量提高8点。使用「伤药」15次后激活（" + t.orderTimes[0] + "/15）。",
-                    4: "4:【烟瘾】攻击/防御减少100%！每天有" + n + "%概率激活，效果持续1天。（抽烟次数越多激活概率越高，每次增加3%）",
+                    4: "4:【烟瘾】攻击/防御减少" + n + "%！每天有" + n + "%概率激活，效果持续1天。（抽烟次数越多激活概率越高，每次增加3%）",
                     5: "5:【平衡架势】造成" + (t.figthExp[0] / 5 + 100).toFixed(1) + "%伤害，承受" + (100 - t.figthExp[0] / 5).toFixed(1) + "%伤害。效果随熟练度提升而提升（" + t.figthExp[0] + "/150）。战斗胜利15次(" + t.winTimes + "/15)后开启。",
                     6: "6:【捡钱】每天40%概率额外捡到1毛钱，扶老奶奶10次激活！此特性可升级，每扶10次涨1毛哈~(^_−)☆！（" + t.randomEvent[6] + "/10）。",
                     7: "7:【精力强化2】精力上限+20，吃「熟肉」30次后激活（" + t.orderTimes[2] + "/30）。",
