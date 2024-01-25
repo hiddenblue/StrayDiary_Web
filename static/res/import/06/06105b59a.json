@@ -485,7 +485,7 @@
                     "_useOriginalSize": false,
                     "_actualFontSize": 32,
                     "_fontSize": 32,
-                "_N$string": "好战者：遭遇敌人的概率增加50%，战胜后获得的属性翻倍",
+                "_N$string": "好战者：遭遇敌人的概率增加50%\n战胜后获得的属性翻倍",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1
                 }

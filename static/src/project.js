@@ -8640,7 +8640,7 @@ require = function e(t, n, a) {
                     this.reduceHealth();
                     this.JKuniforms();
                     this.smoker();//新手保护措施，可修改是否遇到怪物和敌人
-                    if (t <= 20 + 10 * (3 == n.publicVar[1] ? 1 : 0)) {
+                    if (rate <= 20 + 10 * (3 == n.publicVar[1] ? 1 : 0)) {
                         if (n.distance <= 10) {
                             n.publicVar2[3] += 1;
                             this.getItem();
@@ -8648,10 +8648,10 @@ require = function e(t, n, a) {
                             n.publicVar2[2] += 1;
                             this.fight();
                         }
-                    } else if (t <= 80) {
+                    } else if (rate <= 80) {
                         n.publicVar2[3] += 1;
                         this.getItem();
-                    } else if (t <= 100) {
+                    } else if (rate <= 100) {
                         if (n.distance <= 20) {
                             n.publicVar2[3] += 1;
                             this.getItem();
