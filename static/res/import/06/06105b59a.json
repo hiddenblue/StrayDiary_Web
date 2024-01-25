@@ -267,7 +267,7 @@
                     "_actualFontSize": 30,
                     "_fontSize": 30,
                     "_lineHeight": 50,
-                    "_N$string": "建议：跪求新人选第一个（熟悉游戏/看剧情）。老玩家选二三四。大佬选五六。无聊选修罗。",
+                    "_N$string": "无论如何选择，都是自己的决定",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1,
                     "_N$overflow": 3
@@ -369,7 +369,7 @@
                     "_useOriginalSize": false,
                     "_actualFontSize": 30,
                     "_fontSize": 30,
-                    "_N$string": "旅游套餐：初始食物+20，恢复品+20，资金+3",
+                    "_N$string": "放弃防御：初始攻击力为0，获得10点初始防御",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1
                 }
@@ -485,7 +485,7 @@
                     "_useOriginalSize": false,
                     "_actualFontSize": 32,
                     "_fontSize": 32,
-                "_N$string": "父慈子孝：初始拿走家里10块",
+                "_N$string": "好战者：遭遇敌人的概率增加50%，战胜后获得的属性翻倍",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1
                 }
@@ -543,7 +543,7 @@
                     "_useOriginalSize": false,
                     "_actualFontSize": 32,
                     "_fontSize": 32,
-                "_N$string": "地主家儿子：初始资金+5，且每天获得0.2元",
+                "_N$string": "商店扒手：购买基础物资时获得量+20%",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1
                 }
