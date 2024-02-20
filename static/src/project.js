@@ -405,6 +405,7 @@ require = function e(t, n, a) {
                         workExp: 0,
                         winTimes: 0,
                         winsstreaks: 0,
+                        randomModel: 0,
                         escapeExp: 0,
                         buffState: [0, 0, 0, 0],
                         ifNotify: !1,
@@ -585,6 +586,7 @@ require = function e(t, n, a) {
                         "undefined" == typeof e.skillLv[34] && (e.skillLv[34] = 0);
                         "undefined" == typeof e.skillLv[35] && (e.skillLv[35] = 0);
                         //新增物品传送门
+                        "undefined" == typeof e.randomModel && (e.randomModel = 0);
                         "undefined" == typeof e.maxHealth && (e.maxHealth = 100);
                         "undefined" == typeof e.choice[6] && (e.choice[6] = 0);
                         "undefined" == typeof e.choice[7] && (e.choice[7] = 0);
@@ -11800,8 +11802,15 @@ require = function e(t, n, a) {
                     a.getComponent(cc.Label).fontSize = 40;
                 },
                 onLoad: function () {
-                    var e = ["昨天，", "和父亲大吵一架后，", "我双手空空的逃了出来。", "我决定离开这个家，", "再也不回去了..."], t = (e.length,
-                        this), n = 0, a = cc.find("Canvas/Layout"), i = cc.find("Canvas/skip");
+                    var e = ["昨天，", "和父亲大吵一架后，", "我双手空空的逃了出来。", "我决定离开这个家，", "再也不回去了..."], 
+                    t = (e.length,this), 
+                    n = 0, 
+                    a = cc.find("Canvas/Layout"), 
+                    i = cc.find("Canvas/skip"),
+                    data = e("scr_public");
+                    if (data.randomModel == 1) {//todo
+                        e = ["随机模式，", "你获得了一个随机buff，", "1", "2", "3"]; 
+                    }
                     function c() {
                         t.creatText(a, "plot" + n, e[n]);
                         n++;
@@ -13978,7 +13987,8 @@ require = function e(t, n, a) {
                         } else r.playText("Canvas/text1", "修罗模式不需先通关游戏", 80);
                     }, this);
                     t.getChildByName("choice8").on("touchstart", function () {
-                        r.playText("Canvas/text1", "该模式还在奋力开发中，敬请期待哦←_←", 80);
+                        i.publicVar[1] = 1;//todo
+                        i.randomModel = 1;
                     }, this);
                     (function () {
                         t.opacity = 0;
