@@ -745,7 +745,7 @@
                 "__type__": "cc.Vec2",
                 "y": -540
             },
-            "_active": false,
+            "_active": true,
             "_components": [
                 {
                     "__type__": "cc.Sprite",

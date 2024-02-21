@@ -367,8 +367,8 @@ require = function e(t, n, a) {
                         distance: 1,
                         stayDay: [1, 1, 1, 1],
                         role: {
-                            hp: 50,
-                            maxHp: 50,
+                            hp: 100,
+                            maxHp: 100,
                             att: 10,
                             def: 0
                         },
@@ -406,6 +406,8 @@ require = function e(t, n, a) {
                         winTimes: 0,
                         winsstreaks: 0,
                         randomModel: 0,
+                        gift: [0, 0, 0, 0],
+                        randomBuff: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                         escapeExp: 0,
                         buffState: [0, 0, 0, 0],
                         ifNotify: !1,
@@ -587,6 +589,12 @@ require = function e(t, n, a) {
                         "undefined" == typeof e.skillLv[35] && (e.skillLv[35] = 0);
                         //新增物品传送门
                         "undefined" == typeof e.randomModel && (e.randomModel = 0);
+                        "undefined" == typeof e.gift && (e.gift = [0, 0, 0, 0]);
+                        "undefined" == typeof e.randomBuff && (e.randomBuff = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                        "undefined" == typeof e.gift[0] && (e.gift[0] = 0);
+                        "undefined" == typeof e.gift[1] && (e.gift[1] = 0);
+                        "undefined" == typeof e.gift[2] && (e.gift[2] = 0);
+                        "undefined" == typeof e.gift[3] && (e.gift[3] = 0);
                         "undefined" == typeof e.maxHealth && (e.maxHealth = 100);
                         "undefined" == typeof e.choice[6] && (e.choice[6] = 0);
                         "undefined" == typeof e.choice[7] && (e.choice[7] = 0);
@@ -879,9 +887,9 @@ require = function e(t, n, a) {
                                     n.skillLv[4] = 0;
                                     n.itemNum[7] += 1;
                                     n.buffState[2] = 1;
-                                    n.maxHealth -= 10;
+                                    n.maxHealth -= 1;
                                     i.save();
-                                    a.playText("Canvas/notify", "健康-1，精力恢复" + Energy + "！生命恢复为满，获得烟头*1", 100);
+                                    a.playText("Canvas/notify", "健康/最大健康-1，精力恢复" + Energy + "！生命恢复为满，获得烟头*1", 100);
                                     t.delayCreatItemUI1();
                                 } else a.playText("Canvas/notify", "道具不足！", 100);
                             }
@@ -8063,11 +8071,19 @@ require = function e(t, n, a) {
                                 g[0] += 1;
                             }
                             if (1 == m) {
-                                var S = parseInt(.08 * youinFight.maxHp), damageTimes = (1.32 + b[1] / 200);
-                                theDamage = parseInt(theDamage * damageTimes);
-                                n.role.hp -= S;
-                                g[1] += 1;
-                                l = "「拼命：你损失" + S + "点生命(8%最大生命)，造成" + damageTimes * 100 + "%伤害」";
+                                if (n.randomBuff[3] == 1) {
+                                    var S = parseInt(.10 * youinFight.maxHp), damageTimes = ((1.32 + b[1] / 200) * 1.25);
+                                    theDamage = parseInt(theDamage * damageTimes);
+                                    n.role.hp -= S;
+                                    g[1] += 1;
+                                    l = "「暴血：你损失" + S + "点生命(10%最大生命)，造成" + damageTimes * 100 + "%伤害」";//随机buff3
+                                } else {
+                                    var S = parseInt(.08 * youinFight.maxHp), damageTimes = (1.32 + b[1] / 200);
+                                    theDamage = parseInt(theDamage * damageTimes);
+                                    n.role.hp -= S;
+                                    g[1] += 1;
+                                    l = "「拼命：你损失" + S + "点生命(8%最大生命)，造成" + damageTimes * 100 + "%伤害」";
+                                }
                             }
                             if (2 == m) {
                                 theDamage = parseInt(.7 * theDamage);
@@ -9397,6 +9413,9 @@ require = function e(t, n, a) {
                         a.autoEat();
                         t.energy >= 10 && t.hunger >= 0 ? function () {
                             var e = t.publicVar[14] + t.publicVar[19];
+                            if (t.randomBuff[6] == 1) {
+                                e -= 15;
+                            }
                             if (100 * Math.random() < e) {
                                 t.publicVar[15] += 20;
                                 n.playText("Canvas/notify", "训练成功！最大生命值+2%！你感觉气血通畅，神清气爽！", 60);
@@ -9412,6 +9431,9 @@ require = function e(t, n, a) {
                         a.autoEat();
                         t.energy >= 10 && t.hunger >= 0 ? function () {
                             var e = t.publicVar[14] + t.publicVar[19];
+                            if (t.randomBuff[6] == 1) {
+                                e -= 15;
+                            }
                             if (100 * Math.random() < e) {
                                 t.publicVar[16] += 20;
                                 n.playText("Canvas/notify", "训练成功！防御提高2%！你感觉气身体变得更加柔软了呢(ಡωಡ)！再也不怕挨揍啦！", 60);
@@ -9427,6 +9449,9 @@ require = function e(t, n, a) {
                         a.autoEat();
                         t.energy >= 10 && t.hunger >= 0 ? function () {
                             var e = t.publicVar[14] + t.publicVar[19];
+                            if (t.randomBuff[6] == 1) {
+                                e -= 15;
+                            }
                             if (100 * Math.random() < e) {
                                 t.publicVar[17] += 10;
                                 n.playText("Canvas/notify", "训练成功！攻击提高1%！“哇！~乌拉————！”。", 60);
@@ -9631,12 +9656,20 @@ require = function e(t, n, a) {
                     }
                     function O() {
                         t.publicVar2[17] > 0 ? l.getChildByName("text").getComponent("cc.Label").string = "找碧瑶唠嗑（成功率" + (t.publicVar2[20] + 2 * t.publicVar[20]) + "%）" : l.getChildByName("text").getComponent("cc.Label").string = "？？？？";
-                        p.getChildByName("text").getComponent("cc.Label").string = "锻炼（成功率" + (t.publicVar[14] + t.publicVar[19]) + "%）";
+                        if (t.randomBuff[6] == 1) {
+                            p.getChildByName("text").getComponent("cc.Label").string = "锻炼（成功率" + (t.publicVar[14] + t.publicVar[19] - 15) + "%）";
+                        } else {
+                            p.getChildByName("text").getComponent("cc.Label").string = "锻炼（成功率" + (t.publicVar[14] + t.publicVar[19]) + "%）";
+                        }
                         cc.find("Canvas/energy").getComponent("cc.Label").string = "精力 " + t.energy;
                     }
                     function q() {
                         cc.find("Canvas/UI2/hunger").getComponent("cc.Label").string = "饥饿 " + t.hunger;
-                        cc.find("Canvas/UI2/rate").getComponent("cc.Label").string = "成功率 " + (t.publicVar[14] + t.publicVar[19]) + "%（" + t.publicVar[14] + "%+" + t.publicVar[19] + "%）";
+                        if (t.randomBuff[6] == 1) {
+                            cc.find("Canvas/UI2/rate").getComponent("cc.Label").string = "成功率 " + (t.publicVar[14] + t.publicVar[19]) + "%（" + t.publicVar[14] + "%+" + t.publicVar[19] + "- 15 %）";
+                        } else {
+                            cc.find("Canvas/UI2/rate").getComponent("cc.Label").string = "成功率 " + (t.publicVar[14] + t.publicVar[19]) + "%（" + t.publicVar[14] + "%+" + t.publicVar[19] + "%）";
+                        }
                         cc.find("Canvas/UI2/choice1/text").getComponent("cc.Label").string = "修仙（生命上限+" + (t.publicVar[15] / 10).toFixed(0) + "%）";
                         cc.find("Canvas/UI2/choice2/text").getComponent("cc.Label").string = "第八套广播体操（防御+" + (t.publicVar[16] / 10).toFixed(0) + "%）";
                         cc.find("Canvas/UI2/choice3/text").getComponent("cc.Label").string = "举轮胎（攻击+" + (t.publicVar[17] / 10).toFixed(0) + "%）";
@@ -11802,17 +11835,42 @@ require = function e(t, n, a) {
                     a.getComponent(cc.Label).fontSize = 40;
                 },
                 onLoad: function () {
-                    var e = ["昨天，", "和父亲大吵一架后，", "我双手空空的逃了出来。", "我决定离开这个家，", "再也不回去了..."], 
-                    t = (e.length,this), 
-                    n = 0, 
-                    a = cc.find("Canvas/Layout"), 
-                    i = cc.find("Canvas/skip"),
-                    data = e("scr_public");
-                    if (data.randomModel == 1) {//todo
-                        e = ["随机模式，", "你获得了一个随机buff，", "1", "2", "3"]; 
+                    var text = ["昨天，", "和父亲大吵一架后，", "我双手空空的逃了出来。", "我决定离开这个家，", "再也不回去了..."],
+                        t = (text.length, this),
+                        n = 0,
+                        a = cc.find("Canvas/Layout"),
+                        i = cc.find("Canvas/skip"),
+                        data = e("scr_data"),
+                        Tfunc = e("scr_public"),
+                        gift = [
+                            "什么都没有抽到哦...",
+                            "一拳超人：攻击力百分比提升20%",
+                            "因为怕痛就全点防御了：提高防御40%",
+                            "暴血：进攻架势造成的伤害增加25%，但是额外消耗25%的生命",
+                            "破败之刃：下降攻击力20",
+                            "大学生体质：降低血量上限100",
+                            "不想锻炼：降低锻炼成功率15%",
+                            "什么都没有抽到哦...",
+                            "什么都没有抽到哦...",
+                            "什么都没有抽到哦..."
+                        ];
+                    if (data.randomModel == 1) {//tag 随机模式buff描述
+                        text = ["随机模式，", "你获得了三个随机buff（重复获得buff只生效一次），", gift[data.gift[0]], gift[data.gift[1]], gift[data.gift[2]]];
                     }
+                    if (data.randomModel == 1) {//tag 随机模式buff
+                        for (let index = 0; index < 3; index++) {
+                            data.randomBuff[data.gift[index]] = 1;
+                        }
+                    }
+                    if (data.randomBuff[4] == 1) {
+                        data.role.att -= 20;
+                    }
+                    if (data.randomBuff[5] == 1) {
+                        data.role.maxHp = 1;
+                    }
+                    Tfunc.save();
                     function c() {
-                        t.creatText(a, "plot" + n, e[n]);
+                        t.creatText(a, "plot" + n, text[n]);
                         n++;
                     }
                     var o = window.setInterval(function () {
@@ -11854,7 +11912,11 @@ require = function e(t, n, a) {
                 }
             });
             cc._RF.pop();
-        }, {}],
+        }, {
+            scr_data: "scr_data",
+            scr_data2: "scr_data2",
+            scr_public: "scr_public"
+        }],
         scr_over2_1: [function (e, t, n) {
             "use strict";
             cc._RF.push(t, "62e498iaclK8KXOlDUYWsAs", "scr_over2_1");
@@ -12348,7 +12410,7 @@ require = function e(t, n, a) {
                                 var t = e("scr_data"), smokerate = 3 * t.orderTimes[1] - t.orderTimes[4]
                                 n = t.role.maxHp + 50 * t.itemNum2[4] + 150 * t.itemNum2[11] + 50 * t.skillLv[2] + 100 * t.skillLv[15] + 150 * t.skillLv[19] + 25 * t.itemNum2[22] + t.publicVar3[16];
                                 n += t.itemNum2[29] * 750;//军用夜视镜加生命
-                                n = n * (1 - t.skillLv[4] * smokerate);//烟瘾大改
+                                n = n * (1 - (t.skillLv[4] * smokerate) / 100);//烟瘾大改
                                 n = Math.round(n * (1 + t.publicVar[15] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
                                 if (n < 0) {
                                     n = 1;
@@ -12364,15 +12426,20 @@ require = function e(t, n, a) {
                                 if (1 == t.ifFollow[0]) {
                                     a += parseInt(t.choice[5] / 4 + 10);
                                 }
-
-                                a = Math.round(a * (1 - t.skillLv[4] * smokerate) * (1 + t.publicVar[17] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
+                                a = Math.round(a * (1 - (t.skillLv[4] * smokerate) / 100) * (1 + t.publicVar[17] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
+                                if (t.randomBuff[1] == 1) {
+                                    a *= 1.2;//随机buff1
+                                }
                                 return a;
                             },
                             def: function () {
                                 var t = e("scr_data"), n = 1, smokerate = 3 * t.orderTimes[1] - t.orderTimes[4];
                                 1 == t.publicVar && (n = 1);
                                 var a = t.role.def + 10 * t.itemNum2[9] + 15 * t.itemNum2[11] + 10 * t.skillLv[8] + 20 * t.skillLv[16] + 30 * t.skillLv[20] + 5 * t.itemNum2[21] + t.publicVar3[10];
-                                a = Math.round(a * (1 - t.skillLv[4] * smokerate) * (1 + t.publicVar[16] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
+                                a = Math.round(a * (1 - (t.skillLv[4] * smokerate) / 100) * (1 + t.publicVar[16] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
+                                if (t.randomBuff[2] == 1) {
+                                    a *= 1.4;//随机buff2
+                                }
                                 return a;
                             }
                         },
@@ -12676,7 +12743,7 @@ require = function e(t, n, a) {
                             t.button[1] = !0;
                         }
                     }();
-                    //每天早上结算传送门
+                    //tag 每天早上道具结算传送门
                     (function () {
                         (function () {
                             if (t.hunger <= 0) {
@@ -12724,7 +12791,7 @@ require = function e(t, n, a) {
                                     c() && (n *= 2);
                                     t.health += n;
                                     t.maxHealth += 5;
-                                    i.creatText("skill2", "【自愈】健康值+" + n);
+                                    i.creatText("skill2", "【自愈】最大健康+5，健康值+" + n);
                                 }
                             }
                         })();
@@ -13894,7 +13961,7 @@ require = function e(t, n, a) {
                         7: "7:【精力强化2】精力上限+20，吃「熟肉」30次后激活（" + t.orderTimes[2] + "/30）。",
                         8: "8:【防御强化1】防御增加10点，平衡架势熟练度达20后激活（" + t.figthExp[0] + "/20）。",
                         9: "9:【拼命架势】可切换到拼命架势。攻击时，造成" + (t.figthExp[1] / 2 + 132).toFixed(1) + "%伤害，每次攻击损失8%最大生命值。效果随熟练度而提升（" + t.figthExp[1] + "/150）。战斗胜利" + t.winTimes + "/20次后激活。注意1：一场战斗中，使用最多的架势将获得1点熟练度",
-                        10: "10:【自愈1】睡觉时40%几率恢复1点健康值，帐篷达到5级激活。",
+                        10: "10:【自愈1】睡觉时40%几率恢复1点健康值/健康上限，帐篷达到5级激活。",
                         11: "11:【攻击强化1】攻击增加10点，拼命架势熟练度达30激活（" + t.figthExp[1] + "/30）。",
                         12: "12:【精力强化3】精力上限+30，吃果子666次后激活，吃草更健康哦（" + t.orderTimes[5] + "/666）。",
                         13: "13:【大胃王】饥饿上限+50，吃（" + t.orderTimes[5] + "/200）次「果子」和（" + t.orderTimes[2] + "/60）次「熟肉」后激活。",
@@ -13987,8 +14054,13 @@ require = function e(t, n, a) {
                         } else r.playText("Canvas/text1", "修罗模式不需先通关游戏", 80);
                     }, this);
                     t.getChildByName("choice8").on("touchstart", function () {
-                        i.publicVar[1] = 1;//todo
+                        i.publicVar[1] = 1;//tag 随机模式
                         i.randomModel = 1;
+                        i.gift[0] = Math.floor(Math.random() * 10);
+                        i.gift[1] = Math.floor(Math.random() * 10);
+                        i.gift[2] = Math.floor(Math.random() * 10);
+                        i.gift[3] = Math.floor(Math.random() * 10);
+                        u();
                     }, this);
                     (function () {
                         t.opacity = 0;
