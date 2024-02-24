@@ -13018,210 +13018,213 @@ require = function e(t, n, a) {
             scr_effect: "scr_effect",
             scr_public: "scr_public"
         }],
-        scr_shop3: [function (e, t, n) {
+        scr_shop3: [function (e, t, n) {//tag 晓风大楼
             "use strict";
             cc._RF.push(t, "bddbc1AxUZNv63YXc4kCfkQ", "scr_shop3");
             cc.Class({
                 extends: cc.Component,
                 properties: {},
                 onLoad: function () {
-                    var t = this, n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = cc.find("Canvas/UI1"), o = cc.find("Canvas/UI2"), r = c.getChildByName("choice1"), s = c.getChildByName("choice2"), l = c.getChildByName("choice3"), u = c.getChildByName("choice4"), p = c.getChildByName("choice5"), f = (c.getChildByName("choice6"),
-                        //物品掉落传送门
-                        [70, 70, 70, 70, 50]), d = [["披风", 15, 1, 100], ["小裤裤", 21, 1, 20], ["晓月手链", 27, 1, 20], ["幸运石", 26, 1, 20], ["板砖", 20, 1, 20], ["JK制服", 24, 1, 20]];
+                    var thisModule = this, data = e("scr_data"), a = e("scr_effect"), i = e("scr_public"),
+                        c = cc.find("Canvas/UI1"), o = cc.find("Canvas/UI2"),
+                        floor1 = c.getChildByName("choice1"), floor2 = c.getChildByName("choice2"), floor3 = c.getChildByName("choice3"), floor4 = c.getChildByName("choice4"), floor5 = c.getChildByName("choice5"),
+                        floor6 = c.getChildByName("choice6"),
+                        rateoffloor = [70, 70, 70, 70, 50],
+                        dataofiteminffloor1 = [["披风", 15, 1, 100], ["小裤裤", 21, 1, 20], ["晓月手链", 27, 1, 20], ["幸运石", 26, 1, 20], ["板砖", 20, 1, 20], ["JK制服", 24, 1, 20]];
                     (function () {
                         c.active = !0;
                         o.active = !0;
                         o.scale = 0;
-                        t.cureTimes = 0;
-                        t.gameTime1 = n.publicVar3[6];
-                        t.gameTime2 = n.publicVar3[6];
-                        t.r1 = 100 * Math.random();
-                        t.r2 = 100 * Math.random();
-                        t.r3 = 100 * Math.random();
-                        t.r4 = 100 * Math.random();
-                        t.r5 = 100 * Math.random();
-                        t.makeMoneyRate = (50 * Math.random() + 25).toFixed(1);
-                        t.makeMoneyProfit = (50 * Math.random()).toFixed(1);
-                        t.r3 < f[2] && (l.getChildByName("text").getComponent("cc.Label").string = "三楼：晓风料理");
-                        t.itemId = parseInt(5.99 * Math.random());
-                        t.itemDiscount = parseInt(30 * Math.random() + 60);
-                        t.itemName = d[t.itemId][0];
-                        t.itemPrice = d[t.itemId][3];
-                        t.finalPrice = parseInt(t.itemPrice * t.itemDiscount / 100);
+                        thisModule.cureTimes = 0;
+                        thisModule.gameTime1 = data.publicVar3[6];
+                        thisModule.gameTime2 = data.publicVar3[6];
+                        thisModule.r1 = 100 * Math.random();
+                        thisModule.r2 = 100 * Math.random();
+                        thisModule.r3 = 100 * Math.random();
+                        thisModule.r4 = 100 * Math.random();
+                        thisModule.r5 = 100 * Math.random();
+                        thisModule.makeMoneyRate = (50 * Math.random() + 25).toFixed(1);
+                        thisModule.makeMoneyProfit = (50 * Math.random()).toFixed(1);
+                        thisModule.r3 < rateoffloor[2] && (floor3.getChildByName("text").getComponent("cc.Label").string = "三楼：晓风料理");
+                        thisModule.itemId = parseInt(5.99 * Math.random());
+                        thisModule.itemDiscount = parseInt(30 * Math.random() + 60);
+                        thisModule.itemName = dataofiteminffloor1[thisModule.itemId][0];
+                        thisModule.itemPrice = dataofiteminffloor1[thisModule.itemId][3];
+                        thisModule.finalPrice = parseInt(thisModule.itemPrice * thisModule.itemDiscount / 100);
                     })();
-                    C();
+                    judgefloorenable();
                     (function () {
                         c.getChildByName("back").on("touchstart", function () {
                             e("scr_public").save();
                             cc.director.loadScene("main");
                         }, this);
-                        t.r1 < f[0] ? r.on("touchstart", b, r) : r.on("touchstart", I, r);
-                        t.r2 < f[1] ? s.on("touchstart", _, s) : s.on("touchstart", I, s);
-                        t.r3 < f[2] ? l.on("touchstart", v, l) : l.on("touchstart", I, l);
-                        t.r4 < f[3] ? u.on("touchstart", h, u) : u.on("touchstart", I, u);
-                        n.publicVar3[7] > 800 ? p.on("touchstart", E, p) : t.r5 < f[4] ? p.on("touchstart", V, p) : p.on("touchstart", m, p);
-                        o.getChildByName("choice1").on("touchstart", y, this);
-                        o.getChildByName("choice2").on("touchstart", g, this);
+                        thisModule.r1 < rateoffloor[0] ? floor1.on("touchstart", functionofF1, floor1) : floor1.on("touchstart", callbacknotopen, floor1);
+                        thisModule.r2 < rateoffloor[1] ? floor2.on("touchstart", getitemfromF2, floor2) : floor2.on("touchstart", callbacknotopen, floor2);
+                        thisModule.r3 < rateoffloor[2] ? floor3.on("touchstart", justfade, floor3) : floor3.on("touchstart", callbacknotopen, floor3);
+                        thisModule.r4 < rateoffloor[3] ? floor4.on("touchstart", functionofF4, floor4) : floor4.on("touchstart", callbacknotopen, floor4);
+                        data.publicVar3[7] > 800 ? floor5.on("touchstart", showfloor5disable, floor5) : thisModule.r5 < rateoffloor[4] ? floor5.on("touchstart", showdisable, floor5) : floor5.on("touchstart", functionofF5, floor5);
+                        o.getChildByName("choice1").on("touchstart", eathanbeger, this);
+                        o.getChildByName("choice2").on("touchstart", eatguozi, this);
                         o.getChildByName("back").on("touchstart", function () {
                             o.runAction(cc.scaleTo(.3, 0));
                             (function () {
-                                N();
+                                settextclear();
                                 c.runAction(cc.scaleTo(.3, 1));
                             })();
                         }, this);
                     })();
-                    x();
-                    function m() {
-                        if (t.cureTimes >= 3) a.playText("Canvas/notify", "“啊哈哈哈哈哈~有些累了...下次再来哈~”", 60); else if (n.money >= 10) {
-                            var e = Math.max(100 - n.publicVar3[8], 0), i = 100 * Math.random();
-                            n.publicVar3[7] -= 10;
-                            t.cureTimes += 1;
-                            n.money -= 10;
+                    judgefloor3();
+                    function functionofF5() {
+                        if (thisModule.cureTimes >= 3) a.playText("Canvas/notify", "“啊哈哈哈哈哈~有些累了...下次再来哈~”", 60); else if (data.money >= 10) {
+                            var e = Math.max(100 - data.publicVar3[8], 0), i = 100 * Math.random();
+                            data.publicVar3[7] -= 10;
+                            thisModule.cureTimes += 1;
+                            data.money -= 10;
                             if (i < e) {
-                                n.orderTimes[4] += 1;
+                                data.orderTimes[4] += 1;
                                 a.playText("Canvas/notify", "电疗成功！烟瘾减少1%，电疗店总资产+1元", 60);
                             } else {
-                                n.health -= 1;
+                                data.health -= 1;
                                 a.playText("Canvas/notify", "电疗失败...健康减1点...电疗店总资产+1元", 60);
                             }
-                            C();
+                            judgefloorenable();
                         } else a.playText("Canvas/notify", "没钱！", 60);
                     }
-                    function h() {
-                        if (t.gameTime2 - t.gameTime1 > 30) a.playText("Canvas/notify", "“小兄弟，没身份证的人只能临时上机两小时哦，我怕警察来查，请下次再玩吧~”", 60); else if (20 == n.publicVar3[6]) {
-                            n.money += 1;
-                            n.publicVar3[6] += 1;
+                    function functionofF4() {
+                        if (thisModule.gameTime2 - thisModule.gameTime1 > 30) a.playText("Canvas/notify", "“小兄弟，没身份证的人只能临时上机两小时哦，我怕警察来查，请下次再玩吧~”", 60); else if (20 == data.publicVar3[6]) {
+                            data.money += 1;
+                            data.publicVar3[6] += 1;
                             a.playText("Canvas/notify", "你玩游戏的热情让网吧老板很是感动，老板鼓励你坚持梦想，并奖励你0.1元，~", 60);
-                        } else if (50 == n.publicVar3[6]) {
-                            n.money += 5;
-                            n.publicVar3[6] += 1;
+                        } else if (50 == data.publicVar3[6]) {
+                            data.money += 5;
+                            data.publicVar3[6] += 1;
                             a.playText("Canvas/notify", "你成功晋级青铜段位，老板流出喜悦的泪水，并奖励你0.5元~", 60);
-                        } else if (90 == n.publicVar3[6]) {
-                            n.hunger = i.maxHunger();
-                            n.publicVar3[6] += 1;
+                        } else if (90 == data.publicVar3[6]) {
+                            data.hunger = i.maxHunger();
+                            data.publicVar3[6] += 1;
                             a.playText("Canvas/notify", "你成功晋级白银段位，老板高兴的请你吃了一顿麻辣烫，饥饿全恢复！", 60);
-                        } else if (140 == n.publicVar3[6]) {
-                            n.money += 20;
-                            n.itemNum2[25] += 1;
-                            n.publicVar3[6] += 1;
-                            C();
+                        } else if (140 == data.publicVar3[6]) {
+                            data.money += 20;
+                            data.itemNum2[25] += 1;
+                            data.publicVar3[6] += 1;
+                            judgefloorenable();
                             a.playText("Canvas/notify", "你成功晋级黄金段位，老板奖励你2元钱，和一件个护身符~", 60);
-                        } else if (200 == n.publicVar3[6]) {
-                            n.itemNum2[21] += 1;
-                            n.itemNum2[22] += 1;
-                            n.publicVar3[6] += 1;
+                        } else if (200 == data.publicVar3[6]) {
+                            data.itemNum2[21] += 1;
+                            data.itemNum2[22] += 1;
+                            data.publicVar3[6] += 1;
                             a.playText("Canvas/notify", "你成功晋级白金段位，老板赠送你她的贴身衣物，获得【女装】*1和【小裤裤】*1！", 60);
-                        } else if (300 == n.publicVar3[6]) {
-                            n.hunger = i.maxHunger();
-                            n.publicVar3[6] += 1;
-                            C();
+                        } else if (300 == data.publicVar3[6]) {
+                            data.hunger = i.maxHunger();
+                            data.publicVar3[6] += 1;
+                            judgefloorenable();
                             a.playText("Canvas/notify", "你成功晋级砖石段位，老板兴奋的邀你去她房里睡一觉，精力全恢复！", 60);
-                        } else if (450 == n.publicVar3[6]) {
-                            n.itemNum2[17] += 1;
-                            n.itemNum2[26] += 1;
-                            n.itemNum2[27] += 1;
-                            n.publicVar3[6] += 1;
+                        } else if (450 == data.publicVar3[6]) {
+                            data.itemNum2[17] += 1;
+                            data.itemNum2[26] += 1;
+                            data.itemNum2[27] += 1;
+                            data.publicVar3[6] += 1;
                             a.playText("Canvas/notify", "你成功晋级大师段位，老板赠送你一些收集品，获得【晓月手链】*1【幸运石】*1【放大镜】*1！", 60);
-                        } else if (700 == n.publicVar3[6]) {
-                            n.role.att += 50;
-                            n.role.def += 25;
-                            n.role.maxHp += 250;
-                            n.publicVar3[6] += 1;
+                        } else if (700 == data.publicVar3[6]) {
+                            data.role.att += 50;
+                            data.role.def += 25;
+                            data.role.maxHp += 250;
+                            data.publicVar3[6] += 1;
                             i.save();
                             a.playText("Canvas/notify", "你成功晋级王者段位，老板授予你「王的男人」称号，攻击永久+50，防御永久+25，生命永久+250！", 60);
-                        } else if (n.money >= 1) {
-                            var e = Math.min((40 + n.publicVar3[6] / 10).toFixed(1), 75), c = 100 * Math.random();
-                            n.money -= 1;
+                        } else if (data.money >= 1) {
+                            var e = Math.min((40 + data.publicVar3[6] / 10).toFixed(1), 75), c = 100 * Math.random();
+                            data.money -= 1;
                             if (c < e) {
-                                n.publicVar3[5] < 99 && (n.publicVar3[5] += 1);
-                                n.publicVar3[6] += 1;
-                                t.gameTime2 += 1;
+                                data.publicVar3[5] < 99 && (data.publicVar3[5] += 1);
+                                data.publicVar3[6] += 1;
+                                thisModule.gameTime2 += 1;
                                 a.playText("Canvas/notify", "游戏胜利！炒开森~攻防血提高1%（临时效果，随天数缓慢衰减）。游戏技术+1", 60);
-                                C();
+                                judgefloorenable();
                             } else {
-                                n.publicVar3[5] = 0;
-                                n.publicVar3[6] += 1;
-                                t.gameTime2 += 1;
+                                data.publicVar3[5] = 0;
+                                data.publicVar3[6] += 1;
+                                thisModule.gameTime2 += 1;
                                 a.playText("Canvas/notify", "游戏失败！不开心~属性加成消失...游戏技术+1", 60);
-                                C();
+                                judgefloorenable();
                             }
                         } else a.playText("Canvas/notify", "没钱...", 60);
                     }
-                    function v() {
+                    function justfade() {
                         c.runAction(cc.scaleTo(.3, 0));
                         (function () {
-                            N();
+                            settextclear();
                             o.runAction(cc.scaleTo(.3, 1));
                         })();
                     }
-                    function y() {
-                        if (n.hunger > i.maxHunger()) a.playText("Canvas/notify", "已经吃不下啦...", 60); else if (n.itemNum[3] >= 4 && n.itemNum[0] >= 5) {
-                            n.hunger += 350;
-                            n.maxHunger += 15;
-                            n.itemNum[3] -= 4;
-                            n.itemNum[0] -= 5;
-                            n.publicVar3[13] += 1;
+                    function eathanbeger() {
+                        if (data.hunger > i.maxHunger()) a.playText("Canvas/notify", "已经吃不下啦...", 60); else if (data.itemNum[3] >= 4 && data.itemNum[0] >= 5) {
+                            data.hunger += 350;
+                            data.maxHunger += 15;
+                            data.itemNum[3] -= 4;
+                            data.itemNum[0] -= 5;
+                            data.publicVar3[13] += 1;
                             a.playText("Canvas/notify", "饥饿+350，最大饥饿值提高15点！", 60);
-                            C();
+                            judgefloorenable();
                         } else a.playText("Canvas/notify", "食材不足~", 60);
                     }
-                    function g() {
-                        if (n.hunger > i.maxHunger()) a.playText("Canvas/notify", "已经吃不下啦...", 60); else if (n.itemNum[0] >= 5) {
-                            n.hunger += 100;
-                            n.health += 2;
-                            n.itemNum[0] -= 5;
+                    function eatguozi() {
+                        if (data.hunger > i.maxHunger()) a.playText("Canvas/notify", "已经吃不下啦...", 60); else if (data.itemNum[0] >= 5) {
+                            data.hunger += 100;
+                            data.health += 2;
+                            data.itemNum[0] -= 5;
                             a.playText("Canvas/notify", "饥饿+100，健康值+2！", 60);
-                            C();
+                            judgefloorenable();
                         } else a.playText("Canvas/notify", "食材不足~", 60);
                     }
-                    function b() {
+                    function functionofF1() {
                         var e = 100 * Math.random();
-                        if (0 == t.makeMoneyRate) a.playText("Canvas/notify", "“今日已投资，请明日再来吧~”", 60); else if (0 == n.money) a.playText("Canvas/notify", "“不好意思，请你出去~”", 60); else if (n.money > 500) a.playText("Canvas/notify", "“不好意思，你已超过国家监管限定金额，请你去实体银行吧，我们只是网上的小银行~”", 60); else if (e < t.makeMoneyRate) {
-                            var i = parseInt(n.money * t.makeMoneyProfit / 100);
-                            n.money += i;
-                            a.playText("Canvas/notify", "投资成功！金钱增加" + t.makeMoneyProfit + "%(+" + (i / 10).toFixed(1) + ")", 60);
-                            t.makeMoneyRate = 0;
-                            C();
+                        if (0 == thisModule.makeMoneyRate) a.playText("Canvas/notify", "“今日已投资，请明日再来吧~”", 60); else if (0 == data.money) a.playText("Canvas/notify", "“不好意思，请你出去~”", 60); else if (data.money > 500) a.playText("Canvas/notify", "“不好意思，你已超过国家监管限定金额，请你去实体银行吧，我们只是网上的小银行~”", 60); else if (e < thisModule.makeMoneyRate) {
+                            var i = parseInt(data.money * thisModule.makeMoneyProfit / 100);
+                            data.money += i;
+                            a.playText("Canvas/notify", "投资成功！金钱增加" + thisModule.makeMoneyProfit + "%(+" + (i / 10).toFixed(1) + ")", 60);
+                            thisModule.makeMoneyRate = 0;
+                            judgefloorenable();
                         } else {
-                            i = parseInt(n.money * t.makeMoneyProfit / 100);
-                            n.money -= i;
-                            a.playText("Canvas/notify", "投资失败...金钱缩水" + t.makeMoneyProfit + "%(-" + (i / 10).toFixed(1) + ")", 60);
-                            t.makeMoneyRate = 0;
-                            C();
+                            i = parseInt(data.money * thisModule.makeMoneyProfit / 100);
+                            data.money -= i;
+                            a.playText("Canvas/notify", "投资失败...金钱缩水" + thisModule.makeMoneyProfit + "%(-" + (i / 10).toFixed(1) + ")", 60);
+                            thisModule.makeMoneyRate = 0;
+                            judgefloorenable();
                         }
                     }
-                    function _() {
-                        if (t.itemDiscount >= 9999) a.playText("Canvas/notify", "商品已售罄~", 60); else if (n.money >= t.finalPrice) {
-                            var e = d[t.itemId][1], i = d[t.itemId][2];
-                            n.money -= t.finalPrice;
-                            n.itemNum2[e] += i;
-                            a.playText("Canvas/notify", "获得【" + t.itemName + "】*" + i, 60);
-                            t.itemDiscount = 9999;
-                            C();
-                            x();
+                    function getitemfromF2() {
+                        if (thisModule.itemDiscount >= 9999) a.playText("Canvas/notify", "商品已售罄~", 60); else if (data.money >= thisModule.finalPrice) {
+                            var e = dataofiteminffloor1[thisModule.itemId][1], i = dataofiteminffloor1[thisModule.itemId][2];
+                            data.money -= thisModule.finalPrice;
+                            data.itemNum2[e] += i;
+                            a.playText("Canvas/notify", "获得【" + thisModule.itemName + "】*" + i, 60);
+                            thisModule.itemDiscount = 9999;
+                            judgefloorenable();
+                            judgefloor3();
                         } else a.playText("Canvas/notify", "金钱不足！", 60);
                     }
-                    function x() {
-                        t.itemDiscount >= 9999 ? s.getChildByName("text").getComponent("cc.Label").string = "二楼：晓风服饰（已售罄~）" : t.r2 < f[1] ? s.getChildByName("text").getComponent("cc.Label").string = "二楼：晓风服饰（" + t.itemName + "," + t.itemDiscount + "折," + (t.finalPrice / 10).toFixed(1) + "元）" : s.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）";
+                    function judgefloor3() {
+                        thisModule.itemDiscount >= 9999 ? floor2.getChildByName("text").getComponent("cc.Label").string = "二楼：晓风服饰（已售罄~）" : thisModule.r2 < rateoffloor[1] ? floor2.getChildByName("text").getComponent("cc.Label").string = "二楼：晓风服饰（" + thisModule.itemName + "," + thisModule.itemDiscount + "折," + (thisModule.finalPrice / 10).toFixed(1) + "元）" : floor2.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）";
                     }
-                    function C() {
-                        t.r1 < f[0] ? r.getChildByName("text").getComponent("cc.Label").string = "一楼：晓风金融（赢钱概率" + t.makeMoneyRate + "%）" : r.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）";
-                        t.r4 < f[3] ? u.getChildByName("text").getComponent("cc.Label").string = "四楼：晓风网咖（属性+" + n.publicVar3[5] + "%,胜率" + Math.min((40 + n.publicVar3[6] / 10).toFixed(1), 75) + "%）" : u.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）";
-                        cc.find("Canvas/UI2/hunger").getComponent("cc.Label").string = "饥饿 " + n.hunger + "/" + i.maxHunger();
-                        cc.find("Canvas/money").getComponent("cc.Label").string = "金钱 " + (n.money / 10).toFixed(1);
-                        n.publicVar3[7] > 800 ? p.getChildByName("text").getComponent("cc.Label").string = "关门大吉！转行啦~" : t.r5 < f[4] ? p.getChildByName("text").getComponent("cc.Label").string = "？？？？（心情不好，外出旅游啦~）" : p.getChildByName("text").getComponent("cc.Label").string = "五楼：小风电疗（资产" + ((800 - n.publicVar3[7]) / 10).toFixed(1) + "元,成功率" + Math.max(100 - n.publicVar3[8], 0) + "%）";
+                    function judgefloorenable() {
+                        thisModule.r1 < rateoffloor[0] ? floor1.getChildByName("text").getComponent("cc.Label").string = "一楼：晓风金融（赢钱概率" + thisModule.makeMoneyRate + "%）" : floor1.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）";
+                        thisModule.r4 < rateoffloor[3] ? floor4.getChildByName("text").getComponent("cc.Label").string = "四楼：晓风网咖（属性+" + data.publicVar3[5] + "%,胜率" + Math.min((40 + data.publicVar3[6] / 10).toFixed(1), 75) + "%）" : floor4.getChildByName("text").getComponent("cc.Label").string = "？？？？（放假中...）";
+                        cc.find("Canvas/UI2/hunger").getComponent("cc.Label").string = "饥饿 " + data.hunger + "/" + i.maxHunger();
+                        cc.find("Canvas/money").getComponent("cc.Label").string = "金钱 " + (data.money / 10).toFixed(1);
+                        data.publicVar3[7] > 800 ? floor5.getChildByName("text").getComponent("cc.Label").string = "关门大吉！转行啦~" : thisModule.r5 < rateoffloor[4] ? floor5.getChildByName("text").getComponent("cc.Label").string = "？？？？（心情不好，外出旅游啦~）" : floor5.getChildByName("text").getComponent("cc.Label").string = "五楼：小风电疗（资产" + ((800 - data.publicVar3[7]) / 10).toFixed(1) + "元,成功率" + Math.max(100 - data.publicVar3[8], 0) + "%）";
                         i.save();
                     }
-                    function E() {
+                    function showfloor5disable() {
                         a.playText("Canvas/notify", "由于经济不景气，公司倒闭，老板转行卖土鸡蛋去啦~", 60);
                     }
-                    function I() {
+                    function callbacknotopen() {
                         a.playText("Canvas/notify", "“放假啦！哈哈哈哈哈！”", 60);
                     }
-                    function V() {
+                    function showdisable() {
                         a.playText("Canvas/notify", "“再为难~也不能耽误放假呀！哈哈哈哈哈！”", 60);
                     }
-                    function N() {
+                    function settextclear() {
                         cc.find("Canvas/notify").getComponent("cc.Label").string = "";
                     }
                 }
