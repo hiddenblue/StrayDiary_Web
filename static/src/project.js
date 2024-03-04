@@ -2578,6 +2578,44 @@ require = function e(t, n, a) {
                             winEvent: void 0,
                             lostEvent: void 0
                         },
+                        4001: {
+                            name: "日本怪1",
+                            lv: 1e3,
+                            hp: 99999,
+                            maxHp: 99999,
+                            att: 2999,
+                            def: 1199,
+                            publicVar: 0,
+                            escapeRate: -70,
+                            enemyEscapeRate: 0,
+                            lostHealth: 2,
+                            achieve: 0,
+                            getAtt: 1,
+                            drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
+                            des: "“入侵者，既然你来到这里，就不太可能出去了~”",
+                            skill: function () {
+                                this.publicVar += 1;
+                                var e = parseInt(this.att * (1 + this.publicVar / 10));
+                                c.role.hp -= e;
+                                this.hp += e;
+                                return "【" + this.name + "喷出「靶向喷雾」你受到" + e + "点伤害。" + this.name + "恢复" + e + "点生命，并收集1点能量！】";
+                            },
+                            defSkill: function () {
+                                if (this.publicVar % 4 == 0) {
+                                    this.def = 899;
+                                    return "【" + this.name + "「无敌屏障」被击破！】";
+                                }
+                                if (this.publicVar % 2 == 0) {
+                                    this.def = 99999;
+                                    return "【" + this.name + "启动「无敌屏障」！】";
+                                }
+                                var e = parseInt(o.att * (.2 + this.publicVar / 10));
+                                c.role.hp -= e;
+                                return "【" + this.name + "开启「反射屏障」你受到" + e + "点伤害！】";
+                            },
+                            winEvent: void 0,
+                            lostEvent: void 0
+                        },
                         100: {
                             name: "女贼(呆萌)",
                             lv: 1,
@@ -7720,7 +7758,7 @@ require = function e(t, n, a) {
             scr_effect: "scr_effect",
             scr_public: "scr_public"
         }],
-        //探索传送门
+        //tag 探索传送门
         scr_explore: [function (e, t, n) {
             "use strict";
             cc._RF.push(t, "aac8eR1m+lE25FoXnDRrcRr", "scr_explore");
@@ -7729,7 +7767,7 @@ require = function e(t, n, a) {
                 properties: {},
                 onLoad: function () {
                     var t = cc.find("Canvas/Button/button_forward").getComponent("scr_forwardButton").constructor, n = new t(), a = new t(), i = new t(), c = new t(),//todo
-                        o = this, r = e("scr_data");
+                        o = this, r = e("scr_data"),Tokyo = new t();
                     this.node.runAction(cc.tintTo(.1, 255, 255, 255));//变成黑色
                     n.addDistance = function () { };
                     a.addDistance = function () { };
@@ -7737,6 +7775,7 @@ require = function e(t, n, a) {
                     c.addDistance = function () {
                         e("scr_data").publicVar3[1] += 1;
                     };
+                    Tokyo.addDistance = function () { };
                     n.shieldButton = function () {
                         o.node.off("touchstart", n.callBack, n);
                         o.node.runAction(cc.tintTo(.1, 114, 199, 255));//变成淡蓝色，本来是0.3秒，现在改成0.1秒
@@ -7757,6 +7796,11 @@ require = function e(t, n, a) {
                         o.node.runAction(cc.tintTo(.1, 114, 199, 255));
                         o.scheduleOnce(o.onLoad, .05);
                     };
+                    Tokyo.shieldButton = function () {
+                        o.node.off("touchstart", c.callBack, c);
+                        o.node.runAction(cc.tintTo(.1, 114, 199, 255));
+                        o.scheduleOnce(o.onLoad, .05);
+                    };
                     n.getItemNum = function () {
                         return 1;
                     };
@@ -7768,6 +7812,9 @@ require = function e(t, n, a) {
                     };
                     c.getItemNum = function () {
                         return Math.min(parseInt(e("scr_data").publicVar3[1] / 100 + 1), 4);
+                    };
+                    Tokyo.getItemNum = function () {
+                        return 2;//todo
                     };
                     n.dryUp = function () {
                         var t = e("scr_public").regionId(), n = e("scr_data");
@@ -7786,6 +7833,9 @@ require = function e(t, n, a) {
                     c.getFigthId = function () {
                         return [3001, 3002, 3003, 3004, 3005, 3006, 3007, 3008, 3009, 3010, 900004][Math.min(parseInt(e("scr_data").publicVar3[1] / 50), 10)];
                     };
+                    Tokyo.getEnemyRate = function () {
+                        return [[0, 0], [20, 2001], [40, 2002], [60, 2003], [75, 2004], [100, 2005]];
+                    };//todo
                     a.getDrop = function () {
                         return [[16, 0, 2, 1], [25, 1, 2, 1], [25, 4, 2, 1], [19, 5, 1, 1], [6, 6, 1, 1]];//a是郊外，i是市中心，c是山洞
                     };
@@ -7793,6 +7843,9 @@ require = function e(t, n, a) {
                         return [[97, 2, 1, 1], [20, 2, 1, 1], [25, 99, 2, 3], [15, 7, 1, 1], [2, 14, 1, 1]];//加入2%剩饭
                     };
                     c.getDrop = function () {
+                        return [[60, 16, 1, 2], [20, 16, 1, 2], [8, 8, 1, 1]];
+                    };
+                    Tokyo.getDrop = function () {//todo
                         return [[60, 16, 1, 2], [20, 16, 1, 2], [8, 8, 1, 1]];
                     };
                     a.regionEventId = function () {
@@ -7804,6 +7857,9 @@ require = function e(t, n, a) {
                     c.regionEventId = function () {
                         return 9e3 + c.randomId([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
                     };
+                    Tokyo.regionEventId = function () {
+                        return 9e3 + c.randomId([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
+                    };//todo
                     c.regionEventId = function () {
                         return 0;
                     };
