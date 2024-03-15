@@ -8446,7 +8446,7 @@ require = function e(t, n, a) {
                         n.enemyId = 0;
                         SaveGame();
                     }
-                    function isBattleEnd() {
+                    function isBattleEnd() {//tag 战斗结束函数
                         if (theEnemy.hp <= 0) {
                             P();
                             var e = theEnemy.drop, JKshoes = "", shouliandu = "",
@@ -8480,7 +8480,7 @@ require = function e(t, n, a) {
                                 return "";
                             }());
                             var addstate = function () {
-                                var e = theEnemy.getAtt, t = 100 * Math.random();
+                                var e = theEnemy.getAtt * n.energyconsumetimes, t = 100 * Math.random();
                                 if (3 == n.publicVar[1]) {
                                     e *= 2;
                                 }
@@ -14197,12 +14197,7 @@ require = function e(t, n, a) {
             cc._RF.push(t, "00817ZNI7hJb4XVsFxczkla", "scr_system");
             cc.Class({
                 extends: cc.Component,
-                properties: {
-                    sprite: {  //关联编辑器
-                        type: cc.SpriteFrame,
-                        default: null,
-                    }
-                },
+                properties: {},
                 onLoad: function () {
                     var t = ["一般", "快", "一般"],
                         n = cc.find("Canvas/button/speed"), a = e("scr_data"), i = e("scr_effect"),
@@ -14218,7 +14213,7 @@ require = function e(t, n, a) {
                     let exT = cc.instantiate(speedtext);//复制显示文字的label
                     exT.setPosition(0, 557 - 200);// 如法炮制
                     cc.find("Canvas/text").addChild(exT);
-                    exT.getComponent("cc.Label").string = "你当前拥有1x前进/探索速度\n（探索时会消耗对应倍数的精力\n但是奖励总量不变）";
+                    exT.getComponent("cc.Label").string = "你当前拥有 " + a.energyconsumetimes + "x 前进/探索速度\n（探索时会消耗对应倍数的精力\n但是奖励总量不变）";
                     n.on("touchstart", function () {//添加触摸函数要最后加，不然复制的按钮也会有这个函数（也许吧）
                         a.publicVar[6] += 1;
                         a.publicVar[6] > 2 && (a.publicVar[6] = 1);
