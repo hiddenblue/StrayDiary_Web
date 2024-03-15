@@ -14225,8 +14225,8 @@ require = function e(t, n, a) {
                         i.playText("Canvas/text/speed", "你目前剧情播放速度为" + t[a.publicVar[6]], 60);
                     }, n);
                     ex.on("touchstart", function () {//添加触摸函数要最后加，不然复制的按钮也会有这个函数（也许吧）
-                        a.publicVar[6] += 1;
-                        a.publicVar[6] > 2 && (a.publicVar[6] = 1);
+                        a.energyconsumetimes += 1;
+                        a.energyconsumetimes > 10 && (a.energyconsumetimes = 1);
                         i.playText("Canvas/text/speed", "你目前剧情播放速度为" + t[a.publicVar[6]], 60);
                     }, ex);
                 }
