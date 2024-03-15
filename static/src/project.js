@@ -8540,7 +8540,7 @@ require = function e(t, n, a) {
                             "没发现道具" == o && (fightwinText = fightwinText.replace("获得", ""));
                             fightwinText = lucky + XY + XL + JKshoes + fightwinText + o + addstate + shouliandu + achieve;
                             "undefined" != typeof theEnemy.winEvent && (fightwinText = fightwinText + "！\n" + theEnemy.winEvent());
-                            //n.energyconsumetimes = n.temp;
+                            n.energyconsumetimes = n.temp;
                             leaveBattle();
                             inFight.scheduleOnce(function () {
                                 i.playText("Canvas/Text/txt_notify", fightwinText, 80);
@@ -8725,8 +8725,8 @@ require = function e(t, n, a) {
                             n.publicVar2[2] += 1;
                             this.fight();
                             n.energy += 10 * (n.energyconsumetimes - 1);
-                            //n.temp = n.energyconsumetimes;
-                            ///n.energyconsumetimes = 1;
+                            n.temp = n.energyconsumetimes;
+                            n.energyconsumetimes = 1;
                         }
                     } else if (rate <= 80) {
                         n.publicVar2[3] += 1;
