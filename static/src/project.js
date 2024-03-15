@@ -14227,7 +14227,7 @@ require = function e(t, n, a) {
                     ex.on("touchstart", function () {//添加触摸函数要最后加，不然复制的按钮也会有这个函数（也许吧）
                         a.energyconsumetimes += 1;
                         a.energyconsumetimes > 10 && (a.energyconsumetimes = 1);
-                        i.playText("Canvas/text/speed", "你目前剧情播放速度为" + t[a.publicVar[6]], 60);
+                        exT.getComponent("cc.Label").string = "你当前拥有 " + a.energyconsumetimes + "x 前进/探索速度\n（探索时会消耗对应倍数的精力\n但是奖励总量不变）";//todo
                     }, ex);
                 }
             });
