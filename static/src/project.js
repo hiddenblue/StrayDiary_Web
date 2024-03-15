@@ -7972,10 +7972,10 @@ require = function e(t, n, a) {
                     a.setScale(0, 0);
                     a.runAction(i);
                 },
-                getItem: function (t) {//getitem函数，第一位是概率，第二位是在itemnum中的位置，第三个是获得的数量，第四个是判断是itemnum1还是2还是钱
+                getItem: function (t) {//tag getitem函数，第一位是概率，第二位是在itemnum中的位置，第三个是获得的数量，第四个是判断是itemnum1还是2还是钱
                     for (var n = "", a = t.length, i = e("scr_public"), c = e("scr_data"), o = 0; o < a; o++) {
                         if (100 * Math.random() < t[o][0]) {
-                            var r = t[o][1], s = t[o][2], l = t[o][3];
+                            var r = t[o][1], s = t[o][2] * c.energyconsumetimes, l = t[o][3];
                             if (2 == l) {
                                 var u = i.itemName2;
                                 c.itemNum2[r] += s;
@@ -8603,7 +8603,7 @@ require = function e(t, n, a) {
             scr_enemy: "scr_enemy",
             scr_public: "scr_public"
         }],
-        //前进按钮传送门
+        //tag 前进按钮传送门
         scr_forwardButton: [function (e, t, n) {
             "use strict";
             cc._RF.push(t, "7e6b7ZHdulNI6LuPQKyXMkr", "scr_forwardButton");
@@ -8628,7 +8628,7 @@ require = function e(t, n, a) {
                 getItemNum: function () {
                     return 2;
                 },
-                //探索传送门
+                //tag 探索传送门
                 getItem: function () {
                     e("scr_public").regionId();
                     var t = e("scr_data"), n = this.getDrop(), a = cc.find("Event/scr_fight").getComponent("scr_fight").getItem(n), i = function () {
@@ -8731,7 +8731,8 @@ require = function e(t, n, a) {
                             this.getItem();
                         } else {
                             n.publicVar2[4] += 1;
-                            this.event();
+                            this.event();//返还精力
+                            n.energy += 10 * (n.energyconsumetimes - 1);
                         }
                     }
                 },
@@ -8788,7 +8789,7 @@ require = function e(t, n, a) {
                 callBack: function () {
                     var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public"), i = this.dryUp();
                     a.ifGameOver();
-                    this.Energy = 10;
+                    this.Energy = 10 * t.energyconsumetimes;
                     if (t.energy >= this.Energy && 0 == i)
                         if (t.day >= 180) this.end();
                         else if (290 == t.distance && 1 == t.ifFollow[0]) {
