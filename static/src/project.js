@@ -409,6 +409,8 @@ require = function e(t, n, a) {
                         gift: [0, 0, 0, 0],
                         randomBuff: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                         escapeExp: 0,
+                        energyconsumetimes: 1,
+                        temp: 0,
                         buffState: [0, 0, 0, 0],
                         ifNotify: !1,
                         skillLv: {
@@ -570,7 +572,7 @@ require = function e(t, n, a) {
                     };
                     JSON.parse(cc.sys.localStorage.getItem("userData")) && function (e) {
                         "undefined" == typeof e.itemNum[17] && (e.itemNum[17] = 0);
-
+                        "undefined" == typeof e.energyconsumetimes && (e.energyconsumetimes = 1);
                         "undefined" == typeof e.itemNum2[36] && (e.itemNum2[36] = 0);
                         //"undefined" == typeof e.itemNum2[37] && (e.itemNum2[37] = 0);
                         "undefined" == typeof e.orderTimes[10] && (e.orderTimes[10] = 0);
@@ -8480,7 +8482,7 @@ require = function e(t, n, a) {
                                 return "";
                             }());
                             var addstate = function () {
-                                var e = theEnemy.getAtt * n.energyconsumetimes, t = 100 * Math.random();
+                                var e = theEnemy.getAtt, t = 100 * Math.random();
                                 if (3 == n.publicVar[1]) {
                                     e *= 2;
                                 }
@@ -8538,6 +8540,7 @@ require = function e(t, n, a) {
                             "没发现道具" == o && (fightwinText = fightwinText.replace("获得", ""));
                             fightwinText = lucky + XY + XL + JKshoes + fightwinText + o + addstate + shouliandu + achieve;
                             "undefined" != typeof theEnemy.winEvent && (fightwinText = fightwinText + "！\n" + theEnemy.winEvent());
+                            //n.energyconsumetimes = n.temp;
                             leaveBattle();
                             inFight.scheduleOnce(function () {
                                 i.playText("Canvas/Text/txt_notify", fightwinText, 80);
@@ -8721,6 +8724,9 @@ require = function e(t, n, a) {
                         } else {
                             n.publicVar2[2] += 1;
                             this.fight();
+                            n.energy += 10 * (n.energyconsumetimes - 1);
+                            //n.temp = n.energyconsumetimes;
+                            ///n.energyconsumetimes = 1;
                         }
                     } else if (rate <= 80) {
                         n.publicVar2[3] += 1;
