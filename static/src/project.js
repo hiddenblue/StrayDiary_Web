@@ -8616,6 +8616,7 @@ require = function e(t, n, a) {
                             m.stopAllActions();
                             var t = theEnemy.lostHealth || 0;
                             e = n.day < 20 ? "战斗失败！健康-" + t + "（健康为0时游戏结束）" : "战斗失败！健康-" + t;
+                            n.inBattle = 0;
                             n.winsstreaks = 0;
                             n.buffState[2] = 0;
                             n.health -= t;
