@@ -16,7 +16,7 @@ require = function e(t, n, a) {
         }
         return n[o].exports;
     }
-    for (var c = "function" == typeof require && require, o = 0; o < a.length; o++)i(a[o]);
+    for (var c = "function" == typeof require && require, o = 0; o < a.length; o++) i(a[o]);
     return i;
 }
     ({
@@ -8009,8 +8009,8 @@ require = function e(t, n, a) {
                         o = e("scr_enemy")[t], theEnemy = {},
                         attackButton = cc.find("Canvas/Fight/fight"), ESCbutton = cc.find("Canvas/Fight/escape"), u = cc.find("Canvas/Fight/state"), theescapetext = cc.find("Canvas/Fight/notify2"),
                         roleHpLabel = cc.find("Canvas/Fight/roleHp"), d = cc.find("Canvas/Fight/enemyHp"), m = cc.find("Canvas/Fight/escapeRate"), attText = cc.find("Canvas/Fight/notify"),
-                        gunButton = cc.find("Canvas/Fight/gunButton"),  // 查找Canvas中的gunButton节点
-                        Askill = cc.instantiate(gunButton),
+                        gunButton = cc.find("Canvas/Fight/gunButton"),
+                        // 查找Canvas中的gunButton节点
                         blackKnifetimes = 1,
                         redTimes = 0,
                         bloodnum = 0,
@@ -8028,6 +8028,18 @@ require = function e(t, n, a) {
                             bleedNum: 1,
                             attackTimes: 1
                         };
+                    var Askill = cc.instantiate(gunButton);//todo 111111111
+                    Askill.active = true;
+                    Askill.setPosition(364, -423 + 100);
+                    cc.find("Canvas/Fight").addChild(Askill);
+                    var text = ["关", "开"];
+                    Askill.getComponent("cc.Label").string = "";
+                    Askill.on("touchstart", function () {
+                        if (blackKnifetimes > 0) {
+                            n.Askills[0] === 0 ? n.Askills[0] = 1 : n.Askills[0] = 0;
+                            Askill.getComponent("cc.Label").string = "居合斩\n（" + blackKnifetimes + "）\n【" + text[n.Askills[0]] + "】";
+                        }
+                    }, Askill)
                     n.publicVar[4] = 0;
                     n.Askills[0] = 0;
                     this.correct = [0, 0];//临时攻击和防御力，随便减少
@@ -8072,20 +8084,6 @@ require = function e(t, n, a) {
                                 theEnemy.def += i;
                             }
                         }
-                    })();
-                    (function () {//创建ui
-                        //todo 新主动
-                        Askill.active = true;
-                        Askill.setPosition(364, -423 + 100);
-                        cc.find("Canvas/Fight").addChild(Askill);
-                        var text = ["关", "开"];
-                        Askill.getComponent("cc.Label").string = "";
-                        Askill.on("touchstart", function () {
-                            if (blackKnifetimes > 0) {
-                                n.Askills[0] === 0 ? n.Askills[0] = 1 : n.Askills[0] = 0;
-                                Askill.getComponent("cc.Label").string = "居合斩\n（" + blackKnifetimes + "）\n【" + text[n.Askills[0]] + "】";
-                            }
-                        }, Askill);
                     })();
                     //tag 战斗特效传送门
                     var yourDEF = youinFight.def, Edes = theEnemy.des, k = ["均  衡", "进  攻", "防  御"];
@@ -8150,7 +8148,7 @@ require = function e(t, n, a) {
                             //自己的攻击力    晓月加的临时攻击力     附带的攻击力，来自特性或者敌人技能  减去敌人的防御力（受披风影响） 最低为0
                             if (0 == m) {
                                 theDamage = parseInt(theDamage * (1 + b[0] / 500));
-                                damageTimesText *= parseInt(1 + b[0] / 500);
+                                damageTimesText *= (1 + b[0] / 500);
                                 g[0] += 1;
                             }
                             if (1 == m) {
@@ -8181,15 +8179,15 @@ require = function e(t, n, a) {
                             }
                             if (isWeiLanvaild >= 0) {
                                 (theDamage = parseInt((1 + 0.02 * isWeiLanvaild) * theDamage));
-                                damageTimesText *= parseInt(1 + 0.02 * isWeiLanvaild);
+                                damageTimesText *= (1 + 0.02 * isWeiLanvaild);
                             }/*陷阱*/
                             if (1 == n.buffState[2]) {//自信buff
                                 if (n.winsstreaks <= 3) {
                                     theDamage = parseInt((1 + 0.1 * n.winsstreaks) * theDamage);
-                                    damageTimesText *= parseInt(1 + 0.1 * n.winsstreaks);
+                                    damageTimesText *= (1 + 0.1 * n.winsstreaks);
                                 } else {
                                     theDamage = parseInt((1 + 0.3) * theDamage);
-                                    damageTimesText *= parseInt(1 + 0.3 * n.winsstreaks);
+                                    damageTimesText *= (1 + 0.3 * n.winsstreaks);
                                 }
                             }
                             if (1 == n.skillLv[27]) {//宿醉特效
@@ -8203,7 +8201,7 @@ require = function e(t, n, a) {
                                 }//todo
                                 damageTimesText *= damageTimes;
                                 youHitsText = youHitsText.replace(/普攻|割裂|枪击/, "居合");
-                                /暴击/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击|爆头/, "居合斩"));
+                                /暴击|爆头/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击|爆头/, "「斩，无赦！」"));
                                 theDamage = parseInt(theDamage * damageTimes);
                                 n.Askills[0] = 0;
                                 blackKnifetimes -= 1;
@@ -8289,11 +8287,11 @@ require = function e(t, n, a) {
                             theEnemy.hp -= theDamage;
                             if (bloodnum > 0) {
                                 theEnemy.hp -= bloodnum;
-                                booldtext = "流血造成" + bloodnum + "伤害";
+                                booldtext = "。流血造成" + bloodnum + "伤害";
                             }
                             attTimes += 1;
                             //100002 == t && (u = theEnemy.defSkill());这段代码是多出来的，没有作用
-                            youHitsText = youHitsText + "，对" + theEnemy.name + "造成" + theDamage + "点伤害" + a + o + s + l + u + f + BY + theSword + booldtext + ",你的总倍率为" + parseInt(damageTimesText) + "%";
+                            youHitsText = youHitsText + "，对" + theEnemy.name + "造成" + theDamage + "点伤害" + a + o + s + l + u + f + BY + theSword + booldtext + "。你的总倍率为" + parseInt(damageTimesText) + "%";
                             cleanAttText();
                             inFight.creatText(attText, "roleNotify", youHitsText);
                             (function () {
@@ -8505,6 +8503,7 @@ require = function e(t, n, a) {
                     }
                     function leaveBattle() {
                         n.enemyId = 0;
+                        Askill.removeFromParent(false);//todo ui
                         SaveGame();
                     }
                     function isBattleEnd() {//func 战斗结束函数
@@ -8597,7 +8596,6 @@ require = function e(t, n, a) {
                             n.winTimes += 1;
                             n.winsstreaks += 1;
                             n.inBattle = 0;
-                            //n.energyconsumetimes = n.temp;
                             "没发现道具" == o && (fightwinText = fightwinText.replace("获得", ""));
                             fightwinText = lucky + XY + XL + JKshoes + fightwinText + o + addstate + shouliandu + achieve;
                             "undefined" != typeof theEnemy.winEvent && (fightwinText = fightwinText + "！\n" + theEnemy.winEvent());
@@ -11198,7 +11196,7 @@ require = function e(t, n, a) {
                     cc.find("Canvas/Text/txt_notify").getComponent("cc.Label").string = "";
                     cc.find("Canvas/Event").scale = 1;
                     cc.find("Canvas/Event/Choice").scale = 0;
-                    cc.find("Canvas/Button").runAction(cc.scaleTo(.3, 0));
+                    cc.find("Canvas/Button").runAction(cc.scaleTo(0, 0));//修改缩放按钮保护
                 },
                 closeUI: function (t) {
                     var n = cc.find("Canvas/Button"), a = e("scr_public"), i = cc.find("Canvas/Event/Choice/Choice1"), c = cc.find("Canvas/Event/Choice/Choice2");
@@ -11207,7 +11205,7 @@ require = function e(t, n, a) {
                     i.targetOff(i);
                     c.targetOff(c);
                     cc.find("Canvas/Event").scale = 0;
-                    n.runAction(cc.scaleTo(.3, 1));
+                    n.runAction(cc.scaleTo(0, 1));//修改缩放按钮保护
                     t = t || "";
                     e("scr_effect").playText("Canvas/Text/txt_notify", t, 60);
                     a.save();
@@ -11569,7 +11567,7 @@ require = function e(t, n, a) {
                         10: {
                             itemName: "皮衣LV" + this.data.itemNum2[9],
                             needDes: "※可通过购买，或者打怪掉落提高等级",
-                            des: "※增加" + 10 * this.data.itemNum2[9] + "点防御和" + 25 * this.data.itemNum2[9] + "点生命。【止伤】受击时，" + Math.min(2 * this.data.itemNum2[4], 100) + "%几率触发【止伤】，回复50%已损生命值",
+                            des: "※增加" + 10 * this.data.itemNum2[9] + "点防御和" + 25 * this.data.itemNum2[9] + "点生命。【止伤】受击时，" + Math.min(2 * this.data.itemNum2[9], 100) + "%几率触发【止伤】，回复50%已损生命值",
                             button: function () {
                                 n.playText("Canvas/notify", "请去商店购买！", 100);
                             }
