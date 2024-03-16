@@ -410,7 +410,8 @@ require = function e(t, n, a) {
                         randomBuff: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                         escapeExp: 0,
                         energyconsumetimes: 1,
-                        temp: 0,
+                        inBattle: 0,
+                        Askills: [0, 0, 0, 0],
                         buffState: [0, 0, 0, 0],
                         ifNotify: !1,
                         skillLv: {
@@ -574,6 +575,7 @@ require = function e(t, n, a) {
                         "undefined" == typeof e.itemNum[17] && (e.itemNum[17] = 0);
                         "undefined" == typeof e.energyconsumetimes && (e.energyconsumetimes = 1);
                         "undefined" == typeof e.itemNum2[36] && (e.itemNum2[36] = 0);
+                        "undefined" == typeof e.Askills && (e.Askills = [0, 0, 0, 0]);
                         //"undefined" == typeof e.itemNum2[37] && (e.itemNum2[37] = 0);
                         "undefined" == typeof e.orderTimes[10] && (e.orderTimes[10] = 0);
                         "undefined" == typeof e.orderTimes[11] && (e.orderTimes[11] = 0);
@@ -855,8 +857,8 @@ require = function e(t, n, a) {
                                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 30 + n.orderTimes[0], o = n.itemNum2[1], r = n.role.hp, s = i.role.maxHp();
                                 if (r < s) if (o >= 1) {
                                     n.itemNum2[1] -= 1;
-                                    n.role.hp += c;
                                     n.role.maxHp += 10;
+                                    n.role.hp += c;
                                     n.role.hp > s && (n.role.hp = s);
                                     n.orderTimes[0] += 1;
                                     i.save();
@@ -7974,10 +7976,13 @@ require = function e(t, n, a) {
                     a.setScale(0, 0);
                     a.runAction(i);
                 },
-                getItem: function (t) {//tag getitem函数，第一位是概率，第二位是在itemnum中的位置，第三个是获得的数量，第四个是判断是itemnum1还是2还是钱
+                getItem: function (t) {//func getitem函数，第一位是概率，第二位是在itemnum中的位置，第三个是获得的数量，第四个是判断是itemnum1还是2还是钱
                     for (var n = "", a = t.length, i = e("scr_public"), c = e("scr_data"), o = 0; o < a; o++) {
                         if (100 * Math.random() < t[o][0]) {
-                            var r = t[o][1], s = t[o][2] * c.energyconsumetimes, l = t[o][3];
+                            var r = t[o][1], s = t[o][2], l = t[o][3];
+                            if (c.inBattle != 1) {
+                                s *= c.energyconsumetimes;
+                            }
                             if (2 == l) {
                                 var u = i.itemName2;
                                 c.itemNum2[r] += s;
@@ -8004,8 +8009,12 @@ require = function e(t, n, a) {
                         o = e("scr_enemy")[t], theEnemy = {},
                         attackButton = cc.find("Canvas/Fight/fight"), ESCbutton = cc.find("Canvas/Fight/escape"), u = cc.find("Canvas/Fight/state"), theescapetext = cc.find("Canvas/Fight/notify2"),
                         roleHpLabel = cc.find("Canvas/Fight/roleHp"), d = cc.find("Canvas/Fight/enemyHp"), m = cc.find("Canvas/Fight/escapeRate"), attText = cc.find("Canvas/Fight/notify"),
-                        blackKnifetimes = 0,
+                        gunButton = cc.find("Canvas/Fight/gunButton"),  // 查找Canvas中的gunButton节点
+                        Askill = cc.instantiate(gunButton),
+                        blackKnifetimes = 1,
                         redTimes = 0,
+                        bloodnum = 0,
+                        attTimes = 0,
                         glassesTimes = 0,
                         g = [0, 0, 0],
                         b = n.figthExp,
@@ -8020,6 +8029,7 @@ require = function e(t, n, a) {
                             attackTimes: 1
                         };
                     n.publicVar[4] = 0;
+                    n.Askills[0] = 0;
                     this.correct = [0, 0];//临时攻击和防御力，随便减少
                     this.publicVar = 0;
                     for (var I in o) theEnemy[I] = o[I];//这段代码使用 for...in 循环，遍历对象 o 中的所有可枚举属性，并将它们赋值给对象 r。
@@ -8063,6 +8073,20 @@ require = function e(t, n, a) {
                             }
                         }
                     })();
+                    (function () {//创建ui
+                        //todo 新主动
+                        Askill.active = true;
+                        Askill.setPosition(364, -423 + 100);
+                        cc.find("Canvas/Fight").addChild(Askill);
+                        var text = ["关", "开"];
+                        Askill.getComponent("cc.Label").string = "";
+                        Askill.on("touchstart", function () {
+                            if (blackKnifetimes > 0) {
+                                n.Askills[0] === 0 ? n.Askills[0] = 1 : n.Askills[0] = 0;
+                                Askill.getComponent("cc.Label").string = "居合斩\n（" + blackKnifetimes + "）\n【" + text[n.Askills[0]] + "】";
+                            }
+                        }, Askill);
+                    })();
                     //tag 战斗特效传送门
                     var yourDEF = youinFight.def, Edes = theEnemy.des, k = ["均  衡", "进  攻", "防  御"];
                     var rateofshanbi;
@@ -8070,7 +8094,7 @@ require = function e(t, n, a) {
                     ESCbutton.targetOff(ESCbutton);
                     attackButton.on("touchstart", function () {
                         theEnemy.hp > 0 && n.role.hp > 0 && function () {
-                            var youHitsText = "你使用【普攻】", a = "", o = "", s = "", l = "", u = "", f = "", BY = "", theSword = "", thenet = "";
+                            var youHitsText = "你使用【普攻】", a = "", o = "", s = "", l = "", u = "", f = "", BY = "", theSword = "", thenet = "", booldtext = "", damageTimesText = 100;
                             inFight.publicVar = 0;
                             var m = n.figthState;
                             var laststate;
@@ -8126,6 +8150,7 @@ require = function e(t, n, a) {
                             //自己的攻击力    晓月加的临时攻击力     附带的攻击力，来自特性或者敌人技能  减去敌人的防御力（受披风影响） 最低为0
                             if (0 == m) {
                                 theDamage = parseInt(theDamage * (1 + b[0] / 500));
+                                damageTimesText *= parseInt(1 + b[0] / 500);
                                 g[0] += 1;
                             }
                             if (1 == m) {
@@ -8134,43 +8159,59 @@ require = function e(t, n, a) {
                                     theDamage = parseInt(theDamage * damageTimes);
                                     n.role.hp -= S;
                                     g[1] += 1;
-                                    l = "「暴血：你损失" + S + "点生命(10%最大生命)，造成" + damageTimes * 100 + "%伤害」";//随机buff3
+                                    damageTimesText *= damageTimes;
+                                    l = "「暴血：你损失" + S + "点生命(10%最大生命)";//随机buff3
                                 } else {
                                     var S = parseInt(.08 * youinFight.maxHp), damageTimes = (1.32 + b[1] / 200);
                                     theDamage = parseInt(theDamage * damageTimes);
                                     n.role.hp -= S;
                                     g[1] += 1;
-                                    l = "「拼命：你损失" + S + "点生命(8%最大生命)，造成" + damageTimes * 100 + "%伤害」";
+                                    damageTimesText *= damageTimes;
+                                    l = "「拼命：你损失" + S + "点生命(8%最大生命)」";
                                 }
                             }
                             if (2 == m) {
                                 theDamage = parseInt(.7 * theDamage);
                                 g[2] += 1;
+                                damageTimesText *= .7;
                             }
-                            1 == stateOnyou[0] && (theDamage = parseInt(1.3 * theDamage));/*狂暴*/
+                            if (1 == stateOnyou[0]) {
+                                theDamage = parseInt(1.3 * theDamage);/*狂暴*/
+                                damageTimesText *= 1.3;
+                            }
                             if (isWeiLanvaild >= 0) {
                                 (theDamage = parseInt((1 + 0.02 * isWeiLanvaild) * theDamage));
-                            }/*围栏*/
+                                damageTimesText *= parseInt(1 + 0.02 * isWeiLanvaild);
+                            }/*陷阱*/
                             if (1 == n.buffState[2]) {//自信buff
                                 if (n.winsstreaks <= 3) {
                                     theDamage = parseInt((1 + 0.1 * n.winsstreaks) * theDamage);
+                                    damageTimesText *= parseInt(1 + 0.1 * n.winsstreaks);
                                 } else {
                                     theDamage = parseInt((1 + 0.3) * theDamage);
+                                    damageTimesText *= parseInt(1 + 0.3 * n.winsstreaks);
                                 }
                             }
                             if (1 == n.skillLv[27]) {//宿醉特效
                                 theDamage = parseInt(.7 * theDamage);
+                                damageTimesText *= .7;
                             }
-                            if (n.itemNum2[10] > 0) {//如果你有黑刀
-                                (blackKnifetimes += 1) > 20 && (blackKnifetimes = 20);
-                                var H = parseInt(4 * n.itemNum2[10] * blackKnifetimes);
-                                theDamage = parseInt(theDamage * (H / 100 + 1));
-                                youHitsText = youHitsText.replace("普攻", "割裂");
-                                o = "，割裂加成" + H + "%";
+                            if (n.itemNum2[10] > 2 && n.Askills[0] == 1 && blackKnifetimes > 0) {//todo黑刀大招
+                                var damageTimes = 1 + 1;
+                                for (let i = 0; i <= attTimes; i++) {
+                                    damageTimes += (i / 2);
+                                }//todo
+                                damageTimesText *= damageTimes;
+                                youHitsText = youHitsText.replace(/普攻|割裂|枪击/, "居合");
+                                /暴击/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击|爆头/, "居合斩"));
+                                theDamage = parseInt(theDamage * damageTimes);
+                                n.Askills[0] = 0;
+                                blackKnifetimes -= 1;
                             }
                             if (1 == nextCrit) {
                                 theDamage = parseInt(2 * theDamage);
-                                youHitsText += "，触发【暴击】200%";
+                                youHitsText += "，触发【暴击】";
+                                damageTimesText *= 2;
                                 nextCrit = 0;
                                 A();
                             }
@@ -8183,8 +8224,9 @@ require = function e(t, n, a) {
                                 n.publicVar3[14] += 1;//tag 枪特效
                                 var damageTimes = 1 + 0.5 * n.itemNum2[19];
                                 theDamage = parseInt(theDamage * (damageTimes));
-                                youHitsText = youHitsText.replace(/普攻|割裂/, "枪击" + damageTimes * 100 + "%");
-                                /暴击/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击/, "爆头" + damageTimes * 200 + "%"));
+                                damageTimesText *= damageTimes;
+                                youHitsText = youHitsText.replace(/普攻|割裂/, "枪击");
+                                /暴击/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击/, "爆头"));
                             }
                             //特效传送门
                             if (!(0 == m && b[0] >= 100)) {
@@ -8195,6 +8237,12 @@ require = function e(t, n, a) {
                                     ifTexthaveit.test(youHitsText) ? youHitsText += "【嗜血】" : youHitsText += "，触发【嗜血】";
                                     a = "，恢复" + N + "点生命(出伤的20%)";
                                 }
+                            }
+                            if (n.itemNum2[10] > 0) {//黑刀流血
+                                var H = parseInt(n.itemNum2[10] * 0.1 * theDamage);
+                                bloodnum += H;
+                                youHitsText = youHitsText.replace("普攻", "割裂");
+                                o = "，割裂流血" + H + "(出伤的" + n.itemNum2[10] * 10 + "%)";
                             }
                             0 != n.itemNum2[28] && (theSword = function () {//tag 物理学圣剑攻击特性
                                 var thehit = parseInt((n.itemNum2[28] * 3 * theEnemy.maxHp) / 100);
@@ -8239,8 +8287,13 @@ require = function e(t, n, a) {
                                 return BYsattText = BYsattText + ("，造成" + BYsDamage + "点伤害") + BYskillText;
                             }());
                             theEnemy.hp -= theDamage;
+                            if (bloodnum > 0) {
+                                theEnemy.hp -= bloodnum;
+                                booldtext = "流血造成" + bloodnum + "伤害";
+                            }
+                            attTimes += 1;
                             //100002 == t && (u = theEnemy.defSkill());这段代码是多出来的，没有作用
-                            youHitsText = youHitsText + "，对" + theEnemy.name + "造成" + theDamage + "点伤害" + a + o + s + l + u + f + BY + theSword;
+                            youHitsText = youHitsText + "，对" + theEnemy.name + "造成" + theDamage + "点伤害" + a + o + s + l + u + f + BY + theSword + booldtext + ",你的总倍率为" + parseInt(damageTimesText) + "%";
                             cleanAttText();
                             inFight.creatText(attText, "roleNotify", youHitsText);
                             (function () {
@@ -8321,7 +8374,7 @@ require = function e(t, n, a) {
                             isTexthaveit = new RegExp("触发"), redjacker = "", jacker = "", state = "",
                             battleStance = n.figthState;
                         if (rateofRed = 2 * n.itemNum2[11], 100 * Math.random() < rateofRed) {
-                            blackKnifetimes > 20 && (blackKnifetimes = 20);//防止黑刀层数超过20层
+                            //blackKnifetimes > 20 && (blackKnifetimes = 20);//防止黑刀层数超过20层
                             var d = 20 * (redTimes += 1), m = Math.round(.05 * youinFight.maxHp);
                             youinFight.def = Math.round(yourDEF * (d / 100 + 1));
                             n.role.hp += m;
@@ -8329,22 +8382,23 @@ require = function e(t, n, a) {
                             enemyAttText += "。【火狐之灵】触发";
                             redjacker = "，生命恢复" + m + "，防御加成" + d + "%";
                         }
-                        var Defendrate, JackerRate, glassesRate, enemyATT = parseInt(Math.max(theEnemy.att - inFight.correct[1] - youinFight.def, 0));
+                        var mabuyirate, JackerRate, glassesRate, enemyATT = parseInt(Math.max(theEnemy.att - inFight.correct[1] - youinFight.def, 0));
                         0 == battleStance && (enemyATT = parseInt(enemyATT * (1 - b[0] / 500)));
                         if (2 == battleStance) {
                             var C = 100 + b[2];
                             enemyATT = parseInt(enemyATT * (.6 - b[2] / 500));
                         }
-                        if (Defendrate = Math.min(2 * n.itemNum2[4], 60), 100 * Math.random() < Defendrate) {
-                            enemyATT = 0;
-                            isTexthaveit.test(enemyAttText) ? enemyAttText = enemyAttText.replace("触发", "【格挡】触发") : enemyAttText += "。【格挡】触发";
+                        if (mabuyirate = Math.min(2 * n.itemNum2[4], 100), 100 * Math.random() < mabuyirate) {
+                            //enemyATT = 0;
+                            C = parseInt(.25 * youinFight.maxHp);
+                            n.role.hp += C;
+                            n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
+                            isTexthaveit.test(enemyAttText) ? enemyAttText = enemyAttText.replace("触发", "【自愈】触发，恢复" + C + "点生命(25%最大生命)") : enemyAttText += "。【自愈】触发，恢复" + C + "点生命(25%最大生命)";
                         }
                         if (JackerRate = 2 * n.itemNum2[9], 100 * Math.random() < JackerRate) {
-                            var E = Math.max(2 * (youinFight.def - inFight.correct[1]), 0);
-                            (enemyATT -= E) < 0 && (enemyATT = 0);
-                            theEnemy.hp -= E;
-                            isTexthaveit.test(enemyAttText) ? enemyAttText = enemyAttText.replace("触发", "【反弹】触发") : enemyAttText += "。【反弹】触发";
-                            jacker = "，" + E + "点伤害反弹给" + theEnemy.name;
+                            C = parseInt((youinFight.maxHp - n.role.hp) / 2);
+                            isTexthaveit.test(enemyAttText) ? enemyAttText = enemyAttText.replace("触发", "【止伤】触发") : enemyAttText += "。【止伤】触发";
+                            jacker = "，恢复" + C + "点生命(50%已损生命)";
                         }
                         if (glassesRate = n.itemNum2[29] * 10, 100 * Math.random() < glassesRate) {//tag 军用护目镜在这里
                             var d = 10 * (glassesTimes += 1);
@@ -8403,9 +8457,14 @@ require = function e(t, n, a) {
                         d.getComponent("cc.Label").string = theEnemy.name + "LV" + theEnemy.lv + "\nHP" + theEnemy.hp + "\nATT" + theEnemy.att + " | " + "DEF" + theEnemy.def;
                         m.getComponent("cc.Label").string = calEscapeRate() + "%";
                         n.publicVar[4] > 0 && gunLabel();
+                        n.itemNum2[10] > 2 && blackknifeLabel();
                     }
                     function gunLabel() {
                         cc.find("Canvas/Fight/gunButton").getComponent("cc.Label").string = "（" + n.itemNum2[14] + "）\n【" + ["关", "开"][n.publicVar[4]] + "】";
+                    }
+                    function blackknifeLabel() {
+                        var text = ["关", "开"];
+                        Askill.getComponent("cc.Label").string = "居合斩\n（" + blackKnifetimes + "）\n【" + text[n.Askills[0]] + "】";
                     }
                     function SaveGame() {
                         a.save();
@@ -8448,7 +8507,7 @@ require = function e(t, n, a) {
                         n.enemyId = 0;
                         SaveGame();
                     }
-                    function isBattleEnd() {//tag 战斗结束函数
+                    function isBattleEnd() {//func 战斗结束函数
                         if (theEnemy.hp <= 0) {
                             P();
                             var e = theEnemy.drop, JKshoes = "", shouliandu = "",
@@ -8537,10 +8596,11 @@ require = function e(t, n, a) {
                             }(e);
                             n.winTimes += 1;
                             n.winsstreaks += 1;
+                            n.inBattle = 0;
+                            //n.energyconsumetimes = n.temp;
                             "没发现道具" == o && (fightwinText = fightwinText.replace("获得", ""));
                             fightwinText = lucky + XY + XL + JKshoes + fightwinText + o + addstate + shouliandu + achieve;
                             "undefined" != typeof theEnemy.winEvent && (fightwinText = fightwinText + "！\n" + theEnemy.winEvent());
-                            n.energyconsumetimes = n.temp;
                             leaveBattle();
                             inFight.scheduleOnce(function () {
                                 i.playText("Canvas/Text/txt_notify", fightwinText, 80);
@@ -8725,8 +8785,7 @@ require = function e(t, n, a) {
                             n.publicVar2[2] += 1;
                             this.fight();
                             n.energy += 10 * (n.energyconsumetimes - 1);
-                            n.temp = n.energyconsumetimes;
-                            n.energyconsumetimes = 1;
+                            n.inBattle = 1;
                         }
                     } else if (rate <= 80) {
                         n.publicVar2[3] += 1;
@@ -11360,6 +11419,10 @@ require = function e(t, n, a) {
                             },
                             button: function () {
                                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 4 + 2 * n.itemNum2[3];
+                                if (n.itemNum2[3] >= 50) {
+                                    a.playText("Canvas/notify", "木棍已经满级了！", 100);
+                                    return;
+                                }
                                 if (n.itemNum[1] >= c) {
                                     n.itemNum[1] -= c;
                                     n.itemNum2[3] += 1;
@@ -11372,12 +11435,16 @@ require = function e(t, n, a) {
                         4: {
                             itemName: "麻布衣LV" + this.data.itemNum2[4],
                             needDes: "※需【亚麻】" + this.data.itemNum[4] + "/" + (4 + 2 * this.data.itemNum2[4]),
-                            des: "※增加" + 50 * this.data.itemNum2[4] + "点生命上限。" + Math.min(2 * this.data.itemNum2[4], 60) + "%几率触发【格挡】",
+                            des: "※增加" + 50 * this.data.itemNum2[4] + "点生命上限。受到攻击时" + Math.min(2 * this.data.itemNum2[4], 100) + "%几率触发【自愈】，回复25%最大生命值",
                             ifEnough: function (e) {
                                 t.data.itemNum[4] >= 4 + 2 * t.data.itemNum2[4] && (cc.find("Canvas/Page/view/content/page_2/" + e + "/button/name").color = new cc.color(0, 255, 0));
                             },
                             button: function () {
                                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 4 + 2 * n.itemNum2[4];
+                                if (n.itemNum2[4] >= 50) {
+                                    a.playText("Canvas/notify", "麻布衣已经满级了！", 100);
+                                    return;
+                                }
                                 if (n.itemNum[4] >= c) {
                                     n.itemNum[4] -= c;
                                     n.itemNum2[4] += 1;
@@ -11397,6 +11464,10 @@ require = function e(t, n, a) {
                             },
                             button: function () {
                                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 8 + 2 * n.itemNum2[6];
+                                if (n.itemNum2[6] >= 50) {
+                                    a.playText("Canvas/notify", "驱蚊工具已经满级了！", 100);
+                                    return;
+                                }
                                 if (n.itemNum[5] >= c) {
                                     n.itemNum[5] -= c;
                                     n.itemNum2[6] += 1;
@@ -11408,15 +11479,19 @@ require = function e(t, n, a) {
                         },
                         6:
                         {
-                            itemName: "围栏LV" + this.data.itemNum2[5],
+                            itemName: "陷阱LV" + this.data.itemNum2[5],
                             needDes: "※需【木材】" + this.data.itemNum[1] + "/" + (4 + 2 * this.data.itemNum2[5]),
-                            des: "※每天第一次进入战斗时可以获得增益",
+                            des: "※每天第一次进入战斗时可以获得增益，专坑不看路的小妹妹XD",
                             ifEnough: function (t) {
                                 var n = e("scr_data");
                                 n.itemNum[1] >= 4 + 2 * n.itemNum2[5] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
                             },
                             button: function () {
                                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 4 + 2 * n.itemNum2[5];
+                                if (n.itemNum2[5] >= 50) {
+                                    a.playText("Canvas/notify", "陷阱已经满级了！", 100);
+                                    return;
+                                }
                                 if (n.itemNum[1] >= c) {
                                     n.itemNum[1] -= c;
                                     n.itemNum2[5] += 1;
@@ -11493,7 +11568,7 @@ require = function e(t, n, a) {
                         10: {
                             itemName: "皮衣LV" + this.data.itemNum2[9],
                             needDes: "※可通过购买，或者打怪掉落提高等级",
-                            des: "※增加" + 10 * this.data.itemNum2[9] + "点防御。【反弹】受击时，" + 2 * this.data.itemNum2[9] + "%几率减免「100%*自身防御」点伤害，并且造成防御值两倍的伤害方",
+                            des: "※增加" + 10 * this.data.itemNum2[9] + "点防御和" + 25 * this.data.itemNum2[9] + "点生命。【止伤】受击时，" + Math.min(2 * this.data.itemNum2[4], 100) + "%几率触发【止伤】，回复50%已损生命值",
                             button: function () {
                                 n.playText("Canvas/notify", "请去商店购买！", 100);
                             }
@@ -11523,7 +11598,7 @@ require = function e(t, n, a) {
                         14: {
                             itemName: "黑刀LV" + this.data.itemNum2[10],
                             needDes: "※需【黑曜石】" + this.data.itemNum[8] + "/" + (10 + 2 * this.data.itemNum2[10]),
-                            des: "※增加" + 30 * this.data.itemNum2[10] + "点攻击。【割裂】每次攻击伤害提高" + 4 * this.data.itemNum2[10] + "%，最多叠加20次",
+                            des: "※增加" + 30 * this.data.itemNum2[10] + "点攻击。黑刀特效请看特性第31条",///todo 黑刀
                             ifEnough: function (t) {
                                 var n = e("scr_data");
                                 n.itemNum[8] >= 10 + 2 * n.itemNum2[10] && (cc.find("Canvas/Page/view/content/page_4/" + t + "/button/name").color = new cc.color(0, 255, 0));
@@ -12422,7 +12497,7 @@ require = function e(t, n, a) {
                             t.hunger <= 0 && (a += "【饥饿】");
                             t.skillLv[4] >= 1 && (a += "【烟瘾】");
                             t.buffState[0] >= 1 && (a += "【暴躁】");
-                            t.choice[8] >= 1 && (a += "【围栏】");
+                            t.choice[8] >= 1 && (a += "【陷阱】");
                             t.skillLv[27] >= 1 && (a += "【宿醉】");
                             if (1 == t.buffState[2]) { a += "【自信" + t.winsstreaks + "】" }
                             //if (1==t.buffState[3]) {a+= "【营养不良】"}
@@ -12475,6 +12550,7 @@ require = function e(t, n, a) {
                                 var t = e("scr_data"), smokerate = 3 * t.orderTimes[1] - t.orderTimes[4]
                                 n = t.role.maxHp + 50 * t.itemNum2[4] + 150 * t.itemNum2[11] + 50 * t.skillLv[2] + 100 * t.skillLv[15] + 150 * t.skillLv[19] + 25 * t.itemNum2[22] + t.publicVar3[16];
                                 n += t.itemNum2[29] * 750;//军用夜视镜加生命
+                                n += t.itemNum2[9] * 25;//皮衣加血
                                 n = n * (1 - (t.skillLv[4] * smokerate) / 100);//烟瘾大改
                                 n = Math.round(n * (1 + t.publicVar[15] / 1e3 + t.itemNum2[15] / 100 + t.publicVar3[5] / 100));
                                 if (n < 0) {
@@ -12821,7 +12897,7 @@ require = function e(t, n, a) {
                             if (t.itemNum2[5] > 0 && e < 100) {
                                 var a = 100 * Math.random();
                                 t.choice[8] = n;
-                                i.creatText("skill1", "【围栏】获得伤害加成" + 2 * n + "%");
+                                i.creatText("skill1", "【陷阱】获得伤害加成" + 2 * n + "%");
                                 if (a <= 29) {
                                     t.itemNum[3] += n;
                                     i.creatText("skill1", "【陷阱】获得「生肉」*" + n);
@@ -13681,6 +13757,10 @@ require = function e(t, n, a) {
                             },
                             button1: function () {
                                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 32 + 3 * n.itemNum2[8], o = n.money, r = 32 + 3 * n.itemNum2[8];
+                                if (n.itemNum2[8] >= 50) {
+                                    a.playText("Canvas/notify", "匕首已经满级了！", 100);
+                                    return;
+                                }
                                 if (o >= c) {
                                     n.money -= c;
                                     n.itemNum2[8] += 1;
@@ -13702,6 +13782,10 @@ require = function e(t, n, a) {
                             },
                             button1: function () {
                                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 20 + 2 * n.itemNum2[9], o = n.money, r = 20 + 2 * n.itemNum2[9];
+                                if (n.itemNum2[9] >= 50) {
+                                    a.playText("Canvas/notify", "皮衣已经满级了！", 100);
+                                    return;
+                                }
                                 if (o >= c) {
                                     n.money -= c;
                                     n.itemNum2[9] += 1;
@@ -14044,16 +14128,16 @@ require = function e(t, n, a) {
                         2: "2:【生命强化1】最大生命值+50，吃「果子」30次后激活(" + t.orderTimes[5] + "/30）。",
                         3: "3：【恢复1】前进/探索时，生命恢复量提高8点。使用「伤药」15次后激活（" + t.orderTimes[0] + "/15）。",
                         4: "4:【烟瘾】攻击/防御减少" + n + "%！每天有" + n + "%概率激活，效果持续1天。（抽烟次数越多激活概率越高，每次增加3%）",
-                        5: "5:【平衡架势】造成" + (t.figthExp[0] / 5 + 100).toFixed(1) + "%伤害，承受" + (100 - t.figthExp[0] / 5).toFixed(1) + "%伤害。效果随熟练度提升而提升（" + t.figthExp[0] + "/150）。战斗胜利15次(" + t.winTimes + "/15)后开启。",
+                        5: "5:【平衡架势】造成" + (t.figthExp[0] / 5 + 100).toFixed(1) + "%伤害，承受" + (100 - t.figthExp[0] / 5).toFixed(1) + "%伤害。效果随熟练度提升而提升（" + t.figthExp[0] + "/100）。战斗胜利15次(" + t.winTimes + "/15)后开启。",
                         6: "6:【捡钱】每天40%概率额外捡到1毛钱，扶老奶奶10次激活！此特性可升级，每扶10次涨1毛哈~(^_−)☆！（" + t.randomEvent[6] + "/10）。",
                         7: "7:【精力强化2】精力上限+20，吃「熟肉」30次后激活（" + t.orderTimes[2] + "/30）。",
                         8: "8:【防御强化1】防御增加10点，平衡架势熟练度达20后激活（" + t.figthExp[0] + "/20）。",
-                        9: "9:【拼命架势】可切换到拼命架势。攻击时，造成" + (t.figthExp[1] / 2 + 132).toFixed(1) + "%伤害，每次攻击损失8%最大生命值。效果随熟练度而提升（" + t.figthExp[1] + "/150）。战斗胜利" + t.winTimes + "/20次后激活。注意1：一场战斗中，使用最多的架势将获得1点熟练度",
+                        9: "9:【拼命架势】可切换到拼命架势。攻击时，造成" + (t.figthExp[1] / 2 + 132).toFixed(1) + "%伤害，每次攻击损失8%最大生命值。效果随熟练度而提升（" + t.figthExp[1] + "/100）。战斗胜利" + t.winTimes + "/20次后激活。注意1：一场战斗中，使用最多的架势将获得1点熟练度",
                         10: "10:【自愈1】睡觉时40%几率恢复1点健康值/健康上限，帐篷达到5级激活。",
                         11: "11:【攻击强化1】攻击增加10点，拼命架势熟练度达30激活（" + t.figthExp[1] + "/30）。",
                         12: "12:【精力强化3】精力上限+30，吃果子666次后激活，吃草更健康哦（" + t.orderTimes[5] + "/666）。",
                         13: "13:【大胃王】饥饿上限+50，吃（" + t.orderTimes[5] + "/200）次「果子」和（" + t.orderTimes[2] + "/60）次「熟肉」后激活。",
-                        14: "14:【猥琐架势】可切换到猥琐架势。受击时，承受" + (70 - t.figthExp[2] / 6).toFixed(1) + "%的伤害，且恢复" + parseInt(t.figthExp[2] + 10) + "点生命，但造成伤害减也少30%。效果随熟练度而提升（" + t.figthExp[2] + "/150）。战斗胜利" + t.winTimes + "/60次后激活。注意2：逃跑时系统将自动切换为猥琐架势！",
+                        14: "14:【猥琐架势】可切换到猥琐架势。受击时，承受" + (70 - t.figthExp[2] / 6).toFixed(1) + "%的伤害，且恢复" + parseInt(t.figthExp[2] + 10) + "点生命，但造成伤害减也少30%。效果随熟练度而提升（" + t.figthExp[2] + "/100）。战斗胜利" + t.winTimes + "/60次后激活。注意2：逃跑时系统将自动切换为猥琐架势！",
                         15: "15:【生命强化2】最大生命值+100，猥琐架势熟练度达40激活（" + t.figthExp[2] + "/40）。",
                         16: "16:【防御强化2】防御+20，第三次击败山脉中「山顶巨人」后激活。",
                         17: "17:【恢复2】前进/探索时，生命恢复量提高36点，使用「伤药」99次后激活（" + t.orderTimes[0] + "/99）。",
@@ -14070,6 +14154,7 @@ require = function e(t, n, a) {
                         28: "28:【营养均衡】",
                         29: "29:【闪避】郊外小伙子飞刀技术25开启，由于你经常陪他练习，现在你有20%概率闪避所有伤害（舍弃回血效果，保持血量不变）",
                         30: "30：【破防】战斗中，均衡架势下，如果均衡架势熟练度达到100以上，且本次攻击触发【暴击】，则把【嗜血】替换为破防，无视对方防御和任何格挡技能",
+                        31: "31：【黑刀】等级升级后会获得效果，你当前黑刀为" + t.itemNum2[10] + "级。1级：你造成的所有伤害中的" + t.itemNum2[10] * 10 + "%转化为流血效果。3级：【居合】每场战斗限一次，战斗中每攻击一次增加当前轮数*" + t.itemNum2[10] * 100 + "%倍率，你可以随时使用技能并使得下次攻击增加对应倍率。5级：【振刀】居合使用之后的敌人下一次攻击的伤害会被完全抵挡。7级："//todo 黑刀特效
                         //tag 特性的描述文本
                     },
                         skillvalues = e("scr_data").skillLv, c = cc.find("Canvas/Scroll/view/content"),
