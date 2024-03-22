@@ -3802,11 +3802,11 @@ require = function e(t, n, a) {
                         218: {
                             name: "路明非",
                             lv: "·S",
-                            hp: 3e6,
-                            maxHp: 3e6,
-                            att: 2000,
-                            def: 400,
-                            publicVar: 0,
+                            hp: 3e5,
+                            maxHp: 3e5,
+                            att: 1000,
+                            def: 1000,
+                            publicVar: 2,
                             escapeRate: -9999,
                             enemyEscapeRate: 0,
                             lostHealth: 1,
@@ -3816,38 +3816,101 @@ require = function e(t, n, a) {
                             des: "是我害死了绘梨衣...",
                             skill: function () {
                                 var text = "" + this.name + "使用";
-                                if (this.getAtt == 1) {
-                                    if (0 == this.publicVar) {
-                                        c.itemNum2[14] = 0;
-                                        c.ifFollow[0] = 0;
-                                        c.ifFollow[1] = 0;
-                                        this.publicVar += 1;
-                                        text += "「Noglue」，你失去所有技能和伙伴,"
-                                    }
+                                if ((this.hp / this.maxHp) > 0.25) {
                                     if ((this.hp / this.maxHp) > 0.75) {
-                                        this.publicVar += 3;
-                                        text += "「The gathing」，技能强化，";
+                                        this.publicVar += 2;
+                                        text += "「The gathing」，回复蓝量，";
                                     }
-                                    else if ((this.hp / this.maxHp) > 0.5) {
-                                        this.publicVar += 1;
-                                        this.maxHp = parseInt(this.maxHp * 0.75);
-                                        this.hp = this.maxHp;
-                                        text += "「不要死」，失去25%最大生命,回满生命"
-                                    }
-                                    if ((this.hp / this.maxHp) < 0.5 || this.publicVar > 10) {
-                                        this.getAtt = 2;
-                                        if (this.publicVar > 10) {
-                                            this.publicVar = 10;
+                                    if (this.getAtt == 1) {
+                                        if (1 == this.lostHealth) {
+                                            c.itemNum2[14] = 0;
+                                            c.ifFollow[0] = 0;
+                                            c.ifFollow[1] = 0;
+                                            this.lostHealth += 1;
+                                            text += "「Noglue」，你失去所有技能和伙伴,"
+                                        } else if (2 == this.lostHealth) {
+                                            this.lostHealth += 1;
+                                            this.hp = this.maxHp / 2;
+                                            this.publicVar += 5;
+                                            text += "「七宗罪」，" + this.name + "以血为引，开启了七宗罪，";
                                         }
-                                        this.maxHp = 3e6 * this.publicVar;
-                                        this.att = 2000 * this.publicVar;
-                                        this.def = 400 * this.publicVar;
-                                        this.hp = this.maxHp;
-                                        text += "【something for nothing】融合度" + 10 * this.publicVar + "%";
-                                        this.name = "路鸣泽";
-                                        this.lv = "未知";
+                                        else if (3 == this.lostHealth) {
+                                            this.lostHealth += 1;
+                                            this.att += this.att * 1;
+                                            var e = 1 * this.att - o.def;
+                                            c.role.hp -= e;
+                                            this.publicVar += 1;
+                                            text += "「色欲」，" + this.name + "造成" + e + "伤害";
+                                        }
+                                        else if (4 == this.lostHealth) {
+                                            this.lostHealth += 1;
+                                            this.att += this.att * 1;
+                                            var e = 2 * this.att - o.def;
+                                            c.role.hp -= e;
+                                            this.publicVar += 2;
+                                            text += "「饕餮」，" + this.name + "造成" + e + "伤害";
+                                        }
+                                        else if (5 == this.lostHealth) {
+                                            this.lostHealth += 1;
+                                            this.att += this.att * 1;
+                                            var e = 3 * this.att - o.def;
+                                            c.role.hp -= e;
+                                            this.publicVar += 3;
+                                            text += "「贪婪」，" + this.name + "造成" + e + "伤害";
+                                        } else if (6 == this.lostHealth) {
+                                            this.lostHealth += 1;
+                                            this.att += this.att * 1;
+                                            var e = 3 * this.att - o.def;
+                                            c.role.hp -= e;
+                                            this.publicVar += 4;
+                                            text += "「懒惰」，" + this.name + "造成" + e + "伤害";
+                                        } else if (7 == this.lostHealth) {
+                                            this.lostHealth += 1;
+                                            this.att += this.att * 1;
+                                            var e = 3 * this.att - o.def;
+                                            c.role.hp -= e;
+                                            this.publicVar += 5;
+                                            text += "「妒忌」，" + this.name + "造成" + e + "伤害";
+                                        } else if (8 == this.lostHealth) {
+                                            this.lostHealth += 1;
+                                            this.att += this.att * 1;
+                                            var e = 3 * this.att - o.def;
+                                            c.role.hp -= e;
+                                            this.publicVar += 6;
+                                            text += "「傲慢」，" + this.name + "造成" + e + "伤害";
+                                        } else if (9 == this.lostHealth) {
+                                            this.att += this.att * 1;
+                                            var e = 3 * this.att - o.def;
+                                            c.role.hp -= e;
+                                            this.publicVar += 7;
+                                            text += "「暴怒」，" + this.name + "造成" + e + "伤害";
+                                        }
+                                    } else if (this.publicVar > 10) {
+                                        if (this.publicVar > 10) {
+                                            this.publicVar = 2;
+                                        }
+                                        if (this.getAtt == 1) {
+                                            this.getAtt = 2;
+                                            this.maxHp = this.maxHp * this.publicVar;
+                                            this.att = this.att * this.publicVar;
+                                            this.def = this.def * this.publicVar;
+                                            this.hp = this.maxHp;
+                                            text += "【something for nothing】融合度" + 10 * this.publicVar + "%";
+                                            this.name = "路鸣泽";
+                                            this.lv = "未知";
+                                        } else if (this.getAtt == 2 && this.publicVar > 16) {
+                                            this.getAtt = 3;
+                                            this.maxHp = this.maxHp * this.publicVar;
+                                            this.att = this.att * this.publicVar;
+                                            this.def = this.def * this.publicVar;
+                                            this.hp = this.maxHp;
+                                            text += "【something for nothing】" + 1 * this.publicVar + "倍增幅";
+                                            this.name = "路鸣泽";
+                                            this.lv = "未知";
+                                        }
                                     }
-                                } else if (this.getAtt == 2) {
+                                }
+                                if (this.getAtt == 2) {
                                     if (this.publicVar % 3 == 0) {
                                         this.publicVar += 1;
                                         var e = this.att * 2;
@@ -3856,6 +3919,7 @@ require = function e(t, n, a) {
                                     } else if (this.publicVar % 3 == 1) {
                                         this.publicVar += 1;
                                         var e = 3 * this.att - o.def;
+                                        c.role.hp -= e;
                                         text += "「烛龙」，造成" + e + "点伤害";
                                     } else if (this.publicVar % 3 == 2) {
                                         this.publicVar += 1;
@@ -3863,13 +3927,48 @@ require = function e(t, n, a) {
                                     } else {
                                         this.publicVar += 1;
                                     }
+                                } else if (this.getAtt == 3) {
+                                    if (this.publicVar % 3 == 0) {
+                                        this.publicVar += 1;
+                                        this.att = this.att * 2;
+                                        text += "「时零」，攻击力翻倍";
+                                    } else if (this.publicVar % 3 == 1) {
+                                        this.publicVar += 1;
+                                        this.def = this.def * 2;
+                                        text += "「王权」，防御力翻倍";
+                                    } else if (this.publicVar % 3 == 2) {
+                                        this.publicVar += 1;
+                                        this.att = 1;
+                                        this.def = 1;
+                                        text += "「江南老贼」，路明非纯废物";
+                                    } else {
+                                        this.publicVar += 1;
+                                    }
                                 }
                                 return text;
                             },
                             defSkill: function () {
-                                if (this.publicVar == 0) {
-                                    return "【如果我早点出手，也许绘梨衣就不会死了】";
+                                if (this.getAtt == 1) {
+                                    if ((this.hp / this.maxHp) < 0.5 && (this.publicVar > 0)) {
+                                        this.publicVar -= 1;
+                                        this.maxHp = parseInt(this.maxHp * 0.75);
+                                        this.hp = this.maxHp;
+                                        text += "「不要死」，失去25%最大生命,回满生命"
+                                    }
+                                    if (this.publicVar == 0) {
+                                        return "【你也是来夺走她的吗！】";
+                                    }
+                                } else if (this.getAtt == 2) {
+                                    if ((this.hp / this.maxHp) < 0.5 && (this.publicVar > 0)) {
+                                        this.publicVar -= 1;
+                                        this.maxHp = parseInt(this.maxHp * 0.75);
+                                        this.hp = this.maxHp;
+                                        text += "「不要死」，失去25%最大生命,回满生命"
+                                    }
+                                } else if (this.getAtt == 2) {
+
                                 }
+
                                 return "";
                             },
                             winEvent: function () {
