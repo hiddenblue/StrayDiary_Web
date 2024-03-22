@@ -8042,6 +8042,7 @@ require = function e(t, n, a) {
                     }, Askill)
                     n.publicVar[4] = 0;
                     n.Askills[0] = 0;
+                    n.inBattle = 1;//进入战斗
                     this.correct = [0, 0];//临时攻击和防御力，随便减少
                     this.publicVar = 0;
                     for (var I in o) theEnemy[I] = o[I];//这段代码使用 for...in 循环，遍历对象 o 中的所有可枚举属性，并将它们赋值给对象 r。
@@ -8784,7 +8785,6 @@ require = function e(t, n, a) {
                             n.publicVar2[2] += 1;
                             this.fight();
                             n.energy += 10 * (n.energyconsumetimes - 1);
-                            n.inBattle = 1;
                         }
                     } else if (rate <= 80) {
                         n.publicVar2[3] += 1;
