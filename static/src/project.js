@@ -3802,8 +3802,8 @@ require = function e(t, n, a) {
                         218: {
                             name: "路明非",
                             lv: "·S",
-                            hp: 3e5,
-                            maxHp: 3e5,
+                            hp: 5e5,
+                            maxHp: 5e5,
                             att: 1000,
                             def: 1000,
                             publicVar: 2,
@@ -3885,10 +3885,7 @@ require = function e(t, n, a) {
                                             this.publicVar += 7;
                                             text += "「暴怒」，" + this.name + "造成" + e + "伤害";
                                         }
-                                    } else if (this.publicVar > 10) {
-                                        if (this.publicVar > 10) {
-                                            this.publicVar = 2;
-                                        }
+                                    } if (this.publicVar > 10) {
                                         if (this.getAtt == 1) {
                                             this.getAtt = 2;
                                             this.maxHp = this.maxHp * this.publicVar;
@@ -3898,6 +3895,7 @@ require = function e(t, n, a) {
                                             text += "【something for nothing】融合度" + 10 * this.publicVar + "%";
                                             this.name = "路鸣泽";
                                             this.lv = "未知";
+                                            this.publicVar = 2;
                                         } else if (this.getAtt == 2 && this.publicVar > 16) {
                                             this.getAtt = 3;
                                             this.maxHp = this.maxHp * this.publicVar;
@@ -3906,7 +3904,8 @@ require = function e(t, n, a) {
                                             this.hp = this.maxHp;
                                             text += "【something for nothing】" + 1 * this.publicVar + "倍增幅";
                                             this.name = "路鸣泽";
-                                            this.lv = "未知";
+                                            this.lv = "龙王再世";
+                                            this.publicVar = 2;
                                         }
                                     }
                                 }
@@ -3945,9 +3944,6 @@ require = function e(t, n, a) {
                                         this.publicVar += 1;
                                     }
                                 }
-                                return text;
-                            },
-                            defSkill: function () {
                                 if (this.getAtt == 1) {
                                     if ((this.hp / this.maxHp) < 0.5 && (this.publicVar > 0)) {
                                         this.publicVar -= 1;
@@ -3955,9 +3951,7 @@ require = function e(t, n, a) {
                                         this.hp = this.maxHp;
                                         text += "「不要死」，失去25%最大生命,回满生命"
                                     }
-                                    if (this.publicVar == 0) {
-                                        return "【你也是来夺走她的吗！】";
-                                    }
+
                                 } else if (this.getAtt == 2) {
                                     if ((this.hp / this.maxHp) < 0.5 && (this.publicVar > 0)) {
                                         this.publicVar -= 1;
@@ -3968,7 +3962,13 @@ require = function e(t, n, a) {
                                 } else if (this.getAtt == 2) {
 
                                 }
+                                return text;
+                            },
+                            defSkill: function () {
 
+                                if (this.publicVar == 0) {
+                                    return "【你也是来夺走她的吗！】";
+                                }
                                 return "";
                             },
                             winEvent: function () {
