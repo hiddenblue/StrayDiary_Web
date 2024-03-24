@@ -374,8 +374,8 @@ require = function e(t, n, a) {
                         },
                         money: 5,
                         day: 1,
-                        energy: 50,
-                        maxEnergy: 50,
+                        energy: 100,
+                        maxEnergy: 100,
                         hunger: 100,
                         maxHunger: 100,
                         health: 30,
@@ -870,30 +870,45 @@ require = function e(t, n, a) {
                         3: {//tag 进食物品传送门
                             itemName: " 香烟 ",
                             needDes: "※拥有：" + this.data.itemNum2[7] + "（你当前烟瘾为" + n + "%）",
-                            des: "※效果：减少1点健康。恢复一半的精力，解除【烟瘾】BUFF！你，今天第" + this.data.orderTimes[8] + "次抽烟",
+                            des: "※效果：减少1点健康。恢复" + 50 + this.data.orderTimes[8] * 5 + "精力，解除【烟瘾】BUFF！你，今天第" + this.data.orderTimes[8] + "次抽烟",
                             ifEnough: function (t) {
                                 e("scr_data").itemNum2[7] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0));
                             },
                             button: function () {
                                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum2[7],
                                     //Energy = 10 * parseInt(Math.max(0.05 - 0.01 * n.orderTimes[8], 0) * i.maxEnergy());
-                                    Energy = 10 * parseInt(0.05 * i.maxEnergy());
+                                    //Energy = 10 * parseInt(0.05 * i.maxEnergy());
+                                    Energy = 50 + n.orderTimes[8] * 5,
+                                    text = "";
                                 if (2 == n.publicVar[1]) {
                                     a.playText("Canvas/notify", "好孩子不能抽烟哦！", 100)
                                 }
                                 else if (c >= 1) {
-                                    n.health -= 1;
+
                                     n.itemNum2[7] -= 1;
                                     n.energy += Energy;
-                                    n.orderTimes[1] += 1;
+
                                     n.orderTimes[8] += 1;
-                                    n.role.hp = i.role.maxHp();
+                                    //n.role.hp = i.role.maxHp();
                                     n.skillLv[4] = 0;
                                     n.itemNum[7] += 1;
                                     n.buffState[2] = 1;
-                                    n.maxHealth -= 1;
+
+                                    var rate = n.orderTimes[8] * 3 + n.orderTimes[1] * 3 - n.orderTimes[4];
+                                    if (Math.random() * 100 < 15) {
+                                        n.orderTimes[1] += 1;
+                                        n.health -= 1;
+                                        text = "烟瘾增加！健康-1"
+                                    }
+                                    if (Math.random() * 100 < rate) {
+                                        n.orderTimes[1] += 1;
+                                        n.health -= 1;
+                                        n.maxHealth -= 1;
+                                        text = "烟瘾增加！健康/最大健康-1"
+                                    }
+
                                     i.save();
-                                    a.playText("Canvas/notify", "健康/最大健康-1，精力恢复" + Energy + "！生命恢复为满，获得烟头*1", 100);
+                                    a.playText("Canvas/notify", "精力恢复" + Energy + "！获得烟头*1" + text, 100);
                                     t.delayCreatItemUI1();
                                 } else a.playText("Canvas/notify", "道具不足！", 100);
                             }
@@ -3939,6 +3954,7 @@ require = function e(t, n, a) {
                                         this.publicVar += 1;
                                         this.att = 1;
                                         this.def = 1;
+                                        this.hp = 1;
                                         text += "「江南老贼」，路明非纯废物";
                                     } else {
                                         this.publicVar += 1;
@@ -11465,8 +11481,10 @@ require = function e(t, n, a) {
                                     n.itemNum[3] -= 1;
                                     n.itemNum[1] -= xq;
                                     n.itemNum2[0] += 1;
+                                    var consume = Math.max(2 - 2 * n.itemNum2[30], 0);
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "获得【熟肉】*1", 100);
+                                    a.playText("Canvas/notify", "获得【熟肉】*1" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI();
                                 } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
@@ -11483,8 +11501,10 @@ require = function e(t, n, a) {
                                 if (n.itemNum[5] >= 2) {
                                     n.itemNum[5] -= 2;
                                     n.itemNum2[1] += 1;
+                                    var consume = 2;
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "获得【伤药】*1", 100);
+                                    a.playText("Canvas/notify", "获得【伤药】*1" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI();
                                 } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
@@ -11502,8 +11522,10 @@ require = function e(t, n, a) {
                                     n.itemNum[1] -= c;
                                     n.itemNum[4] -= r;
                                     n.itemNum2[2] += 1;
+                                    var consume = Math.ceil(n.itemNum2[2] / 5) * 5;;
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "精力上限+10！", 100);
+                                    a.playText("Canvas/notify", "精力上限+10！" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI();
                                 } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
@@ -11524,8 +11546,10 @@ require = function e(t, n, a) {
                                 if (n.itemNum[1] >= c) {
                                     n.itemNum[1] -= c;
                                     n.itemNum2[3] += 1;
+                                    var consume = Math.ceil(n.itemNum2[3] / 5) * 5;;
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "攻击+10！", 100);
+                                    a.playText("Canvas/notify", "攻击+10！" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI();
                                 } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
@@ -11546,8 +11570,10 @@ require = function e(t, n, a) {
                                 if (n.itemNum[4] >= c) {
                                     n.itemNum[4] -= c;
                                     n.itemNum2[4] += 1;
+                                    var consume = Math.ceil(n.itemNum2[4] / 5) * 5;;
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "生命上限+50！", 100);
+                                    a.playText("Canvas/notify", "生命上限+50！" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI();
                                 } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
@@ -11563,12 +11589,14 @@ require = function e(t, n, a) {
                             button: function () {
                                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 8 + 2 * n.itemNum2[6];
                                 if (n.itemNum2[6] >= 50) {
-                                    a.playText("Canvas/notify", "驱蚊工具已经满级了！", 100);
+                                    a.playText("Canvas/notify", "驱蚊工具已经满级了！" + "消耗" + consume + "精力", 100);
                                     return;
                                 }
                                 if (n.itemNum[5] >= c) {
                                     n.itemNum[5] -= c;
                                     n.itemNum2[6] += 1;
+                                    var consume = Math.ceil(n.itemNum2[6] / 5) * 5;;
+                                    n.energy -= consume;
                                     i.save();
                                     a.playText("Canvas/notify", "讨厌的蚊子减少啦~", 100);
                                     t.delayCreatItemUI();
@@ -11593,8 +11621,10 @@ require = function e(t, n, a) {
                                 if (n.itemNum[1] >= c) {
                                     n.itemNum[1] -= c;
                                     n.itemNum2[5] += 1;
+                                    var consume = Math.ceil(n.itemNum2[5] / 5) * 5;;
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "升级成功！", 100);
+                                    a.playText("Canvas/notify", "升级成功！" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI();
                                 } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
@@ -11616,14 +11646,18 @@ require = function e(t, n, a) {
                                 if (c >= 4) {
                                     n.itemNum[6] -= 4;
                                     n.itemNum2[7] += 1;
+                                    var consume = 2;
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "获得【香烟】*1！", 100);
+                                    a.playText("Canvas/notify", "获得【香烟】*1！" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI();
                                 } else if (o >= 8) {
                                     n.itemNum[7] -= 8;
                                     n.itemNum2[7] += 1;
+                                    var consume = 2;
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "获得【香烟】*1！", 100);
+                                    a.playText("Canvas/notify", "获得【香烟】*1！" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI();
                                 } else if (n.achieve >= 50 && 0 == n.cigaretteuptimes) {//done 烟的新功能
                                     n.achieve >= 50;
@@ -11649,8 +11683,10 @@ require = function e(t, n, a) {
                                 if (n.itemNum[10] >= 5) {
                                     n.itemNum[10] -= 5;
                                     n.itemNum2[12] += 1;
+                                    var consume = 2;
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "获得【啤酒】*1！", 100);
+                                    a.playText("Canvas/notify", "获得【啤酒】*1！" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI3();
                                 } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
@@ -11706,8 +11742,10 @@ require = function e(t, n, a) {
                                 if (n.itemNum[8] >= c) {
                                     n.itemNum[8] -= c;
                                     n.itemNum2[10] += 1;
+                                    var consume = Math.ceil(n.itemNum2[10] / 5) * 25;;
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "获得【黑刀】*1！", 100);
+                                    a.playText("Canvas/notify", "获得【黑刀】*1！" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI4();
                                 } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
@@ -11725,8 +11763,10 @@ require = function e(t, n, a) {
                                 if (n.itemNum[9] >= c) {
                                     n.itemNum[9] -= c;
                                     n.itemNum2[11] += 1;
+                                    var consume = Math.ceil(n.itemNum2[11] / 5) * 25;;
+                                    n.energy -= consume;
                                     i.save();
-                                    a.playText("Canvas/notify", "获得【红夹克】*1！", 100);
+                                    a.playText("Canvas/notify", "获得【红夹克】*1！" + "消耗" + consume + "精力", 100);
                                     t.delayCreatItemUI4();
                                 } else a.playText("Canvas/notify", "材料不足！", 100);
                             }
@@ -13897,7 +13937,7 @@ require = function e(t, n, a) {
                         },
                         8: {
                             itemName: " 电饭煲（当前等级" + this.data.itemNum2[30] + ")",
-                            needDes: "价格：10元",
+                            needDes: "价格：10元，做饭的时候非常方便",
                             ifEnough: function (t) {
                                 e("scr_data").money >= 100 && (cc.find("Canvas/Page/view/content/page_3/" + t + "/name").color = new cc.color(0, 255, 0));
                             },
