@@ -394,7 +394,7 @@ require = function e(t, n, a) {
                         chioce2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                         kills: [0, 0, 0, 0],
                         itemNum: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//ITEMNUM【17】
-                        itemNum2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//tag 新变量在这加ITEMNUM2【28,29,30】
+                        itemNum2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//tag 新变量在这加
                         ifFollow: [0, 0],
                         plotId: 0,
                         talkTimes: [0, 0],
@@ -408,6 +408,8 @@ require = function e(t, n, a) {
                         randomModel: 0,
                         gift: [0, 0, 0, 0],
                         randomBuff: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        escapeBattle: 0,
+                        winEnemy: [],
                         escapeExp: 0,
                         energyconsumetimes: 1,
                         inBattle: 0,
@@ -592,6 +594,8 @@ require = function e(t, n, a) {
                         "undefined" == typeof e.skillLv[34] && (e.skillLv[34] = 0);
                         "undefined" == typeof e.skillLv[35] && (e.skillLv[35] = 0);
                         //新增物品传送门
+                        "undefined" == typeof e.escapeBattle && (e.escapeBattle = 0);
+                        "undefined" == typeof e.winEnemy && (e.winEnemy = []);
                         "undefined" == typeof e.randomModel && (e.randomModel = 0);
                         "undefined" == typeof e.gift && (e.gift = [0, 0, 0, 0]);
                         "undefined" == typeof e.randomBuff && (e.randomBuff = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -8201,6 +8205,20 @@ require = function e(t, n, a) {
                             }
                         }
                     })();
+                    (function () {
+                        if (n.escapeBattle == 1) {
+                            for (const id in n.winEnemy) {
+                                if (n.winEnemy[id] == n.enemyId) {
+                                    theEnemy.hp = 1;
+                                    theEnemy.maxHp = 1;
+                                    theEnemy.att = 1;
+                                    theEnemy.def = 1;
+                                    break;
+                                }
+                            }
+                        }
+                    })();
+
                     //tag 战斗特效传送门
                     var yourDEF = youinFight.def, Edes = theEnemy.des, k = ["均  衡", "进  攻", "防  御"];
                     var rateofshanbi;
@@ -8625,6 +8643,17 @@ require = function e(t, n, a) {
                     function isBattleEnd() {//func 战斗结束函数
                         if (theEnemy.hp <= 0) {
                             P();
+                            var alreadywin = false;
+                            for (const id in n.winEnemy) {
+                                if (n.winEnemy[id] == n.enemyId) {
+                                    alreadywin = true;
+                                    break;
+                                }
+                            }
+                            if (!alreadywin) {
+                                n.winEnemy.push(n.enemyId);
+                            } else {
+                            }
                             var e = theEnemy.drop, JKshoes = "", shouliandu = "",
                                 fightwinText = "战斗胜利！\n获得", o = inFight.getItem(e),
                                 achieve = function () {
@@ -14444,16 +14473,29 @@ require = function e(t, n, a) {
                     exT.setPosition(0, 557 - 200);// 如法炮制
                     cc.find("Canvas/text").addChild(exT);
                     exT.getComponent("cc.Label").string = "你当前拥有 " + a.energyconsumetimes + "x 前进/探索速度\n（探索时会消耗对应倍数的精力\n但是奖励总量不变）";
-                    n.on("touchstart", function () {//添加触摸函数要最后加，不然复制的按钮也会有这个函数（也许吧）
-                        a.publicVar[6] += 1;
-                        a.publicVar[6] > 2 && (a.publicVar[6] = 1);
-                        i.playText("Canvas/text/speed", "你目前剧情播放速度为" + t[a.publicVar[6]], 60);
-                    }, n);
                     ex.on("touchstart", function () {//添加触摸函数要最后加，不然复制的按钮也会有这个函数（也许吧）
                         a.energyconsumetimes += 1;
                         a.energyconsumetimes > 10 && (a.energyconsumetimes = 1);
-                        exT.getComponent("cc.Label").string = "你当前拥有 " + a.energyconsumetimes + "x 前进/探索速度\n（探索时会消耗对应倍数的精力\n但是奖励总量不变）";//todo
+                        exT.getComponent("cc.Label").string = "你当前拥有 " + a.energyconsumetimes + "x 前进/探索速度\n（探索时会消耗对应倍数的精力\n但是奖励总量不变）";
                     }, ex);
+
+                    let escapeBattleBtn = cc.instantiate(n);//复制一个一模一样的按钮 1
+                    escapeBattleBtn.setPosition(0, 459 - 400);//设置位置 往第一个按钮的下方移动200像素 2
+                    cc.find("Canvas/button").addChild(escapeBattleBtn);  // 将按钮节点作为当前节点的子节点 3
+                    escapeBattleBtn.getChildByName("New Label").getComponent("cc.Label").string = "跳 过";
+                    //获得按钮上的节点，用名字搜索子节点       子节点上有一个组件    修改组件的字符  4
+                    escapeBattleBtn.color = cc.Color.RED;  //设置新节点的颜色
+                    //text.string = "测试按钮";//text.parent = ex;//text.color = cc.Color.RED;
+                    let escapeBattleT = cc.instantiate(speedtext);//复制显示文字的label
+                    escapeBattleT.setPosition(0, 557 - 400);// 如法炮制
+                    cc.find("Canvas/text").addChild(escapeBattleT);
+                    var textesc = ["关闭", "开启"];
+                    escapeBattleT.getComponent("cc.Label").string = "当前选项为 " + textesc[a.escapeBattle] + " 状态。\n开启选项后已经击杀过的敌人\n再次遇到时将会一击秒杀";
+                    escapeBattleBtn.on("touchstart", function () {//添加触摸函数要最后加，不然复制的按钮也会有这个函数（也许吧）
+                        a.escapeBattle += 1;
+                        a.escapeBattle > 1 && (a.escapeBattle = 0);
+                        escapeBattleT.getComponent("cc.Label").string = "当前选项为 " + textesc[a.escapeBattle] + " 状态。\n开启选项后已经击杀过的敌人\n再次遇到时将会一击秒杀";//todo 跳过战斗设置
+                    }, escapeBattleBtn);
                 }
             });
             cc._RF.pop();
