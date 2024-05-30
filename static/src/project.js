@@ -4866,7 +4866,7 @@ require = function e(t, n, a) {
                             winEvent: function () {
                                 var t = e("scr_data"), n = this.publicVar + 5;
                                 t.money += n;
-                                e("scr_data2").gameData2[0] = 1;
+                                e("scr_data2").gameData2[0] += 1;
                                 t.randomEvent[3] += 1;
                                 return "【获得" + (n / 10).toFixed(1) + "元！】【“呜呜呜，我告诉我姐去”】";
                             },
@@ -8332,7 +8332,7 @@ require = function e(t, n, a) {
                                 var damageTimes = 1 + 1;
                                 for (let i = 0; i <= attTimes; i++) {
                                     damageTimes += (i / 2);
-                                }//todo
+                                }
                                 damageTimesText *= damageTimes;
                                 youHitsText = youHitsText.replace(/普攻|割裂|枪击/, "居合");
                                 /暴击|爆头/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击|爆头/, "「斩，无赦！」"));
@@ -8456,7 +8456,7 @@ require = function e(t, n, a) {
                             n.escapeExp += a;
                             i.playText("Canvas/Text/txt_notify", "逃跑成功！\n逃跑技术+" + a + "（累计" + n.escapeExp + "）", 80);
                             leaveBattle();
-                            yourLostskill();
+                            afterbattleskill();
                         }
                     }, ESCbutton);
                     refreshEnemyStatus();
@@ -8496,7 +8496,7 @@ require = function e(t, n, a) {
                                 (function () {
                                     P();
                                     i.playText("Canvas/Text/txt_notify", theEnemy.name + "逃跑啦！", 80);
-                                    yourLostskill();
+                                    afterbattleskill();
                                 })();
                                 return;
                             }
@@ -8600,9 +8600,10 @@ require = function e(t, n, a) {
                     }
                     function SaveGame() {
                         a.save();
+                        a.save2();
                         a.init();
                     }
-                    function yourLostskill() {
+                    function afterbattleskill() {
                         var e = cc.find("Canvas/Button"), t = cc.find("Canvas/Text/txt_notify");
                         if (n.role.hp <= 0) {
                             if (n.skillLv[24] > 0) {
@@ -8743,11 +8744,11 @@ require = function e(t, n, a) {
                             n.inBattle = 0;
                             "没发现道具" == o && (fightwinText = fightwinText.replace("获得", ""));
                             fightwinText = lucky + XY + XL + JKshoes + fightwinText + o + addstate + shouliandu + achieve;
-                            "undefined" != typeof theEnemy.winEvent && (fightwinText = fightwinText + "！\n" + theEnemy.winEvent());
+                            "undefined" != typeof theEnemy.winEvent && (fightwinText = fightwinText + "！\n" + theEnemy.winEvent()/*获胜之后在这里调用了一下敌人的函数*/);
                             leaveBattle();
                             inFight.scheduleOnce(function () {
                                 i.playText("Canvas/Text/txt_notify", fightwinText, 80);
-                                yourLostskill();
+                                afterbattleskill();
                             }, 1);
                         }
                     }
@@ -8768,7 +8769,7 @@ require = function e(t, n, a) {
                             leaveBattle();
                             inFight.scheduleOnce(function () {
                                 i.playText("Canvas/Text/txt_notify", e, 80);
-                                yourLostskill();
+                                afterbattleskill();
                             }, 0.3);
                         }
                     }
@@ -10128,6 +10129,7 @@ require = function e(t, n, a) {
                         var i = new Date(), c = parseInt(i.getTime() / 36e5);
                         n.gameData[2] = c;
                     }
+                    //func 游戏初始化加属性
                     n.gameData[3] = 0;
                     t.publicVar[6] = 2;
                     a.save();
