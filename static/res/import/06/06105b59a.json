@@ -427,7 +427,7 @@
                     "_useOriginalSize": false,
                     "_actualFontSize": 32,
                     "_fontSize": 32,
-                "_N$string": "仗剑走：初始一级匕首",
+                    "_N$string": "仗剑走：初始一级匕首",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1
                 }
@@ -485,7 +485,7 @@
                     "_useOriginalSize": false,
                     "_actualFontSize": 32,
                     "_fontSize": 32,
-                "_N$string": "好战者：遭遇敌人的概率增加50%\n战胜后获得的属性翻倍",
+                    "_N$string": "好战者：遭遇敌人的概率增加50%\n战胜后获得的属性翻倍",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1
                 }
@@ -543,7 +543,7 @@
                     "_useOriginalSize": false,
                     "_actualFontSize": 32,
                     "_fontSize": 32,
-                "_N$string": "商店扒手：购买基础物资时获得量+20%",
+                    "_N$string": "商店扒手：购买基础物资时获得量+20%",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1
                 }
@@ -601,7 +601,7 @@
                     "_useOriginalSize": false,
                     "_actualFontSize": 32,
                     "_fontSize": 32,
-                "_N$string": "左拥右抱：初始拥有晓月和碧瑶\n但碧瑶攻击力仅有20",
+                    "_N$string": "左拥右抱：初始拥有晓月和碧瑶\n但碧瑶攻击力仅有20",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1
                 }
@@ -659,7 +659,7 @@
                     "_useOriginalSize": false,
                     "_actualFontSize": 24,
                     "_fontSize": 24,
-                "_N$string": "好孩子模式：你将体验社会的毒打",
+                    "_N$string": "好孩子模式：你失去了一部分，但获得了更多，谁知道呢",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1
                 }
@@ -718,7 +718,7 @@
                     "_actualFontSize": 24,
                     "_fontSize": 24,
                     "_lineHeight": 30,
-                "_N$string": "修罗模式：怪物和奖励随天数逐渐变化、增加！",
+                    "_N$string": "修罗模式：怪物和奖励随天数逐渐变化、增加！",
                     "_N$horizontalAlign": 1,
                     "_N$verticalAlign": 1,
                     "_N$overflow": 3
