@@ -1,23 +1,27 @@
-require = function e(t, n, a) {
-    function i(o, r) {
-        if (!n[o]) {
-            if (!t[o]) {
-                var s = "function" == typeof require && require;
-                if (!r && s) return s(o, !0);
-                if (c) return c(o, !0);
-                var l = new Error("Cannot find module '" + o + "'");
-                throw l.code = "MODULE_NOT_FOUND", l;
-            }
-            var u = n[o] = { exports: {} };
-            t[o][0].call(u.exports, function (e) {
-                var n = t[o][1][e];
-                return i(n || e);
-            }, u, u.exports, e, t, n, a);
+require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {// 定义一个模块加载器
+    function loadModuleInternal(moduleId, isRequire) {// 加载模块的函数
+        if (loadedModules[moduleId]) {// 如果模块已经被加载，直接返回
+            return loadedModules[moduleId].exports;// 返回模块的导出对象
         }
-        return n[o].exports;
+        if (!moduleDefinitions[moduleId]) { // 如果模块未定义，抛出错误
+            var requireFunction = typeof require === 'function' && require;
+            if (!isRequire && requireFunction) return requireFunction(moduleId, true);
+            if (isRequire) return isRequire(moduleId, true);
+            var error = new Error("Cannot find module '" + moduleId + "'");
+            throw error.code = "MODULE_NOT_FOUND", error;
+        }
+
+        var module = loadedModules[moduleId] = { exports: {} };// 初始化模块
+        // 调用模块的定义函数
+        moduleDefinitions[moduleId][0].call(module.exports, function (dependencyId) {
+            var dependentModuleId = moduleDefinitions[moduleId][1][dependencyId];
+            return loadModuleInternal(dependentModuleId || dependencyId);
+        }, module, module.exports, loadModule, moduleDefinitions, loadedModules, entryPoints);
+        return loadedModules[moduleId].exports;// 返回模块的导出对象
     }
-    for (var c = "function" == typeof require && require, o = 0; o < a.length; o++) i(a[o]);
-    return i;
+    // 加载入口模块
+    for (var requireFunction = typeof require === 'function' && require, i = 0; i < entryPoints.length; i++) loadModuleInternal(entryPoints[i]);
+    return loadModuleInternal;
 }
     ({
         scr_BGM: [function (e, t, n) {
@@ -76,7 +80,7 @@ require = function e(t, n, a) {
                         14: "【饥渴少女（晓月）】“老哥，我想要...”“没有！滚~”。连续30天不喂食晓月！（" + t.publicVar2[10] + "/30）",
                         15: "【真.爱】触发回到认识晓月前一天后，放弃认识晓月，并到达省城",
                         16: "【决心】击败通缉犯",
-                        17: "【你是个好人】拥有6个人的「好人卡」（" + t.randomEvent[1] + "/6）",
+                        17: "【你是个好人】拥有6个人的「好人卡」（" + t.Collectibles.goodPeopleCard + "/6）",
                         18: "【珍.爱】击败草带男孩40次（" + t.kills[2] + "/40），并且被击败20次（" + t.publicVar2[7] + "/20）",
                         19: "【雷电法王】电疗成功21次（" + t.orderTimes[3] + "/21）",
                         20: "【收集癖】拥有99个收集类道具（" + c + "/99）",
@@ -167,7 +171,7 @@ require = function e(t, n, a) {
                             return n.achieveMent[16] == 1;
                         },
                         17: function () {
-                            if (t.randomEvent[1] >= 6) { n.achieveMent[17] = 1; }
+                            if (t.Collectibles.goodPeopleCard >= 6) { n.achieveMent[17] = 1; }
                             return n.achieveMent[17] == 1;
                         },
                         18: function () {
@@ -398,6 +402,9 @@ require = function e(t, n, a) {
                         kills: [0, 0, 0, 0],
                         itemNum: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//ITEMNUM【17】
                         itemNum2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//tag 新变量在这加
+                        Collectibles: {
+                            goodPeopleCard: 0,
+                        },
                         ifFollow: [0, 0],
                         plotId: 0,
                         talkTimes: [0, 0],
@@ -6713,7 +6720,8 @@ require = function e(t, n, a) {
                                 choice1: function () {
                                     n.energy = 0;
                                     n.choice[2] = 2;
-                                    n.randomEvent[1] += 1;
+                                    //n.randomEvent[1] += 1;
+                                    n.Collectibles.goodPeopleCard += 1;
                                     r("你帮忙打扫了房间，离开时老爷爷也没有说声谢谢...获得「好人卡」*1");
                                 },
                                 choice2: function () {
@@ -8158,6 +8166,7 @@ require = function e(t, n, a) {
                             bleedNum: 1,
                             attackTimes: 1
                         };
+                    n.enemyId = t;
                     var Askill = cc.instantiate(gunButton);//todo 111111111
                     Askill.active = true;
                     Askill.setPosition(364, -423 + 100);
@@ -8435,7 +8444,6 @@ require = function e(t, n, a) {
                                 booldtext = "。流血造成" + bloodnum + "伤害";
                             }
                             attTimes += 1;
-                            //100002 == t && (u = theEnemy.defSkill());这段代码是多出来的，没有作用
                             youHitsText = youHitsText + "，对" + theEnemy.name + "造成" + theDamage + "点伤害" + a + o + s + l + u + f + BY + theSword + booldtext + "。你的总倍率为" + parseInt(damageTimesText) + "%";
                             cleanAttText();
                             inFight.creatText(attText, "roleNotify", youHitsText);
@@ -8555,7 +8563,10 @@ require = function e(t, n, a) {
                             state = "「猥琐：你恢复" + C + "点生命(15%最大生命)」";
                         }
                         enemyAttText = enemyAttText + "，你受到" + enemyATT + "点伤害" + jacker + redjacker + state;
+                        var temp_nowhp = n.role.hp;
                         "undefined" != typeof theEnemy.skill && (enemyAttText = enemyAttText + "！" + theEnemy.skill());//敌人的攻击技能
+                        var temp_afterhp = n.role.hp;
+                        var damage = temp_nowhp - temp_afterhp;
                         if (1 == n.skillLv[29]) {//tag 闪避技能！！！
                             var rate = Math.random() * 100;
                             if (rate < rateofshanbi) {
@@ -10337,7 +10348,8 @@ require = function e(t, n, a) {
                             choice1: function () {
                                 n.randomEvent[6] += 1;
                                 if (20 == n.randomEvent[6]) {
-                                    n.randomEvent[1] += 1;
+                                    //n.randomEvent[1] += 1;
+                                    n.Collectibles.goodPeopleCard += 1;
                                     t.closeUI("老奶奶送给你一个「好人卡」，你获得「好人卡」*1");
                                 } else {
                                     if (100 * Math.random() <= 15) {
@@ -10663,7 +10675,8 @@ require = function e(t, n, a) {
                                         n.itemNum2[8] += 1;
                                         t.closeUI("流浪狗把你带到一堆白骨前，你找到一个「匕首」。罪恶值减" + a + "（你目前罪恶" + n.publicVar[0] + "）");
                                     } else if (10 == n.randomEvent[5]) {
-                                        n.randomEvent[1] += 1;
+                                        //n.randomEvent[1] += 1;
+                                        n.Collectibles.goodPeopleCard += 1;
                                         t.closeUI("流浪狗送了你一张「好人卡」（用于解锁特殊剧情）！罪恶值减" + a + "（你目前罪恶" + n.publicVar[0] + "）");
                                     } else t.closeUI("流浪狗似乎从来没吃过这么好吃的东西...罪恶值减" + a + "（你目前罪恶" + n.publicVar[0] + "）");
                                 } else cc.find("Canvas/Event/Choice/Choice1/choiceText").getComponent("cc.Label").string = "道具不足！";
