@@ -371,12 +371,12 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                         distance: 1,
                         stayDay: [1, 1, 1, 1],
                         role: {
-                            hp: 100,
-                            maxHp: 100,
-                            att: 10,
-                            def: 0
+                            hp: 250,
+                            maxHp: 250,
+                            att: 50,
+                            def: 10
                         },
-                        money: 5,
+                        money: 10,
                         day: 1,
                         energy: 100,
                         maxEnergy: 100,
@@ -1269,9 +1269,9 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                         0: {
                             name: "女贼",
                             lv: 99,
-                            hp: 400,
-                            maxHp: 400,
-                            att: 0,
+                            hp: 750,
+                            maxHp: 750,
+                            att: 25,
                             def: 0,
                             publicVar: 0,
                             escapeRate: 10,
@@ -1297,8 +1297,8 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                         1: {
                             name: "小蚊",
                             lv: 1,
-                            hp: 45,
-                            maxHp: 45,
+                            hp: 100,
+                            maxHp: 100,
                             att: 0,
                             def: 0,
                             publicVar: 0,
@@ -1310,7 +1310,7 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                             drop: [[50, 0, 1, 1], [50, 1, 1, 2]],
                             des: "遭到怪物袭击！",
                             skill: function () {
-                                var t = Math.max(5 - o.def, 0);
+                                var t = Math.max(10 - o.def, 0);
                                 e("scr_data").role.hp -= t;
                                 this.hp += t;
                                 return "【你被吸取" + t + "点生命！】";
@@ -1326,8 +1326,8 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                         2: {
                             name: "小小兔",
                             lv: 3,
-                            hp: 255,
-                            maxHp: 255,
+                            hp: 425,
+                            maxHp: 425,
                             att: 0,
                             def: 5,
                             publicVar: 0,
@@ -1351,9 +1351,9 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                         3: {
                             name: "小小蛇",
                             lv: 5,
-                            hp: 200,
-                            maxHp: 200,
-                            att: 23,
+                            hp: 325,
+                            maxHp: 325,
+                            att: 48,
                             def: 0,
                             publicVar: 0,
                             escapeRate: 50,
@@ -1371,8 +1371,8 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                         4: {
                             name: "小青（精英）",
                             lv: 8,
-                            hp: 315,
-                            maxHp: 315,
+                            hp: 585,
+                            maxHp: 585,
                             att: 0,
                             def: 0,
                             publicVar: 0,
@@ -1384,7 +1384,7 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                             drop: [[100, 3, 1, 1], [100, 1, 1, 2], [5, 27, 1, 2]],
                             des: "发现一条翠绿色的蛇！",
                             skill: function () {
-                                var t = Math.max(11 - o.def, 0);
+                                var t = Math.max(21 - o.def, 0);
                                 this.publicVar += 1;
                                 var n = t * this.publicVar;
                                 e("scr_data").role.hp -= n;
@@ -1397,8 +1397,8 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                         21: {
                             name: "葬爱.蚊乐队",
                             lv: 8,
-                            hp: 315,
-                            maxHp: 315,
+                            hp: 666,
+                            maxHp: 666,
                             att: 0,
                             def: 0,
                             publicVar: 0,
@@ -1410,7 +1410,7 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                             drop: [[50, 0, 1, 1], [100, 1, 1, 2]],
                             des: "头套给你耗一地",
                             skill: function () {
-                                var t = Math.max(32 - o.def, 0);
+                                var t = Math.max(66 - o.def, 0);
                                 e("scr_data").role.hp -= t;
                                 return "【" + this.name + "使用「上下」，你损失" + t + "点生命】";
                             },
@@ -1425,9 +1425,9 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                         22: {
                             name: "小混混",
                             lv: 11,
-                            hp: 410,
-                            maxHp: 410,
-                            att: 43,
+                            hp: 1355,
+                            maxHp: 1355,
+                            att: 88,
                             def: 0,
                             publicVar: 0,
                             escapeRate: 50,
@@ -1451,10 +1451,10 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                         23: {
                             name: "丐帮304代弟子",
                             lv: 16,
-                            hp: 575,
-                            maxHp: 575,
-                            att: 63,
-                            def: 15,
+                            hp: 1855,
+                            maxHp: 1855,
+                            att: 100,
+                            def: 25,
                             publicVar: 0,
                             escapeRate: 60,
                             enemyEscapeRate: 0,
@@ -4469,12 +4469,13 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                                     c.money -= e;
                                     return "【你给了晓月妈" + (e / 10).toFixed(1) + "元！】";
                                 }
-                                if (this.publicVar < 20) {
+                                if (this.att >= 3 && this.publicVar < 50) {
                                     c.role.hp -= 999999;
+                                    return "【“就这么点钱？胖猫都给了谭竹50万”】";
+                                } else if (this.publicVar > 50) {
+                                    this.hp -= 999999;
                                     return "【“哈哈哈哈哈”】";
                                 }
-                                this.hp -= 999999;
-                                return "【“哈哈哈哈哈”】";
                             },
                             winEvent: function () {
                                 var e = Math.min(parseInt(.5 * c.friend_xiaoyue.favorability + 50), 550);
@@ -13201,8 +13202,8 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                             }
                         })();
                         (function () {
-                            var e = 100 * Math.random(), n = t.n.evil.evilValue;
-                            if (e < n) {
+                            var e = 100 * Math.random(), evilNum = t.evil.evilValue;
+                            if (e < evilNum) {
                                 t.energy -= parseInt(.5 * t.energy);
                                 i.creatText("hunger", "【失眠】精力-50%！");
                             }
@@ -14357,7 +14358,7 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                         29: "29:【闪避】郊外小伙子飞刀技术15开启，由于你经常陪他练习，现在你有20%概率闪避所有伤害（舍弃回血效果，保持血量不变）",
                         30: "30：【破防】战斗中，均衡架势下，如果均衡架势熟练度达到100以上，且本次攻击触发【暴击】，则把【嗜血】替换为破防，无视对方防御和任何格挡技能",
                         31: "31：【黑刀】等级升级后会获得效果，你当前黑刀为" + t.itemNum2[10] + "级。1级：你造成的所有伤害中的" + t.itemNum2[10] * 10 + "%转化为流血效果。3级：【居合】每场战斗限一次，战斗中每攻击一次增加当前轮数*" + t.itemNum2[10] * 100 + "%倍率，你可以随时使用技能并使得下次攻击增加对应倍率。5级：【振刀】居合使用之后的敌人下一次攻击的伤害会被完全抵挡。7级：",//todo 黑刀特效描述
-                        32: "32：【吾心超凡】（当前等级" + virtueLevel + "）。1级：商店基础物资打折20%。2级：没想好",
+                        32: "32：【吾心超凡】（当前等级" + t.evil.virtueLevel + "）。1级：商店基础物资打折20%。2级：没想好",
                         //tag 特性的描述文本
                     },
                         skillvalues = e("scr_data").skillLv, c = cc.find("Canvas/Scroll/view/content"),
