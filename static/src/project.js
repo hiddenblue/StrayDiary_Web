@@ -14517,6 +14517,7 @@ require = function loadModule(moduleDefinitions, hasBeenLoadedModulesExportValue
                             t.getChildByName("Label").getComponent("cc.Label").string = "最新版本更新时间：" + formattedDate + " " + formattedTime + data.description;
                         }
                     };
+                    xhr.send();
                     //bug 记得每次更新版本要写版本号
                 }
             });
