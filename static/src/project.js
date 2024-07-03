@@ -3,24 +3,31 @@ require = function loadModule(moduleDefinitions, loadedModules, needLoadModules)
         if (loadedModules[index]) {// 如果模块已经被加载，直接返回
             return loadedModules[index].exports;// 返回模块的导出对象
         }
-        if (!moduleDefinitions[index]) { // 如果模块未定义，抛出错误
+        var moduleDefinition = moduleDefinitions[index]
+        if (!moduleDefinition) { // 如果模块未定义，抛出错误
             var error = new Error("Cannot find module '" + index + "'");
             throw error.code = "MODULE_NOT_FOUND", error;
         }
 
-        var module = loadedModules[index] = { exports: {} };// 初始化模块
+        // Step 1: 创建一个新的模块对象，其中包含一个空的exports属性
+        var newModule = {
+            exports: {}
+        };
+
+        // Step 2: 将这个新模块对象存储到loadedModules数组的指定位置
+        loadedModules[index] = newModule;
+
+        // Step 3: 同时，将这个新模块对象赋值给module变量，以便后续使用
+        var module = newModule;
         // 调用模块的定义函数
-        moduleDefinitions[index][0](
+        var moduleMainFunction = moduleDefinition[0];
+        moduleMainFunction(
             function (dependencyId) {
-                var dependentModuleId = moduleDefinitions[index][1][dependencyId];
+                var dependentModuleId = moduleDefinition[1][dependencyId];
                 return loadModuleInternal(dependentModuleId || dependencyId);
             },
             module,
             module.exports,
-            loadModule,
-            moduleDefinitions,
-            loadedModules,
-            needLoadModules
         );
         return loadedModules[index].exports;// 返回模块的导出对象
     }
