@@ -44,7 +44,7 @@ require = function loadModule(moduleDefinitions, hasBeenLoadedModulesExportValue
                     BGM4: { url: cc.AudioClip, "default": null }
                 }, onLoad: function () { }
             }), cc._RFpop();
-        }, {}],
+        }],
         scr_achieve: [function (e, t, n) {
             "use strict";
             cc._RF.push(t, "141caSLnsJIHJZ46hPGujwi", "scr_achieve");
@@ -247,10 +247,6 @@ require = function loadModule(moduleDefinitions, hasBeenLoadedModulesExportValue
                 }
             });
             cc._RF.pop();
-        }, {
-            scr_data: "scr_data",
-            scr_data2: "scr_data2",
-            scr_public: "scr_public"
         }],
         scr_backMainUI: [function (e, t, n) {
             "use strict";
