@@ -10,15 +10,13 @@ require = function loadModule(moduleDefinitions, loadedModules, needLoadModules)
         }
 
         // Step 1: 创建一个新的模块对象，其中包含一个空的exports属性
-        var newModule = {
+        var emptyModule = {
             exports: {}
         };
 
         // Step 2: 将这个新模块对象存储到loadedModules数组的指定位置
-        loadedModules[index] = newModule;
+        loadedModules[index] = emptyModule;
 
-        // Step 3: 同时，将这个新模块对象赋值给module变量，以便后续使用
-        var module = newModule;
         // 调用模块的定义函数
         var moduleMainFunction = moduleDefinition[0];
         moduleMainFunction(
@@ -26,8 +24,8 @@ require = function loadModule(moduleDefinitions, loadedModules, needLoadModules)
                 var dependentModuleId = moduleDefinition[1][dependencyId];
                 return loadModuleInternal(dependentModuleId || dependencyId);
             },
-            module,
-            module.exports,
+            emptyModule,
+            emptyModule.exports,
         );
         return loadedModules[index].exports;// 返回模块的导出对象
     }
