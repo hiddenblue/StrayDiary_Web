@@ -20,9 +20,10 @@ require = function loadModule(moduleDefinitions, hasBeenLoadedModulesExportValue
         // 调用模块的定义函数
         var moduleMainFunction = moduleDefinition[0];
         moduleMainFunction(
-            function (dependencyModuleId) {
-                var dependentModuleId = moduleDefinition[1][dependencyModuleId];
-                return getModulesExportInMEM(dependentModuleId || dependencyModuleId);
+            function (ModuleIdforLoad) {//就是模块里叫“e”的那个函数，用于加载模块
+                var moduleDependentOtherModuleIDObjectList = moduleDefinition[1];
+                var moduleDependentOtherModuleID = moduleDependentOtherModuleIDObjectList[ModuleIdforLoad];
+                return getModulesExportInMEM(moduleDependentOtherModuleID || ModuleIdforLoad);
             },
             emptyModule,
             emptyModule.exports,
