@@ -1,11 +1,11 @@
-require = function loadModule(moduleDefinitions, loadedModules, needLoadModules) {// 定义一个模块加载器
-    function loadModuleInternal(index) {// 加载模块的函数
-        if (loadedModules[index]) {// 如果模块已经被加载，直接返回
-            return loadedModules[index].exports;// 返回模块的导出对象
+require = function loadModule(moduleDefinitions, hasBeenLoadedModulesExportValues, needLoadModuleIDList) {// 定义一个模块加载器
+    function getModulesExportInMEM(needLoadModuleID) {// 加载模块的函数
+        if (hasBeenLoadedModulesExportValues[needLoadModuleID]) {// 如果模块已经被加载，直接返回
+            return hasBeenLoadedModulesExportValues[needLoadModuleID].exports;// 返回模块的导出对象
         }
-        var moduleDefinition = moduleDefinitions[index]
+        var moduleDefinition = moduleDefinitions[needLoadModuleID]
         if (!moduleDefinition) { // 如果模块未定义，抛出错误
-            var error = new Error("Cannot find module '" + index + "'");
+            var error = new Error("Cannot find module '" + needLoadModuleID + "'");
             throw error.code = "MODULE_NOT_FOUND", error;
         }
 
@@ -15,23 +15,26 @@ require = function loadModule(moduleDefinitions, loadedModules, needLoadModules)
         };
 
         // Step 2: 将这个新模块对象存储到loadedModules数组的指定位置
-        loadedModules[index] = emptyModule;
+        hasBeenLoadedModulesExportValues[needLoadModuleID] = emptyModule;
 
         // 调用模块的定义函数
         var moduleMainFunction = moduleDefinition[0];
         moduleMainFunction(
-            function (dependencyId) {
-                var dependentModuleId = moduleDefinition[1][dependencyId];
-                return loadModuleInternal(dependentModuleId || dependencyId);
+            function (dependencyModuleId) {
+                var dependentModuleId = moduleDefinition[1][dependencyModuleId];
+                return getModulesExportInMEM(dependentModuleId || dependencyModuleId);
             },
             emptyModule,
             emptyModule.exports,
         );
-        return loadedModules[index].exports;// 返回模块的导出对象
+        return hasBeenLoadedModulesExportValues[needLoadModuleID].exports;// 返回模块的导出对象
     }
     // 加载入口模块
-    for (var index = 0; index < needLoadModules.length; index++) loadModuleInternal(needLoadModules[index]);
-    return loadModuleInternal;
+    for (var index = 0; index < needLoadModuleIDList.length; index++) {
+        var needLoadModuleID = needLoadModuleIDList[index];
+        getModulesExportInMEM(needLoadModuleID)
+    };
+    return getModulesExportInMEM;
 }
     ({
         scr_BGM: [function (e, t, n) {
