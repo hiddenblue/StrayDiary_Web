@@ -1,26 +1,31 @@
-require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {// 定义一个模块加载器
-    function loadModuleInternal(moduleId, isRequire) {// 加载模块的函数
-        if (loadedModules[moduleId]) {// 如果模块已经被加载，直接返回
-            return loadedModules[moduleId].exports;// 返回模块的导出对象
+require = function loadModule(moduleDefinitions, loadedModules, needLoadModules) {// 定义一个模块加载器
+    function loadModuleInternal(index) {// 加载模块的函数
+        if (loadedModules[index]) {// 如果模块已经被加载，直接返回
+            return loadedModules[index].exports;// 返回模块的导出对象
         }
-        if (!moduleDefinitions[moduleId]) { // 如果模块未定义，抛出错误
-            var requireFunction = typeof require === 'function' && require;
-            if (!isRequire && requireFunction) return requireFunction(moduleId, true);
-            if (isRequire) return isRequire(moduleId, true);
-            var error = new Error("Cannot find module '" + moduleId + "'");
+        if (!moduleDefinitions[index]) { // 如果模块未定义，抛出错误
+            var error = new Error("Cannot find module '" + index + "'");
             throw error.code = "MODULE_NOT_FOUND", error;
         }
 
-        var module = loadedModules[moduleId] = { exports: {} };// 初始化模块
+        var module = loadedModules[index] = { exports: {} };// 初始化模块
         // 调用模块的定义函数
-        moduleDefinitions[moduleId][0].call(module.exports, function (dependencyId) {
-            var dependentModuleId = moduleDefinitions[moduleId][1][dependencyId];
-            return loadModuleInternal(dependentModuleId || dependencyId);
-        }, module, module.exports, loadModule, moduleDefinitions, loadedModules, entryPoints);
-        return loadedModules[moduleId].exports;// 返回模块的导出对象
+        moduleDefinitions[index][0](
+            function (dependencyId) {
+                var dependentModuleId = moduleDefinitions[index][1][dependencyId];
+                return loadModuleInternal(dependentModuleId || dependencyId);
+            },
+            module,
+            module.exports,
+            loadModule,
+            moduleDefinitions,
+            loadedModules,
+            needLoadModules
+        );
+        return loadedModules[index].exports;// 返回模块的导出对象
     }
     // 加载入口模块
-    for (var requireFunction = typeof require === 'function' && require, i = 0; i < entryPoints.length; i++) loadModuleInternal(entryPoints[i]);
+    for (var index = 0; index < needLoadModules.length; index++) loadModuleInternal(needLoadModules[index]);
     return loadModuleInternal;
 }
     ({
@@ -13757,13 +13762,16 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                     class Good {
                         constructor(itemName, needDes, price, ifEnough, button1, button2) {
                             this.data = e("scr_data");
+                            this.count = 1;
                             this.itemName = itemName;
                             this.needDes = needDes;
                             this.price = price;
                             this.ifEnough = ifEnough;
                             this.button1 = button1;
                             this.button2 = button2;
-
+                        }
+                        displayInfo() {
+                            console.log(`Item Name: ${this.itemName}, Price: ${this.price}`);
                         }
                     }
                     var items = [];
@@ -13793,9 +13801,6 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                             }
                         } else a.playText("Canvas/notify", "钱不够！", 100);
                     }));
-
-
-                    // 提供的对象数据
                     let providedObject = {
                         itemName: "亚麻*10（拥有" + this.data.itemNum[4] + ")",
                         needDes: "购买1次/5次：1元/5元",
@@ -14495,6 +14500,7 @@ require = function loadModule(moduleDefinitions, loadedModules, entryPoints) {//
                     var t = cc.find("Canvas/button/button_newGame"), n = e("scr_data");
                     const url = `https://api.github.com/repos/QiuLiang-99/llrj-QL`;
                     let xhr = new XMLHttpRequest();
+
                     xhr.open("GET", url, true);
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
