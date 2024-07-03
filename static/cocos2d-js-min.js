@@ -36369,7 +36369,7 @@
     152: [function (t, e, i) {
         var n = [];
         cc._RF = {
-            push: function (t, e, i) {
+            push: function (t, e, i) {//func ccpush函数的原型t是一个空对象，e是一段混淆的id码，i是module的名字（或者叫id）
                 void 0 === i && (i = e,
                     e = ""),
                     n.push({

@@ -10,17 +10,18 @@ require = function loadModule(moduleDefinitions, hasBeenLoadedModulesExportValue
         }
 
         // Step 1: 创建一个新的模块对象，其中包含一个空的exports属性
-        var emptyModule = {
+        var aObjecttoReceiveExports = {
             exports: {}
         };
 
         // Step 2: 将这个新模块对象存储到loadedModules数组的指定位置
-        hasBeenLoadedModulesExportValues[needLoadModuleID] = emptyModule;
+        hasBeenLoadedModulesExportValues[needLoadModuleID] = aObjecttoReceiveExports;
 
         // 调用模块的定义函数
         var moduleMainFunction = moduleDefinition[0];
         //就是模块里叫“e”的那个函数，用于加载模块
-        moduleMainFunction(getModulesExportInMEM, emptyModule, emptyModule.exports);
+        moduleMainFunction(getModulesExportInMEM, aObjecttoReceiveExports, aObjecttoReceiveExports.exports);
+        //如果moduleMainFunction中有给aObjecttoReceiveExports.exports赋值，则这个对象有效
         return hasBeenLoadedModulesExportValues[needLoadModuleID].exports;// 返回模块的导出对象
     }
     // 加载入口模块
