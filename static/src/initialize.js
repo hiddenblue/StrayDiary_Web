@@ -32,7 +32,6 @@ require = function loadModule(moduleDefinitions, hasBeenLoadedModulesExportValue
     return getModulesExportInMEM;
 };
 //require函数的定义
-
 var moduleDefinitions = {};
 var needLoadModuleIDList = [];
 //每有一个模块，需要将他的名字push到该list
