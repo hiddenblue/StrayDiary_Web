@@ -2,12 +2,12 @@
 
     'use strict';
 
-    function boot () {
+    function boot() {
 
         var settings = window._CCSettings;
         window._CCSettings = undefined;
 
-        if ( !settings.debug ) {
+        if (!settings.debug) {
             // retrieve minified raw assets
             var rawAssets = settings.rawAssets;
             var assetTypes = settings.assetTypes;
@@ -30,7 +30,7 @@
             canvas = document.getElementById('GameCanvas');
         }
 
-        function setLoadingDisplay () {
+        function setLoadingDisplay() {
             // Loading splash scene
             var splash = document.getElementById('splash');
             var progressBar = splash.querySelector('.progress-bar span');
@@ -109,15 +109,15 @@
             );
         };
 
-        // jsList
-        var jsList = settings.jsList;
-        var bundledScript = settings.debug ? 'project.dev.js' : 'project.js';
-        if (jsList) {
-            jsList.push(bundledScript);
-        }
-        else {
-            jsList = [bundledScript];
-        }
+        //func jsList 在前面的会先加载，所以务必注意先后顺序
+        var jsList = [];
+        jsList.push("initialize.js");
+        jsList.push("test.js");
+        //jsList.push("test.js");
+        //jsList.push("test.js");
+        jsList.push('project.js');
+
+
 
         // anysdk scripts
         if (cc.sys.isNative && cc.sys.isMobile) {
