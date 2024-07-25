@@ -31,7 +31,7 @@ require = function loadModule(moduleDefinitions, hasBeenLoadedModulesExportValue
     };
     return getModulesExportInMEM;
 };
-//require函数的定义
+//require函数的定义 网页测试专用版本
 scr_achieve = [function (e, t, n) {
     "use strict";
     cc._RF.push(t, "141caSLnsJIHJZ46hPGujwi", "scr_achieve");
@@ -254,7 +254,7 @@ scr_data = [function (e, t, n) {
                 money: 10,
                 day: 1,
                 energy: 100,
-                maxEnergy: 200,
+                maxEnergy: 250,
                 energyResumeRate: 0.6,
                 hunger: 100,
                 maxHunger: 100,
@@ -11951,7 +11951,7 @@ scr_rest = [function (e, t, n) {
                     extraEnergy += 20;
                 }
                 couldResumeEnergy += extraEnergy;
-                t.energy += couldResumeEnergy;
+                t.energy = couldResumeEnergy + surplusEnergy;
                 var texttoShow = "精力 +" + (couldResumeEnergy) + "（" + t.energy + "/" + maxEnergy + "）";
                 cc.find("Canvas/AttrShow/energy/text").getComponent("cc.Label").string = texttoShow;
             })();
