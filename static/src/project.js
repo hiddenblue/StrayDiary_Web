@@ -227,7 +227,7 @@ scr_achieve = [function (e, t, n) {
                 l[p]() && (u.getChildByName("skill" + p).color = new cc.Color(0, 255, 0));
             }
             var f = cc.find("Canvas/Button_backMainUI");
-            f.on("touchstart", function () {
+            f.on("touchend", function () {
                 cc.director.loadScene("main");
                 a.save2();
             }, f);
@@ -255,10 +255,9 @@ scr_data = [function (e, t, n) {
                 day: 1,
                 energy: 100,
                 maxEnergy: 250,
-                energyResumeRate: 0.6,
                 hunger: 100,
                 maxHunger: 100,
-                health: 30,
+                health: 50,
                 maxHealth: 100,
                 achieve: 0,
                 shopPoint: 0,
@@ -278,7 +277,7 @@ scr_data = [function (e, t, n) {
                 kills: [0, 0, 0, 0],
                 itemNum: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//ITEMNUM【17】
                 itemNum2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                //tag 新变量在这加
+                //tag src_data在这
                 discount: 0,
                 Collectibles: {
                     goodPeopleCard: 0,
@@ -571,7 +570,7 @@ scr_diary = [function (e, t, n) {
         },
         onLoad: function () {
             var t = cc.find("Canvas/skip"), n = e("scr_public");
-            t.on("touchstart", function () {
+            t.on("touchend", function () {
                 cc.director.loadScene("rest");
             }, this);
             n.ifGameOver();
@@ -689,6 +688,7 @@ scr_eatUI = [function (e, t, n) {
         itemContent: function () {
             var t = this;
             this.data = e("scr_data");
+            this.public = e("scr_public");
             var n = 3 * this.data.orderTimes[1] - this.data.orderTimes[4];
             //1 == this.data.publicVar[1] && (n = 1 * this.data.orderTimes[1] - this.data.orderTimes[4]);
             var a = {
@@ -740,7 +740,7 @@ scr_eatUI = [function (e, t, n) {
                 2: {
                     itemName: " 伤药 ",
                     needDes: "※拥有：" + this.data.itemNum2[1],
-                    des: "※效果：恢复" + (30 + this.data.orderTimes[0]) + "生命值，增加10点基础最大生命值，且每次使用恢复量永久提高1点",
+                    des: "※效果：恢复" + (30 + this.data.orderTimes[0]) + "生命值，增加10点基础最大生命值，且每次使用恢复量永久提高1点，恢复一点健康",
                     ifEnough: function (t) {
                         e("scr_data").itemNum2[1] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0));
                     },
@@ -748,6 +748,7 @@ scr_eatUI = [function (e, t, n) {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 30 + n.orderTimes[0], o = n.itemNum2[1], r = n.role.hp, s = i.role.maxHp();
                         if (r < s) if (o >= 1) {
                             n.itemNum2[1] -= 1;
+                            n.health += 1;
                             n.role.maxHp += 10;
                             n.role.hp += c;
                             n.role.hp > s && (n.role.hp = s);
@@ -758,10 +759,10 @@ scr_eatUI = [function (e, t, n) {
                         } else a.playText("Canvas/notify", "道具不足！", 100); else a.playText("Canvas/notify", "生命已达最大值！", 100);
                     }
                 },
-                3: {//tag 进食物品传送门
+                3: {//tag eatUI在这
                     itemName: " 香烟 ",
                     needDes: "※拥有：" + this.data.itemNum2[7] + "（你当前烟瘾为" + n + "%）",
-                    des: "※效果：减少1点健康。恢复" + (50 + this.data.orderTimes[8] * 5) + "精力，解除【烟瘾】BUFF！你，今天第" + this.data.orderTimes[8] + "次抽烟",
+                    des: "※效果：减少1点健康。恢复" + (50 * this.public.role.energyResumeRate()) + "精力，解除【烟瘾】BUFF！你，今天第" + this.data.orderTimes[8] + "次抽烟",
                     ifEnough: function (t) {
                         e("scr_data").itemNum2[7] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0));
                     },
@@ -769,12 +770,13 @@ scr_eatUI = [function (e, t, n) {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum2[7],
                             //Energy = 10 * parseInt(Math.max(0.05 - 0.01 * n.orderTimes[8], 0) * i.maxEnergy());
                             //Energy = 10 * parseInt(0.05 * i.maxEnergy());
-                            Energy = 50 + n.orderTimes[8] * 5,
+                            Energy = 50 * i.role.energyResumeRate(),//n.orderTimes[8] * 5
                             text = "";
                         if (2 == n.publicVar[1]) {
                             a.playText("Canvas/notify", "好孩子不能抽烟哦！", 100)
+                            return;
                         }
-                        else if (c >= 1) {
+                        if (c >= 1) {
 
                             n.itemNum2[7] -= 1;
                             n.energy += Energy;
@@ -807,7 +809,7 @@ scr_eatUI = [function (e, t, n) {
                 4: {
                     itemName: " 啤酒 ",
                     needDes: "※拥有：" + this.data.itemNum2[12],
-                    des: "※效果：恢复30精力，并获得一个【易拉罐】。开罐有奖！你今天已经喝了"
+                    des: "※效果：恢复" + (30 * this.public.role.energyResumeRate()) + "精力，并获得一个【易拉罐】。开罐有奖！你今天已经喝了"
                         + this.data.orderTimes[9] + "次酒，30%几率获得【暴躁】状态（伤害增加30%，战后一定几率消失）",
                     ifEnough: function (t) {
                         e("scr_data").itemNum2[12] > 0 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
@@ -816,12 +818,14 @@ scr_eatUI = [function (e, t, n) {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                         if (2 == n.publicVar[1]) {
                             a.playText("Canvas/notify", "好孩子不能喝酒哦！", 100)
+                            return;
                         }
-                        else if (n.itemNum2[12] >= 1) {
-                            var c = 100 * Math.random(), o = 100 * Math.random(), r = "精力+30，获得【易拉罐】*1";
+                        if (n.itemNum2[12] >= 1) {
+                            var Energy = 30 * i.role.energyResumeRate();
+                            var c = 100 * Math.random(), o = 100 * Math.random(), r = "精力" + Energy + "，获得【易拉罐】*1";
                             n.itemNum2[12] -= 1;
                             n.orderTimes[9] += 1;
-                            n.energy += 30;
+                            n.energy += Energy;
                             n.itemNum[2] += 1;
                             if (c >= 90 && c < 97) {
                                 n.itemNum2[12] += 1;
@@ -930,7 +934,7 @@ scr_eatUI = [function (e, t, n) {
             n.getChildByName("need").getComponent("cc.Label").string = a.needDes;
             n.getChildByName("des").getComponent("cc.Label").string = a.des;
             n.getChildByName("button").getChildByName("name").getComponent("cc.Button").scheduleOnce(function () {
-                n.getChildByName("button").getChildByName("name").on("touchstart", i, this);
+                n.getChildByName("button").getChildByName("name").on("touchend", i, this);
             }, .02);
             cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n);
             "undefined" != typeof a.ifEnough && a.ifEnough(c);
@@ -7577,8 +7581,8 @@ scr_event = [function (e, t, n) {
                     cc.find("Canvas/Choice/label").active = !1;
                 } else a.active = !0;
                 cc.find("Canvas/Choice").runAction(cc.fadeIn(.2));//原来是2
-                a.on("touchstart", e, this);
-                o.on("touchstart", t, this);
+                a.on("touchend", e, this);
+                o.on("touchend", t, this);
             }, s * o * 0.1);//加入*0.1
         },
         initUI: function () {
@@ -7621,27 +7625,27 @@ scr_explore = [function (e, t, n) {//todo 新地图画饼
             };
             Tokyo.addDistance = function () { };
             n.shieldButton = function () {
-                o.node.off("touchstart", n.callBack, n);
+                o.node.off("touchend", n.callBack, n);
                 o.node.runAction(cc.tintTo(.1, 114, 199, 255));//变成淡蓝色，本来是0.3秒，现在改成0.1秒
                 o.scheduleOnce(o.onLoad, .05);//按钮保护，0.7秒后才能再次按下，改为0.2
             };
             a.shieldButton = function () {
-                o.node.off("touchstart", a.callBack, a);
+                o.node.off("touchend", a.callBack, a);
                 o.node.runAction(cc.tintTo(.1, 114, 199, 255));
                 o.scheduleOnce(o.onLoad, .05);
             };
             i.shieldButton = function () {
-                o.node.off("touchstart", i.callBack, i);
+                o.node.off("touchend", i.callBack, i);
                 o.node.runAction(cc.tintTo(.1, 114, 199, 255));
                 o.scheduleOnce(o.onLoad, .05);
             };
             c.shieldButton = function () {
-                o.node.off("touchstart", c.callBack, c);
+                o.node.off("touchend", c.callBack, c);
                 o.node.runAction(cc.tintTo(.1, 114, 199, 255));
                 o.scheduleOnce(o.onLoad, .05);
             };
             Tokyo.shieldButton = function () {
-                o.node.off("touchstart", c.callBack, c);
+                o.node.off("touchend", c.callBack, c);
                 o.node.runAction(cc.tintTo(.1, 114, 199, 255));
                 o.scheduleOnce(o.onLoad, .05);
             };
@@ -7743,19 +7747,19 @@ scr_explore = [function (e, t, n) {//todo 新地图画饼
             //位移传送门
             switch (r.publicVar[13]) {
                 case 0://城中村
-                    this.node.on("touchstart", n.callBack, n);
+                    this.node.on("touchend", n.callBack, n);
                     break;
 
                 case 1://郊外
-                    this.node.on("touchstart", a.callBack, a);
+                    this.node.on("touchend", a.callBack, a);
                     break;
 
                 case 2://市中心
-                    this.node.on("touchstart", i.callBack, i);
+                    this.node.on("touchend", i.callBack, i);
                     break;
 
                 case 3://山洞
-                    this.node.on("touchstart", c.callBack, c);
+                    this.node.on("touchend", c.callBack, c);
             }
         }
     });
@@ -7827,7 +7831,7 @@ scr_fight = [function (e, t, n) {
                 g = [0, 0, 0],
                 b = n.figthExp,
                 stateOnyou = (n.skillLv[4]/*烟瘾*/, n.buffState),
-                isWeiLanvaild = n.choice[8],
+                XianjingLevel = n.choice[8],
                 ammo = n.itemNum2[19],
                 nextCrit = 0,
                 BYstatus = {
@@ -7842,7 +7846,7 @@ scr_fight = [function (e, t, n) {
             cc.find("Canvas/Fight").addChild(Askill);
             var text = ["关", "开"];
             Askill.getComponent("cc.Label").string = "";
-            Askill.on("touchstart", function () {
+            Askill.on("touchend", function () {
                 if (blackKnifetimes > 0) {
                     n.Askills[0] === 0 ? n.Askills[0] = 1 : n.Askills[0] = 0;
                     Askill.getComponent("cc.Label").string = "居合斩\n（" + blackKnifetimes + "）\n【" + text[n.Askills[0]] + "】";
@@ -7914,7 +7918,7 @@ scr_fight = [function (e, t, n) {
             var rateofshanbi;
             attackButton.targetOff(attackButton);//攻击时隐藏按钮？推测
             ESCbutton.targetOff(ESCbutton);
-            attackButton.on("touchstart", function () {
+            attackButton.on("touchend", function () {
                 theEnemy.hp > 0 && n.role.hp > 0 && function () {
                     var youHitsText = "你使用【普攻】", a = "", o = "", s = "", l = "", u = "", f = "", BY = "", theSword = "", thenet = "", booldtext = "", damageTimesText = 100;
                     inFight.publicVar = 0;
@@ -8001,10 +8005,14 @@ scr_fight = [function (e, t, n) {
                         theDamage = parseInt(1.3 * theDamage);/*狂暴*/
                         damageTimesText *= 1.3;
                     }
-                    if (isWeiLanvaild >= 0) {
-                        (theDamage = parseInt((1 + 0.02 * isWeiLanvaild) * theDamage));
-                        damageTimesText *= (1 + 0.02 * isWeiLanvaild);
-                    }/*陷阱*/
+                    if (XianjingLevel >= 0) {/*陷阱*/
+                        (theDamage = parseInt((1 + 0.02 * 5 * XianjingLevel) * theDamage));
+                        damageTimesText *= (1 + 0.02 * 5 * XianjingLevel);
+                    } else {
+                        (theDamage = parseInt((1 + 0.02 * n.itemNum2[5]) * theDamage));
+                        damageTimesText *= (1 + 0.02 * n.itemNum2[5]);
+                    }
+
                     if (1 == n.buffState[2]) {//自信buff
                         if (n.winsstreaks <= 3) {
                             theDamage = parseInt((1 + 0.1 * n.winsstreaks) * theDamage);
@@ -8129,7 +8137,7 @@ scr_fight = [function (e, t, n) {
                 }();
                 theEnemy.hp > 0 && n.role.hp > 0 && attackButton.getComponent("cc.Button").scheduleOnce(enemysturn, 0.3);//战斗没有结束则判断敌人是否逃跑，本来为一秒，改成0.3
             }, attackButton);
-            ESCbutton.on("touchstart", function () {//逃跑功能
+            ESCbutton.on("touchend", function () {//逃跑功能
                 var EscapeRate = calEscapeRate(), t = 100 * Math.random();
                 n.skillLv[14] > 0 && (n.figthState = 2);//逃跑时自动进猥琐
                 n.buffState[2] = 0;//清除自信
@@ -8164,7 +8172,7 @@ scr_fight = [function (e, t, n) {
                         e.active = true;  // 设置gunButton节点为可见
                         gunLabel();  // 调用函数w()
                         e.targetOff(e);  // 移除之前的事件监听器
-                        e.on("touchstart", function () {
+                        e.on("touchend", function () {
                             // 在触摸事件发生时切换publicVar数组中索引为4的值，也就是是否使用枪
                             n.publicVar[4] === 0 ? n.publicVar[4] = 1 : n.publicVar[4] = 0;
                             gunLabel();  // 调用函数w()
@@ -8320,7 +8328,7 @@ scr_fight = [function (e, t, n) {
                         var e = 100 * Math.random();
                         e < 50 && (n.buffState[0] = 0);
                     }
-                    if (n.choice[8] > 0) {
+                    if (n.choice[8] > 0) {//清除陷阱增伤
                         var e = 100 * Math.random();
                         e < 100 && (n.choice[8] = 0);
                     }
@@ -8513,7 +8521,7 @@ scr_fightState = [function (e, t, n) {
             var t = ["均  衡", "进  攻", "防  御"], n = e("scr_data"), a = this, i = this.node.getChildByName("text").getComponent("cc.Label");
             c();
             0 == n.skillLv[5] ? a.node.active = !1 : a.node.active = !0;
-            this.node.on("touchstart", function () {
+            this.node.on("touchend", function () {
                 if (1 == n.skillLv[9] && 0 == n.skillLv[14]) {
                     n.figthState += 1;
                     n.figthState > 1 && (n.figthState = 0);
@@ -8638,6 +8646,7 @@ scr_forwardButton = [function (e, t, n) {
                 t.skillLv[4] = 1;
             }
             //test
+            //t.evil.virtueLevel += 1
             //cc.find("Event/scr_mainUIEvent").getComponent("scr_mainUIEvent").startEvent(3);
             //var func = e("scr_public");
             //func.QLnewfunction.addxiaoyue_favorability(2);
@@ -9001,7 +9010,7 @@ scr_forwardButton = [function (e, t, n) {
             return !1;
         },
         shieldButton: function () {
-            this.node.off("touchstart", this.callBack, this);
+            this.node.off("touchend", this.callBack, this);
             this.node.runAction(cc.tintTo(.3, 114, 199, 255));
             this.scheduleOnce(this.onLoad, .05);
         },
@@ -9033,7 +9042,7 @@ scr_forwardButton = [function (e, t, n) {
         onLoad: function () {
             this.endActionId = 0;
             this.node.runAction(cc.tintTo(.3, 255, 255, 255));
-            this.node.on("touchstart", this.callBack, this);
+            this.node.on("touchend", this.callBack, this);
         }
     });
     cc._RF.pop();
@@ -9137,15 +9146,15 @@ scr_friendUI1 = [function (e, t, n) {
         onLoad: function () {
             e("scr_data"), e("scr_public");
             var t = cc.find("Canvas/button");
-            cc.find("Canvas/close").on("touchstart", function () {
+            cc.find("Canvas/close").on("touchend", function () {
                 e("scr_public").save();
                 cc.director.loadScene("main");
             }, this);
             this.initUI();//按钮功能在这设置！！！
-            t.getChildByName("button1").on("touchstart", this.talk, this);
-            t.getChildByName("button2").on("touchstart", this.eat, this);
-            t.getChildByName("button4").on("touchstart", this.takePill, this);
-            t.getChildByName("button3").on("touchstart", function () {
+            t.getChildByName("button1").on("touchend", this.talk, this);
+            t.getChildByName("button2").on("touchend", this.eat, this);
+            t.getChildByName("button4").on("touchend", this.takePill, this);
+            t.getChildByName("button3").on("touchend", function () {
                 cc.director.loadScene("friendSkill1");
             }, this);
         }
@@ -9165,58 +9174,58 @@ scr_home = [function (e, t, n) {
         onLoad: function () {
             var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public"), i = cc.find("Canvas/UI1"), c = cc.find("Canvas/UI2"), o = cc.find("Canvas/UI3"), r = cc.find("Canvas/UI4"), s = cc.find("Canvas/UI5"), l = i.getChildByName("choice1"), u = i.getChildByName("choice2"), p = i.getChildByName("choice3"), f = i.getChildByName("choice4"), d = i.getChildByName("choice5"), m = i.getChildByName("choice6"), h = t.publicVar2[23] + t.publicVar2[24] + t.publicVar2[25] + t.publicVar2[26] + t.publicVar2[27] + t.publicVar2[28] + t.publicVar2[29];
             (function () {
-                i.getChildByName("back").on("touchstart", function () {
+                i.getChildByName("back").on("touchend", function () {
                     e("scr_public").save();
                     cc.director.loadScene("main");
                 }, this);
-                t.publicVar2[17] > 0 ? l.on("touchstart", v, l) : l.on("touchstart", J, l);
-                u.on("touchstart", function () {
+                t.publicVar2[17] > 0 ? l.on("touchend", v, l) : l.on("touchend", J, l);
+                u.on("touchend", function () {
                     e("scr_data").energy >= 10 ? cc.director.loadScene("notice2") : cc.director.loadScene("diary");
                 }, this);
-                p.on("touchstart", y, this);
-                f.on("touchstart", g, this);
-                h > 0 ? d.on("touchstart", b, this) : d.on("touchstart", J, this);
-                t.stayDay[3] > 12 ? m.on("touchstart", _, this) : m.on("touchstart", J, this);
-                c.getChildByName("choice1").on("touchstart", x, this);
-                c.getChildByName("choice2").on("touchstart", C, this);
-                c.getChildByName("choice3").on("touchstart", E, this);
-                o.getChildByName("choice1").on("touchstart", I, this);
-                o.getChildByName("choice2").on("touchstart", V, this);
-                o.getChildByName("choice3").on("touchstart", N, this);
-                0 != t.publicVar2[23] && r.getChildByName("choice7").on("touchstart", T, this);
-                0 != t.publicVar2[24] && r.getChildByName("choice6").on("touchstart", k, this);
-                0 != t.publicVar2[25] && r.getChildByName("choice5").on("touchstart", S, this);
-                0 != t.publicVar2[26] && r.getChildByName("choice4").on("touchstart", H, this);
-                0 != t.publicVar2[27] && r.getChildByName("choice3").on("touchstart", R, this);
-                0 != t.publicVar2[28] && r.getChildByName("choice2").on("touchstart", w, this);
-                0 != t.publicVar2[29] && r.getChildByName("choice1").on("touchstart", M, this);
-                s.getChildByName("choice1").on("touchstart", L, this);
-                s.getChildByName("choice2").on("touchstart", B, this);
-                t.stayDay[3] < 30 || s.getChildByName("choice3").on("touchstart", U, this);
-                0 != t.publicVar2[21] && s.getChildByName("choice4").on("touchstart", F, this);
-                1 == t.publicVar[9] ? s.getChildByName("choice5").on("touchstart", A, this) : 2 == t.publicVar[9] && s.getChildByName("choice5").on("touchstart", D, this);
-                c.getChildByName("back").on("touchstart", function () {
+                p.on("touchend", y, this);
+                f.on("touchend", g, this);
+                h > 0 ? d.on("touchend", b, this) : d.on("touchend", J, this);
+                t.stayDay[3] > 12 ? m.on("touchend", _, this) : m.on("touchend", J, this);
+                c.getChildByName("choice1").on("touchend", x, this);
+                c.getChildByName("choice2").on("touchend", C, this);
+                c.getChildByName("choice3").on("touchend", E, this);
+                o.getChildByName("choice1").on("touchend", I, this);
+                o.getChildByName("choice2").on("touchend", V, this);
+                o.getChildByName("choice3").on("touchend", N, this);
+                0 != t.publicVar2[23] && r.getChildByName("choice7").on("touchend", T, this);
+                0 != t.publicVar2[24] && r.getChildByName("choice6").on("touchend", k, this);
+                0 != t.publicVar2[25] && r.getChildByName("choice5").on("touchend", S, this);
+                0 != t.publicVar2[26] && r.getChildByName("choice4").on("touchend", H, this);
+                0 != t.publicVar2[27] && r.getChildByName("choice3").on("touchend", R, this);
+                0 != t.publicVar2[28] && r.getChildByName("choice2").on("touchend", w, this);
+                0 != t.publicVar2[29] && r.getChildByName("choice1").on("touchend", M, this);
+                s.getChildByName("choice1").on("touchend", L, this);
+                s.getChildByName("choice2").on("touchend", B, this);
+                t.stayDay[3] < 30 || s.getChildByName("choice3").on("touchend", U, this);
+                0 != t.publicVar2[21] && s.getChildByName("choice4").on("touchend", F, this);
+                1 == t.publicVar[9] ? s.getChildByName("choice5").on("touchend", A, this) : 2 == t.publicVar[9] && s.getChildByName("choice5").on("touchend", D, this);
+                c.getChildByName("back").on("touchend", function () {
                     (function () {
                         a.save();
                         c.runAction(cc.scaleTo(.3, 0));
                     })();
                     K();
                 }, this);
-                o.getChildByName("back").on("touchstart", function () {
+                o.getChildByName("back").on("touchend", function () {
                     (function () {
                         a.save();
                         o.runAction(cc.scaleTo(.3, 0));
                     })();
                     K();
                 }, this);
-                r.getChildByName("back").on("touchstart", function () {
+                r.getChildByName("back").on("touchend", function () {
                     (function () {
                         a.save();
                         r.runAction(cc.scaleTo(.3, 0));
                     })();
                     K();
                 }, this);
-                s.getChildByName("back").on("touchstart", function () {
+                s.getChildByName("back").on("touchend", function () {
                     (function () {
                         a.save();
                         s.runAction(cc.scaleTo(.3, 0));
@@ -10783,8 +10792,8 @@ scr_mainUIEvent = [function (e, t, n) {
                     c.opacity = 0;
                     o.getChildByName("label").opacity = 0;
                 }
-                c.on("touchstart", e, c);
-                r.on("touchstart", n, r);
+                c.on("touchend", e, c);
+                r.on("touchend", n, r);
             })();
         },
         //UI传送门
@@ -10853,10 +10862,10 @@ scr_mainUIinit = [function (e, t, n) {
         },
         onButton: function () {
             var t = e("scr_data"), n = cc.find("Canvas/Button"), a = n.getChildByName("button_dekaron");
-            t.day > 35 && t.publicVar[1] >= -1 ? a.on("touchstart", this.dekaronButton, this) : a.active = !1;//挑战45天才开，加速！
-            1 == t.ifFollow[0] ? n.getChildByName("button_friend").on("touchstart", function () {
+            t.day > 35 && t.publicVar[1] >= -1 ? a.on("touchend", this.dekaronButton, this) : a.active = !1;//挑战45天才开，加速！
+            1 == t.ifFollow[0] ? n.getChildByName("button_friend").on("touchend", function () {
                 cc.director.loadScene("friend1");
-            }, this) : 1 == t.ifFollow[1] && n.getChildByName("button_friend").on("touchstart", function () {
+            }, this) : 1 == t.ifFollow[1] && n.getChildByName("button_friend").on("touchend", function () {
                 cc.director.loadScene("friendSkill2");
             }, this);
         },
@@ -10887,12 +10896,12 @@ scr_mainUIinit = [function (e, t, n) {
                 if (300 == n.distance && n.stayDay[3] > 1 && 0 == n.publicVar3[2]) {
                     var t = cc.find("Canvas/Button/button_rest");
                     t.getChildByName("text").getComponent("cc.Label").string = "桥  洞";
-                    t.on("touchstart", function () {
+                    t.on("touchend", function () {
                         cc.director.loadScene("home");
                     }, t);
                 } else {
                     var t = cc.find("Canvas/Button/button_rest");
-                    t.on("touchstart", function () {
+                    t.on("touchend", function () {
                         e("scr_data").energy >= 10 ? cc.director.loadScene("notice2") : cc.director.loadScene("diary");
                     }, t);
                 }
@@ -10988,7 +10997,7 @@ scr_makeUI = [function (e, t, n) {
                 2: {
                     itemName: "帐篷LV" + this.data.itemNum2[2],
                     needDes: "※需【木材】" + this.data.itemNum[1] + "/" + (1 + this.data.itemNum2[2]) + "【亚麻】" + this.data.itemNum[4] + "/" + (4 + 2 * this.data.itemNum2[2]),
-                    des: "※精力上限增加" + 10 * this.data.itemNum2[2] + "点",
+                    des: "※精力上限增加" + 10 * this.data.itemNum2[2] + "点。你当前精力恢复效率为" + (this.status.role.energyResumeRate() * 100) + "%，你的精力上限为" + this.status.maxEnergy() + "点，你将会恢复" + (this.status.role.energyResumeRate() * this.status.maxEnergy()) + "点精力",
                     ifEnough: function (e) {
                         t.data.itemNum[1] >= 1 + t.data.itemNum2[2] && t.data.itemNum[4] >= 4 + 2 * t.data.itemNum2[2] && (cc.find("Canvas/Page/view/content/page_1/" + e + "/button/name").color = new cc.color(0, 255, 0));
                     },
@@ -11057,7 +11066,7 @@ scr_makeUI = [function (e, t, n) {
                 5: {
                     itemName: "驱蚊工具LV" + this.data.itemNum2[6],
                     needDes: "※需【艾草】" + this.data.itemNum[5] + "/" + (8 + 2 * this.data.itemNum2[6]),
-                    des: "※睡觉时恢复" + 30 * this.data.itemNum2[6] + "点生命值",
+                    des: "※睡觉时恢复" + 30 * this.data.itemNum2[6] + "点生命值，每级提供1%精力恢复效率",
                     ifEnough: function (t) {
                         var n = e("scr_data");
                         n.itemNum[5] >= 8 + 2 * n.itemNum2[6] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
@@ -11082,15 +11091,15 @@ scr_makeUI = [function (e, t, n) {
                 6:
                 {
                     itemName: "陷阱LV" + this.data.itemNum2[5],
-                    needDes: "※需【木材】" + this.data.itemNum[1] + "/" + (4 + 2 * this.data.itemNum2[5]),
-                    des: "※每天第一次进入战斗时可以获得增益，专坑不看路的小妹妹XD",
+                    needDes: "※需【木材】" + this.data.itemNum[1] + "/" + (10 + 10 * this.data.itemNum2[5]),
+                    des: "※战斗时获得增益，每级增加2%伤害，如果是每天第一次战斗效果*5",
                     ifEnough: function (t) {
                         var n = e("scr_data");
-                        n.itemNum[1] >= 4 + 2 * n.itemNum2[5] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
+                        n.itemNum[1] >= 10 + 10 * n.itemNum2[5] && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
                     },
                     button: function () {
-                        var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 4 + 2 * n.itemNum2[5];
-                        if (n.itemNum2[5] >= 50) {
+                        var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 10 + 10 * n.itemNum2[5];
+                        if (n.itemNum2[5] >= 10) {
                             a.playText("Canvas/notify", "陷阱已经满级了！", 100);
                             return;
                         }
@@ -11140,7 +11149,7 @@ scr_makeUI = [function (e, t, n) {
                             n.cigaretteuptimes += 1;
                             t.delayCreatItemUI();
                             a.playText("Canvas/notify", "升级成功", 100);
-                        } if (n.cigaretteuptimes >= 0) {
+                        } else if (n.cigaretteuptimes >= 0) {
                             a.playText("Canvas/notify", "已经升级过了", 100);
                         } else {
                             a.playText("Canvas/notify", "材料不足！", 100);
@@ -11397,14 +11406,16 @@ scr_makeUI = [function (e, t, n) {
             };
             return a;
         },
-        creatPrefab: function (e, t) {
-            var n = cc.instantiate(this.itemUI), a = this.itemContent()[e], i = a.button, c = "item" + e;
+        creatPrefab: function (index, t) {
+            var n = cc.instantiate(this.itemUI), a = this.itemContent()[index], itemMakeFunction = a.button, c = "item" + index;
             n.name = c;
-            n.getChildByName("button").getChildByName("name").getComponent("cc.Label").string = a.itemName;
+            var itemnamelabel = n.getChildByName("button").getChildByName("name");
+            itemnamelabel.getComponent("cc.Label").string = a.itemName;
             n.getChildByName("need").getComponent("cc.Label").string = a.needDes;
             n.getChildByName("des").getComponent("cc.Label").string = a.des;
-            n.getChildByName("button").getChildByName("name").getComponent("cc.Button").scheduleOnce(function () {
-                n.getChildByName("button").getChildByName("name").on("touchstart", i, this);
+            itemnamelabel.getComponent("cc.Button").scheduleOnce(function () {
+                //itemnamelabel.on("touchend", itemMakeFunction, this);
+                e("scr_public").QLnewfunction.bindMouseEventonButton(itemnamelabel, itemMakeFunction);
             }, .04);
             cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n);
             "undefined" != typeof a.ifEnough && a.ifEnough(c);
@@ -11586,7 +11597,7 @@ scr_open = [function (e, t, n) {
                 };
                 "undefined" != typeof e[r += 500] && e[r]();
             }, 500), r = 0;
-            i.on("touchstart", function () {
+            i.on("touchend", function () {
                 o && window.clearTimeout(o);
                 cc.director.loadScene("main");
             }, this);
@@ -11721,7 +11732,18 @@ scr_public = [function (e, t, n) {
                             a *= 1.4;//随机buff2
                         }
                         return a;
-                    }
+                    },
+                    energyResumeRate: function () {
+                        var t = e("scr_data"), n = 1, smokerate = 3 * t.orderTimes[1] - t.orderTimes[4];
+                        1 == t.publicVar && (n = 1);
+                        var base = 0.6;
+                        var rateofHealth = (t.health / 100);//t.maxHealth
+                        var healthInfluence = 0.4 * rateofHealth;
+                        var toolLevel = t.itemNum2[6];
+                        var toolInfluence = 0.01 * toolLevel;
+                        var total = base + healthInfluence + toolInfluence;
+                        return total;
+                    },
                 },
                 //一些功能传送门
                 ifMaxHp: function () {
@@ -11850,6 +11872,47 @@ scr_public = [function (e, t, n) {
                         var data = e("scr_data"), func = e("scr_public");
                         data.energy += num;//todo
                     },
+                    //addHunger: function (num) {
+                    bindMouseEventonButton: function (button, func) {
+                        let doubleSubTime = 200;//ms
+                        let longSubTime = 600;
+                        let startClick = false;
+                        let clickTime = 0;
+                        let startClickTime = 0;
+                        button.on(cc.Node.EventType.TOUCH_START, () => {
+                            this.startClick = true;
+                            this.startClickTime = new Date().getTime();
+                        }, this);
+
+                        button.on(cc.Node.EventType.TOUCH_END, () => {
+                            this.startClick = false;
+                            this.endClickTime = new Date().getTime();
+
+                            console.log(this.endClickTime - this.startClickTime);
+                            if (this.endClickTime - this.startClickTime > longSubTime) {
+                                //长按事件
+                                for (let index = 0; index < 10; index++) {
+                                    func();
+                                }
+
+                                console.log("长按事件");
+                            } else if (this.endClickTime - this.startClickTime < doubleSubTime) {
+                                //点击事件
+                                clickTime++;
+                                setTimeout(() => {
+                                    if (clickTime == 1) {
+                                        //单击
+                                        func();
+                                        console.log("单击事件");
+                                    } else if (clickTime == 2) {
+                                        //双击
+                                        console.log("双击事件");
+                                    }
+                                    clickTime = 0;
+                                }, doubleSubTime)
+                            }
+                        }, this);
+                    }
                 }
 
             };
@@ -11938,24 +12001,30 @@ scr_rest = [function (e, t, n) {
                 };
             })();
             //tag 每天事件早上结算传送门
-            (function resumeEnergy() {
+            (function recoveryEnergy() {
                 cc.find("Canvas/energy/text");
                 var extraEnergy = 0, maxEnergy = n.maxEnergy();//todo
                 var surplusEnergy = t.energy;
-                var couldResumeEnergy = 0;
-                couldResumeEnergy = maxEnergy * t.energyResumeRate;
+                var couldRecoveryEnergy = 0;
+                var energyResumeRate = n.role.energyResumeRate();
+                couldRecoveryEnergy = maxEnergy * energyResumeRate;//bug
                 if (hasXiaoyueSkill5()) {
                     extraEnergy += 20;
                 }
                 if (1 == t.buffState[3]) {//bug
                     extraEnergy += 20;
                 }
-                couldResumeEnergy += extraEnergy;
-                t.energy = couldResumeEnergy + surplusEnergy;
-                var texttoShow = "精力 +" + (couldResumeEnergy) + "（" + t.energy + "/" + maxEnergy + "）";
+                couldRecoveryEnergy += extraEnergy;
+                var totalEnergy = couldRecoveryEnergy + surplusEnergy;
+                if (totalEnergy > maxEnergy * 1.5) {
+                    t.energy = maxEnergy * 1.5;
+                }
+                t.energy = totalEnergy;
+                t.energy = parseInt(t.energy);
+                var texttoShow = "精力 +" + (couldRecoveryEnergy) + "（" + t.energy + "/" + maxEnergy + "）";
                 cc.find("Canvas/AttrShow/energy/text").getComponent("cc.Label").string = texttoShow;
             })();
-            (function () {
+            (function theToolsrecoveryHP() {
                 if (t.itemNum2[6] > 0) {
                     var e = 30 * t.itemNum2[6];
                     n.role.maxHp();
@@ -11965,7 +12034,7 @@ scr_rest = [function (e, t, n) {
                     cc.find("Canvas/AttrShow/hp/text").getComponent("cc.Label").string = "生命 +" + e + "（" + t.role.hp + "/" + n.role.maxHp() + "）";
                 } else cc.find("Canvas/AttrShow/hp").active = !1;
             })();
-            (function () {
+            (function addStayDays() {
                 var e = n.regionId();
                 1e3 == e && (t.stayDay[0] += 1);
                 2e3 == e && (t.stayDay[1] += 1);
@@ -11973,7 +12042,7 @@ scr_rest = [function (e, t, n) {
                 4e3 == e && (t.stayDay[3] += 1);
             })();
             //每日刷新怪物对应编号传送门
-            (function () {
+            (function beAttackedCheck() {
                 if (100 * Math.random() < 20) {
                     var e = function () {
                         var e = 100 * Math.random(), a = n.regionId(), i = 800, c = 10 * (t.itemNum2[19] - 1) + 1;
@@ -12002,19 +12071,19 @@ scr_rest = [function (e, t, n) {
                 }
             }();
             //tag 每天早上道具结算传送门
-            (function () {
+            (function SettlementBuff() {
                 (function () {
                     if (t.hunger <= 0) {
                         t.health -= 2;
                         i.creatText("hunger", "【饥饿】健康值降低2点！");
                     }
                 })();
-                (function () {
+                (function trap() {
                     var e = 100 * Math.random(), n = t.itemNum2[5];
                     if (t.itemNum2[5] > 0 && e < 100) {
                         var a = 100 * Math.random();
                         t.choice[8] = n;
-                        i.creatText("skill1", "【陷阱】获得伤害加成" + 2 * n + "%");
+                        i.creatText("skill1", "【陷阱】获得伤害加成" + 10 * n + "%");
                         if (a <= 29) {
                             t.itemNum[3] += n;
                             i.creatText("skill1", "【陷阱】获得「生肉」*" + n);
@@ -12041,7 +12110,7 @@ scr_rest = [function (e, t, n) {
                         }
                     }
                 })();
-                (function () {
+                (function selfHealing() {
                     if (a[10] > 0) {
                         var e = 100 * Math.random();
                         if (e < 40) {
@@ -12053,7 +12122,7 @@ scr_rest = [function (e, t, n) {
                         }
                     }
                 })();
-                (function () {
+                (function foundMoney() {
                     var e = 100 * Math.random();
                     if (a[6] > 0 && e < 40) {
                         var n = a[6] + parseInt(t.randomEvent[6] / 10);
@@ -12061,7 +12130,7 @@ scr_rest = [function (e, t, n) {
                         i.creatText("skill3", "【好报】获得" + (n / 10).toFixed(1) + "元");
                     }
                 })();
-                (function () {
+                (function miaoniang() {
                     var e = t.itemNum2[13];
                     if (e > 0) {
                         var n = 1 * e;
@@ -12069,21 +12138,21 @@ scr_rest = [function (e, t, n) {
                         i.creatText("getMoney", "【┑(=^ω^=)┑】获得" + (n / 10).toFixed(1) + "元");
                     }
                 })();
-                (function () {
+                (function spirite() {
                     var e = 100 * Math.random();
                     if (t.skillLv[26] > 0 && e < 30) {
                         t.energy += parseInt(.3 * n.maxEnergy());
                         i.creatText("spirit", "【不屈的精神力】额外恢复30%精力！");
                     }
                 })();
-                (function () {
+                (function insomnia() {
                     var e = 100 * Math.random(), evilNum = t.evil.evilValue;
                     if (e < evilNum) {
                         t.energy -= parseInt(.5 * t.energy);
                         i.creatText("hunger", "【失眠】精力-50%！");
                     }
                 })();
-                (function () {
+                (function xiaoyueisHungry() {
                     if (1 == t.ifFollow[0] && 0 == t.publicVar[2]) {
                         t.publicVar2[10] += 1;
                         i.QLnewfunction.addxiaoyue_favorability(-1);
@@ -12143,10 +12212,9 @@ scr_rest = [function (e, t, n) {
                     }
                 })();
             })();
-            (function () {
-                var e = 20;
+            (function consumeHubger() {
+                var e = 50;//todo
                 Math.random();
-                t.hunger <= 0 && (e = 0);
                 t.hunger -= e;
                 cc.find("Canvas/AttrShow/hunger/text").getComponent("cc.Label").string = "饥饿 -" + e + "（" + t.hunger + "/" + n.maxHunger() + "）";
             })();
@@ -12197,13 +12265,13 @@ scr_shop2 = [function (e, t, n) {
             var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public"), i = cc.find("Canvas/UI1"), c = i.getChildByName("choice1"), o = i.getChildByName("choice2"), r = i.getChildByName("choice3"), s = i.getChildByName("choice4"), l = i.getChildByName("choice5"), u = i.getChildByName("choice6"), p = i.getChildByName("choice7");
             f();
             (function () {
-                c.on("touchstart", d, this);
-                o.on("touchstart", m, this);
-                r.on("touchstart", h, this);
-                s.on("touchstart", v, this);
-                l.on("touchstart", y, this);
-                u.on("touchstart", g, this);
-                p.on("touchstart", b, this);
+                c.on("touchend", d, this);
+                o.on("touchend", m, this);
+                r.on("touchend", h, this);
+                s.on("touchend", v, this);
+                l.on("touchend", y, this);
+                u.on("touchend", g, this);
+                p.on("touchend", b, this);
             })();
             function f() {
                 cc.find("Canvas/money").getComponent("cc.Label").string = "白色粉末：" + t.itemNum[11] + " / 金钱:" + (t.money / 10).toFixed(1);
@@ -12314,21 +12382,21 @@ scr_shop3 = [function (e, t, n) {// 晓风大楼
             })();
             givetexttobutton();
             (function () {
-                floorchooseUI.getChildByName("back").on("touchstart", function () {
+                floorchooseUI.getChildByName("back").on("touchend", function () {
                     e("scr_public").save();
                     cc.director.loadScene("main");
                 }, this);
-                thisModule.r1 < rateoffloor[0] ? floor1.on("touchstart", functionofF1, floor1) : floor1.on("touchstart", callbacknotopen, floor1);
-                thisModule.r2 < rateoffloor[1] ? floor2.on("touchstart", functionofF2, floor2) : floor2.on("touchstart", callbacknotopen, floor2);
-                thisModule.r3 < rateoffloor[2] ? floor3.on("touchstart", justfade, floor3) : floor3.on("touchstart", callbacknotopen, floor3);
-                thisModule.r4 < rateoffloor[3] ? floor4.on("touchstart", functionofF4, floor4) : floor4.on("touchstart", callbacknotopen, floor4);
-                data.publicVar3[7] > 800 ? floor5.on("touchstart", showfloor5disable, floor5) : thisModule.r5 < rateoffloor[4] ? floor5.on("touchstart", showdisable, floor5) : floor5.on("touchstart", functionofF5, floor5);
-                thisModule.r6 < rateoffloor[5] ? floor6.on("touchstart", functionofF6, floor6) : floor6.on("touchstart", function () {
+                thisModule.r1 < rateoffloor[0] ? floor1.on("touchend", functionofF1, floor1) : floor1.on("touchend", callbacknotopen, floor1);
+                thisModule.r2 < rateoffloor[1] ? floor2.on("touchend", functionofF2, floor2) : floor2.on("touchend", callbacknotopen, floor2);
+                thisModule.r3 < rateoffloor[2] ? floor3.on("touchend", justfade, floor3) : floor3.on("touchend", callbacknotopen, floor3);
+                thisModule.r4 < rateoffloor[3] ? floor4.on("touchend", functionofF4, floor4) : floor4.on("touchend", callbacknotopen, floor4);
+                data.publicVar3[7] > 800 ? floor5.on("touchend", showfloor5disable, floor5) : thisModule.r5 < rateoffloor[4] ? floor5.on("touchend", showdisable, floor5) : floor5.on("touchend", functionofF5, floor5);
+                thisModule.r6 < rateoffloor[5] ? floor6.on("touchend", functionofF6, floor6) : floor6.on("touchend", function () {
                     a.playText("Canvas/notify", "“现在还不是时候！”", 60);
                 }, floor6);
-                canteen.getChildByName("choice1").on("touchstart", eathanbeger, this);
-                canteen.getChildByName("choice2").on("touchstart", eatguozi, this);
-                canteen.getChildByName("back").on("touchstart", function () {
+                canteen.getChildByName("choice1").on("touchend", eathanbeger, this);
+                canteen.getChildByName("choice2").on("touchend", eatguozi, this);
+                canteen.getChildByName("back").on("touchend", function () {
                     canteen.runAction(cc.scaleTo(.3, 0));
                     (function () {
                         settextclear();
@@ -12536,10 +12604,10 @@ scr_shop4 = [function (e, t, n) {
             //text.string = "测试按钮";//text.parent = ex;//text.color = cc.Color.RED;
             m();
             (function () {
-                o.on("touchstart", h, this);
-                r.on("touchstart", v, this);
-                s.on("touchstart", y, this);
-                newBtn_1.on("touchstart", FnewBtn_1, this);
+                o.on("touchend", h, this);
+                r.on("touchend", v, this);
+                s.on("touchend", y, this);
+                newBtn_1.on("touchend", FnewBtn_1, this);
             })();
             function m() {
                 cc.find("Canvas/money").getComponent("cc.Label").string = "金钱：" + (n.money / 10).toFixed(1) + " 罪恶值：" + n.evil.evilValue;
@@ -12609,7 +12677,7 @@ scr_shopUI = [function (e, t, n) {
         itemContent: function () {
             var thisScrModule = this;
             this.data = e("scr_data");
-            this.data.evil.virtueLevel > 0 ? 0.2 : 0;
+            this.discount = this.data.evil.virtueLevel > 0 ? 0.2 : 0;
             class Good {
                 constructor(itemName, needDes, price, ifEnough, button1, button2) {
                     this.data = e("scr_data");
@@ -12631,24 +12699,24 @@ scr_shopUI = [function (e, t, n) {
                 e("scr_data").money >= 10 * (1) && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0));
             }, function () {
                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
-                var cost = Math.ceil(10 * (1));
+                var cost = Math.ceil(10 * (1 - thisScrModule.discount) * (1));
                 if (n.money >= cost) {
                     if (4 == n.publicVar[1]) {
-                        buy(cost, 12, 1, "木材");
+                        thisScrModule.buy(cost, 12, 1, "木材");
 
                     } else {
-                        buy(cost, 10, 1, "木材");
+                        thisScrModule.buy(cost, 10, 1, "木材");
                     }
 
                 } else a.playText("Canvas/notify", "钱不够！", 100);
             }, function () {
-                var cost = Math.ceil(10 * (1) * 5);
+                var cost = Math.ceil(10 * (1 - thisScrModule.discount) * (1) * 5);
                 var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                 if (n.money >= 50) {
                     if (4 == n.publicVar[1]) {
-                        buy(cost, 60, 1, "木材");
+                        thisScrModule.buy(cost, 60, 1, "木材");
                     } else {
-                        buy(cost, 50, 1, "木材");
+                        thisScrModule.buy(cost, 50, 1, "木材");
                     }
                 } else a.playText("Canvas/notify", "钱不够！", 100);
             }));
@@ -12661,24 +12729,24 @@ scr_shopUI = [function (e, t, n) {
                     e("scr_data").money >= 10 * (1) && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0));
                 },
                 button1: function () {
-                    var cost = Math.ceil(10 * (1));
+                    var cost = Math.ceil(10 * (1 - thisScrModule.discount) * (1));
                     var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                     if (n.money >= cost) {
                         if (4 == n.publicVar[1]) {
-                            buy(cost, 12, 4, "亚麻");
+                            thisScrModule.buy(cost, 12, 4, "亚麻");
                         } else {
-                            buy(cost, 10, 4, "亚麻");
+                            thisScrModule.buy(cost, 10, 4, "亚麻");
                         }
                     } else a.playText("Canvas/notify", "钱不够！", 100);
                 },
                 button2: function () {
-                    var cost = Math.ceil(10 * (1) * 5);
+                    var cost = Math.ceil(10 * (1 - thisScrModule.discount) * (1) * 5);
                     var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                     if (n.money >= cost) {
                         if (4 == n.publicVar[1]) {
-                            buy(cost, 60, 4, "亚麻");
+                            thisScrModule.buy(cost, 60, 4, "亚麻");
                         } else {
-                            buy(cost, 50, 4, "亚麻");
+                            thisScrModule.buy(cost, 50, 4, "亚麻");
                         }
                     } else a.playText("Canvas/notify", "钱不够！", 100);
                 }
@@ -12699,24 +12767,24 @@ scr_shopUI = [function (e, t, n) {
                     e("scr_data").money >= 5 * (1) && (cc.find("Canvas/Page/view/content/page_1/" + t + "/name").color = new cc.color(0, 255, 0));
                 },
                 function () {
-                    var cost = Math.ceil(5 * (1));
+                    var cost = Math.ceil(5 * ((1 - thisScrModule.discount) * 1));
                     var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                     if (n.money >= cost) {
                         if (4 == n.publicVar[1]) {
-                            buy(cost, 6, 0, "果子");
+                            thisScrModule.buy(cost, 6, 0, "果子");
                         } else {
-                            buy(cost, 5, 0, "果子");
+                            thisScrModule.buy(cost, 5, 0, "果子");
                         }
                     } else a.playText("Canvas/notify", "钱不够！", 100);
                 },
                 function () {
-                    var cost = Math.ceil(10 * (1) * 5);
+                    var cost = Math.ceil(10 * (1 - thisScrModule.discount) * (1) * 5);
                     var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                     if (n.money >= cost) {
                         if (4 == n.publicVar[1]) {
-                            buy(cost, 30, 0, "果子");
+                            thisScrModule.buy(cost, 30, 0, "果子");
                         } else {
-                            buy(cost, 25, 0, "果子");
+                            thisScrModule.buy(cost, 25, 0, "果子");
                         }
                     } else a.playText("Canvas/notify", "钱不够！", 100);
                 }
@@ -12750,17 +12818,17 @@ scr_shopUI = [function (e, t, n) {
                     e("scr_data").money >= 4 * (1) && (cc.find("Canvas/Page/view/content/page_2/" + t + "/name").color = new cc.color(0, 255, 0));
                 },
                 function () {
-                    var cost = Math.ceil(4 * (1));
+                    var cost = Math.ceil(4 * ((1 - thisScrModule.discount) * 1));
                     var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                     if (n.money >= cost) {
-                        buy(cost, 2, 3, "生肉");
+                        thisScrModule.buy(cost, 2, 3, "生肉");
                     } else a.playText("Canvas/notify", "钱不够！", 100);
                 },
                 function () {
-                    var cost = Math.ceil(4 * (1) * 5);
+                    var cost = Math.ceil(4 * ((1 - thisScrModule.discount) * 1) * 5);
                     var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                     if (n.money >= cost) {
-                        buy(cost, 10, 3, "生肉");
+                        thisScrModule.buy(cost, 10, 3, "生肉");
                     } else a.playText("Canvas/notify", "钱不够！", 100);
                 }
             ));
@@ -12772,13 +12840,13 @@ scr_shopUI = [function (e, t, n) {
                     e("scr_data").money >= 4 * (1) && (cc.find("Canvas/Page/view/content/page_2/" + t + "/name").color = new cc.color(0, 255, 0));
                 },
                 button1: function () {
-                    var cost = Math.ceil(4 * (1));
+                    var cost = Math.ceil(4 * ((1 - thisScrModule.discount) * 1));
                     var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                     if (n.money >= cost) {
                         if (4 == n.publicVar[1]) {
-                            buy(cost, 5, 5, "艾草");
+                            thisScrModule.buy(cost, 5, 5, "艾草");
                         } else {
-                            buy(cost, 4, 5, "艾草");
+                            thisScrModule.buy(cost, 4, 5, "艾草");
                         }
                     } else a.playText("Canvas/notify", "钱不够！", 100);
                 },
@@ -12786,9 +12854,9 @@ scr_shopUI = [function (e, t, n) {
                     var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                     if (n.itemNum[5] >= 4) {
                         if (4 == n.publicVar[1]) {
-                            buy(2, -4, 5, "艾草");
+                            thisScrModule.buy(2, -4, 5, "艾草");
                         } else {
-                            buy(2, -4, 5, "艾草");
+                            thisScrModule.buy(2, -4, 5, "艾草");
                         }
                     } else a.playText("Canvas/notify", "道具不足！", 100);
                 }
@@ -12853,7 +12921,7 @@ scr_shopUI = [function (e, t, n) {
                     e("scr_data").money >= 100 * (1) && (cc.find("Canvas/Page/view/content/page_3/" + t + "/name").color = new cc.color(0, 255, 0));
                 },
                 function () {
-                    var cost = Math.ceil(100 * (1));
+                    var cost = Math.ceil(100 * (1 - thisScrModule.discount) * (1));
                     var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                     if (n.money >= 100) {
                         if (0 == n.itemNum2[30]) {
@@ -12919,6 +12987,7 @@ scr_shopUI = [function (e, t, n) {
             return items;
         },
         buy: function (cost, count, itemID, itemName) {
+            var t = this;
             var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
             n.money -= cost;
             n.itemNum[itemID] += count;
@@ -12930,24 +12999,32 @@ scr_shopUI = [function (e, t, n) {
         creatPrefab: function (itemID, targetNodeName) {
             var shopNode = cc.instantiate(this.itemUI),
                 item = this.itemContent()[itemID],
-                button1 = item.button1, button2 = item.button2,
+                button1Function = item.button1, button2Function = item.button2,
                 itemNodeNameInScene = "item" + itemID;
+            var button1Node = shopNode.getChildByName("button1");
+            var button2Node = shopNode.getChildByName("button2");
             shopNode.name = itemNodeNameInScene;
             shopNode.getChildByName("name").getComponent("cc.Label").string = item.itemName;
             shopNode.getChildByName("need").getComponent("cc.Label").string = item.needDes;
-            if (typeof button1 !== 'undefined') {
-                shopNode.getChildByName("button1").getComponent("cc.Button").scheduleOnce(function () {
-                    shopNode.getChildByName("button1").on("touchstart", button1, this);
+            if (typeof button1Function !== 'undefined') {
+
+                button1Node.getComponent("cc.Button").scheduleOnce(function () {
+                    //button1Node.on("touchend", button1Function, this);
+                    e("scr_public").QLnewfunction.bindMouseEventonButton(button1Node, button1Function);
+
                 }, 0.05);
             } else {
-                shopNode.getChildByName("button1").active = false;
+                button1Node.active = false;
             }
-            if (typeof button2 !== 'undefined') {
-                shopNode.getChildByName("button2").getComponent("cc.Button").scheduleOnce(function () {
-                    shopNode.getChildByName("button2").on("touchstart", button2, this);
+            if (typeof button2Function !== 'undefined') {
+
+                button2Node.getComponent("cc.Button").scheduleOnce(function () {
+                    //button2Node.on("touchend", button2Function, this);
+                    e("scr_public").QLnewfunction.bindMouseEventonButton(button2Node, button2Function);
+
                 }, 0.05);
             } else {
-                shopNode.getChildByName("button2").active = false;
+                button2Node.active = false;
             }
             cc.find("Canvas/Page/view/content").getChildByName(targetNodeName).addChild(shopNode);
             if (typeof item.ifEnough !== 'undefined') {
@@ -13075,10 +13152,10 @@ scr_skillUI = [function (e, t, n) {
                 }
             }
             var u = cc.find("Canvas/Button_loadAchieve"), p = cc.find("Canvas/Button_system");
-            u.on("touchstart", function () {
+            u.on("touchend", function () {
                 cc.director.loadScene("achieve");
             }, u);
-            p.on("touchstart", function () {
+            p.on("touchend", function () {
                 cc.director.loadScene("system");
             }, p);
         }
@@ -13096,40 +13173,40 @@ scr_startChoice = [function (e, t, n) {
         properties: {},
         onLoad: function () {
             var t = cc.find("Canvas/Determine"), n = cc.find("Canvas/text2"), a = this, i = e("scr_data"), c = e("scr_data2"), o = e("scr_public"), r = e("scr_effect"), s = 0;
-            t.getChildByName("choice1").on("touchstart", function () {
+            t.getChildByName("choice1").on("touchend", function () {
                 i.itemNum2[20] = -2;
                 i.itemNum2[21] = 2;
                 u();
             }, this);
-            t.getChildByName("choice2").on("touchstart", function () {
+            t.getChildByName("choice2").on("touchend", function () {
                 i.itemNum2[8] = 1;
                 u();
             }, this);
-            t.getChildByName("choice3").on("touchstart", function () {
+            t.getChildByName("choice3").on("touchend", function () {
                 i.publicVar[1] = 3;
                 u();
             }, this);
-            t.getChildByName("choice4").on("touchstart", function () {
+            t.getChildByName("choice4").on("touchend", function () {
                 i.publicVar[1] = 4;
                 u();
             }, this);
-            t.getChildByName("choice5").on("touchstart", function () {
+            t.getChildByName("choice5").on("touchend", function () {
                 i.ifFollow[0] = 1;
                 i.ifFollow[1] = 1;
                 i.publicVar[7] = -1580;
                 u();
             }, this);
-            t.getChildByName("choice6").on("touchstart", function () {
+            t.getChildByName("choice6").on("touchend", function () {
                 i.publicVar[1] = 2;
                 u();
             }, this);
-            t.getChildByName("choice7").on("touchstart", function () {
+            t.getChildByName("choice7").on("touchend", function () {
                 if (c.gameData[1] > -1) {
                     i.publicVar[1] = 1;
                     u();
                 } else r.playText("Canvas/text1", "修罗模式不需先通关游戏", 80);
             }, this);
-            t.getChildByName("choice8").on("touchstart", function () {
+            t.getChildByName("choice8").on("touchend", function () {
                 i.publicVar[1] = 1;//tag 随机模式
                 i.randomModel = 1;
                 i.gift[0] = Math.floor(Math.random() * 10);
@@ -13233,7 +13310,7 @@ scr_system = [function (e, t, n) {//tag 设置界面
             exT.setPosition(0, 557 - 200);// 如法炮制
             cc.find("Canvas/text").addChild(exT);
             exT.getComponent("cc.Label").string = "你当前拥有 " + a.energyconsumetimes + "x 前进/探索速度\n（探索时会消耗对应倍数的精力\n但是奖励总量不变）";
-            ex.on("touchstart", function () {//添加触摸函数要最后加，不然复制的按钮也会有这个函数（也许吧）
+            ex.on("touchend", function () {//添加触摸函数要最后加，不然复制的按钮也会有这个函数（也许吧）
                 a.energyconsumetimes += 1;
                 a.energyconsumetimes > 10 && (a.energyconsumetimes = 1);
                 exT.getComponent("cc.Label").string = "你当前拥有 " + a.energyconsumetimes + "x 前进/探索速度\n（探索时会消耗对应倍数的精力\n但是奖励总量不变）";
@@ -13251,7 +13328,7 @@ scr_system = [function (e, t, n) {//tag 设置界面
             cc.find("Canvas/text").addChild(escapeBattleT);
             var textesc = ["关闭", "开启"];
             escapeBattleT.getComponent("cc.Label").string = "当前选项为 " + textesc[a.escapeBattle] + " 状态。\n开启选项后已经击杀过的敌人\n再次遇到时将会一击秒杀";
-            escapeBattleBtn.on("touchstart", function () {//添加触摸函数要最后加，不然复制的按钮也会有这个函数（也许吧）
+            escapeBattleBtn.on("touchend", function () {//添加触摸函数要最后加，不然复制的按钮也会有这个函数（也许吧）
                 a.escapeBattle += 1;
                 a.escapeBattle > 1 && (a.escapeBattle = 0);
                 escapeBattleT.getComponent("cc.Label").string = "当前选项为 " + textesc[a.escapeBattle] + " 状态。\n开启选项后已经击杀过的敌人\n再次遇到时将会一击秒杀";// 跳过战斗设置
@@ -13290,7 +13367,7 @@ moduleDefinitions = {
                 cc.director.loadScene("support3");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -13307,7 +13384,7 @@ moduleDefinitions = {
                 cc.director.loadScene("main");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -13324,7 +13401,7 @@ moduleDefinitions = {
                 cc.director.loadScene("start");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -13339,7 +13416,7 @@ moduleDefinitions = {
                 cc.director.loadScene("support");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -13354,7 +13431,7 @@ moduleDefinitions = {
                 JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.director.loadScene("main");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -13399,7 +13476,7 @@ moduleDefinitions = {
                 cc.director.loadScene("rest");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -13415,7 +13492,7 @@ moduleDefinitions = {
                 cc.director.loadScene("eat");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -13541,8 +13618,8 @@ moduleDefinitions = {
                                 (function () {
                                     r.active = !0;
                                     r.runAction(cc.fadeIn(.2));
-                                    s.on("touchstart", f, this);
-                                    l.on("touchstart", d, this);
+                                    s.on("touchend", f, this);
+                                    l.on("touchend", d, this);
                                 })();
                             }
                         };
@@ -13588,7 +13665,7 @@ moduleDefinitions = {
                 cc.director.loadScene("main");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -13660,7 +13737,7 @@ moduleDefinitions = {
             },
             onLoad: function () {
                 this.showDes();
-                cc.find("Canvas/back").on("touchstart", function () {
+                cc.find("Canvas/back").on("touchend", function () {
                     cc.director.loadScene("friend1");
                 }, this);
             }
@@ -13699,7 +13776,7 @@ moduleDefinitions = {
             onLoad: function () {
                 this.showDes();
                 cc.find("Canvas/goods").getComponent("cc.Label").string = "当前好感：" + e("scr_data").publicVar[7];
-                cc.find("Canvas/back").on("touchstart", function () {
+                cc.find("Canvas/back").on("touchend", function () {
                     cc.director.loadScene("main");
                 }, this);
             }
@@ -13899,7 +13976,7 @@ moduleDefinitions = {
                 cc.director.loadScene("make");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -13915,7 +13992,7 @@ moduleDefinitions = {
                 JSON.parse(cc.sys.localStorage.getItem("userData")) ? cc.director.loadScene("notice") : cc.director.loadScene("choice");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -13928,10 +14005,10 @@ moduleDefinitions = {
             properties: {},
             onLoad: function () {
                 var t = cc.find("Canvas/button");
-                cc.find("Canvas/button/button1").on("touchstart", function () {
+                cc.find("Canvas/button/button1").on("touchend", function () {
                     cc.director.loadScene("main");
                 }, this);
-                cc.find("Canvas/button/button2").on("touchstart", function () {
+                cc.find("Canvas/button/button2").on("touchend", function () {
                     cc.director.loadScene("diary");
                 }, this);
                 e("scr_effect").playText("Canvas/text", "系统检测到你还有没用完的精力，你确定要睡觉吗？", 80);
@@ -13953,11 +14030,11 @@ moduleDefinitions = {
             properties: {},
             onLoad: function () {
                 var t = cc.find("Canvas/button");
-                cc.find("Canvas/button/button1").on("touchstart", function () {
+                cc.find("Canvas/button/button1").on("touchend", function () {
                     cc.sys.localStorage.removeItem("userData");
                     cc.director.loadScene("choice");
                 }, this);
-                cc.find("Canvas/button/button2").on("touchstart", function () {
+                cc.find("Canvas/button/button2").on("touchend", function () {
                     cc.director.loadScene("start");
                 }, this);
                 e("scr_effect").playText("Canvas/text", "新开会删除旧存档，你确定要新开吗？", 80);
@@ -14010,7 +14087,7 @@ moduleDefinitions = {
                     r.active = !0;
                     r.runAction(cc.fadeIn(.2));
                 }, .3 * (i + 1));
-                r.getChildByName("choice1").on("touchstart", function () {
+                r.getChildByName("choice1").on("touchend", function () {
                     t.initMoney = l;
                     t.dieChoice[3] += 0;
                     n.save2();
@@ -14019,7 +14096,7 @@ moduleDefinitions = {
                         cc.director.loadScene("start");
                     })();
                 }, this);
-                r.getChildByName("choice2").on("touchstart", function () {
+                r.getChildByName("choice2").on("touchend", function () {
                     t.dieChoice[3] += 1;
                     n.save2();
                     cc.director.loadScene("over");
@@ -14065,24 +14142,24 @@ moduleDefinitions = {
                     r.active = !0;
                     r.runAction(cc.fadeIn(.2));
                 }, .5 * (i + 1));
-                r.getChildByName("choice1").on("touchstart", function () {
+                r.getChildByName("choice1").on("touchend", function () {
                     var e = t.role;
                     e.maxHp -= parseInt(.04 * n.role.maxHp());
                     e.def -= parseInt(.04 * n.role.def());
                     e.att -= parseInt(.04 * n.role.att());
                     l();
                 }, this);
-                r.getChildByName("choice2").on("touchstart", function () {
+                r.getChildByName("choice2").on("touchend", function () {
                     t.maxEnergy -= 10;
                     l();
                 }, this);
-                r.getChildByName("choice3").on("touchstart", function () {
+                r.getChildByName("choice3").on("touchend", function () {
                     if (t.money >= 80 || t.itemNum2[7] >= 8 || t.itemNum2[12] >= 16) {
                         t.money >= 80 ? t.money -= 80 : t.itemNum2[7] >= 8 ? t.itemNum2[7] -= 8 : t.itemNum2[12] >= 16 && (t.itemNum2[12] -= 16);
                         l();
                     } else cc.find("Canvas/Determine/choice3/text").getComponent("cc.Label").string = "你怕是一个条件都不满足喔（笑）！";
                 }, this);
-                r.getChildByName("choice4").on("touchstart", function () {
+                r.getChildByName("choice4").on("touchend", function () {
                     cc.director.loadScene("over2_1");
                 }, this);
                 4e3 == n.regionId() && (r.getChildByName("choice4").active = !1);
@@ -14131,7 +14208,7 @@ moduleDefinitions = {
                     r.active = !0;
                     r.runAction(cc.fadeIn(.2));
                 }, .2 * (i + 1));
-                r.on("touchstart", function () {
+                r.on("touchend", function () {
                     JSON.parse(cc.sys.localStorage.getItem("userData")) && cc.sys.localStorage.removeItem("userData");
                     cc.director.loadScene("start");
                 }, this);
@@ -14367,8 +14444,8 @@ moduleDefinitions = {
                         cc.find("Canvas/Choice/label").active = !1;
                     }
                     cc.find("Canvas/Choice").runAction(cc.fadeIn(.2));
-                    n.on("touchstart", e, this);
-                    i.on("touchstart", t, this);
+                    n.on("touchend", e, this);
+                    i.on("touchend", t, this);
                 }, 2.5 * (r + 1));
             },
             onLoad: function () {
@@ -14431,7 +14508,7 @@ moduleDefinitions = {
                 cc.director.loadScene("event");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -14451,7 +14528,7 @@ moduleDefinitions = {
                 cc.director.loadScene("shop");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -14467,7 +14544,7 @@ moduleDefinitions = {
                 cc.director.loadScene("skill");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -14635,7 +14712,7 @@ moduleDefinitions = {
                 cc.director.loadScene("support2");
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
@@ -14686,7 +14763,7 @@ moduleDefinitions = {
                 t.role.hp = n.role.maxHp();
             },
             onLoad: function () {
-                this.node.on("touchstart", this.callBack, this);
+                this.node.on("touchend", this.callBack, this);
             }
         });
         cc._RF.pop();
