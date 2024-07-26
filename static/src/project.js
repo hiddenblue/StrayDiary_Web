@@ -688,7 +688,7 @@ scr_eatUI = [function (e, t, n) {
         itemContent: function () {
             var t = this;
             this.data = e("scr_data");
-            this.public = e("scr_public");
+            this.Scr_public = e("scr_public");
             var n = 3 * this.data.orderTimes[1] - this.data.orderTimes[4];
             //1 == this.data.publicVar[1] && (n = 1 * this.data.orderTimes[1] - this.data.orderTimes[4]);
             var a = {
@@ -762,7 +762,7 @@ scr_eatUI = [function (e, t, n) {
                 3: {//tag eatUI在这
                     itemName: " 香烟 ",
                     needDes: "※拥有：" + this.data.itemNum2[7] + "（你当前烟瘾为" + n + "%）",
-                    des: "※效果：减少1点健康。恢复" + (50 * this.public.role.energyResumeRate()) + "精力，解除【烟瘾】BUFF！你，今天第" + this.data.orderTimes[8] + "次抽烟",
+                    des: "※效果：减少1点健康。恢复" + (50 * this.Scr_public.role.energyResumeRate()) + "精力，解除【烟瘾】BUFF！你，今天第" + this.data.orderTimes[8] + "次抽烟",
                     ifEnough: function (t) {
                         e("scr_data").itemNum2[7] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0));
                     },
@@ -809,7 +809,7 @@ scr_eatUI = [function (e, t, n) {
                 4: {
                     itemName: " 啤酒 ",
                     needDes: "※拥有：" + this.data.itemNum2[12],
-                    des: "※效果：恢复" + (30 * this.public.role.energyResumeRate()) + "精力，并获得一个【易拉罐】。开罐有奖！你今天已经喝了"
+                    des: "※效果：恢复" + (30 * this.Scr_public.role.energyResumeRate()) + "精力，并获得一个【易拉罐】。开罐有奖！你今天已经喝了"
                         + this.data.orderTimes[9] + "次酒，30%几率获得【暴躁】状态（伤害增加30%，战后一定几率消失）",
                     ifEnough: function (t) {
                         e("scr_data").itemNum2[12] > 0 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
@@ -6390,7 +6390,7 @@ scr_event = [function (e, t, n) {
         },
         //每日早上剧情后续传送门
         event: function () {
-            var t = this, n = e("scr_data"), a = e("scr_data2"), i = e("scr_public"), c = e("scr_effect"),
+            var t = this, n = e("scr_data"), a = e("scr_data2"), Scr_public = e("scr_public"), c = e("scr_effect"),
                 o = {
                     1: {
                         text: ["来到破旧的小区，", "一位热情的小姐姐将我带到一个房间，\n寒暄一番后，她认真的介绍道，", "“我们的工作内容是向附近居民推广净水器。\n公司要统一着装，\n入职前需交1块钱的服装费，\n交完费明天就可上班，\n日薪2元加提成，你看咋样？”", "我没钱", "交1块钱"],
@@ -6476,9 +6476,9 @@ scr_event = [function (e, t, n) {
                         require: [n.distance, 0],
                         choice1: function () { },
                         choice2: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 109;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         }
                     },
@@ -6489,8 +6489,8 @@ scr_event = [function (e, t, n) {
                         choice1: function () { },
                         choice2: function () {
                             n.energy += 60;
-                            n.hunger = i.maxHunger();
-                            n.role.hp = i.role.maxHp();
+                            n.hunger = Scr_public.maxHunger();
+                            n.role.hp = Scr_public.role.maxHp();
                             r("精力+60，饥饿全恢复，生命全恢复！");
                         }
                     },
@@ -6536,12 +6536,12 @@ scr_event = [function (e, t, n) {
                         require: [],
                         choice1: function () {
                             n.publicVar2[21] = 7;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
                             n.publicVar2[21] = 1;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         }
                     },
@@ -6583,14 +6583,14 @@ scr_event = [function (e, t, n) {
                             function () {
                                 n.distance = 99;
                                 n.day += 20;
-                                i.save();
+                                Scr_public.save();
                                 cc.director.loadScene("main");
                             },
                         choice2:
                             function () {
                                 n.day += 79;
                                 n.enemyId = 996;
-                                i.save();
+                                Scr_public.save();
                                 cc.director.loadScene("main");
                             }
                     },
@@ -6643,7 +6643,7 @@ scr_event = [function (e, t, n) {
                         choice1:
                             function () {
                                 n.enemyId = 100;
-                                i.save();
+                                Scr_public.save();
                                 cc.director.loadScene("main");
                             },
                         choice2: function () {
@@ -6673,7 +6673,7 @@ scr_event = [function (e, t, n) {
                         require: [],
                         choice1: function () {
                             n.enemyId = 908;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
@@ -6686,9 +6686,9 @@ scr_event = [function (e, t, n) {
                         require: [],
                         choice1: function () {
                             if (0 == e("scr_data2").gameData[4]) {
-                                n.role.hp = i.role.maxHp();
+                                n.role.hp = Scr_public.role.maxHp();
                                 n.enemyId = 101;
-                                i.save();
+                                Scr_public.save();
                                 cc.director.loadScene("main");
                             } else {
                                 n.money += 20;
@@ -6714,9 +6714,9 @@ scr_event = [function (e, t, n) {
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
-                            n.hunger = i.maxHunger();
-                            n.energy += i.maxEnergy();
-                            n.role.hp = i.role.maxHp();
+                            n.hunger = Scr_public.maxHunger();
+                            n.energy += Scr_public.maxEnergy();
+                            n.role.hp = Scr_public.role.maxHp();
                             r("我要努力活下去！\n（状态全恢复+爆满！）");
                         }
                     },
@@ -6747,9 +6747,9 @@ scr_event = [function (e, t, n) {
                         BGM: "",
                         require: [],
                         choice1: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 909;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
@@ -6803,8 +6803,8 @@ scr_event = [function (e, t, n) {
                         choice1: function () { },
                         choice2: function () {
                             n.enemyId = 101;
-                            n.role.hp = i.role.maxHp();
-                            i.save();
+                            n.role.hp = Scr_public.role.maxHp();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         }
                     },
@@ -6828,8 +6828,8 @@ scr_event = [function (e, t, n) {
                             if (0 == a.gameData[4]) {
                                 n.skillLv[4] = 0;
                                 n.enemyId = 103;
-                                n.role.hp = i.role.maxHp();
-                                i.save();
+                                n.role.hp = Scr_public.role.maxHp();
+                                Scr_public.save();
                                 cc.director.loadScene("main");
                             } else {
                                 n.itemNum2[11] += 1;
@@ -6839,8 +6839,8 @@ scr_event = [function (e, t, n) {
                         choice2: function () {
                             if (0 == a.gameData[4]) {
                                 n.enemyId = 103;
-                                n.role.hp = i.role.maxHp();
-                                i.save();
+                                n.role.hp = Scr_public.role.maxHp();
+                                Scr_public.save();
                                 cc.director.loadScene("main");
                             } else {
                                 n.itemNum2[11] += 1;
@@ -6863,9 +6863,9 @@ scr_event = [function (e, t, n) {
                         text: ["来到一个小村庄，", "门口两个抽烟的年轻人，挡住去路，", "不让通行。", "硬闯", "绕道而行"],
                         require: [n.distance, 0],
                         choice1: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 104;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
@@ -6877,9 +6877,9 @@ scr_event = [function (e, t, n) {
                         require: [n.choice[3], 2],
                         choice1: function () { },
                         choice2: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 105;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         }
                     },
@@ -6887,7 +6887,7 @@ scr_event = [function (e, t, n) {
                         text: ["早上我还在睡觉，外面传来一阵阵大哭声和大笑声吵醒，", "我钻出帐篷一看————", "路边，一个叉腿坐地、短发、身着中学校服的妹子，喝着啤酒，一会大笑，一会大哭...", "过去问问", "算了，还是不要生事的好"],
                         require: [],
                         choice1: function () {
-                            0 == a.gameData[4] ? i.QLnewfunction.addxiaoyue_favorability(1) : i.QLnewfunction.addxiaoyue_favorability(66);
+                            0 == a.gameData[4] ? Scr_public.QLnewfunction.addxiaoyue_favorability(1) : Scr_public.QLnewfunction.addxiaoyue_favorability(66);
                             r("女孩（晓月，游戏伙伴之一）瞟了你一眼，并没有理你，只是自顾自的喝完了手上的啤酒", "随后她站起来，拍了拍身上的灰就离开了");
                         },
                         choice2: function () {
@@ -6899,7 +6899,7 @@ scr_event = [function (e, t, n) {
                         text: ["晚上，我正在帐篷里睡觉", "一个柔软的身体钻了进来，", "“(；´д｀)ゞ~老哥你好~", "有没有啥吃的a~，", "我两天没吃过东西啦\n(ಥ_ಥ)”", "有哇", "流氓——呀————！"],
                         require: [n.friend_xiaoyue.favorability, 1],
                         choice1: function () {
-                            i.QLnewfunction.addxiaoyue_favorability(30);
+                            Scr_public.QLnewfunction.addxiaoyue_favorability(30);
                             //n.friend_xiaoyue.favorability += 30;
                             n.itemNum[0] -= parseInt(.5 * n.itemNum[0]);
                             n.itemNum2[0] -= parseInt(.5 * n.itemNum2[0]);
@@ -6917,23 +6917,23 @@ scr_event = [function (e, t, n) {
                         choice1: function () {
                             if (n.friend_xiaoyue.favorability < 35) {
                                 n.role.hp = 1;
-                                i.QLnewfunction.addxiaoyue_favorability(40);
+                                Scr_public.QLnewfunction.addxiaoyue_favorability(40);
                                 //n.friend_xiaoyue.favorability += 40;
                                 r("...你喝了一大盆「黯然销魂十杂大补汤」\n【生命全损失，晓月好感+40】");
                             } else if (n.friend_xiaoyue.favorability < 100) {
                                 n.itemNum2[0] += 3;
                                 //n.friend_xiaoyue.favorability += 20;
-                                i.QLnewfunction.addxiaoyue_favorability(20);
+                                Scr_public.QLnewfunction.addxiaoyue_favorability(20);
                                 r("获得【熟肉】*3\n晓月好感+20");
                             } else {
                                 n.itemNum[13] += 1;
-                                i.QLnewfunction.addxiaoyue_favorability(50);
+                                Scr_public.QLnewfunction.addxiaoyue_favorability(50);
                                 //n.friend_xiaoyue.favorability += 50;
                                 r("获得神秘道具\n晓月好感+50");
                             }
                         },
                         choice2: function () {
-                            i.QLnewfunction.addxiaoyue_favorability(-5);
+                            Scr_public.QLnewfunction.addxiaoyue_favorability(-5);
                             //n.friend_xiaoyue.favorability -= 5;
                             r("哼！￣へ￣\n【晓月好感-5】");
                         }
@@ -6955,12 +6955,12 @@ scr_event = [function (e, t, n) {
                         require: [n.ifFollow[0], 1],
                         choice1: function () {
                             n.energy = 0;
-                            i.QLnewfunction.addxiaoyue_favorability(100);
+                            Scr_public.QLnewfunction.addxiaoyue_favorability(100);
                             //n.friend_xiaoyue.favorability += 100;
                             r("由于晓月晚上说梦话（偷笑）、蹬人，你一晚没睡！\n【精力0恢复！晓月好感+100】");
                         },
                         choice2: function () {
-                            i.QLnewfunction.addxiaoyue_favorability(-5);
+                            Scr_public.QLnewfunction.addxiaoyue_favorability(-5);
                             //n.friend_xiaoyue.favorability -= 5;
                             r("￣へ￣\n【晓月好感-5】");
                         }
@@ -6969,9 +6969,9 @@ scr_event = [function (e, t, n) {
                         text: ["有人喊抓贼，", "是否帮忙？", "是", "不要"],
                         require: [],
                         choice1: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 106;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
@@ -6982,7 +6982,7 @@ scr_event = [function (e, t, n) {
                         text: ["你路过一个驻地地质勘察队时，里面的人员发现了你，他们邀请你进来吃口饭。", "【你进去吗？】", "进去", "算了"],
                         require: [],
                         choice1: function () {
-                            n.hunger = i.maxHunger();
+                            n.hunger = Scr_public.maxHunger();
                             n.itemNum[0] += 3;
                             n.itemNum2[13] += 1;
                             n.chioce2[0] = 1;
@@ -6997,7 +6997,7 @@ scr_event = [function (e, t, n) {
                         require: [n.ifFollow[0], 1],
                         choice1: function () {
                             if (n.friend_xiaoyue.favorability > 400) {
-                                i.QLnewfunction.addxiaoyue_favorability(75);
+                                Scr_public.QLnewfunction.addxiaoyue_favorability(75);
                                 //n.friend_xiaoyue.favorability += 75;
                                 r("(/ω＼)好害羞...不过只要你喜欢我就穿...\no(*////▽////*)q\n晓月好感+75");
                             } else {
@@ -7014,18 +7014,18 @@ scr_event = [function (e, t, n) {
                         require: [],
                         choice1: function () {
                             if (1 == n.ifFollow[0]) {
-                                n.role.hp = i.role.maxHp();
+                                n.role.hp = Scr_public.role.maxHp();
                                 n.enemyId = 107;
-                                i.save();
+                                Scr_public.save();
                                 r("晓月：“等等！他有问题”")
                             } else
                                 n.money = 0;
                             r("....第二天一大早，流浪汉早就不见踪影。\n【你损失全部金钱！】");
                         },
                         choice2: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 107;
-                            i.save();
+                            Scr_public.save();
                             r("“cnm！老子弄死你！”");
                         }
                     },
@@ -7081,7 +7081,7 @@ scr_event = [function (e, t, n) {
                             var t = e("scr_data");
                             0 == e("scr_data2").gameData[4] && (t.publicVar[7] = -49);
                             t.publicVar2[17] = 1;
-                            i.save();
+                            Scr_public.save();
                         },
                         require: [],
                         choice1: function () {
@@ -7096,7 +7096,7 @@ scr_event = [function (e, t, n) {
                         text: ["三个身穿制服的胖子来到桥下，", "一脚踢开脚边的水壶，大声叫到，", "“不许在这里搭帐篷，听到没！”", "正面刚", "赶紧递烟（需烟*3，金钱*3）"],
                         require: [],
                         choice1: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 110;
                             if (0 == n.publicVar[8]) {
                                 n.ifFollow[1] = 1;
@@ -7109,7 +7109,7 @@ scr_event = [function (e, t, n) {
                                 n.friendSkill[8] = 1;
                                 r("碧瑶加入战斗！");
                             } else {
-                                i.save();
+                                Scr_public.save();
                                 cc.director.loadScene("main");
                             }
                         },
@@ -7152,7 +7152,7 @@ scr_event = [function (e, t, n) {
                         text: ["“(ಡωಡ)hiahiahia！", "老哥，可算找到你啦！", "就差这里的垃圾箱没找啦！(╥╯^╰╥)", "上次忘了说了，给，这是我家地址，记得过来玩哈(^_−)☆”", "", "(#ﾟДﾟ)"],
                         action: function () {
                             n.publicVar[9] = 1;
-                            i.save();
+                            Scr_public.save();
                         },
                         require: [n.publicVar[3], 1],
                         choice1: function () { },
@@ -7186,10 +7186,10 @@ scr_event = [function (e, t, n) {
                         text: ["街上有个男人在对一个女人拳打脚踢，", "我仔细一看，这个女人正是刚来省城时，叫我去玩玩的小姐姐！", "你是否帮她？", "帮忙", "算了，这是她自找的"],
                         require: [],
                         choice1: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.publicVar2[15] += 1;
                             n.enemyId = 111;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
@@ -7205,7 +7205,7 @@ scr_event = [function (e, t, n) {
                         choice1: function () {
                             n.role.maxHp -= 70;
                             n.money += 20;
-                            i.save();
+                            Scr_public.save();
                             r("生命上限-70，获得2元。");
                         },
                         choice2: function () {
@@ -7216,9 +7216,9 @@ scr_event = [function (e, t, n) {
                         text: ["一帮凶恶的男人将碧瑶团团围住，其中一个皮衣男叫到，", "“念你死去爹的面子，老子一再忍让。给你10天时间，再不还钱，你就给我做小姐去！”", "朦胧夜色下，看不清碧瑶脸上的表情，不过，她一个字也没说。", "帮忙解围（BOSS级对手）", "切莫冲动，以免搞砸，先观察几天再说"],
                         require: [],
                         choice1: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 112;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
@@ -7245,7 +7245,7 @@ scr_event = [function (e, t, n) {
                             if (n.money >= 20) {
                                 n.money -= 20;
                                 n.publicVar[7] += 20;
-                                n.hunger += parseInt(2 * i.maxHunger());
+                                n.hunger += parseInt(2 * Scr_public.maxHunger());
                                 r("买完面包，我在门口慢悠悠吃着。不一会儿碧瑶过来了，她看了看我，我吃惊的看着她，塞了一大口面包，她立马转头看别的去了。不一会儿，碧瑶就从店里出来了，涨红了脸问道，“e...，能不能卖我几个面包”，“哦？这个呀？可以呀，一起回去吃吧，嘿嘿~”。【饥饿值爆满，碧瑶好感+20】");
                             } else cc.find("Canvas/Notify2").getComponent("cc.Label").string = "店长：“没钱装啥逼，蛤?”";
                         },
@@ -7258,7 +7258,7 @@ scr_event = [function (e, t, n) {
                         require: [],
                         choice1: function () {
                             n.publicVar2[16] = parseInt(99 * Math.random() + 1);
-                            n.hunger = i.maxHunger();
+                            n.hunger = Scr_public.maxHunger();
                             r("吃完饭，中年大叔兴高采烈的抽出两张彩票，给了你一张。获得【彩票】（明晚开奖）！饥饿全恢复！");
                         },
                         choice2: function () {
@@ -7368,13 +7368,13 @@ scr_event = [function (e, t, n) {
                         text: ["我捡完垃圾，回到桥下，皮衣男把碧瑶按到墙上，说道，", "“你别怪我，不就是让他在女儿面前脱光衣服吗，这点承受能力都没有，做个毛的老板！你怕是没见过高级的要债方法哟~”", "战斗！", "给他钱（需10元）~"],
                         action: function () {
                             e("scr_data").enemyId = 113;
-                            i.save();
+                            Scr_public.save();
                         },
                         require: [],
                         choice1: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 113;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
@@ -7392,7 +7392,7 @@ scr_event = [function (e, t, n) {
                         action: function () {
                             e("scr_data").ifFollow[1] = 0;
                             n.publicVar2[17] = 0;
-                            i.save();
+                            Scr_public.save();
                         },
                         require: [],
                         choice1: function () { },
@@ -7405,7 +7405,7 @@ scr_event = [function (e, t, n) {
                         text: ["“上头有领导要来，城里不准乱搭帐篷啦，我只是奉命行事，对不住啦，小兄弟，听明白没？”", "几个身着制服的男开着巡逻车来到桥下叫道。", "知道了，我马上搬走（放弃抵抗）", "我就不走！（战斗）"],
                         action: function () {
                             n.enemyId = 401;
-                            i.save();
+                            Scr_public.save();
                         },
                         require: [],
                         require2: [n.publicVar3[2], 0],
@@ -7415,9 +7415,9 @@ scr_event = [function (e, t, n) {
                             t.ifTriggerEvent("你搬离了桥洞...");
                         },
                         choice2: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 401;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         }
                     },
@@ -7425,7 +7425,7 @@ scr_event = [function (e, t, n) {
                         text: ["“听说你很拽？”，新来了几个制服男...", "我马上搬走（放弃抵抗）", "是的，我就是不走！（战斗）"],
                         action: function () {
                             n.enemyId = 402;
-                            i.save();
+                            Scr_public.save();
                         },
                         require: [],
                         require2: [n.publicVar3[2], 0],
@@ -7435,9 +7435,9 @@ scr_event = [function (e, t, n) {
                             t.ifTriggerEvent("你搬离了桥洞...");
                         },
                         choice2: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 402;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         }
                     },
@@ -7445,7 +7445,7 @@ scr_event = [function (e, t, n) {
                         text: ["“你好，请问下那个钉子户是不是你？”，又来了几个制服男...", "不是的，我刚来，我这就搬走（放弃抵抗）", "是的（战斗）"],
                         action: function () {
                             n.enemyId = 403;
-                            i.save();
+                            Scr_public.save();
                         },
                         require: [],
                         require2: [n.publicVar3[2], 0],
@@ -7455,9 +7455,9 @@ scr_event = [function (e, t, n) {
                             t.ifTriggerEvent("你搬离了桥洞...");
                         },
                         choice2: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 403;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         }
                     },
@@ -7465,7 +7465,7 @@ scr_event = [function (e, t, n) {
                         text: ["“听说你在找屎？”，几个大块头制服男问道...", "没没没！这就走（放弃抵抗）", "是的，你要吗？（战斗）"],
                         action: function () {
                             n.enemyId = 404;
-                            i.save();
+                            Scr_public.save();
                         },
                         require: [],
                         require2: [n.publicVar3[2], 0],
@@ -7475,9 +7475,9 @@ scr_event = [function (e, t, n) {
                             t.ifTriggerEvent("你搬离了桥洞...");
                         },
                         choice2: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 404;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         }
                     },
@@ -7485,7 +7485,7 @@ scr_event = [function (e, t, n) {
                         text: ["“要最帅警官亲自出马的就是你小子？”，一位长着小胡茬的怪蜀黍问道。", "哪敢！这就走！哈哈（放弃抵抗）", "哦~是吗？（战斗）"],
                         action: function () {
                             n.enemyId = 405;
-                            i.save();
+                            Scr_public.save();
                         },
                         require: [],
                         require2: [n.publicVar3[2], 0],
@@ -7495,9 +7495,9 @@ scr_event = [function (e, t, n) {
                             t.ifTriggerEvent("你搬离了桥洞...");
                         },
                         choice2: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 405;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         }
                     },
@@ -7505,7 +7505,7 @@ scr_event = [function (e, t, n) {
                         text: ["“轰隆隆~轰隆隆”，一辆挖掘机开到了桥下...", "尼玛！我走还不成嘛！（放弃抵抗）", "我已成仙，法力无边！（战斗）"],
                         action: function () {
                             n.enemyId = 406;
-                            i.save();
+                            Scr_public.save();
                         },
                         require: [],
                         require2: [n.publicVar3[2], 0],
@@ -7515,9 +7515,9 @@ scr_event = [function (e, t, n) {
                             t.ifTriggerEvent("你搬离了桥洞...");
                         },
                         choice2: function () {
-                            n.role.hp = i.role.maxHp();
+                            n.role.hp = Scr_public.role.maxHp();
                             n.enemyId = 406;
-                            i.save();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         }
                     }
@@ -8634,8 +8634,9 @@ scr_forwardButton = [function (e, t, n) {
         },
         JKuniforms: function () {//JK制服的功能在这里哦
             var t = e("scr_data"), random = 100 * Math.random(), rate = 2 * t.itemNum2[24];
+            var Scr_public = e("scr_public");
             if (random <= rate) {
-                i.QLnewfunction.addxiaoyue_favorability(1);
+                Scr_public.QLnewfunction.addxiaoyue_favorability(1);
                 //t.friend_xiaoyue.favorability += 1;
                 t.publicVar[7] += 1;
             }
@@ -9073,13 +9074,13 @@ scr_friendUI1 = [function (e, t, n) {
             cc.find("Canvas/inf/good").getComponent("cc.Label").string = "碧瑶好感：" + t.publicVar[7];
         },
         eat: function () {
-            var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public");
+            var t = e("scr_data"), n = e("scr_effect"), Scr_public = e("scr_public");
             if (t.itemNum[0] > 0 || t.itemNum2[0] > 0) {
                 if (t.itemNum[0] > 0) {
                     t.publicVar2[10] = 0;
                     t.publicVar[2] = 1;
                     t.itemNum[0] -= 1;
-                    a.QLnewfunction.addxiaoyue_favorability(1);
+                    Scr_public.QLnewfunction.addxiaoyue_favorability(1);
                     //t.friend_xiaoyue.favorability += 1;
                     this.initUI();
                     cc.find("Canvas/Show").removeAllChildren();
@@ -9089,26 +9090,26 @@ scr_friendUI1 = [function (e, t, n) {
                     t.publicVar[2] = 1;
                     t.itemNum2[0] -= 1;
                     //t.friend_xiaoyue.favorability += 3;
-                    a.QLnewfunction.addxiaoyue_favorability(3);
+                    Scr_public.QLnewfunction.addxiaoyue_favorability(3);
                     this.initUI();
                     cc.find("Canvas/Show").removeAllChildren();
                     n.playText("Canvas/notify", "熟肉-1，晓月好感+3", 80);
                 }
-                a.save();
+                Scr_public.save();
             } else {
                 cc.find("Canvas/Show").removeAllChildren();
                 n.playText("Canvas/notify", "吃光光啦！", 80);
             }
         },
         takePill: function () {
-            var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public");
+            var t = e("scr_data"), n = e("scr_effect"), Scr_public = e("scr_public");
             if (t.itemNum2[1] > 0) {
                 var amount = t.itemNum2[1];
-                a.QLnewfunction.addxiaoyue_favorability(2 * amount);
+                Scr_public.QLnewfunction.addxiaoyue_favorability(2 * amount);
                 //t.friend_xiaoyue.favorability += 2 * amount;
                 t.itemNum2[1] -= amount;
                 this.initUI();
-                a.save();
+                Scr_public.save();
                 cc.find("Canvas/Show").removeAllChildren();
                 n.playText("Canvas/notify", "“张嘴，吃药~”\n“啊~~~~emmmmm~”\n晓月好感+" + 2 * amount + "", 80);
             } else {
@@ -9119,25 +9120,25 @@ scr_friendUI1 = [function (e, t, n) {
         talk: function () {
             var t = e("scr_data"), n = e("scr_effect");
             if (t.energy >= 10) {
-                var a = this.dialog(), i = e("scr_public"), c = t.talkTimes[0], o = cc.find("Canvas/Show"), r = a[c];
+                var a = this.dialog(), Scr_public = e("scr_public"), c = t.talkTimes[0], o = cc.find("Canvas/Show"), r = a[c];
                 if ("undefined" == typeof r) {
                     var s = this.randomDialog(), l = s.length;
                     r = s[parseInt(Math.max(Math.random() * l - .1))];
                 }
                 c % 3 == 0 && o.removeAllChildren();
-                i.showText(o, "plot" + c, r, 60);
+                Scr_public.showText(o, "plot" + c, r, 60);
                 t.talkTimes[0] += 1;
                 t.energy -= 10;
-                i.QLnewfunction.addxiaoyue_favorability(1);
+                Scr_public.QLnewfunction.addxiaoyue_favorability(1);
                 //t.friend_xiaoyue.favorability += 1;
                 if (t.talkTimes[0] == 100) {// 晓月聊天处
                     n.itemNum[13] += 1;
-                    i.showText(o, "plot" + c,
+                    Scr_public.showText(o, "plot" + c,
                         "晓月很开心，于是她打算亲手下厨给你做饭！你获得神秘道具*1"
                         , 60);
                 }
                 this.initUI();
-                i.save();
+                Scr_public.save();
             } else {
                 cc.find("Canvas/Show").removeAllChildren();
                 n.playText("Canvas/notify", "精力不足！", 80);
@@ -11948,7 +11949,7 @@ scr_rest = [function (e, t, n) {
         },
         //休息按钮传送门
         restMain: function () {
-            var t = e("scr_data"), n = e("scr_public"), a = t.skillLv, i = this;
+            var t = e("scr_data"), Scr_public = e("scr_public"), a = t.skillLv, thisModule = this;
             (function resetVariables() {
                 t.publicVar2[20] = parseInt(100 * Math.random() - 40); // 碧瑶聊天概率重置
                 t.publicVar[14] = parseInt(50 * Math.random()); // 锻炼成功率重置
@@ -11968,14 +11969,14 @@ scr_rest = [function (e, t, n) {
                 t.day += 1;
                 cc.find("Canvas/Day").getComponent("cc.Label").string = "第" + t.day + "天";
             })();
-            n.autoEat();
+            Scr_public.autoEat();
             (function checkSmokeAddiction() {
                 var e = 3 * t.orderTimes[1] - t.orderTimes[4], n = 100 * Math.random();
                 //1 == t.publicVar[1] && (e = t.orderTimes[1] - t.orderTimes[4]);
                 if (n < e) {
                     t.publicVar2[8] += 1;
                     t.skillLv[4] = 1;//(t.skillLv[4] * 0.1 * (3 * t.orderTimes[1] - t.orderTimes[4]))
-                    i.creatText("smoke", "【烟瘾】攻击防御减少" + t.skillLv[4] * 100 + "%");
+                    thisModule.creatText("smoke", "【烟瘾】攻击防御减少" + t.skillLv[4] * 100 + "%");
                 } else t.skillLv[4] = 0;
             })();
             (function hangover() {
@@ -11983,7 +11984,7 @@ scr_rest = [function (e, t, n) {
                 t.orderTimes[9] = 0;
                 if (n < e) {
                     t.skillLv[27] = 1;
-                    i.creatText("drunk", "【宿醉】伤害减少30%");
+                    thisModule.creatText("drunk", "【宿醉】伤害减少30%");
                 } else {
                     t.skillLv[27] = 0
                 };
@@ -11995,7 +11996,7 @@ scr_rest = [function (e, t, n) {
                 t.orderTimes[11] = 0;
                 if (rate < max && min < rate) {
                     t.buffState[3] = 1;
-                    i.creatText("some", "【营养均衡】额外恢复20精力");
+                    thisModule.creatText("some", "【营养均衡】额外恢复20精力");
                 } else {
                     t.buffState[3] = 0;
                 };
@@ -12003,10 +12004,10 @@ scr_rest = [function (e, t, n) {
             //tag 每天事件早上结算传送门
             (function recoveryEnergy() {
                 cc.find("Canvas/energy/text");
-                var extraEnergy = 0, maxEnergy = n.maxEnergy();//todo
+                var extraEnergy = 0, maxEnergy = Scr_public.maxEnergy();//todo
                 var surplusEnergy = t.energy;
                 var couldRecoveryEnergy = 0;
-                var energyResumeRate = n.role.energyResumeRate();
+                var energyResumeRate = Scr_public.role.energyResumeRate();
                 couldRecoveryEnergy = maxEnergy * energyResumeRate;//bug
                 if (hasXiaoyueSkill5()) {
                     extraEnergy += 20;
@@ -12027,15 +12028,15 @@ scr_rest = [function (e, t, n) {
             (function theToolsrecoveryHP() {
                 if (t.itemNum2[6] > 0) {
                     var e = 30 * t.itemNum2[6];
-                    n.role.maxHp();
+                    Scr_public.role.maxHp();
                     hasXiaoyueSkill5() && (e *= 2);
                     t.role.hp += e;
-                    n.ifMaxHp();
-                    cc.find("Canvas/AttrShow/hp/text").getComponent("cc.Label").string = "生命 +" + e + "（" + t.role.hp + "/" + n.role.maxHp() + "）";
+                    Scr_public.ifMaxHp();
+                    cc.find("Canvas/AttrShow/hp/text").getComponent("cc.Label").string = "生命 +" + e + "（" + t.role.hp + "/" + Scr_public.role.maxHp() + "）";
                 } else cc.find("Canvas/AttrShow/hp").active = !1;
             })();
             (function addStayDays() {
-                var e = n.regionId();
+                var e = Scr_public.regionId();
                 1e3 == e && (t.stayDay[0] += 1);
                 2e3 == e && (t.stayDay[1] += 1);
                 3e3 == e && (t.stayDay[2] += 1);
@@ -12045,7 +12046,7 @@ scr_rest = [function (e, t, n) {
             (function beAttackedCheck() {
                 if (100 * Math.random() < 20) {
                     var e = function () {
-                        var e = 100 * Math.random(), a = n.regionId(), i = 800, c = 10 * (t.itemNum2[19] - 1) + 1;
+                        var e = 100 * Math.random(), a = Scr_public.regionId(), i = 800, c = 10 * (t.itemNum2[19] - 1) + 1;
                         if (e < 70) {
                             var o = t.randomEvent[3], r = [800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 881, 882, 0];
                             i = r[o];
@@ -12075,7 +12076,7 @@ scr_rest = [function (e, t, n) {
                 (function () {
                     if (t.hunger <= 0) {
                         t.health -= 2;
-                        i.creatText("hunger", "【饥饿】健康值降低2点！");
+                        thisModule.creatText("hunger", "【饥饿】健康值降低2点！");
                     }
                 })();
                 (function trap() {
@@ -12083,30 +12084,30 @@ scr_rest = [function (e, t, n) {
                     if (t.itemNum2[5] > 0 && e < 100) {
                         var a = 100 * Math.random();
                         t.choice[8] = n;
-                        i.creatText("skill1", "【陷阱】获得伤害加成" + 10 * n + "%");
+                        thisModule.creatText("skill1", "【陷阱】获得伤害加成" + 10 * n + "%");
                         if (a <= 29) {
                             t.itemNum[3] += n;
-                            i.creatText("skill1", "【陷阱】获得「生肉」*" + n);
+                            thisModule.creatText("skill1", "【陷阱】获得「生肉」*" + n);
                             return !0;
                         }
                         if (a > 29 && a <= 30) {
                             t.itemNum[5] += n;
-                            i.creatText("skill1", "【陷阱】获得「艾草」*" + n);
+                            thisModule.creatText("skill1", "【陷阱】获得「艾草」*" + n);
                             return !0;
                         }
                         if (a > 30 && a <= 50) {
                             t.itemNum[0] += n;
-                            i.creatText("skill1", "【陷阱】获得「果子」*" + n);
+                            thisModule.creatText("skill1", "【陷阱】获得「果子」*" + n);
                             return !0;
                         }
                         if (a > 50 && a <= 70) {
                             t.itemNum[1] += n;
-                            i.creatText("skill1", "【陷阱】获得「木材」*" + n);
+                            thisModule.creatText("skill1", "【陷阱】获得「木材」*" + n);
                             return !0;
                         }
                         if (a > 70) {
                             t.itemNum[4] += n;
-                            i.creatText("skill1", "【陷阱】获得「亚麻」*" + n);
+                            thisModule.creatText("skill1", "【陷阱】获得「亚麻」*" + n);
                         }
                     }
                 })();
@@ -12118,7 +12119,7 @@ scr_rest = [function (e, t, n) {
                             hasXiaoyueSkill5() && (n *= 2);
                             t.health += n;
                             t.maxHealth += 5;
-                            i.creatText("skill2", "【自愈】最大健康+5，健康值+" + n);
+                            thisModule.creatText("skill2", "【自愈】最大健康+5，健康值+" + n);
                         }
                     }
                 })();
@@ -12127,7 +12128,7 @@ scr_rest = [function (e, t, n) {
                     if (a[6] > 0 && e < 40) {
                         var n = a[6] + parseInt(t.randomEvent[6] / 10);
                         t.money += n;
-                        i.creatText("skill3", "【好报】获得" + (n / 10).toFixed(1) + "元");
+                        thisModule.creatText("skill3", "【好报】获得" + (n / 10).toFixed(1) + "元");
                     }
                 })();
                 (function miaoniang() {
@@ -12135,29 +12136,29 @@ scr_rest = [function (e, t, n) {
                     if (e > 0) {
                         var n = 1 * e;
                         t.money += n;
-                        i.creatText("getMoney", "【┑(=^ω^=)┑】获得" + (n / 10).toFixed(1) + "元");
+                        thisModule.creatText("getMoney", "【┑(=^ω^=)┑】获得" + (n / 10).toFixed(1) + "元");
                     }
                 })();
                 (function spirite() {
                     var e = 100 * Math.random();
                     if (t.skillLv[26] > 0 && e < 30) {
-                        t.energy += parseInt(.3 * n.maxEnergy());
-                        i.creatText("spirit", "【不屈的精神力】额外恢复30%精力！");
+                        t.energy += parseInt(.3 * Scr_public.maxEnergy());
+                        thisModule.creatText("spirit", "【不屈的精神力】额外恢复30%精力！");
                     }
                 })();
                 (function insomnia() {
                     var e = 100 * Math.random(), evilNum = t.evil.evilValue;
                     if (e < evilNum) {
                         t.energy -= parseInt(.5 * t.energy);
-                        i.creatText("hunger", "【失眠】精力-50%！");
+                        thisModule.creatText("hunger", "【失眠】精力-50%！");
                     }
                 })();
                 (function xiaoyueisHungry() {
                     if (1 == t.ifFollow[0] && 0 == t.publicVar[2]) {
                         t.publicVar2[10] += 1;
-                        i.QLnewfunction.addxiaoyue_favorability(-1);
+                        Scr_public.QLnewfunction.addxiaoyue_favorability(-1);
                         //t.friend_xiaoyue.favorability -= 1;
-                        i.creatText("ifEat", "【不开森】晓月好感-1（哼！）");
+                        thisModule.creatText("ifEat", "【不开森】晓月好感-1（哼！）");
                     }
                     t.publicVar[2] = 0;
                 })();
@@ -12174,7 +12175,7 @@ scr_rest = [function (e, t, n) {
                         t.publicVar2[18] += n - a;
                         t.itemNum2[16] = 0;
                         t.publicVar[7] += c;
-                        i.creatText("sell", "【出售】漂亮石头" + e + "个，总售额" + (n / 10).toFixed(1) + "元，你分到" + (a / 10).toFixed(1) + "元！碧瑶好感+" + c);
+                        thisModule.creatText("sell", "【出售】漂亮石头" + e + "个，总售额" + (n / 10).toFixed(1) + "元，你分到" + (a / 10).toFixed(1) + "元！碧瑶好感+" + c);
                     }
                 })();
                 (function () {
@@ -12184,7 +12185,7 @@ scr_rest = [function (e, t, n) {
                             var a = parseInt(.02 * t.publicVar2[18]);
                             t.publicVar2[18] -= a;
                             t.money += a;
-                            i.creatText("sell", "【爱心】碧瑶给了你" + (a / 10).toFixed(1) + "元零钱！");
+                            thisModule.creatText("sell", "【爱心】碧瑶给了你" + (a / 10).toFixed(1) + "元零钱！");
                         }
                     }
                 })();
@@ -12193,7 +12194,7 @@ scr_rest = [function (e, t, n) {
                         var e = 100 * Math.random(), n = Math.max(parseInt(t.publicVar[7] / 10 + 20), 20);
                         if (e < n) {
                             t.orderTimes[4] += 1;
-                            i.creatText("reduceSmoke", "【监督】烟瘾降低1%！");
+                            thisModule.creatText("reduceSmoke", "【监督】烟瘾降低1%！");
                         }
                     }
                 })();
@@ -12202,7 +12203,7 @@ scr_rest = [function (e, t, n) {
                         var e = parseInt(.2 * t.publicVar3[5] + 1);
                         t.publicVar3[5] -= e;
                         t.publicVar3[5] < 0 && (t.publicVar3[5] = 0);
-                        i.creatText("gameBuff", "【兴奋消退】玩游戏获得的属性加成效果消退" + e + "%，还剩下" + t.publicVar3[5] + "%");
+                        thisModule.creatText("gameBuff", "【兴奋消退】玩游戏获得的属性加成效果消退" + e + "%，还剩下" + t.publicVar3[5] + "%");
                     }
                 })();
                 (function () {
@@ -12216,7 +12217,7 @@ scr_rest = [function (e, t, n) {
                 var e = 50;//todo
                 Math.random();
                 t.hunger -= e;
-                cc.find("Canvas/AttrShow/hunger/text").getComponent("cc.Label").string = "饥饿 -" + e + "（" + t.hunger + "/" + n.maxHunger() + "）";
+                cc.find("Canvas/AttrShow/hunger/text").getComponent("cc.Label").string = "饥饿 -" + e + "（" + t.hunger + "/" + Scr_public.maxHunger() + "）";
             })();
             (function () {
                 if (9 == t.stayDay[2]) {//在山脉停留的第9天，将会保存一个存档
@@ -12230,7 +12231,7 @@ scr_rest = [function (e, t, n) {
                 n = JSON.parse(cc.sys.localStorage.getItem("userData"));
                 cc.sys.localStorage.setItem("autogamesave", JSON.stringify(n));
             })();
-            n.save();
+            Scr_public.save();
             function hasXiaoyueSkill5() {
                 return 1 == t.ifFollow[0] && 1 == t.friendSkill1[4];
             }
@@ -14240,7 +14241,7 @@ moduleDefinitions = {
                 a.getComponent(cc.Label).fontSize = 40;
             },
             plotData: function () {
-                var t = e("scr_data"), n = e("scr_public");
+                var t = e("scr_data"), Scr_public = e("scr_public");
                 e("scr_effect");
                 return {
                     0: {
@@ -14257,8 +14258,8 @@ moduleDefinitions = {
                             if (0 == e("scr_data2").gameData[4]) {
                                 t.skillLv[4] = 0;
                                 t.enemyId = 108;
-                                t.role.hp = n.role.maxHp();
-                                n.save();
+                                t.role.hp = Scr_public.role.maxHp();
+                                Scr_public.save();
                                 cc.director.loadScene("main");
                             } else cc.director.loadScene("main", function () {
                                 e("scr_data").itemNum2[10] += 1;
@@ -14275,15 +14276,15 @@ moduleDefinitions = {
                             e("scr_data2").gameData[0] += 1;
                             t = JSON.parse(cc.sys.localStorage.getItem("dataCopy"));
                             cc.sys.localStorage.setItem("userData", JSON.stringify(t));
-                            n.save2();
+                            Scr_public.save2();
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
                             t.health += 999;
                             t.distance += 1;
                             t.enemyId = 0;
-                            t.role.hp = n.role.maxHp();
-                            n.save();
+                            t.role.hp = Scr_public.role.maxHp();
+                            Scr_public.save();
                             cc.director.loadScene("main", function () {
                                 e("scr_data").itemNum[12] += 1;
                                 e("scr_public").save();
@@ -14299,7 +14300,7 @@ moduleDefinitions = {
                             e("scr_data2").gameData[0] += 1;
                             t = JSON.parse(cc.sys.localStorage.getItem("dataCopy"));
                             cc.sys.localStorage.setItem("userData", JSON.stringify(t));
-                            n.save2();
+                            Scr_public.save2();
                             cc.director.loadScene("main", function () {
                                 e("scr_data").itemNum[12] += 1;
                                 e("scr_public").save();
@@ -14310,8 +14311,8 @@ moduleDefinitions = {
                             t.health += 999;
                             t.distance += 1;
                             t.enemyId = 0;
-                            t.role.hp = n.role.maxHp();
-                            n.save();
+                            t.role.hp = Scr_public.role.maxHp();
+                            Scr_public.save();
                             cc.director.loadScene("main", function () {
                                 e("scr_data").itemNum[12] += 1;
                                 e("scr_public").save();
@@ -14325,16 +14326,16 @@ moduleDefinitions = {
                         choice1: function () {
                             t.enemyId = 998;
                             t.health += 999;
-                            t.role.hp = n.role.maxHp();
-                            n.save();
+                            t.role.hp = Scr_public.role.maxHp();
+                            Scr_public.save();
                             cc.director.loadScene("main");
                         },
                         choice2: function () {
                             t.health += 999;
                             t.distance += 1;
                             t.enemyId = 0;
-                            t.role.hp = n.role.maxHp();
-                            n.save();
+                            t.role.hp = Scr_public.role.maxHp();
+                            Scr_public.save();
                             cc.director.loadScene("main", function () {
                                 e("scr_data").itemNum[12] += 1;
                                 e("scr_public").save();
@@ -14348,17 +14349,17 @@ moduleDefinitions = {
                         choice1: function () {
                             t.distance += 1;
                             t.ifFollow[0] = 0;
-                            n.save();
+                            Scr_public.save();
                             cc.director.loadScene("main", function () {
                                 e("scr_effect").playText("Canvas/Text/txt_notify", "晓月依依不舍的离开了", 60);
                             });
                         },
                         choice2: function () {
                             t.distance += 1;
-                            n.QLnewfunction.addxiaoyue_favorability(1);
+                            Scr_public.QLnewfunction.addxiaoyue_favorability(1);
                             //t.friend_xiaoyue.favorability += 10;
                             t.ifFollow[0] = 0;
-                            n.save();
+                            Scr_public.save();
                             cc.director.loadScene("main", function () {
                                 e("scr_effect").playText("Canvas/Text/txt_notify", "“我还会来找你玩的！( • ̀ω•́ )✧”", 60);
                             });
@@ -14370,7 +14371,7 @@ moduleDefinitions = {
                         choice1: function () {
                             t.ifFollow[1] = 1;
                             t.publicVar[8] = 1;
-                            n.save();
+                            Scr_public.save();
                             cc.director.loadScene("home", function () {
                                 e("scr_effect").playText("Canvas/notify", "陈碧瑶成为伙伴！请好好珍惜吧~", 60);
                             });
@@ -14385,7 +14386,7 @@ moduleDefinitions = {
                         BGM: "",
                         choice1: function () {
                             t.ifFollow[0] = 1;
-                            n.save();
+                            Scr_public.save();
                             cc.director.loadScene("home", function () {
                                 e("scr_effect").playText("Canvas/notify", "晓月成为伙伴！请好好珍惜吧~", 60);
                             });
