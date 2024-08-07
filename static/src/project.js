@@ -750,21 +750,22 @@ scr_eatUI = [function (e, t, n) {
                 2: {
                     itemName: " 伤药 ",
                     needDes: "※拥有：" + this.data.itemNum2[1],
-                    des: "※效果：恢复" + (30 + this.data.orderTimes[0]) + "生命值，增加10点基础最大生命值，且每次使用恢复量永久提高1点，恢复一点健康",
+                    des: "※效果：恢复" + (30 + this.data.orderTimes[0]) + "生命值，增加2点基础最大生命值，且每次使用恢复量永久提高1点，恢复一点健康",
                     ifEnough: function (t) {
                         e("scr_data").itemNum2[1] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0));
                     },
                     button: function () {
-                        var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 30 + n.orderTimes[0], o = n.itemNum2[1], r = n.role.hp, s = i.role.maxHp();
+                        var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"),
+                            c = 30 + n.orderTimes[0], o = n.itemNum2[1], r = n.role.hp, s = i.role.maxHp();
                         if (r < s) if (o >= 1) {
                             n.itemNum2[1] -= 1;
                             n.health += 1;
-                            n.role.maxHp += 10;
+                            n.role.maxHp += 2;
                             n.role.hp += c;
                             n.role.hp > s && (n.role.hp = s);
                             n.orderTimes[0] += 1;
                             i.save();
-                            a.playText("Canvas/notify", "Hp+" + c + "maxHp + 10 ", 60);
+                            a.playText("Canvas/notify", "Hp+" + c + "maxHp + 2 ", 60);
                             t.delayCreatItemUI1();
                         } else a.playText("Canvas/notify", "道具不足！", 100); else a.playText("Canvas/notify", "生命已达最大值！", 100);
                     }
@@ -1321,11 +1322,11 @@ scr_enemy = [function (e, t, n) {
                             return "【城管使用「真皮皮鞋」，踢中了你的屁股，你损失" + a + "点生命！】";
                         }
                         if (1 == n) {
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 30;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= 30;
                             return "【城管使用「38元皮鞋」，踢中了你的腹部，你降低30点防御！】";
                         }
                         if (2 == n) {
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 30;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= 30;
                             return "【城管使用「铁鞋」，踢中了你的胳膊，你降低30点攻击！】";
                         }
                         if (3 == n) {
@@ -1748,7 +1749,7 @@ scr_enemy = [function (e, t, n) {
                     skill: function () {
                         var e = 100 * Math.random();
                         if (e < 30) {
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.5 * o.att);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= parseInt(.5 * o.att);
                             return "【铃女使用「挠痒痒」，你笑得像个二愣子，攻击下降一半！】";
                         }
                         if (e < 70) {
@@ -1819,7 +1820,7 @@ scr_enemy = [function (e, t, n) {
                     },
                     defSkill: function () {
                         c.role.hp -= 233;
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 99;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= 99;
                         return "【喵妹使用「比心」，你降低99点攻击，233点生命！】";
                     },
                     winEvent: function () {
@@ -1867,7 +1868,7 @@ scr_enemy = [function (e, t, n) {
                     defSkill: function () {
                         c.itemNum[0] += 1;
                         var e = parseInt(.1 * o.att);
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= e;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= e;
                         return "【分析师丢给你一个果子，你获得「果子」*1，你攻击降低" + e + "！】";
                     },
                     winEvent: function () {
@@ -1933,7 +1934,7 @@ scr_enemy = [function (e, t, n) {
                         if (480 == this.def) {
                             var e = parseInt(this.publicVar * o.att * .2 + this.att - o.def), t = parseInt(.08 * o.def);
                             c.role.hp -= e;
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= t;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= t;
                             return "【龙傲天使用「龙啸」！你受到" + e + "点伤害，防御-" + t + "！】";
                         }
                         return "";
@@ -1953,7 +1954,7 @@ scr_enemy = [function (e, t, n) {
                         if (this.def > 480) {
                             var e = parseInt(this.publicVar * o.def * .4 + .2 * this.def), t = parseInt(.08 * o.att);
                             c.role.hp -= e;
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= t;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= t;
                             return "【龙啸天使用「反震」！你受到" + e + "点伤害，攻击-" + t + "！】";
                         }
                         return "";
@@ -1985,21 +1986,21 @@ scr_enemy = [function (e, t, n) {
                     skill: function () {
                         var e = c.day;
                         if (e < 120) {
-                            var t = cc.find("Event/scr_fight").getComponent("scr_fight").correct[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t);
+                            var t = cc.find("Event/scr_fight").getComponent("scr_fight").current[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t);
                             c.role.hp -= n;
                             return "【少女使用「晴空霹雳.一段！」，你受到" + n + "点伤害】";
                         }
                         if (e < 150) {
                             var a = 2 * (c.day - 90);
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= a;
-                            t = cc.find("Event/scr_fight").getComponent("scr_fight").correct[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= a;
+                            t = cc.find("Event/scr_fight").getComponent("scr_fight").current[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t);
                             c.role.hp -= n;
                             return "【少女使用「晴空霹雳.二段！」，你受到" + n + "点伤害，防御减少" + a + "！】";
                         }
                         a = parseInt(.1 * o.maxHp);
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= a;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= a;
                         var i = parseInt(.1 * o.maxHp);
-                        t = cc.find("Event/scr_fight").getComponent("scr_fight").correct[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t);
+                        t = cc.find("Event/scr_fight").getComponent("scr_fight").current[1], n = parseInt(4 * e + .05 * o.maxHp - o.def - t);
                         c.role.hp -= n;
                         this.hp += a;
                         return "【少女使用「晴空霹雳.三段！」，你受到" + n + "点伤害，防御减少" + a + "，少女恢复" + i + "点生命！】";
@@ -2080,7 +2081,7 @@ scr_enemy = [function (e, t, n) {
                     skill: function () {
                         if (100 * Math.random() < 30) {
                             this.escapeRate -= 10;
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.25 * o.att);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= parseInt(.25 * o.att);
                             return "【" + this.name + "使用「束缚」，你攻击降低25%，逃跑率降低10%！】";
                         }
                         return "【" + this.name + "使用「束缚」，但是被你躲开啦！】";
@@ -2109,7 +2110,7 @@ scr_enemy = [function (e, t, n) {
                         this.publicVar += 1;
                         var a = t * this.publicVar;
                         e("scr_data").role.hp -= a;
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= n;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= n;
                         return "【毒酸：每回合损失" + a + "点生命，" + n + "点防御！】";
                     },
                     defSkill: void 0,
@@ -2198,8 +2199,8 @@ scr_enemy = [function (e, t, n) {
                     drop: [[100, 16, 1, 2], [100, 16, 1, 2]],
                     des: "",
                     skill: function () {
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.08 * o.def);
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.08 * o.def);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= parseInt(.08 * o.def);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= parseInt(.08 * o.def);
                         return "【巨蜥使用「粘液」，你降低8%攻击，8%防御！】";
                     },
                     defSkill: function () {
@@ -2307,8 +2308,8 @@ scr_enemy = [function (e, t, n) {
                         this.publicVar += 1;
                         var t = this.att, n = parseInt(.1 * this.att * this.publicVar);
                         c.role.hp -= t + n;
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def);
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= parseInt(.05 * o.def);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= parseInt(.05 * o.att);
                         return "【" + this.name + "使用「剔骨小刀！」你受到" + t + "点伤害，附加" + n + "流血，攻防降低5%！】";
                     },
                     defSkill: function () {
@@ -2844,14 +2845,14 @@ scr_enemy = [function (e, t, n) {
                     drop: [],
                     des: "“你和她啥关系？”",
                     skill: function () {
-                        var e = parseInt(699 - .5 * o.def - cc.find("Event/scr_fight").getComponent("scr_fight").correct[1]);
+                        var e = parseInt(699 - .5 * o.def - cc.find("Event/scr_fight").getComponent("scr_fight").current[1]);
                         if (4 == this.publicVar) {
                             var t = 3 * e;
                             c.role.hp -= t;
                             return "【" + this.name + "使用「终结.剔骨」，你受到" + t + "点生命！】";
                         }
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def);
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= parseInt(.05 * o.def);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= parseInt(.05 * o.att);
                         this.publicVar += 1;
                         var n = parseInt(49 * this.publicVar);
                         c.role.hp -= e + n;
@@ -2892,14 +2893,14 @@ scr_enemy = [function (e, t, n) {
                     drop: [],
                     des: "“你和她啥关系？”",
                     skill: function () {
-                        var e = parseInt(499 - .3 * o.def - .5 * cc.find("Event/scr_fight").getComponent("scr_fight").correct[1]);
+                        var e = parseInt(499 - .3 * o.def - .5 * cc.find("Event/scr_fight").getComponent("scr_fight").current[1]);
                         if (4 == this.publicVar) {
                             var t = 3 * e;
                             c.role.hp -= t;
                             return "【" + this.name + "使用「终结.剔骨」，你受到" + t + "点生命！】";
                         }
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def);
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= parseInt(.05 * o.def);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= parseInt(.05 * o.att);
                         this.publicVar += 1;
                         var n = parseInt(39 * this.publicVar);
                         c.role.hp -= e + n;
@@ -3009,7 +3010,7 @@ scr_enemy = [function (e, t, n) {
                         return "【机械人使用「电钻！」，戳中！你损失" + n + "点生命】";
                     },
                     defSkill: function () {
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 40;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= 40;
                         return "【机械人使用「神奇舞蹈」，太逗啦！你降低40点攻击】";
                     },
                     winEvent: function () {
@@ -3035,10 +3036,10 @@ scr_enemy = [function (e, t, n) {
                     des: "“我在找一个小男孩”",
                     skill: function () {
                         if (100 * Math.random() < 50) {
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 20;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= 20;
                             return "【女剑士使用「弱点打击」，你降低20点防御】";
                         }
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 40;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= 40;
                         return "【女剑士使用「弱点打击」，你降低40点攻击】";
                     },
                     defSkill: function () {
@@ -3083,7 +3084,7 @@ scr_enemy = [function (e, t, n) {
                             return "【么么啾给在给你捏脚，你恢复233点生命！】";
                         }
                         if (n >= 30 && n < 70) {
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 99;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= 99;
                             return "【么么啾袭击了你的胸部，你降低130点防御】";
                         }
                         if (n >= 70) {
@@ -3093,7 +3094,7 @@ scr_enemy = [function (e, t, n) {
                         }
                     },
                     defSkillfunction: function () {
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 40;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= 40;
                         return "【么么啾使用「萌你一脸」，你降低40点攻击！】";
                     },
                     winEvent: function () {
@@ -3159,7 +3160,7 @@ scr_enemy = [function (e, t, n) {
                         this.publicVa += 1;
                         var e = this.att, t = parseInt(.1 * this.att * this.publicVar);
                         c.role.hp -= e + t;
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= parseInt(.05 * o.def);
                         return "【" + this.name + "使用「碎骨爆裂拳！」你受到" + e + "点伤害，附加" + t + "流血，防御降低5%！】";
                     },
                     defSkill: function () {
@@ -3433,7 +3434,7 @@ scr_enemy = [function (e, t, n) {
                         } else if (this.publicVar == 4) {
                             var e = 2 * this.att - o.def;
                             c.role.hp -= e;
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.5 * o.def);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= parseInt(.5 * o.def);
                             return "【秋良使用「爆头」，造成" + e + "点伤害，减少防御50%】"
                         } else if (this.publicVar == 5) {
                             this.att += parseInt(1 * this.att);
@@ -3531,7 +3532,7 @@ scr_enemy = [function (e, t, n) {
                             this.publicVar += 1;
                             var e = 1 * this.att - o.def;
                             c.role.hp -= e;
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.25 * o.def);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= parseInt(.25 * o.def);
                             return "【" + this.name + "使用「铁砂之剑」，造成" + e + "点伤害，你减少25%防御】"
 
                         }
@@ -3539,7 +3540,7 @@ scr_enemy = [function (e, t, n) {
                             this.publicVar += 1;
                             var e = 2 * this.att - o.def;
                             c.role.hp -= e;
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.25 * o.att);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= parseInt(.25 * o.att);
                             return "【" + this.name + "使用「雷击之枪」，造成" + e + "点伤害，你减少25%攻击】"
                         }
                         else if (this.publicVar == 2) {
@@ -4093,7 +4094,7 @@ scr_enemy = [function (e, t, n) {
                     skill: function () {
                         this.publicVar += 1;
                         if (this.publicVar <= 4) {
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] += 30;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] += 30;
                             return "【后援队使用「加油！」，你增加30点攻击！】";
                         }
                         this.enemyEscapeRate += 100;
@@ -4248,7 +4249,7 @@ scr_enemy = [function (e, t, n) {
                         this.publicVar += 1;
                         var t = parseInt(.5 * this.att);
                         c.role.hp -= t;
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.1 * o.def);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= parseInt(.1 * o.def);
                         return "【" + this.name + "使用「空手道.穿心！」你受到" + t + "点伤害，防御降低10%！】";
                     },
                     defSkill: function () {
@@ -4643,7 +4644,7 @@ scr_enemy = [function (e, t, n) {
                         var t = Math.max(20 - o.def + 15 * this.publicVar, 0), n = e("scr_data");
                         this.publicVar += 1;
                         n.role.hp -= t;
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= 15;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= 15;
                         return "【" + this.name + "使用「泰山压顶（130kg）」，你受到" + t + "点伤害！你感觉喘呼吸困难！防御降低15点！】";
                     },
                     defSkill: void 0,
@@ -4673,7 +4674,7 @@ scr_enemy = [function (e, t, n) {
                     drop: [[100, 99, 6, 3]],
                     des: "来嘛！过来玩会儿~",
                     skill: function () {
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 25;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= 25;
                         var t = e("scr_data"), n = Math.max(30 - o.def, 5);
                         this.publicVar += 1;
                         var a = this.publicVar * n;
@@ -4712,7 +4713,7 @@ scr_enemy = [function (e, t, n) {
                     des: "快把钱交出来！",
                     skill: function () {
                         var e = parseInt(.03 * o.maxHp);
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 30;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= 30;
                         return "【" + this.name + "使用色诱，你的攻击降低30点，生命减少" + e + "】";
                     },
                     defSkill: void 0,
@@ -4810,7 +4811,7 @@ scr_enemy = [function (e, t, n) {
                         if (this.publicVar % 3 == 0) {
                             var n = 400 + 100 * this.publicVar - o.def, a = 20 * this.publicVar;
                             t.role.hp -= n;
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= a;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= a;
                             return "【女王使用「黑色高跟鞋」，你损失" + n + "点生命，并降低" + a + "点攻击】";
                         }
                         t.role.hp += 200;
@@ -5037,7 +5038,7 @@ scr_enemy = [function (e, t, n) {
                     des: "“求求你放过我吧，我两天没吃饭啦~(ㄒoㄒ)”",
                     skill: function () {
                         var t = e("scr_data");
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= 10;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= 10;
                         this.enemyEscapeRate += 15;
                         if (t.money >= 1) {
                             t.money -= 1;
@@ -5695,7 +5696,7 @@ scr_enemy = [function (e, t, n) {
                         if (100 * Math.random() < n) {
                             var a = 2 * this.att - o.def, i = this.def;
                             t.role.hp -= a;
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= i;
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= i;
                             return "【男孩使用「啊拖勒啊可痛！」，你受到" + a + "点伤害，并降低" + i + "点防御！】";
                         }
                         return "";
@@ -5783,8 +5784,8 @@ scr_enemy = [function (e, t, n) {
                     des: "“小帅哥，要不要跟姐姐玩玩呀”",
                     skill: function () {
                         var t = e("scr_data"), n = parseInt(this.att), a = parseInt(.1 * this.att), i = parseInt(.2 * this.att);
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= a;
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= i;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= a;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= i;
                         t.role.hp -= n;
                         return "【" + this.name + "使用「壁咚」，你受到" + n + "点伤害，攻击下降" + i + "点，防御下降" + a + "点！】";
                     },
@@ -6091,7 +6092,7 @@ scr_enemy = [function (e, t, n) {
                     des: "“(╬￣皿￣)=○这是我先看到的”",
                     skill: function () {
                         var e = parseInt(.3 * this.def), t = parseInt(.1 * this.hp);
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= e;
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= e;
                         this.hp += t;
                         return "【女汉子使用「王之怒视」，你降低" + e + "点防御，女汉子很开心，恢复了" + t + "点生命】";
                     },
@@ -6196,7 +6197,7 @@ scr_enemy = [function (e, t, n) {
                             var n = parseInt(.2 * this.att * this.publicVar);
                             this.hp += t;
                             c.role.hp -= e + n;
-                            cc.find("Event/scr_fight").getComponent("scr_fight").correct[1] -= parseInt(.05 * o.def);
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= parseInt(.05 * o.def);
                             return "【？使用「进化.毒暴」你受到" + e + "点伤害，附加" + n + "点毒性伤害，防御降低5%。？恢复" + t + "点生命！】";
                         }
                         return "";
@@ -6342,7 +6343,7 @@ scr_enemy = [function (e, t, n) {
                         this.publicVar += 1;
                         var t = this.att, n = parseInt(.1 * this.att * this.publicVar);
                         c.role.hp -= t + n;
-                        cc.find("Event/scr_fight").getComponent("scr_fight").correct[0] -= parseInt(.05 * o.att);
+                        cc.find("Event/scr_fight").getComponent("scr_fight").current[0] -= parseInt(.05 * o.att);
                         return "【" + this.name + "使用「连推带踹！」你受到" + t + "点伤害，附加" + n + "流血，攻击降低5%！】";
                     },
                     defSkill: function () {
@@ -7839,10 +7840,11 @@ scr_fight = [function (e, t, n) {
                 attTimes = 0,
                 glassesTimes = 0,
                 g = [0, 0, 0],
-                b = n.figthExp,
+                fightStatusExp = n.figthExp,
                 stateOnyou = (n.skillLv[4]/*烟瘾*/, n.buffState),
                 XianjingLevel = n.choice[8],
-                ammo = n.itemNum2[19],
+                gunlevel = n.itemNum2[19],
+                ammo = gunlevel,
                 nextCrit = 0,
                 BYstatus = {
                     att: parseInt(n.publicVar[7] + 1600),			/*陈碧瑶攻击计算传送门*/
@@ -7866,7 +7868,7 @@ scr_fight = [function (e, t, n) {
             n.Askills[0] = 0;
             n.inBattle = 1;//进入战斗
             n.enemyId = t;
-            this.correct = [0, 0];//临时攻击和防御力，随便减少
+            this.current = [0, 0];//临时攻击和防御力，随便减少
             this.publicVar = 0;
             for (var I in o) theEnemy[I] = o[I];//这段代码使用 for...in 循环，遍历对象 o 中的所有可枚举属性，并将它们赋值给对象 r。
             var youinFight = {
@@ -7930,10 +7932,25 @@ scr_fight = [function (e, t, n) {
             ESCbutton.targetOff(ESCbutton);
             attackButton.on("touchend", function () {
                 theEnemy.hp > 0 && n.role.hp > 0 && function () {
-                    for (let index = 0; index < 1 + n.ultrabuff.DoubleHit; index++) {
-
-
-
+                    var douhitText = "";
+                    var capableAttackTimes = 1;
+                    var rateofDoublehit = 100 * Math.random()
+                    if (n.ultrabuff.DoubleHit > 0) {
+                        if (rateofDoublehit < n.ultrabuff.DoubleHit * 20) {
+                            capableAttackTimes += 1;
+                        }
+                    }
+                    if (gunlevel > 0 && n.itemNum2[14] > 0 && n.publicVar[4] > 0) {//判断是否开枪
+                        if (ammo > 0) {
+                            ammo -= 1;
+                        } else {
+                            n.itemNum2[14] -= 1;
+                        }
+                        n.publicVar3[14] += gunlevel;// 枪特效
+                        capableAttackTimes += gunlevel;
+                    }
+                    douhitText = "【连击】* " + capableAttackTimes + "次";
+                    for (let index = 0; index < capableAttackTimes; index++) {
                         var youHitsText = "你使用【普攻】", a = "", o = "", s = "", l = "", u = "", f = "", BY = "", theSword = "", thenet = "", booldtext = "", damageTimesText = 100;
                         inFight.publicVar = 0;
                         var m = n.figthState;
@@ -7969,14 +7986,14 @@ scr_fight = [function (e, t, n) {
                         }()) {
                             var N = parseInt(.1 * youinFight.maxHp), T = parseInt(.03 * youinFight.att);
                             n.role.hp += N;
-                            inFight.correct[0] += T;
+                            inFight.current[0] += T;
                             n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
                             f = "【声援：生命+" + N + "，攻击+" + T + "】";
                         }
                         if (critChance = 2 * n.itemNum2[3] + 1 + 50 * n.ultraweapon.spear, 100 * Math.random() < critChance || 1 == nextCrit) {
                             nextCrit = 1;
                         }
-                        if (0 == m && b[0] >= 100) {// 破防特效
+                        if (RateofKnife = 20 * n.itemNum2[8] + fightStatusExp[1] / 2, 100 * Math.random() < RateofKnife) {// 破防特效
                             if (RateofKnife = 2 * n.itemNum2[8], 100 * Math.random() < RateofKnife && 1 == nextCrit) {
                                 var ifTexthaveit = new RegExp("触发");
                                 inFight.publicVar = theEnemy.def;
@@ -7986,23 +8003,23 @@ scr_fight = [function (e, t, n) {
 
                         }
                         //造成伤害计算传送门                                                        此部分攻击力用于无视防御
-                        var theDamage = parseInt(Math.max(youinFight.att + inFight.correct[0] + inFight.publicVar - theEnemy.def * (1 - 2 * n.itemNum2[15] / 100), 0));
+                        var theDamage = parseInt(Math.max(youinFight.att + inFight.current[0] + inFight.publicVar - theEnemy.def * (1 - 2 * n.itemNum2[15] / 100), 0));
                         //自己的攻击力    晓月加的临时攻击力     附带的攻击力，来自特性或者敌人技能  减去敌人的防御力（受披风影响） 最低为0
                         if (0 == m) {
-                            theDamage = parseInt(theDamage * (1 + b[0] / 500));
-                            damageTimesText *= (1 + b[0] / 500);
+                            theDamage = parseInt(theDamage * (1 + fightStatusExp[0] / 500));
+                            damageTimesText *= (1 + fightStatusExp[0] / 500);
                             g[0] += 1;
                         }
                         if (1 == m) {
                             if (n.randomBuff[3] == 1) {
-                                var S = parseInt(.10 * youinFight.maxHp), damageTimes = ((1.32 + b[1] / 200) * 1.25);
+                                var S = parseInt(.10 * youinFight.maxHp), damageTimes = ((1.32 + fightStatusExp[1] / 200) * 1.25);
                                 theDamage = parseInt(theDamage * damageTimes);
                                 n.role.hp -= S;
                                 g[1] += 1;
                                 damageTimesText *= damageTimes;
                                 l = "「暴血：你损失" + S + "点生命(10%最大生命)";//随机buff3
                             } else {
-                                var S = parseInt(.08 * youinFight.maxHp), damageTimes = (1.32 + b[1] / 200);
+                                var S = parseInt(.08 * youinFight.maxHp), damageTimes = (1.32 + fightStatusExp[1] / 200);
                                 theDamage = parseInt(theDamage * damageTimes);
                                 n.role.hp -= S;
                                 g[1] += 1;
@@ -8063,29 +8080,29 @@ scr_fight = [function (e, t, n) {
                             nextCrit = 0;
                             A();
                         }
-                        if (n.itemNum2[19] > 0 && n.itemNum2[14] > 0 && n.publicVar[4] > 0) {//判断是否开枪
-                            if (ammo > 0) {
-                                ammo -= 1;
-                            } else {
-                                n.itemNum2[14] -= 1;
-                            }
-                            n.publicVar3[14] += 1;// 枪特效
-                            var damageTimes = 1 + 0.5 * n.itemNum2[19];
-                            theDamage = parseInt(theDamage * (damageTimes));
-                            damageTimesText *= damageTimes;
-                            youHitsText = youHitsText.replace(/普攻|割裂/, "枪击");
-                            /暴击/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击/, "爆头"));
-                        }
+                        /* if (n.itemNum2[19] > 0 && n.itemNum2[14] > 0 && n.publicVar[4] > 0) {//判断是否开枪
+                             if (ammo > 0) {
+                                 ammo -= 1;
+                             } else {
+                                 n.itemNum2[14] -= 1;
+                             }
+                             n.publicVar3[14] += 1;// 枪特效
+                             var damageTimes = 1 + 0.5 * n.itemNum2[19];
+                             theDamage = parseInt(theDamage * (damageTimes));
+                             damageTimesText *= damageTimes;
+                             youHitsText = youHitsText.replace(/普攻|割裂/, "枪击");
+                             /暴击/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击/, "爆头"));
+                         }*/
                         //特效传送门
-                        if (!(0 == m && b[0] >= 100)) {
-                            if (RateofKnife = 2 * n.itemNum2[8], 100 * Math.random() < RateofKnife) {//嗜血效果
-                                var N = parseInt(.20 * theDamage), ifTexthaveit = new RegExp("触发");
-                                n.role.hp += N;
-                                n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
-                                ifTexthaveit.test(youHitsText) ? youHitsText += "【嗜血】" : youHitsText += "，触发【嗜血】";
-                                a = "，恢复" + N + "点生命(出伤的20%)";
-                            }
-                        }
+
+                        /*if (RateofKnife = 2 * n.itemNum2[8], 100 * Math.random() < RateofKnife) {//嗜血效果
+                            var N = parseInt(.20 * theDamage), ifTexthaveit = new RegExp("触发");
+                            n.role.hp += N;
+                            n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
+                            ifTexthaveit.test(youHitsText) ? youHitsText += "【嗜血】" : youHitsText += "，触发【嗜血】";
+                            a = "，恢复" + N + "点生命(出伤的20%)";
+                        }*/
+
                         if (n.itemNum2[10] > 0) {//黑刀流血
                             var H = parseInt(n.itemNum2[10] * 0.1 * theDamage);
                             bloodnum += H;
@@ -8093,9 +8110,9 @@ scr_fight = [function (e, t, n) {
                             o = "，割裂流血" + H + "(出伤的" + n.itemNum2[10] * 10 + "%)";
                         }
                         0 != n.itemNum2[28] && (theSword = function () {// 物理学圣剑攻击特性
-                            var thehit = parseInt((n.itemNum2[28] * 3 * theEnemy.maxHp) / 100);
+                            let thehit = parseInt((n.itemNum2[28] * 3 * theEnemy.maxHp) / 100);
                             thehit = thehit - theEnemy.def + inFight.publicVar;
-                            thehit = Math.min(thehit, (youinFight.att + inFight.correct[0]) * n.itemNum2[28]);
+                            thehit = Math.min(thehit, (youinFight.att + inFight.current[0]) * n.itemNum2[28]);
                             thehit = Math.max(thehit, 0);
                             theEnemy.hp -= thehit;
                             return theSword = "【圣剑】造成" + thehit + "点伤害";
@@ -8141,6 +8158,7 @@ scr_fight = [function (e, t, n) {
                         }
                         attTimes += 1;
                         youHitsText = youHitsText + "，对" + theEnemy.name + "造成" + theDamage + "点伤害" + a + o + s + l + u + f + BY + theSword + booldtext + "。你的总倍率为" + parseInt(damageTimesText) + "%";
+                        youHitsText += douhitText;
                         cleanAttText();
                         inFight.creatText(attText, "roleNotify", youHitsText);
                         (function () {
@@ -8148,11 +8166,12 @@ scr_fight = [function (e, t, n) {
                             theescapetext.getComponent("cc.Label").string = "";
                             i.textZoon2("Canvas/Fight/enemyHp");
                         })();
-                        P();
-                        isBattleEnd();
-                        isYouLOst();
-                        SaveGame();
                     }
+                    P();
+                    isBattleEnd();
+                    isYouLOst();
+                    SaveGame();
+
                 }();
                 theEnemy.hp > 0 && n.role.hp > 0 && attackButton.getComponent("cc.Button").scheduleOnce(enemysturn, 0.3);//战斗没有结束则判断敌人是否逃跑，本来为一秒，改成0.3
             }, attackButton);
@@ -8221,20 +8240,20 @@ scr_fight = [function (e, t, n) {
                     enemyAttText = theEnemy.name + "攻击",
                     isTexthaveit = new RegExp("触发"), redjacker = "", jacker = "", state = "",
                     battleStance = n.figthState;
-                if (rateofRed = 2 * n.itemNum2[11], 100 * Math.random() < rateofRed) {
-                    //blackKnifetimes > 20 && (blackKnifetimes = 20);//防止黑刀层数超过20层
+                /*if (rateofRed = 2 * n.itemNum2[11], 100 * Math.random() < rateofRed) {
+                    blackKnifetimes > 20 && (blackKnifetimes = 20);//防止黑刀层数超过20层
                     var d = 20 * (redTimes += 1), m = Math.round(.05 * youinFight.maxHp);
                     youinFight.def = Math.round(yourDEF * (d / 100 + 1));
                     n.role.hp += m;
                     n.role.hp > youinFight.maxHp && (n.role.hp = youinFight.maxHp);
                     enemyAttText += "。【火狐之灵】触发";
                     redjacker = "，生命恢复" + m + "，防御加成" + d + "%";
-                }
-                var mabuyirate, JackerRate, glassesRate, enemyATT = parseInt(Math.max(theEnemy.att - inFight.correct[1] - youinFight.def, 0));
-                0 == battleStance && (enemyATT = parseInt(enemyATT * (1 - b[0] / 500)));
+                }*/
+                var mabuyirate, JackerRate, glassesRate, enemyATT = parseInt(Math.max(theEnemy.att - inFight.current[1] - youinFight.def, 0));
+                0 == battleStance && (enemyATT = parseInt(enemyATT * (1 - fightStatusExp[0] / 500)));
                 if (2 == battleStance) {
-                    var C = 100 + b[2];
-                    enemyATT = parseInt(enemyATT * (.6 - b[2] / 500));
+                    var C = 100 + fightStatusExp[2];
+                    enemyATT = parseInt(enemyATT * (.6 - fightStatusExp[2] / 500));
                 }
                 if (mabuyirate = Math.min(2 * n.itemNum2[4], 100), 100 * Math.random() < mabuyirate) {
                     //enemyATT = 0;
@@ -8271,6 +8290,16 @@ scr_fight = [function (e, t, n) {
                         enemyAttText = enemyAttText + "【闪避】你闪避了攻击！本回合你不受任何伤害";
                     }
                 }
+                if (rateofRed = 2 * n.itemNum2[11], 100 * Math.random() < rateofRed) {
+                    n.role.hp = temp;
+                    let redhit = parseInt((8 * theEnemy.maxHp) / 100);
+                    redhit = redhit - theEnemy.def + inFight.publicVar;
+                    redhit = Math.min(redhit, (youinFight.att + inFight.current[0]) * n.itemNum2[28]);
+                    redhit = Math.max(redhit, 0);
+                    theEnemy.hp -= redhit;
+                    enemyAttText += "。【火狐之灵】触发";
+                    redjacker = "不受任何伤害，造成" + redhit + "点伤害！";
+                }
                 if (1 == n.ifFollow[1]) {
                     var Text = "【守护】碧瑶帮你挡下了致命攻击并脱离了战斗";
                     if (n.role.hp <= 0) {
@@ -8304,14 +8333,14 @@ scr_fight = [function (e, t, n) {
                 return t = Math.min(t, 100);
             }
             function refreshEnemyStatus() {//战斗场景标签的内容
-                roleHpLabel.getComponent("cc.Label").string = "ATT" + (youinFight.att + inFight.correct[0]) + "|" + "DEF" + (youinFight.def + inFight.correct[1]);
+                roleHpLabel.getComponent("cc.Label").string = "ATT" + (youinFight.att + inFight.current[0]) + "|" + "DEF" + (youinFight.def + inFight.current[1]);
                 d.getComponent("cc.Label").string = theEnemy.name + "LV" + theEnemy.lv + "\nHP" + theEnemy.hp + "\nATT" + theEnemy.att + " | " + "DEF" + theEnemy.def;
                 m.getComponent("cc.Label").string = calEscapeRate() + "%";
                 n.publicVar[4] > 0 && gunLabel();
                 n.itemNum2[10] > 2 && blackknifeLabel();
             }
             function gunLabel() {
-                cc.find("Canvas/Fight/gunButton").getComponent("cc.Label").string = "（" + n.itemNum2[14] + "）\n【" + ["关", "开"][n.publicVar[4]] + "】";
+                cc.find("Canvas/Fight/gunButton").getComponent("cc.Label").string = "（" + n.itemNum2[14] + "+" + ammo + "）\n【" + ["关", "开"][n.publicVar[4]] + "】";
             }
             function blackknifeLabel() {
                 var text = ["关", "开"];
@@ -8644,7 +8673,7 @@ scr_forwardButton = [function (e, t, n) {
             return 1e3 == t ? 60 : 2e3 == t ? 30 : 3e3 == t ? 50 : 4e3 == t ? 50 : void 0;
         },
         regionEventId: function () {
-            var t = 1, n = e("scr_public").regionId();//todo
+            var t = 1, n = e("scr_public").regionId();
             1e3 == n && (t = 1e3 + this.randomId([0, 25, 50, 75, 100]));
             2e3 == n && (t = 2e3 + this.randomId([0, 10, 20, 40, 50, 90, 100]));
             3e3 == n && (t = 3e3 + this.randomId([0, 15, 25, 35, 50, 65, 80, 100]));
@@ -10922,10 +10951,10 @@ scr_mainUIinit = [function (e, t, n) {
                     t.getChildByName("text").getComponent("cc.Label").string = "帐  篷";//todo
                 }
                 if (n.distance == 100) {
-                    t.getChildByName("text").getComponent("cc.Label").string = "纸箱子";//todo
+                    t.getChildByName("text").getComponent("cc.Label").string = "纸箱子";
                 }
                 if (n.distance > 100) {
-                    t.getChildByName("text").getComponent("cc.Label").string = "木房子";//todo
+                    t.getChildByName("text").getComponent("cc.Label").string = "木房子";
                 }
                 if (300 == n.distance && n.stayDay[3] > 1 && 0 == n.publicVar3[2]) {
                     t.getChildByName("text").getComponent("cc.Label").string = "桥  洞";
@@ -11063,7 +11092,7 @@ scr_makeUI = [function (e, t, n) {
                     button: function () {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 4;
                         var data2 = e("scr_data2");
-                        if (n.itemNum2[3] >= 10 + data2.achieveMent[9]*15) {
+                        if (n.itemNum2[3] >= 10 + data2.achieveMent[9] * 15) {
                             a.playText("Canvas/notify", "木棍已经满级了！", 100);
                             return;
                         }
@@ -11218,8 +11247,8 @@ scr_makeUI = [function (e, t, n) {
                 9: {
                     itemName: "匕首LV" + this.data.itemNum2[8],
                     needDes: "※十级木棍和一级匕首和20个亚麻可以合成长矛，点击匕首合成",
-                    des: "※增加" + 100 * this.data.itemNum2[8] + "点攻击。【嗜血】攻击时，" + 2 * this.data.itemNum2[8] + "%概率恢复造成伤害20%的生命",
-                    ifEnough: function (t) {
+                    des: "※增加" + 100 * this.data.itemNum2[8] + "点攻击。【破防】攻击时，" + (20 * this.data.itemNum2[8] + this.data.figthExp[1] / 2) + "%概率恢复造成伤害20%的生命",
+                    ifEnough: function (t) {//todo shulliiandu
                         var n = e("scr_data");
                         if (n.itemNum2[3] >= 10 && n.itemNum2[8] >= 1) {
                             (cc.find("Canvas/Page/view/content/page_3/" + t + "/button/name").color = new cc.color(0, 0, 255))
@@ -11298,7 +11327,7 @@ scr_makeUI = [function (e, t, n) {
                 15: {
                     itemName: "红夹克LV" + this.data.itemNum2[11],
                     needDes: "※需【火狐皮】" + this.data.itemNum[9] + "/" + (10 + 2 * this.data.itemNum2[11]),
-                    des: "※增加" + 150 * this.data.itemNum2[11] + "点生命上限，" + 15 * this.data.itemNum2[11] + "点防御。【火狐之灵】受击时，" + 2 * this.data.itemNum2[11] + "%概率提高20%防御（最多叠加20次），并且恢复自身5%的生命",
+                    des: "※增加" + 150 * this.data.itemNum2[11] + "点生命上限，" + 15 * this.data.itemNum2[11] + "点防御。【火狐之灵】受击时，" + 2 * this.data.itemNum2[11] + "%概率免疫100%伤害，并且对敌方造成8%最大生命值伤害",
                     ifEnough: function (t) {
                         var n = e("scr_data");
                         n.itemNum[9] >= 10 + 2 * n.itemNum2[11] && (cc.find("Canvas/Page/view/content/page_4/" + t + "/button/name").color = new cc.color(0, 255, 0));
@@ -11355,7 +11384,7 @@ scr_makeUI = [function (e, t, n) {
                 19: {
                     itemName: "枪LV" + this.data.itemNum2[19],
                     needDes: "※白色粉末（拥有" + this.data.itemNum[11] + "）兑换，可能会招来麻烦！",
-                    des: "※使用枪攻击时，会增加50%*「枪等级」伤害，进入战斗时会获得「枪等级」数量的免费子弹，然后每次消耗1颗子弹（已有" + this.data.itemNum2[14] + "）。点击战斗界面右下角文字可以打开/关闭枪效果！",
+                    des: "※使用枪攻击时，会触发【连击】" + this.data.itemNum2[19] + "次，连击的效果相当于多次点击攻击按钮，所有效果均可触发。进入战斗时会获得「枪等级」数量的免费子弹，然后每次消耗1颗子弹（已有" + this.data.itemNum2[14] + "）。点击战斗界面右下角文字可以打开/关闭枪效果！",
                     button: function () {
                         e("scr_data").itemNum2[19] > 0 ? n.playText("Canvas/notify", "点击战斗界面右下角（逃跑率右边）【开/关】才会生效哦~", 100) : n.playText("Canvas/notify", "你还没有枪！", 100);
                     }
