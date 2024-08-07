@@ -66,7 +66,7 @@ scr_achieve = [function (e, t, n) {
                 6: "【震惊！一小伙被十个阿姨轮流摸】被老奶奶摸钱10次（" + t.publicVar2[5] + "/10）！",
                 7: "【扶我起来，我还能跑】逃跑失败999次（" + t.publicVar2[6] + "/999）",
                 8: "【一个约定】“10年后，如果你还在，咱们就结婚吧！”女流氓：“嗯...”碰到女流氓49次（" + t.publicVar2[12] + "/49）！",
-                9: "【巨人杀手】击杀山顶巨人10只或以上（" + t.kills[3] + "/10）",
+                9: "【巨人杀手】击杀山顶巨人10只或以上（" + t.kills[3] + "/10），完成奖励：15级木棍等级上限",
                 10: "【县城一霸】击败刀疤男",
                 11: "【残废】触发烟瘾36次（" + t.publicVar2[8] + "/36）",
                 12: "【对不起，我要做个坏人】罪恶值60（" + t.evil.evilValue + "/60）",
@@ -88,7 +88,7 @@ scr_achieve = [function (e, t, n) {
                 28: "【天下第二】通关挑战副本",
                 29: "【真爱粉】本游戏通关6次以上（" + n.gameData[1] + "/6）",
                 30: "【作者亲爹妈】本游戏在你手机中存活达300小时（" + o + "/300）"
-            }, l = {
+            }, conditionCheckFunction = {
                 0: function () {
                     if (n.gameData2[0] == 1) { n.achieveMent[0] = 1; }
                     return n.achieveMent[0] == 1;
@@ -224,7 +224,7 @@ scr_achieve = [function (e, t, n) {
                 u = cc.find("Canvas/Scroll/view/content");
             for (var p in s) {//把文字内容输出到屏幕上
                 this.creatText(u, "skill" + p, s[p]);
-                l[p]() && (u.getChildByName("skill" + p).color = new cc.Color(0, 255, 0));
+                conditionCheckFunction[p]() && (u.getChildByName("skill" + p).color = new cc.Color(0, 255, 0));
             }
             var f = cc.find("Canvas/Button_backMainUI");
             f.on("touchend", function () {
@@ -9192,15 +9192,16 @@ scr_home = [function (e, t, n) {
         extends: cc.Component,
         properties: {},
         onLoad: function () {
-            var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public"), i = cc.find("Canvas/UI1"), c = cc.find("Canvas/UI2"), o = cc.find("Canvas/UI3"), r = cc.find("Canvas/UI4"), s = cc.find("Canvas/UI5"), l = i.getChildByName("choice1"), u = i.getChildByName("choice2"), p = i.getChildByName("choice3"), f = i.getChildByName("choice4"), d = i.getChildByName("choice5"), m = i.getChildByName("choice6"), h = t.publicVar2[23] + t.publicVar2[24] + t.publicVar2[25] + t.publicVar2[26] + t.publicVar2[27] + t.publicVar2[28] + t.publicVar2[29];
+            var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public"), i = cc.find("Canvas/UI1"), c = cc.find("Canvas/UI2"), o = cc.find("Canvas/UI3"), r = cc.find("Canvas/UI4"), s = cc.find("Canvas/UI5"), l = i.getChildByName("choice1"), restBtn = i.getChildByName("choice2"), p = i.getChildByName("choice3"), f = i.getChildByName("choice4"), d = i.getChildByName("choice5"), m = i.getChildByName("choice6"), h = t.publicVar2[23] + t.publicVar2[24] + t.publicVar2[25] + t.publicVar2[26] + t.publicVar2[27] + t.publicVar2[28] + t.publicVar2[29];
             (function () {
                 i.getChildByName("back").on("touchend", function () {
                     e("scr_public").save();
                     cc.director.loadScene("main");
                 }, this);
                 t.publicVar2[17] > 0 ? l.on("touchend", v, l) : l.on("touchend", J, l);
-                u.on("touchend", function () {
-                    e("scr_data").energy >= 10 ? cc.director.loadScene("notice2") : cc.director.loadScene("diary");
+                restBtn.on("touchend", function () {
+                    //e("scr_data").energy >= 10 ? cc.director.loadScene("notice2") : cc.director.loadScene("diary");
+                    cc.director.loadScene("diary");
                 }, this);
                 p.on("touchend", y, this);
                 f.on("touchend", g, this);
@@ -9392,7 +9393,7 @@ scr_home = [function (e, t, n) {
                 if (t.money >= e) {
                     t.publicVar[18] += 1;
                     t.money -= e;
-                    n.playText("Canvas/notify", "升级成功！最大精力+10（累计增加" + 10 * t.publicVar[18] + "）", 60);
+                    n.playText("Canvas/notify", "升级成功！最大精力+1（累计增加" + 1 * t.publicVar[18] + "）", 60);
                 } else n.playText("Canvas/notify", "没钱！", 60);
                 G();
             }
@@ -10913,18 +10914,29 @@ scr_mainUIinit = [function (e, t, n) {
         onLoad: function () {
             var t = e("scr_public"), n = e("scr_data");
             (function () {
-                if (300 == n.distance && n.stayDay[3] > 1 && 0 == n.publicVar3[2]) {
-                    var t = cc.find("Canvas/Button/button_rest");
-                    t.getChildByName("text").getComponent("cc.Label").string = "桥  洞";
-                    t.on("touchend", function () {
-                        cc.director.loadScene("home");
-                    }, t);
-                } else {
-                    var t = cc.find("Canvas/Button/button_rest");
-                    t.on("touchend", function () {
-                        e("scr_data").energy >= 10 ? cc.director.loadScene("notice2") : cc.director.loadScene("diary");
-                    }, t);
+                var t = cc.find("Canvas/Button/button_rest");
+                t.on("touchend", function () {
+                    cc.director.loadScene("home");
+                }, t);
+                if (n.distance < 100) {
+                    t.getChildByName("text").getComponent("cc.Label").string = "帐  篷";//todo
                 }
+                if (n.distance == 100) {
+                    t.getChildByName("text").getComponent("cc.Label").string = "纸箱子";//todo
+                }
+                if (n.distance > 100) {
+                    t.getChildByName("text").getComponent("cc.Label").string = "木房子";//todo
+                }
+                if (300 == n.distance && n.stayDay[3] > 1 && 0 == n.publicVar3[2]) {
+                    t.getChildByName("text").getComponent("cc.Label").string = "桥  洞";
+                    return;
+                }
+                var t = cc.find("Canvas/Button/button_rest");
+                t.on("touchend", function () {
+                    //e("scr_data").energy >= 10 ? cc.director.loadScene("notice2") : cc.director.loadScene("diary");
+                    cc.director.loadScene("diary");
+                }, t);
+
             })();
             this.showButton();
             this.initSkillShow();
@@ -10970,6 +10982,7 @@ scr_makeUI = [function (e, t, n) {
         //tag 制作传送门
         itemContent: function () {
             this.data = e("scr_data");
+            this.data2 = e("scr_data2");
             this.status = e("scr_public");
             var t = this, n = e("scr_effect"), a = {
                 0: {
@@ -11049,7 +11062,8 @@ scr_makeUI = [function (e, t, n) {
                     },
                     button: function () {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 4;
-                        if (n.itemNum2[3] >= 10) {
+                        var data2 = e("scr_data2");
+                        if (n.itemNum2[3] >= 10 + data2.achieveMent[9]*15) {
                             a.playText("Canvas/notify", "木棍已经满级了！", 100);
                             return;
                         }
@@ -11214,15 +11228,13 @@ scr_makeUI = [function (e, t, n) {
                     button: function () {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
                         if (n.itemNum2[3] >= 10 && n.itemNum2[8] >= 1 && n.itemNum[4] >= 20) {
-                            n.itemNum2[8] -= 1;
-                            n.itemNum2[3] -= 10;
-                            n.itemNum[4] -= 20;
-                            //todo
                             if (n.ultraweapon.spear >= 1) {
-
                                 a.playText("Canvas/notify", "你已经合成过了！", 100);
                                 return;
                             }
+                            n.itemNum2[8] -= 1;
+                            n.itemNum2[3] -= 10;
+                            n.itemNum[4] -= 20;
                             n.ultraweapon.spear += 1;
                             n.ultrabuff.DoubleHit = 1;
                             a.playText("Canvas/notify", "合成超武，长矛！", 100);
@@ -11800,7 +11812,9 @@ scr_public = [function (e, t, n) {
                         var toolInfluence = 0.01 * toolLevel;
                         var zhangpengLevel = t.itemNum2[2];
                         var zhangpengInfluence = 0.02 * zhangpengLevel;
-                        var total = base + healthInfluence + toolInfluence + zhangpengInfluence;
+                        var residentLevel = t.publicVar[18];
+                        var residentInfluence = 0.01 * residentLevel;
+                        var total = base + healthInfluence + toolInfluence + zhangpengInfluence + residentInfluence;
                         return total;
                     },
                 },
@@ -11836,7 +11850,7 @@ scr_public = [function (e, t, n) {
                 //精力传送门
                 maxEnergy: function () {
                     var t = e("scr_data"), n = t.skillLv,
-                        a = t.maxEnergy + 10 * n[1] + 20 * n[7] + 30 * n[12] + 1 * t.itemNum2[2] + t.friendSkill1[1] * t.ifFollow[0] * 20 + 10 * t.publicVar[18];
+                        a = t.maxEnergy + 10 * n[1] + 20 * n[7] + 30 * n[12] + 1 * t.itemNum2[2] + t.friendSkill1[1] * t.ifFollow[0] * 20 + 1 * t.publicVar[18];//todo
                     return a;
                 },
                 maxHunger: function () {
@@ -11950,7 +11964,7 @@ scr_public = [function (e, t, n) {
                             console.log(this.endClickTime - this.startClickTime);
                             if (this.endClickTime - this.startClickTime > longSubTime) {
                                 //长按事件
-                                for (let index = 0; index < 10; index++) {
+                                for (let index = 0; index < 1000; index++) {
                                     func();
                                 }
 
@@ -13375,7 +13389,7 @@ scr_system = [function (e, t, n) {//tag 设置界面
                 a.energyconsumetimes > 10 && (a.energyconsumetimes = 1);
                 exT.getComponent("cc.Label").string = "你当前拥有 " + a.energyconsumetimes + "x 前进/探索速度\n（探索时会消耗对应倍数的精力\n但是奖励总量不变）";
             }, ex);
-
+            ex.active = false;
             var escapeBattleBtn = cc.instantiate(n);//复制一个一模一样的按钮 1
             escapeBattleBtn.setPosition(0, 459 - 400);//设置位置 往第一个按钮的下方移动200像素 2
             cc.find("Canvas/button").addChild(escapeBattleBtn);  // 将按钮节点作为当前节点的子节点 3
@@ -13393,6 +13407,7 @@ scr_system = [function (e, t, n) {//tag 设置界面
                 a.escapeBattle > 1 && (a.escapeBattle = 0);
                 escapeBattleT.getComponent("cc.Label").string = "当前选项为 " + textesc[a.escapeBattle] + " 状态。\n开启选项后已经击杀过的敌人\n再次遇到时将会一击秒杀";// 跳过战斗设置
             }, escapeBattleBtn);
+            escapeBattleBtn.active = false;
         }
     });
     cc._RF.pop();
