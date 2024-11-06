@@ -293,6 +293,9 @@ scr_data = [function (e, t, n) {
                 ultrabuff: {
                     DoubleHit: 0,
                 },
+                home: {
+                    craftTable: 0,//todo 更多家具
+                },
                 ifFollow: [0, 0],
                 plotId: 0,
                 talkTimes: [0, 0],
@@ -3747,7 +3750,62 @@ scr_enemy = [function (e, t, n) {
                         c.ifFollow[0] = 1;
                         c.ifFollow[1] = 1;
                         c.choice[6] += 1;
-                        return "“啊啊啊啊！”";
+                        return "“啊啊啊啊！”\n奖励：你同时获得晓月和碧瑶！可喜可贺";
+                    },
+                    lostEvent: function () {
+                        c.ifFollow[0] = 1;
+                        c.ifFollow[1] = 1;
+                        return "“别来烦我！”";
+                    }
+                },
+                219: {
+                    name: "唐纳德·特朗普",
+                    lv: "美国总统",
+                    hp: 1e8,
+                    maxHp: 1e8,
+                    att: 50000,
+                    def: 50000,
+                    publicVar: 0,
+                    escapeRate: -9999,
+                    enemyEscapeRate: 0,
+                    lostHealth: 1,
+                    achieve: 100,
+                    getAtt: 1,
+                    drop: [[100, 10, 2, 2]],
+                    des: "没人比我更懂中国",
+                    skill: function () {
+                        if (this.publicVar == 0) {
+                            cc.find("Event/scr_fight").getComponent("scr_fight").current[1] -= parseInt(1 * o.def);
+                            this.publicVar += 1;
+                            return "【懂王什么都懂，所以你防御无效】";
+                        } else if (this.publicVar == 1) {
+                            this.att += parseInt(1 * this.att);
+                            this.publicVar += 1;
+                            return "【懂王使用手风琴，攻击力翻倍】"
+                        } else if (this.publicVar == 3) {
+                            return "【暂时想不起来了】"
+                        } else if (this.publicVar == 3) {
+                            this.att += parseInt(1 * this.att);
+                            return "【秋良使用「过热」，攻击力翻倍】"
+                        } else if (this.publicVar == 4) {
+                            var e = 6 * this.att - o.def;
+                            c.role.hp -= e;
+                            return "【秋良使用「快速扳机」，造成" + e + "点伤害，】"
+                        }
+                        e = this.att - o.def;
+                        c.role.hp -= e;
+                        return "【红脖子对你发起进攻，造成" + e + "点伤害】";
+                    },
+                    defSkill: function () {
+
+                        if (this.publicVar == 0) {
+                            return "【你也是来夺走她的吗！】";
+                        }
+                        return "";
+                    },
+                    winEvent: function () {
+                        c.choice[6] += 1;
+                        return "“6”";
                     },
                     lostEvent: function () {
                         c.ifFollow[0] = 1;
@@ -8059,9 +8117,10 @@ scr_fight = [function (e, t, n) {
                         }
                         if (n.itemNum2[10] > 2 && n.Askills[0] == 1 && blackKnifetimes > 0) {// 黑刀大招
                             let damageTimes = 1 + 1;
-                            for (let int = 0; int <= attTimes; int++) {
-                                damageTimes += (int / 2);
-                            }
+                            //for (let int = 0; int <= attTimes; int++) {
+                            //    damageTimes += (int / 2);
+                            //}
+                            damageTimes += attTimes;
                             damageTimesText *= damageTimes;
                             youHitsText = youHitsText.replace(/普攻|割裂|枪击/, "居合");
                             /暴击|爆头/.test(youHitsText) && (youHitsText = youHitsText.replace(/暴击|爆头/, "「斩，无赦！」"));
@@ -9206,6 +9265,10 @@ scr_friendUI1 = [function (e, t, n) {
             t.getChildByName("button3").on("touchend", function () {
                 cc.director.loadScene("friendSkill1");
             }, this);
+            //diffirence 
+            // t.getChildByName("button5").on("touchstart", function () {
+            //     cc.director.loadScene("friendSkill2");
+            // }, this);
         }
     });
     cc._RF.pop();
@@ -10897,7 +10960,8 @@ scr_mainUIinit = [function (e, t, n) {
             return t;
         },
         initSkillShow: function () {
-            cc.find("Canvas/Text/txt_skillNum").getComponent("cc.Label").string = "特性  " + this.skillShow() + "/27";
+            //cc.find("Canvas/Text/txt_skillNum").getComponent("cc.Label").string = "特性  " + this.skillShow() + "/27";
+            cc.find("Canvas/Text/txt_skillNum").getComponent("cc.Label").string = "版本号：11.6";
         },
         whichShow: function (t, n) {//控制按钮显示函数
             for (var a = e("scr_data").distance, i = cc.find(n).children, c = t.length, o = 0; o <= c; o++) a >= t[o] ? i[o].active = !0 : i[o].active = !1;
@@ -10922,7 +10986,7 @@ scr_mainUIinit = [function (e, t, n) {
         dekaronButton: function () {
             var t = e("scr_data"), n = e("scr_public"), a = e("scr_effect");
             t.energy >= 10 ? function () {
-                var e = [201, 202, 300003, 203, 204, 205, 206, 207, 900006, 209, 210, 211, 900005, 213, 214, 215, 216, 217, 218][t.choice[6]];
+                var e = [201, 202, 300003, 203, 204, 205, 206, 207, 900006, 209, 210, 211, 900005, 213, 214, 215, 216, 217, 218, 219][t.choice[6]];
                 if ("undefined" == typeof e) a.playText("Canvas/Text/txt_notify", "什么都没有...", 60); else {
                     t.energy -= 10;
                     n.save();
@@ -11493,13 +11557,92 @@ scr_makeUI = [function (e, t, n) {
                     }
                 },
                 29: {//todo
-                    itemName: "长矛LV" + this.data.ultraweapon.spear,
+                    itemName: "1-长矛LV" + this.data.ultraweapon.spear,
                     needDes: "※你看这个木棍，前面绑一个匕首，是不是强多了？（终极武器最高只有一级）",
                     des: "※提供50%暴击率，50暴击伤害，300点基础攻击，获得特性【连击】。",
                     button: function () {
                         n.playText("Canvas/notify", "简单粗暴，但是好用", 100);
                     }
-                }
+                },
+                30: {//todo
+                    itemName: "1-防御流超武LV" + this.data.ultraweapon.spear,
+                    needDes: "※待更新",
+                    des: "※待更新。",
+                    button: function () {
+                        n.playText("Canvas/notify", "待更新", 100);
+                    }
+                },
+                31: {//todo 藏身处
+                    itemName: "工作台LV" + this.data.ultraweapon.spear,
+                    needDes: "※1：10木板2：10黑曜石3：10火狐皮",
+                    des: "※制造高级物品和设施的基础设施，最高为三级",
+                    button: function () {
+                        n.playText("Canvas/notify", "万物起源", 100);
+                    }
+                },
+                32: {//todo 藏身处
+                    itemName: "仓库LV" + this.data.ultraweapon.spear,
+                    needDes: "※1：0-10木板2：1-25木板3：1-50麻布",
+                    des: "※提高物资存放上限，最高为五级",
+                    button: function () {
+                        var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 8 + 2 * n.itemNum2[6];
+                        if (n.itemNum2[6] >= 50) {
+                            a.playText("Canvas/notify", "驱蚊工具已经满级了！" + "消耗" + consume + "精力", 100);
+                            return;
+                        }
+                        if (n.itemNum[5] >= c) {
+                            n.itemNum[5] -= c;
+                            n.itemNum2[6] += 1;
+                            var consume = Math.ceil(n.itemNum2[6] / 5) * 5;;
+                            n.energy -= consume;
+                            i.save();
+                            a.playText("Canvas/notify", "讨厌的蚊子减少啦~", 100);
+                            t.delayCreatItemUI();
+                        } else a.playText("Canvas/notify", "材料不足！", 100);
+                    }
+                },
+                33: {//todo 藏身处
+                    itemName: "健身房LV" + this.data.ultraweapon.spear,
+                    needDes: "※1：0-10木板2：1-25木板3：1-50麻布",
+                    des: "※解锁健身功能",
+                    button: function () {
+                        var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 8 + 2 * n.itemNum2[6];
+                        if (n.itemNum2[6] >= 50) {
+                            a.playText("Canvas/notify", "驱蚊工具已经满级了！" + "消耗" + consume + "精力", 100);
+                            return;
+                        }
+                        if (n.itemNum[5] >= c) {
+                            n.itemNum[5] -= c;
+                            n.itemNum2[6] += 1;
+                            var consume = Math.ceil(n.itemNum2[6] / 5) * 5;;
+                            n.energy -= consume;
+                            i.save();
+                            a.playText("Canvas/notify", "讨厌的蚊子减少啦~", 100);
+                            t.delayCreatItemUI();
+                        } else a.playText("Canvas/notify", "材料不足！", 100);
+                    }
+                },
+                34: {//todo 藏身处
+                    itemName: "草药台LV" + this.data.ultraweapon.spear,
+                    needDes: "※1：1-10麻布2：1-15艾草3：1-50麻布",
+                    des: "※解锁各种医用物品",
+                    button: function () {
+                        var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 8 + 2 * n.itemNum2[6];
+                        if (n.itemNum2[6] >= 50) {
+                            a.playText("Canvas/notify", "驱蚊工具已经满级了！" + "消耗" + consume + "精力", 100);
+                            return;
+                        }
+                        if (n.itemNum[5] >= c) {
+                            n.itemNum[5] -= c;
+                            n.itemNum2[6] += 1;
+                            var consume = Math.ceil(n.itemNum2[6] / 5) * 5;;
+                            n.energy -= consume;
+                            i.save();
+                            a.playText("Canvas/notify", "讨厌的蚊子减少啦~", 100);
+                            t.delayCreatItemUI();
+                        } else a.playText("Canvas/notify", "材料不足！", 100);
+                    }
+                },
             };
             return a;
         },
@@ -11516,6 +11659,22 @@ scr_makeUI = [function (e, t, n) {
             }, .04);
             cc.find("Canvas/Page/view/content").getChildByName(t).addChild(n);
             "undefined" != typeof a.ifEnough && a.ifEnough(c);
+        },
+        creatPrefabbynode: function (startIndex, endIndex, target) {
+            for (var index = startIndex; index <= endIndex; index++) {
+                var n = cc.instantiate(this.itemUI), a = this.itemContent()[index], itemMakeFunction = a.button, c = "item" + index;
+                n.name = c;
+                var itemnamelabel = n.getChildByName("button").getChildByName("name");
+                itemnamelabel.getComponent("cc.Label").string = a.itemName;
+                n.getChildByName("need").getComponent("cc.Label").string = a.needDes;
+                n.getChildByName("des").getComponent("cc.Label").string = a.des;
+                itemnamelabel.getComponent("cc.Button").scheduleOnce(function () {
+                    //itemnamelabel.on("touchend", itemMakeFunction, this);
+                    e("scr_public").QLnewfunction.bindMouseEventonButton(itemnamelabel, itemMakeFunction);
+                }, .04);
+                target.addChild(n);
+                "undefined" != typeof a.ifEnough && a.ifEnough(c);
+            }
         },
         creatItemUI1: function () {
             cc.find("Canvas/Page/view/content/page_1").removeAllChildren();
@@ -11556,10 +11715,27 @@ scr_makeUI = [function (e, t, n) {
             } else this.creatText(cc.find("Canvas/Page/view/content/page_7"), "notify", "※第7页内容，将在到达县城后解锁！");
         },
         creatItemUI8: function () {
+            let blankpage = cc.instantiate(cc.find("Canvas/Page/view/content/page_8"));
+
             if (e("scr_data").distance >= 0) {
                 cc.find("Canvas/Page/view/content/page_8").removeAllChildren();
-                for (var t = 28; t <= 29; t++) this.creatPrefab(t, "page_8");
+                for (var t = 28; t <= 30; t++) this.creatPrefab(t, "page_8");
             } else this.creatText(cc.find("Canvas/Page/view/content/page_8"), "notify", "※第8页内容，将在到达县城后解锁！");
+
+            let parent = cc.find("Canvas/Page/view/content");
+            let page9 = cc.instantiate(blankpage);
+            let page10 = cc.instantiate(blankpage);
+            let page11 = cc.instantiate(blankpage);
+            let page12 = cc.instantiate(blankpage);
+            let page13 = cc.instantiate(blankpage);
+            let page14 = cc.instantiate(blankpage);
+            parent.addChild(page9);
+            parent.addChild(page10);
+            parent.addChild(page11);
+            parent.addChild(page12);
+            parent.addChild(page13);
+            parent.addChild(page14);
+            this.creatPrefabbynode(31, 34, page9);
         },
         delayCreatItemUI: function () {
             var e = this;
@@ -11844,7 +12020,8 @@ scr_public = [function (e, t, n) {
                         var residentLevel = t.publicVar[18];
                         var residentInfluence = 0.01 * residentLevel;
                         var total = base + healthInfluence + toolInfluence + zhangpengInfluence + residentInfluence;
-                        return total;
+                        var totalround = parseFloat(total.toFixed(2)); // 保留两位小数并转换为数字
+                        return totalround;
                     },
                 },
                 //一些功能传送门
@@ -12119,7 +12296,7 @@ scr_rest = [function (e, t, n) {
                 couldRecoveryEnergy += extraEnergy;
                 var totalEnergy = couldRecoveryEnergy + surplusEnergy;
                 if (totalEnergy > maxEnergy * 1.5) {
-                    t.energy = maxEnergy * 1.5;
+                    totalEnergy = maxEnergy * 1.5;
                 }
                 t.energy = totalEnergy;
                 t.energy = parseInt(t.energy);
@@ -14469,10 +14646,11 @@ moduleDefinitions = {
                         }
                     },
                     98: {
-                        text: ["陈碧瑶好感已满足要求，是否邀请碧瑶成为伙伴？（如果碧瑶成为伙伴，其它伙伴将不会被顶掉，且无无法再邀请其它伙伴；如果你拒绝邀请，以后则不不会再有机会邀请碧瑶，请不考虑清楚！）", "是", "算了"],
+                        text: ["陈碧瑶好感已满足要求，是否邀请碧瑶成为伙伴？（如果碧瑶成为伙伴，其它伙伴将会被顶掉，且无无法再邀请其它伙伴；如果你拒绝邀请，以后则不不会再有机会邀请碧瑶，请不考虑清楚！）", "是", "算了"],
                         BGM: "",
                         choice1: function () {
                             t.ifFollow[1] = 1;
+                            t.ifFollow[0] = 0;
                             t.publicVar[8] = 1;
                             Scr_public.save();
                             cc.director.loadScene("home", function () {
@@ -14489,6 +14667,7 @@ moduleDefinitions = {
                         BGM: "",
                         choice1: function () {
                             t.ifFollow[0] = 1;
+                            t.ifFollow[1] = 0;
                             Scr_public.save();
                             cc.director.loadScene("home", function () {
                                 e("scr_effect").playText("Canvas/notify", "晓月成为伙伴！请好好珍惜吧~", 60);
