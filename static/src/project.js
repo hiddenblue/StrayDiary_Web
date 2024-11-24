@@ -296,6 +296,7 @@ scr_data = [function (e, t, n) {
                 home: {
                     craftTable: 0,//todo 更多家具
                 },
+                leftDistance: 100,
                 ifFollow: [0, 0],
                 plotId: 0,
                 talkTimes: [0, 0],
@@ -776,7 +777,7 @@ scr_eatUI = [function (e, t, n) {
                 3: {//tag eatUI在这
                     itemName: " 香烟 ",
                     needDes: "※拥有：" + this.data.itemNum2[7] + "（你当前烟瘾为" + n + "%）",
-                    des: "※效果：减少1点健康。恢复" + (50 * this.Scr_public.role.energyResumeRate()) + "精力，解除【烟瘾】BUFF！你，今天第" + this.data.orderTimes[8] + "次抽烟",
+                    des: "※效果：减少1点健康。在一天之内获得100临时攻击，解除【烟瘾】BUFF。你，今天第" + this.data.orderTimes[8] + "次抽烟",
                     ifEnough: function (t) {
                         e("scr_data").itemNum2[7] > 0 && (cc.find("Canvas/Page/view/content/page_1/" + t + "/button/name").color = new cc.color(0, 255, 0));
                     },
@@ -784,7 +785,7 @@ scr_eatUI = [function (e, t, n) {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum2[7],
                             //Energy = 10 * parseInt(Math.max(0.05 - 0.01 * n.orderTimes[8], 0) * i.maxEnergy());
                             //Energy = 10 * parseInt(0.05 * i.maxEnergy());
-                            Energy = 50 * i.role.energyResumeRate(),//n.orderTimes[8] * 5
+                            //Energy = 50 * i.role.energyResumeRate(),//n.orderTimes[8] * 5
                             text = "";
                         if (2 == n.publicVar[1]) {
                             a.playText("Canvas/notify", "好孩子不能抽烟哦！", 100)
@@ -793,7 +794,7 @@ scr_eatUI = [function (e, t, n) {
                         if (c >= 1) {
 
                             n.itemNum2[7] -= 1;
-                            n.energy += Energy;
+                            //n.energy += Energy;
 
                             n.orderTimes[8] += 1;
                             //n.role.hp = i.role.maxHp();
@@ -801,21 +802,21 @@ scr_eatUI = [function (e, t, n) {
                             n.itemNum[7] += 1;
                             n.buffState[2] = 1;
 
-                            var rate = n.orderTimes[8] * 3 + n.orderTimes[1] * 3 - n.orderTimes[4];
-                            if (Math.random() * 100 < 15) {
+                            var rate = n.orderTimes[8] * 10 + n.orderTimes[1] * 10 - n.orderTimes[4];
+                            if (Math.random() * 100 < 101) {
                                 n.orderTimes[1] += 1;
                                 n.health -= 1;
-                                text = "烟瘾增加！健康-1"
+                                text += "烟瘾增加！健康-1"
                             }
                             if (Math.random() * 100 < rate) {
                                 n.orderTimes[1] += 1;
                                 n.health -= 1;
                                 n.maxHealth -= 1;
-                                text = "烟瘾增加！健康/最大健康-1"
+                                text += "健康/最大健康-1"
                             }
 
                             i.save();
-                            a.playText("Canvas/notify", "精力恢复" + Energy + "！获得烟头*1" + text, 100);
+                            a.playText("Canvas/notify", "获得100点临时攻击！获得烟头*1" + text, 100);
                             t.delayCreatItemUI1();
                         } else a.playText("Canvas/notify", "道具不足！", 100);
                     }
@@ -823,7 +824,7 @@ scr_eatUI = [function (e, t, n) {
                 4: {
                     itemName: " 啤酒 ",
                     needDes: "※拥有：" + this.data.itemNum2[12],
-                    des: "※效果：恢复" + (30 * this.Scr_public.role.energyResumeRate()) + "精力，并获得一个【易拉罐】。开罐有奖！你今天已经喝了"
+                    des: "※效果：今天之内获得50点临时防御，并获得一个【易拉罐】，减少1点健康。开罐有奖！你今天已经喝了"
                         + this.data.orderTimes[9] + "次酒，30%几率获得【暴躁】状态（伤害增加30%，战后一定几率消失）",
                     ifEnough: function (t) {
                         e("scr_data").itemNum2[12] > 0 && (cc.find("Canvas/Page/view/content/page_2/" + t + "/button/name").color = new cc.color(0, 255, 0));
@@ -835,12 +836,13 @@ scr_eatUI = [function (e, t, n) {
                             return;
                         }
                         if (n.itemNum2[12] >= 1) {
-                            var Energy = 30 * i.role.energyResumeRate();
-                            var c = 100 * Math.random(), o = 100 * Math.random(), r = "精力" + Energy + "，获得【易拉罐】*1";
+                            //var Energy = 30 * i.role.energyResumeRate();
+                            var c = 100 * Math.random(), o = 100 * Math.random(), r = "增加50点临时防御，获得【易拉罐】*1";
                             n.itemNum2[12] -= 1;
                             n.orderTimes[9] += 1;
-                            n.energy += Energy;
+                            //n.energy += Energy;
                             n.itemNum[2] += 1;
+                            n.health -= 1;
                             if (c >= 90 && c < 97) {
                                 n.itemNum2[12] += 1;
                                 r += "，恭喜再来一瓶！";
@@ -8567,6 +8569,7 @@ scr_fight = [function (e, t, n) {
                     roleHpLabel.stopAllActions();
                     m.stopAllActions();
                     var t = theEnemy.lostHealth || 0;
+                    t *= 5;//损失健康翻倍
                     e = n.day < 20 ? "战斗失败！健康-" + t + "（健康为0时游戏结束）" : "战斗失败！健康-" + t;
                     n.winsstreaks = 0;
                     n.buffState[2] = 0;
@@ -8750,8 +8753,14 @@ scr_forwardButton = [function (e, t, n) {
         },
         smoker: function () {//tag 香烟的功能在这实现
             var t = e("scr_data"), random = 100 * Math.random(), rate = 3 * t.orderTimes[1] - t.orderTimes[4];
-            if (random <= rate) {
+            t.leftDistance -= (t.orderTimes[1] - t.orderTimes[4]);
+            t.health += 1;
+            if (t.leftDistance <= 0) {
                 t.skillLv[4] = 1;
+                t.leftDistance = 100;
+            }
+            if (t.leftDistance > 100) {
+                t.leftDistance = 100;
             }
             //test
             //t.evil.virtueLevel += 1
@@ -8808,7 +8817,7 @@ scr_forwardButton = [function (e, t, n) {
             }
             if (e("scr_public").autoEat() && t.hunger <= 0) {
                 if (100 * Math.random() < 50) {
-                    t.health -= 1;
+                    t.health -= 2;//饥饿扣除健康翻倍
                     e("scr_effect").textZoon("Canvas/Text/txt_health");
                 }
             }
@@ -8851,7 +8860,7 @@ scr_forwardButton = [function (e, t, n) {
         callBack: function () {
             var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public"), i = this.dryUp();
             a.ifGameOver();
-            this.Energy = 10 * t.energyconsumetimes;
+            this.Energy = (10 * t.energyconsumetimes) * (1 + (1 * t.skillLv[4]));//todo
             if (t.energy >= this.Energy && 0 == i)
                 if (t.day >= 180) this.end();
                 else if (290 == t.distance && 1 == t.ifFollow[0]) {
@@ -11087,13 +11096,18 @@ scr_makeUI = [function (e, t, n) {
                     },
                     button: function () {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                        var consume = Math.max(2 - 2 * n.itemNum2[30], 0);
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
+                            return;
+                        }
+                        n.energy -= consume;
                         if (n.itemNum[3] >= 1 && (n.itemNum[1] >= 1 || 0 != n.itemNum2[30])) {
                             var xq = Math.max(1 - n.itemNum2[30], 0)
                             n.itemNum[3] -= 1;
                             n.itemNum[1] -= xq;
                             n.itemNum2[0] += 1;
-                            var consume = Math.max(2 - 2 * n.itemNum2[30], 0);
-                            n.energy -= consume;
+
                             i.save();
                             a.playText("Canvas/notify", "获得【熟肉】*1" + "消耗" + consume + "精力", 100);
                             t.delayCreatItemUI();
@@ -11109,11 +11123,15 @@ scr_makeUI = [function (e, t, n) {
                     },
                     button: function () {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                        var consume = 2;
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
+                            return;
+                        }
+                        n.energy -= consume;
                         if (n.itemNum[5] >= 2) {
                             n.itemNum[5] -= 2;
                             n.itemNum2[1] += 1;
-                            var consume = 2;
-                            n.energy -= consume;
                             i.save();
                             a.playText("Canvas/notify", "获得【伤药】*1" + "消耗" + consume + "精力", 100);
                             t.delayCreatItemUI();
@@ -11123,23 +11141,25 @@ scr_makeUI = [function (e, t, n) {
                 2: {
                     itemName: "帐篷LV" + this.data.itemNum2[2],
                     needDes: "※需【木材】" + this.data.itemNum[1] + "/" + (4 + 1 * this.data.itemNum2[2]) + "【亚麻】" + this.data.itemNum[4] + "/" + (4 + 1 * this.data.itemNum2[2]),
-                    des: "※精力上限增加" + 1 * this.data.itemNum2[2] + "点，每级提供2%精力恢复效率。你当前精力恢复效率为" + (this.status.role.energyResumeRate() * 100) + "%，你的精力上限为" + this.status.maxEnergy() + "点，你将会恢复" + (this.status.role.energyResumeRate() * this.status.maxEnergy()) + "点精力",
+                    des: "※精力上限增加" + 1 * this.data.itemNum2[2] + "点，每级提供2%精力恢复效率。你当前精力恢复效率为" + (this.status.role.energyResumeRate() * 100) + "%，你的精力上限为" + this.status.maxEnergy() + "点，你将会恢复" + (this.status.role.energyResumeRate() * this.status.maxEnergy()) + "点精力。恢复精力不会超过精力上限。",
                     ifEnough: function (e) {
                         t.data.itemNum[1] >= 4 + 1 * t.data.itemNum2[2] && t.data.itemNum[4] >= 4 + 1 * t.data.itemNum2[2] && (cc.find("Canvas/Page/view/content/page_1/" + e + "/button/name").color = new cc.color(0, 255, 0));
                     },
                     button: function () {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 4 + 1 * n.itemNum2[2], o = n.itemNum[1], r = 4 + 1 * n.itemNum2[2], s = n.itemNum[4];
-                        if (n.itemNum2[2] > 10) {
-
+                        if (n.itemNum2[2] >= 10) {
                             a.playText("Canvas/notify", this.name + "已经满级了！", 100);
+                            return;
+                        }
+                        var consume = Math.ceil(n.itemNum2[2] / 5) * 5;;
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
                             return;
                         }
                         if (o >= c && s >= r) {
                             n.itemNum[1] -= c;
                             n.itemNum[4] -= r;
                             n.itemNum2[2] += 1;
-                            var consume = Math.ceil(n.itemNum2[2] / 5) * 5;;
-                            n.energy -= consume;
                             i.save();
                             a.playText("Canvas/notify", "精力上限+1！" + "消耗" + consume + "精力", 100);
                             t.delayCreatItemUI();
@@ -11160,11 +11180,17 @@ scr_makeUI = [function (e, t, n) {
                             a.playText("Canvas/notify", "木棍已经满级了！", 100);
                             return;
                         }
+                        var consume = Math.ceil(n.itemNum2[3] / 5) * 5;;
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
+                            return;
+                        }
+                        n.energy -= consume;
                         if (n.itemNum[1] >= c) {
                             n.itemNum[1] -= c;
                             n.itemNum2[3] += 1;
-                            var consume = Math.ceil(n.itemNum2[3] / 5) * 5;;
-                            n.energy -= consume;
+
+
                             i.save();
                             a.playText("Canvas/notify", "攻击+10！" + "消耗" + consume + "精力", 100);
                             t.delayCreatItemUI();
@@ -11184,11 +11210,16 @@ scr_makeUI = [function (e, t, n) {
                             a.playText("Canvas/notify", "麻布衣已经满级了！", 100);
                             return;
                         }
+                        var consume = Math.ceil(n.itemNum2[4] / 5) * 5;
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
+                            return;
+                        }
+                        n.energy -= consume;
                         if (n.itemNum[4] >= c) {
                             n.itemNum[4] -= c;
                             n.itemNum2[4] += 1;
-                            var consume = Math.ceil(n.itemNum2[4] / 5) * 5;;
-                            n.energy -= consume;
+
                             i.save();
                             a.playText("Canvas/notify", "生命上限+50！" + "消耗" + consume + "精力", 100);
                             t.delayCreatItemUI();
@@ -11209,11 +11240,17 @@ scr_makeUI = [function (e, t, n) {
                             a.playText("Canvas/notify", "驱蚊工具已经满级了！" + "消耗" + consume + "精力", 100);
                             return;
                         }
+                        var consume = Math.ceil(n.itemNum2[6] / 5) * 5;
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
+                            return;
+                        }
+                        n.energy -= consume;
                         if (n.itemNum[5] >= c) {
                             n.itemNum[5] -= c;
                             n.itemNum2[6] += 1;
-                            var consume = Math.ceil(n.itemNum2[6] / 5) * 5;;
-                            n.energy -= consume;
+
+
                             i.save();
                             a.playText("Canvas/notify", "讨厌的蚊子减少啦~", 100);
                             t.delayCreatItemUI();
@@ -11235,11 +11272,15 @@ scr_makeUI = [function (e, t, n) {
                             a.playText("Canvas/notify", "陷阱已经满级了！", 100);
                             return;
                         }
+                        var consume = Math.ceil(n.itemNum2[5] / 5) * 5;
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
+                            return;
+                        }
+                        n.energy -= consume;
                         if (n.itemNum[1] >= c) {
                             n.itemNum[1] -= c;
                             n.itemNum2[5] += 1;
-                            var consume = Math.ceil(n.itemNum2[5] / 5) * 5;;
-                            n.energy -= consume;
                             i.save();
                             a.playText("Canvas/notify", "升级成功！" + "消耗" + consume + "精力", 100);
                             t.delayCreatItemUI();
@@ -11260,11 +11301,15 @@ scr_makeUI = [function (e, t, n) {
                     },
                     button: function () {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = n.itemNum[6], o = n.itemNum[7];
+                        var consume = 2;
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
+                            return;
+                        }
+                        n.energy -= consume;
                         if (c >= 4) {
                             n.itemNum[6] -= 4;
                             n.itemNum2[7] += 1;
-                            var consume = 2;
-                            n.energy -= consume;
                             i.save();
                             a.playText("Canvas/notify", "获得【香烟】*1！" + "消耗" + consume + "精力", 100);
                             t.delayCreatItemUI();
@@ -11297,10 +11342,16 @@ scr_makeUI = [function (e, t, n) {
                     },
                     button: function () {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public");
+                        var consume = 2;
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
+                            return;
+                        }
+                        n.energy -= consume;
                         if (n.itemNum[10] >= 5) {
                             n.itemNum[10] -= 5;
                             n.itemNum2[12] += 1;
-                            var consume = 2;
+
                             n.energy -= consume;
                             i.save();
                             a.playText("Canvas/notify", "获得【啤酒】*1！" + "消耗" + consume + "精力", 100);
@@ -11377,11 +11428,17 @@ scr_makeUI = [function (e, t, n) {
                     },
                     button: function () {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 10 + 2 * n.itemNum2[10];
+                        var consume = Math.ceil(n.itemNum2[10] / 5) * 25;;
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
+                            return;
+                        }
+                        n.energy -= consume;
                         if (n.itemNum[8] >= c) {
                             n.itemNum[8] -= c;
                             n.itemNum2[10] += 1;
-                            var consume = Math.ceil(n.itemNum2[10] / 5) * 25;;
-                            n.energy -= consume;
+
+
                             i.save();
                             a.playText("Canvas/notify", "获得【黑刀】*1！" + "消耗" + consume + "精力", 100);
                             t.delayCreatItemUI4();
@@ -11398,11 +11455,16 @@ scr_makeUI = [function (e, t, n) {
                     },
                     button: function () {
                         var n = e("scr_data"), a = e("scr_effect"), i = e("scr_public"), c = 10 + 2 * n.itemNum2[11];
+                        var consume = Math.ceil(n.itemNum2[11] / 5) * 25;;
+                        if (n.energy < consume) {
+                            a.playText("Canvas/notify", "精力不足！", 100);
+                            return;
+                        }
+                        n.energy -= consume;
                         if (n.itemNum[9] >= c) {
                             n.itemNum[9] -= c;
                             n.itemNum2[11] += 1;
-                            var consume = Math.ceil(n.itemNum2[11] / 5) * 25;;
-                            n.energy -= consume;
+
                             i.save();
                             a.playText("Canvas/notify", "获得【红夹克】*1！" + "消耗" + consume + "精力", 100);
                             t.delayCreatItemUI4();
@@ -11995,6 +12057,7 @@ scr_public = [function (e, t, n) {
                             a *= 1.2;//随机buff1
                         }
                         a += 300 * t.ultraweapon.spear;//终极武器加攻击
+                        a += 100 * t.orderTimes[8];//烟加攻击
                         return a;
                     },
                     def: function () {
@@ -12005,21 +12068,23 @@ scr_public = [function (e, t, n) {
                         if (t.randomBuff[2] == 1) {
                             a *= 1.4;//随机buff2
                         }
+                        a += 50 * t.orderTimes[9];//酒加防御
                         return a;
                     },
                     energyResumeRate: function () {
                         var t = e("scr_data"), n = 1, smokerate = 3 * t.orderTimes[1] - t.orderTimes[4];
                         1 == t.publicVar && (n = 1);
-                        var base = 0.4;
+                        var base = 50;
                         var rateofHealth = (t.health / 100);//t.maxHealth
-                        var healthInfluence = 0.4 * rateofHealth;
+                        ////var healthInfluence = 0.4 * rateofHealth;
                         var toolLevel = t.itemNum2[6];
                         var toolInfluence = 0.01 * toolLevel;
                         var zhangpengLevel = t.itemNum2[2];
                         var zhangpengInfluence = 0.02 * zhangpengLevel;
                         var residentLevel = t.publicVar[18];
                         var residentInfluence = 0.01 * residentLevel;
-                        var total = base + healthInfluence + toolInfluence + zhangpengInfluence + residentInfluence;
+                        ////var total = base + healthInfluence + toolInfluence + zhangpengInfluence + residentInfluence;
+                        var total = (base + toolInfluence + zhangpengInfluence + residentInfluence) * (rateofHealth);
                         var totalround = parseFloat(total.toFixed(2)); // 保留两位小数并转换为数字
                         return totalround;
                     },
@@ -12249,12 +12314,12 @@ scr_rest = [function (e, t, n) {
             })();
             Scr_public.autoEat();
             (function checkSmokeAddiction() {
-                var e = 3 * t.orderTimes[1] - t.orderTimes[4], n = 100 * Math.random();
+                var e = 5 * t.orderTimes[1] - t.orderTimes[4], n = 100 * Math.random();
                 //1 == t.publicVar[1] && (e = t.orderTimes[1] - t.orderTimes[4]);
                 if (n < e) {
                     t.publicVar2[8] += 1;
                     t.skillLv[4] = 1;//(t.skillLv[4] * 0.1 * (3 * t.orderTimes[1] - t.orderTimes[4]))
-                    thisModule.creatText("smoke", "【烟瘾】攻击防御减少" + t.skillLv[4] * 100 + "%");
+                    thisModule.creatText("smoke", "【烟瘾】攻击防御减少" + t.skillLv[4] * 100 + "%,精力消耗翻倍");
                 } else t.skillLv[4] = 0;
             })();
             (function hangover() {
@@ -12295,8 +12360,8 @@ scr_rest = [function (e, t, n) {
                 }
                 couldRecoveryEnergy += extraEnergy;
                 var totalEnergy = couldRecoveryEnergy + surplusEnergy;
-                if (totalEnergy > maxEnergy * 1.5) {
-                    totalEnergy = maxEnergy * 1.5;
+                if (totalEnergy > maxEnergy * 1) {
+                    totalEnergy = maxEnergy * 1;
                 }
                 t.energy = totalEnergy;
                 t.energy = parseInt(t.energy);
@@ -13385,7 +13450,7 @@ scr_skillUI = [function (e, t, n) {
                 1: "1:【精力强化1】精力上限+10，战斗胜利8次后激活（" + t.winTimes + "/8）。",
                 2: "2:【生命强化1】最大生命值+50，吃「果子」30次后激活(" + t.orderTimes[5] + "/30）。",
                 3: "3：【恢复1】前进/探索时，生命恢复量提高8点。使用「伤药」15次后激活（" + t.orderTimes[0] + "/15）。",
-                4: "4:【烟瘾】攻击/防御减少" + n + "%！每天有" + n + "%概率激活，效果持续1天。（抽烟次数越多激活概率越高，每次增加3%）",
+                4: "4:【烟瘾】攻击/防御减少" + n + "%，前进/探索消耗双倍精力，每次探索/前进有" + n + "%概率激活，。（抽烟次数越多激活概率越高，每次增加5%）",
                 5: "5:【平衡架势】造成" + (t.figthExp[0] / 5 + 100).toFixed(1) + "%伤害，承受" + (100 - t.figthExp[0] / 5).toFixed(1) + "%伤害。效果随熟练度提升而提升（" + t.figthExp[0] + "/100）。战斗胜利15次(" + t.winTimes + "/15)后开启。",
                 6: "6:【捡钱】每天40%概率额外捡到1毛钱，扶老奶奶10次激活！此特性可升级，每扶10次涨1毛哈~(^_−)☆！（" + t.randomEvent[6] + "/10）。",
                 7: "7:【精力强化2】精力上限+20，吃「熟肉」30次后激活（" + t.orderTimes[2] + "/30）。",
