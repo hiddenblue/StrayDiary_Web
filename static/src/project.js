@@ -10970,7 +10970,7 @@ scr_mainUIinit = [function (e, t, n) {
         },
         initSkillShow: function () {
             //cc.find("Canvas/Text/txt_skillNum").getComponent("cc.Label").string = "特性  " + this.skillShow() + "/27";
-            cc.find("Canvas/Text/txt_skillNum").getComponent("cc.Label").string = "版本号：11.6";
+            cc.find("Canvas/Text/txt_skillNum").getComponent("cc.Label").string = "版本号：11.24";
         },
         whichShow: function (t, n) {//控制按钮显示函数
             for (var a = e("scr_data").distance, i = cc.find(n).children, c = t.length, o = 0; o <= c; o++) a >= t[o] ? i[o].active = !0 : i[o].active = !1;
