@@ -1,4 +1,4 @@
-scr_diary = [function (e, t, n) {
+scr_diary = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "a2b8155a0tO3ILQFxW/6pRv", "scr_diary");
     cc.Class({
@@ -131,7 +131,4 @@ scr_diary = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_public: "scr_public"
-}]
+}

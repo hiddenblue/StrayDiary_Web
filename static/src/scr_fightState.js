@@ -1,4 +1,4 @@
-scr_fightState = [function (e, t, n) {
+scr_fightState = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "c4f80DG6eFB/bvHazsL2je9", "scr_fightState");
     cc.Class({
@@ -27,6 +27,4 @@ scr_fightState = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data"
-}]
+}

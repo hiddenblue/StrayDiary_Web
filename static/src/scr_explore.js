@@ -1,4 +1,4 @@
-scr_explore = [function (e, t, n) {//todo 新地图画饼
+scr_explore = function (e, t, n) {//todo 新地图画饼
     "use strict";
     cc._RF.push(t, "aac8eR1m+lE25FoXnDRrcRr", "scr_explore");
     cc.Class({
@@ -155,8 +155,4 @@ scr_explore = [function (e, t, n) {//todo 新地图画饼
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_effect: "scr_effect",
-    scr_public: "scr_public"
-}]
+}

@@ -1,4 +1,4 @@
-scr_event = [function (e, t, n) {
+scr_event = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "00b3c6RjfdHPbEfl8GaNNla", "scr_event");
     cc.Class({
@@ -1232,9 +1232,4 @@ scr_event = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_data2: "scr_data2",
-    scr_effect: "scr_effect",
-    scr_public: "scr_public"
-}]
+}

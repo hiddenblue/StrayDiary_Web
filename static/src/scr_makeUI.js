@@ -1,4 +1,4 @@
-scr_makeUI = [function (e, t, n) {
+scr_makeUI = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "65413JSLq1B/LWVXwKnjL2L", "scr_makeUI");
     cc.Class({
@@ -779,8 +779,4 @@ scr_makeUI = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_effect: "scr_effect",
-    scr_public: "scr_public"
-}]
+}

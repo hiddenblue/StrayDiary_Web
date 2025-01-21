@@ -1,4 +1,4 @@
-scr_fight = [function (e, t, n) {
+scr_fight = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "e0873SPr91PW4GARejADMmt", "scr_fight");
     cc.Class({
@@ -773,9 +773,4 @@ scr_fight = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_effect: "scr_effect",
-    scr_enemy: "scr_enemy",
-    scr_public: "scr_public"
-}]
+}

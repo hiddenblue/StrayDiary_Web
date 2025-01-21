@@ -1,4 +1,4 @@
-scr_shopUI = [function (e, t, n) {
+scr_shopUI = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "ca1d33wMc1MzoV4yHqs7mr9", "scr_shopUI");
     cc.Class({
@@ -411,8 +411,4 @@ scr_shopUI = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_effect: "scr_effect",
-    scr_public: "scr_public"
-}]
+}

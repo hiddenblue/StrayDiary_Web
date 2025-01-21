@@ -1,4 +1,4 @@
-scr_skillUI = [function (e, t, n) {
+scr_skillUI = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "ae252WOSz5CF6dAaVPNVzC8", "scr_skillUI");
     cc.Class({
@@ -81,6 +81,4 @@ scr_skillUI = [function (e, t, n) {
     });
     //tag 开局套餐属性传送门
     cc._RF.pop();
-}, {
-    scr_data: "scr_data"
-}]
+}

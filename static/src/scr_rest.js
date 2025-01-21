@@ -1,4 +1,4 @@
-scr_rest = [function (e, t, n) {
+scr_rest = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "6fbc4dkoxJCWoP/GvoxW/9l", "scr_rest");
     cc.Class({
@@ -321,8 +321,4 @@ scr_rest = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_dataCopy: "scr_dataCopy",
-    scr_public: "scr_public"
-}]
+}

@@ -1,4 +1,4 @@
-scr_startUI = [function (e, t, n) {//开始游戏界面的按钮在这设置！！！
+scr_startUI = function (e, t, n) {//开始游戏界面的按钮在这设置！！！
     "use strict";
     cc._RF.push(t, "cea75di7zpJiqfvO6EeKLF9", "scr_startUI");
     cc.Class({
@@ -42,4 +42,4 @@ scr_startUI = [function (e, t, n) {//开始游戏界面的按钮在这设置！�
         }
     });
     cc._RF.pop();
-}, {}]
+}

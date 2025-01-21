@@ -1,4 +1,4 @@
-scr_open = [function (e, t, n) {
+scr_open = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "72e60aF4atJaJ3b2ZL0hIlb", "scr_open");
     cc.Class({
@@ -97,8 +97,4 @@ scr_open = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_data2: "scr_data2",
-    scr_public: "scr_public"
-}]
+}

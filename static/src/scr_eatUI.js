@@ -1,4 +1,4 @@
-scr_eatUI = [function (e, t, n) {
+scr_eatUI = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "d3b81KfDgxIVoCTL1xk+Q03", "scr_eatUI");
     cc.Class({
@@ -295,8 +295,4 @@ scr_eatUI = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_effect: "scr_effect",
-    scr_public: "scr_public"
-}]
+}

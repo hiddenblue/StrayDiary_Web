@@ -18,7 +18,8 @@ require = function loadModule(moduleDefinitions, hasBeenLoadedModulesExportValue
         hasBeenLoadedModulesExportValues[needLoadModuleID] = aObjecttoReceiveExports;
 
         // 调用模块的定义函数
-        var moduleMainFunction = moduleDefinition[0];
+        ////var moduleMainFunction = moduleDefinition[0];
+        var moduleMainFunction = moduleDefinition;//todo 全部数组改为函数
         //就是模块里叫“e”的那个函数，用于加载模块
         moduleMainFunction(getModulesExportInMEM, aObjecttoReceiveExports, aObjecttoReceiveExports.exports);
         //如果moduleMainFunction中有给aObjecttoReceiveExports.exports赋值，则这个对象有效
@@ -33,7 +34,7 @@ require = function loadModule(moduleDefinitions, hasBeenLoadedModulesExportValue
 };
 //require函数的定义 网页测试专用版本
 moduleDefinitions = {
-    scr_BGM: [function (e, t, n) {
+    scr_BGM: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "8d8c2z+e3xAIqUkxCqE4NZW", "scr_BGM");
         cc.Class({
@@ -48,7 +49,7 @@ moduleDefinitions = {
             onLoad: function () { }
         });
         cc._RF.pop();
-    }],
+    },
     /*scr_QQpay: [function (e, t, n) {
         "use strict";
         cc._RF.push(t, "fc884/pvDpG6bLBf547DI5C", "scr_QQpay");
@@ -65,7 +66,7 @@ moduleDefinitions = {
         cc._RF.pop();
     }],*/
     scr_achieve: scr_achieve,
-    scr_backMainUI: [function (e, t, n) {
+    scr_backMainUI: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "3e3ebJJTbNAf4EOh0d4HMO1", "scr_backMainUI");
         cc.Class({
@@ -80,10 +81,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_public: "scr_public"
-    }],
-    scr_backStartUI: [function (e, t, n) {
+    },
+    scr_backStartUI: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "d5fa6dHVPtCmIx1Z7ZMSeDh", "scr_backStartUI");
         cc.Class({
@@ -97,8 +96,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
-    scr_backSupport: [function (e, t, n) {
+    },
+    scr_backSupport: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "210d2Bb6a1Dho5//c333ltz", "scr_backSupport");
         cc.Class({
@@ -112,8 +111,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
-    scr_continueButton: [function (e, t, n) {
+    },
+    scr_continueButton: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "4ffa5hmUdNEyJa2jWF2c0nr", "scr_continueButton");
         cc.Class({
@@ -127,9 +126,9 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
+    },
     scr_data2: scr_data2,
-    scr_dataCopy: [function (e, t, n) {
+    scr_dataCopy: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "44ab5HIdTVLaYk0L5S0uxkB", "scr_dataCopy");
         cc.Class({
@@ -142,8 +141,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
-    scr_autodataCopy: [function (e, t, n) {
+    },
+    scr_autodataCopy: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "FUNautodataCopy", "scr_autodataCopy");
         cc.Class({
@@ -156,9 +155,9 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
+    },
     scr_data: scr_data,
-    scr_diaryDetermine: [function (e, t, n) {
+    scr_diaryDetermine: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "12297Yy5bdDErxPgTf9kaM9", "scr_diaryDetermine");
         cc.Class({
@@ -172,9 +171,9 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
+    },
     scr_diary: scr_diary,
-    scr_eatButton: [function (e, t, n) {
+    scr_eatButton: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "c5f14lLVmRA6r8LzGX0k1Ik", "scr_eatButton");
         cc.Class({
@@ -188,9 +187,9 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
+    },
     scr_eatUI: scr_eatUI,
-    scr_effect: [function (e, t, n) {
+    scr_effect: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "25c8dKmEHlHoYjQ6qvBKaef", "scr_effect");
         cc.Class({
@@ -248,8 +247,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
-    scr_end: [function (e, t, n) {
+    },
+    scr_end: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "0fdab+YcARFVIOBpUAMxsNQ", "scr_end");
         cc.Class({
@@ -331,13 +330,9 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_data2: "scr_data2",
-        scr_public: "scr_public"
-    }],
+    },
     scr_enemy: scr_enemy,
-    scr_eventData: [function (e, t, n) {
+    scr_eventData: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "2944e+wEixMS7sVFHLOkrHX", "scr_eventData");
         cc.Class({
@@ -346,8 +341,8 @@ moduleDefinitions = {
             onLoad: function () { }
         });
         cc._RF.pop();
-    }, {}],
-    scr_eventDetermine: [function (e, t, n) {
+    },
+    scr_eventDetermine: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "9e235Y/Ke9BkbMuLhAsJW6/", "scr_eventDetermine");
         cc.Class({
@@ -361,7 +356,7 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
+    },
     scr_event: scr_event,
     //tag 探索传送门
     scr_explore: scr_explore,
@@ -369,7 +364,7 @@ moduleDefinitions = {
     scr_fight: scr_fight,
     //tag 前进按钮传送门
     scr_forwardButton: scr_forwardButton,
-    scr_friendSkillJudge1: [function (e, t, n) {
+    scr_friendSkillJudge1: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "fc5f8Ub5xdFcbVtSTj8STEm", "scr_friendSkillJudge1");
         cc.Class({
@@ -402,11 +397,8 @@ moduleDefinitions = {
             },
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_public: "scr_public"
-    }],
-    scr_friendSkillUI1: [function (e, t, n) {
+    },
+    scr_friendSkillUI1: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "0992cbWpqJNPIJFvroUyU98", "scr_friendSkillUI1");
         cc.Class({
@@ -435,11 +427,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_public: "scr_public"
-    }],
-    scr_friendSkillUI2: [function (e, t, n) {
+    },
+    scr_friendSkillUI2: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "d0387ZXPPtJs4Lfy6jPllmL", "scr_friendSkillUI2");
         cc.Class({
@@ -474,14 +463,11 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_public: "scr_public"
-    }],
+    },
     scr_friendUI1: scr_friendUI1,
     //大部分UI界面传送门
     scr_home: scr_home,
-    scr_initData: [function (e, t, n) {
+    scr_initData: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "c335afOsddDPoVdzNq+7r/A", "scr_initData");
         cc.Class({
@@ -613,11 +599,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_data2: "scr_data2"
-    }],
-    scr_initGame: [function (e, t, n) {
+    },
+    scr_initGame: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "6ef62YkKgVEPbATA/Rgpij9", "scr_initGame");
         cc.Class({
@@ -641,12 +624,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_data2: "scr_data2",
-        scr_public: "scr_public"
-    }],
-    scr_liveModeMain: [function (e, t, n) {
+    },
+    scr_liveModeMain: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "b3dbdX/PEZG2b06UXyCtd3Z", "scr_liveModeMain");
         cc.Class({
@@ -655,10 +634,10 @@ moduleDefinitions = {
             onLoad: function () { }
         });
         cc._RF.pop();
-    }, {}],
+    },
     scr_mainUIEvent: scr_mainUIEvent,
     scr_mainUIinit: scr_mainUIinit,//游戏开始界面的ui设置
-    scr_makeButton: [function (e, t, n) {
+    scr_makeButton: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "fbf64sNmm5MYp/UrY57mFiI", "scr_makeButton");
         cc.Class({
@@ -672,9 +651,9 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
+    },
     scr_makeUI: scr_makeUI,
-    scr_newGame: [function (e, t, n) {
+    scr_newGame: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "116b0dQK4RNd6tA1hozVnWG", "scr_newGame");
         cc.Class({
@@ -688,8 +667,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
-    scr_notice2: [function (e, t, n) {
+    },
+    scr_notice2: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "5d6b1w/rEpC5bWSm2L4xLZt", "scr_notice2");
         cc.Class({
@@ -711,10 +690,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_effect: "scr_effect"
-    }],
-    scr_notice: [function (e, t, n) {
+    },
+    scr_notice: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "8a8f3K8uShD74FI50VPMkWg", "scr_notice");
         cc.Class({
@@ -737,11 +714,9 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_effect: "scr_effect"
-    }],
+    },
     scr_open: scr_open,
-    scr_over2_1: [function (e, t, n) {
+    scr_over2_1: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "62e498iaclK8KXOlDUYWsAs", "scr_over2_1");
         cc.Class({
@@ -796,12 +771,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_data2: "scr_data2",
-        scr_public: "scr_public"
-    }],
-    scr_over2: [function (e, t, n) {
+    },
+    scr_over2: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "aca905dFBlPoYq+iajnsZIA", "scr_over2");
         cc.Class({
@@ -865,11 +836,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_public: "scr_public"
-    }],
-    scr_over: [function (e, t, n) {
+    },
+    scr_over: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "6d161adbZhGOIo8GmNaz6i6", "scr_over");
         cc.Class({
@@ -907,10 +875,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_public: "scr_public"
-    }],
-    scr_plot: [function (e, t, n) {
+    },
+    scr_plot: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "22594SzhLdDFIhFu3G4ZURs", "scr_plot");
         cc.Class({
@@ -1147,14 +1113,9 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_data2: "scr_data2",
-        scr_effect: "scr_effect",
-        scr_public: "scr_public"
-    }],
+    },
     scr_public: scr_public,
-    scr_quitGame: [function (e, t, n) {
+    scr_quitGame: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "b8981TVaLZEQZriw0Ikoosd", "scr_quitGame");
         cc.Class({
@@ -1170,8 +1131,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
-    scr_readConfession: [function (e, t, n) {
+    },
+    scr_readConfession: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "edbeey5ue9CDZU2M2ziBjld", "scr_readConfession");
         cc.Class({
@@ -1188,11 +1149,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_effect: "scr_effect"
-    }],
-    scr_restDetermine: [function (e, t, n) {
+    },
+    scr_restDetermine: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "64f6f/B7StMlZJx3Vgs0Rn/", "scr_restDetermine");
         cc.Class({
@@ -1206,13 +1164,13 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
+    },
     scr_rest: scr_rest,
     scr_shop2: scr_shop2,
     scr_shop3: scr_shop3,
     //商店UI页码传送门
     scr_shop4: scr_shop4,
-    scr_shopButton: [function (e, t, n) {
+    scr_shopButton: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "46243Z6bxNGuK5lVJQiKZD4", "scr_shopButton");
         cc.Class({
@@ -1226,9 +1184,9 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
+    },
     scr_shopUI: scr_shopUI,
-    scr_skillButton: [function (e, t, n) {
+    scr_skillButton: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "46028T60zdCgZQPViIBJA6V", "scr_skillButton");
         cc.Class({
@@ -1242,8 +1200,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
-    scr_skillJudge2: [function (e, t, n) {
+    },
+    scr_skillJudge2: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "fbb08mI2F9N/4eaXqX0Gf87", "scr_skillJudge2");
         cc.Class({
@@ -1288,11 +1246,8 @@ moduleDefinitions = {
         });
         //特性传送门
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_public: "scr_public"
-    }],
-    scr_skillJudge: [function (e, t, n) {
+    },
+    scr_skillJudge: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "daeebn9rLFFwagiEBrNgbsO", "scr_skillJudge");
         cc.Class({
@@ -1388,15 +1343,12 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_public: "scr_public"
-    }],
+    },
     scr_skillUI: scr_skillUI,
     scr_startChoice: scr_startChoice,
     scr_startUI: scr_startUI,//开始游戏界面的按钮在这设置！！！
     scr_system: scr_system,
-    scr_weixin: [function (e, t, n) {
+    scr_weixin: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "30448HDiXRBAKQpqrA00msY", "scr_weixin");
         cc.Class({
@@ -1410,8 +1362,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {}],
-    testAll: [function (e, t, n) {
+    },
+    testAll: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "90bfc8sWA1FKba1y8235I0Y", "testAll");
         cc.Class({
@@ -1461,12 +1413,8 @@ moduleDefinitions = {
             }
         });
         cc._RF.pop();
-    }, {
-        scr_data: "scr_data",
-        scr_data2: "scr_data2",
-        scr_public: "scr_public"
-    }],
-    test: [function (e, t, n) {
+    },
+    test: function (e, t, n) {
         "use strict";
         cc._RF.push(t, "8d2adDidEdDNoDEfhV+1NKI", "test");
         cc.Class({
@@ -1476,7 +1424,7 @@ moduleDefinitions = {
             onLoad: function () { }
         });
         cc._RF.pop();
-    }, {}]
+    }
 }
 needLoadModuleIDList = ["scr_eatButton", "scr_makeButton", "scr_shopButton", "scr_skillButton", "scr_backMainUI", "scr_diaryDetermine", "scr_eventDetermine", "scr_restDetermine"/*, "scr_QQpay"*/, "scr_backStartUI", "scr_backSupport", "scr_continueButton", "scr_initGame", "scr_newGame", "scr_notice", "scr_notice2", "scr_open", "scr_startChoice", "scr_startUI", "scr_weixin", "scr_achieve", "scr_eatUI", "scr_eventData", "scr_makeUI", "scr_shop2", "scr_shop3", "scr_shop4", "scr_shopUI", "scr_skillJudge", "scr_skillUI", "scr_data", "scr_data2", "scr_dataCopy", "scr_diary", "scr_event", "scr_mainUIEvent", "scr_plot", "scr_rest", "scr_enemy", "scr_explore", "scr_fight", "scr_fightState", "scr_forwardButton", "scr_friendSkillJudge1", "scr_friendSkillUI1", "scr_friendSkillUI2", "scr_friendUI1", "scr_skillJudge2", "scr_effect", "scr_public", "scr_home", "scr_mainUIinit", "scr_readConfession", "scr_end", "scr_initData", "scr_over", "scr_over2", "scr_over2_1", "scr_system", "scr_BGM", "scr_quitGame", "test", "testAll", "scr_liveModeMain"];
 //每有一个模块，需要将他的名字push到该list

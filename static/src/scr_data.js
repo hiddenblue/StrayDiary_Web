@@ -1,4 +1,4 @@
-scr_data = [function (e, t, n) {
+scr_data = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "cc6a6czpoJOeJjLRi9RcHDb", "scr_data");
     cc.Class({
@@ -288,4 +288,4 @@ scr_data = [function (e, t, n) {
         },
     });
     cc._RF.pop();
-}, {}]
+}

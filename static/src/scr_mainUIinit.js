@@ -1,4 +1,4 @@
-scr_mainUIEvent = [function (e, t, n) {
+scr_mainUIEvent = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "449f7/pnslKIp1sHAfscrPC", "scr_mainUIEvent");
     cc.Class({
@@ -1211,9 +1211,4 @@ scr_mainUIEvent = [function (e, t, n) {
         onLoad: function () { }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_data2: "scr_data2",
-    scr_effect: "scr_effect",
-    scr_public: "scr_public"
-}]
+}

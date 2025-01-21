@@ -1,4 +1,4 @@
-scr_shop3 = [function (e, t, n) {// 晓风大楼
+scr_shop3 = function (e, t, n) {// 晓风大楼
     "use strict";
     cc._RF.push(t, "bddbc1AxUZNv63YXc4kCfkQ", "scr_shop3");
     cc.Class({
@@ -230,8 +230,4 @@ scr_shop3 = [function (e, t, n) {// 晓风大楼
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_effect: "scr_effect",
-    scr_public: "scr_public"
-}]
+}

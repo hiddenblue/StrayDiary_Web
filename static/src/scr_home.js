@@ -1,4 +1,4 @@
-scr_home = [function (e, t, n) {
+scr_home = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "82a35cQvNJE9LzHff6utW/P", "scr_home");
     cc.Class({
@@ -445,8 +445,4 @@ scr_home = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_effect: "scr_effect",
-    scr_public: "scr_public"
-}]
+}

@@ -1,4 +1,4 @@
-scr_public = [function (e, t, n) {
+scr_public = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "4bdd0LrXWhLypzYw/KwkeQ9", "scr_public");
     cc.Class({
@@ -314,9 +314,4 @@ scr_public = [function (e, t, n) {
 
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_data2: "scr_data2",
-    scr_dataCopy: "scr_dataCopy",
-    scr_autodataCopy: "scr_autodataCopy"
-}]
+}

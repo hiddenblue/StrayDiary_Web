@@ -1,4 +1,4 @@
-scr_forwardButton = [function (e, t, n) {
+scr_forwardButton = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "7e6b7ZHdulNI6LuPQKyXMkr", "scr_forwardButton");
     cc.Class({
@@ -508,9 +508,4 @@ scr_forwardButton = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_data2: "scr_data2",
-    scr_effect: "scr_effect",
-    scr_public: "scr_public"
-}]
+}

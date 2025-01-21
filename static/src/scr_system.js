@@ -1,4 +1,4 @@
-scr_system = [function (e, t, n) {//tag 设置界面
+scr_system = function (e, t, n) {//tag 设置界面
     "use strict";
     cc._RF.push(t, "00817ZNI7hJb4XVsFxczkla", "scr_system");
     cc.Class({
@@ -47,7 +47,4 @@ scr_system = [function (e, t, n) {//tag 设置界面
         }
     });
     cc._RF.pop();
-}, {
-    scr_data: "scr_data",
-    scr_effect: "scr_effect"
-}]
+}

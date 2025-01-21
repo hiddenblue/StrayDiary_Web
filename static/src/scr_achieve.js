@@ -1,4 +1,4 @@
-scr_achieve = [function (e, t, n) {
+scr_achieve = function (e, t, n) {
     "use strict";
     cc._RF.push(t, "141caSLnsJIHJZ46hPGujwi", "scr_achieve");
     cc.Class({
@@ -200,4 +200,4 @@ scr_achieve = [function (e, t, n) {
         }
     });
     cc._RF.pop();
-}]
+}
