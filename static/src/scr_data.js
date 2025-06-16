@@ -289,3 +289,4 @@ scr_data = function (e, t, n) {
     });
     cc._RF.pop();
 }
+const forwardcostenergy = 10;

@@ -205,7 +205,7 @@ scr_forwardButton = function (e, t, n) {
         callBack: function () {
             var t = e("scr_data"), n = e("scr_effect"), a = e("scr_public"), i = this.dryUp();
             a.ifGameOver();
-            this.Energy = (10 * t.energyconsumetimes) * (1 + (1 * t.skillLv[4]));//todo
+            this.Energy = (forwardcostenergy * t.energyconsumetimes) * (1 + (1 * t.skillLv[4]));//todo
             if (t.energy >= this.Energy && 0 == i)
                 if (t.day >= 180) this.end();
                 else if (290 == t.distance && 1 == t.ifFollow[0]) {
